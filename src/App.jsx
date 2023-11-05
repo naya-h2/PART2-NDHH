@@ -1,17 +1,17 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ListPage from "./pages/ListPage";
-import HomePage from "./pages/Homepage";
-import MainLayout from "./pages/MainLayout";
-import CreateLayout from "./pages/CreateLayout";
-import PostPage from "./pages/PostPage";
-import MessagePage from "./pages/MessagePage";
-import PostLayout from "./pages/PostLayout";
-import CreatePage from "./pages/CreatePage";
+import Badge from "./components/Badge.jsx";
 
 function App() {
   return (
     // ↓ 여기서 바로 컴포넌트 import해서 view 확인하세요
-    <>반가워요. 저는 Vite예요.</>
+    <>
+      <Badge>지인</Badge>
+      <Badge>친구</Badge>
+      <Badge>동료</Badge>
+      <Badge>가족</Badge>
+      <Badge num={24}>😍</Badge>
+      <Badge num={10}>👍</Badge>
+      <Badge num={16}>🎉</Badge>
+    </>
     // ↑
 
     // ROUTER 경로 설정 미리 해두었어요.
