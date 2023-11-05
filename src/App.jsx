@@ -1,4 +1,6 @@
-import Badge from "./components/Badge.jsx";
+import Badge from './components/Badge.jsx';
+import Card from './components/Card.jsx';
+import { MESSAGE } from './constants/test.js';
 
 function App() {
   return (
@@ -11,6 +13,10 @@ function App() {
       <Badge num={24}>😍</Badge>
       <Badge num={10}>👍</Badge>
       <Badge num={16}>🎉</Badge>
+      {/* Card */}
+      <Card type="Normal" data={MESSAGE} />
+      <Card type="Edit" data={MESSAGE} />
+      <Card type="Plus" />
     </>
     // ↑
 
