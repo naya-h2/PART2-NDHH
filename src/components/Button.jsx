@@ -9,36 +9,51 @@ import arrowRight from "../assets/arrow_right.svg";
 import arrowLeft from "../assets/arrow_left.svg";
 
 const SIZES = {
-  size56: css`
-    --padding: 14px 24px;
-    --border-radius: 12px;
+  primarySize56: css`
+    --width: 20.8rem;
+    --height: 5.6rem;
+
+    --padding: 1.4rem 2.4rem;
+    --border-radius: 1.2rem;
+    ${FONT18B}
+  `,
+  outlinedSize56: css`
+    --width: 19.2rem;
+    --height: 5.6rem;
+
+    --padding: 1.4rem 1.6rem;
+    --border-radius: 1.2rem;
     ${FONT18B}
   `,
   size40: css`
-    --padding: 8px 16px;
-    --border-radius: 6px;
+    --height: 4rem;
+
+    --padding: 0.8rem 1.6rem;
+    --border-radius: 0.6rem;
     ${FONT16}
   `,
   size36: css`
-    --padding: 6px 16px;
-    --border-radius: 6px;
+    --height: 3.6rem;
+
+    --padding: 0.6rem 1.6rem;
+    --border-radius: 0.6rem;
     ${FONT16}
   `,
   size28: css`
-    --padding: 2px 16px;
-    --border-radius: 6px;
+    --padding: 0.2rem 1.6rem;
+    --border-radius: 0.6rem;
     ${FONT14}
 
-    --img-width: 20px;
-    --img-height: 20px;
+    --img-width: 2rem;
+    --img-height: 2rem;
   `,
   plusSize: css`
-    --padding: 16px;
-    --border-radius: 100px;
+    --padding: 1.6rem;
+    --border-radius: 10rem;
   `,
   trashSize: css`
-    --padding: 6px;
-    --border-radius: 6px;
+    --padding: 0.6rem;
+    --border-radius: 0.6rem;
   `,
 };
 
@@ -144,34 +159,37 @@ const StyledButton = styled.button`
   ${(props) => props.sizeStyle}
   ${(props) => props.typeStyle}
 
+  width: var(--width);
+  height: var(--height);
+
   padding: var(--padding);
 
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 1rem;
 
   color: var(--color);
   background: var(--bg-color);
 
   border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
+  border: 0.1rem solid var(--border-color);
 
   &:hover {
     color: var(--hover-color);
-    border: 1px solid var(--hover-border-color);
+    border: 0.1rem solid var(--hover-border-color);
     background: var(--hover-bg-color);
   }
 
   &:active {
     color: var(--pressed-color);
-    border: 1px solid var(--pressed-border-color);
+    border: 0.1rem solid var(--pressed-border-color);
     background: var(--pressed-bg-color);
   }
 
   &:focus {
     color: var(--focus-color);
-    border: 1px solid var(--focus-border-color);
+    border: 0.1rem solid var(--focus-border-color);
     background: var(--focus-bg-color);
   }
 
@@ -179,7 +197,7 @@ const StyledButton = styled.button`
     props.disabled &&
     css`
       color: var(--White);
-      border: 1px solid var(--Gray3);
+      border: 0.1rem solid var(--Gray3);
       background: var(--Gray3);
 
       pointer-events: none;
@@ -194,18 +212,18 @@ const AddFaceIcon = styled.img`
 `;
 
 const PlusIcon = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 2.4rem;
+  height: 2.4rem;
 `;
 
 const TrashIcon = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 2.4rem;
+  height: 2.4rem;
 `;
 
 const ArrowIcon = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 4rem;
+  height: 4rem;
 `;
 
 export default Button;

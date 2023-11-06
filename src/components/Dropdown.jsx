@@ -29,42 +29,36 @@ function Dropdown({ ...rest }) {
 
 const StyledDropdown = styled.div`
   position: relative;
-
-  width: 320px;
-  padding: 12px 16px;
-  border-radius: 8px;
-  border: 1px solid var(--Gray3);
+  width: 32rem;
+  height: 5rem;
+  padding: 1.2rem 1.6rem;
+  border-radius: 0.8rem;
+  border: 0.1rem solid var(--Gray3);
   background: var(--White);
 
   ${FONT16}
   color: var(--Gray5);
 
   &:focus {
-    border: 2px solid var(--Gray5);
+    border: 0.2rem solid var(--Gray5);
     outline: none;
     color: var(--Gray9);
   }
 
   &:hover {
-    border: 1px solid var(--Gray5);
+    border: 0.1rem solid var(--Gray5);
   }
 
   &:active {
-    border: 2px solid var(--Gray7);
+    border: 0.2rem solid var(--Gray7);
     color: var(--Gray9);
   }
-
-  // &:disabled {
-  //   border: 1px solid var(--Gray3);
-  //   background: var(--Gray1);
-  //   color: var(--Gray4);
-  // }
 
   ${(props) =>
     props.disabled &&
     css`
       pointer-events: none;
-      border: 1px solid var(--Gray3);
+      border: 0.1rem solid var(--Gray3);
       background: var(--Gray1);
       color: var(--Gray4);
     `}
@@ -72,32 +66,31 @@ const StyledDropdown = styled.div`
 
 const DropdownButton = styled.img`
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 1.6rem;
+  right: 1.6rem;
 
-  width: 16px;
-  height: 16px;
+  width: 1.6rem;
+  height: 1.6rem;
 `;
 
 const DropdownList = styled.ul`
   display: ${(props) => (props.show ? "block" : "none")};
-  width: 320px;
+  width: 32rem;
   position: absolute;
-  top: 58px;
+  top: 5.8rem;
   right: 0;
-  padding: 10px 1px;
+  padding: 1rem 0.1rem;
 
-  border-radius: 8px;
-  border: 1px solid var(--Gray3);
+  border-radius: 0.8rem;
+  border: 0.1rem solid var(--Gray3);
   background: var(--White);
-  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
-
+  box-shadow: 0 0.2rem 1.2rem 0 rgba(0, 0, 0, 0.08);
   z-index: 1;
 `;
 
 const DropdownText = styled.li`
-  width: 316px;
-  padding: 12px 16px;
+  width: 31.6rem;
+  padding: 1.2rem 1.6rem;
 
   display: flex;
   align-items: center;
