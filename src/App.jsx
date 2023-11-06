@@ -1,5 +1,7 @@
 import Badge from "./components/Badge.jsx";
-import Header from "./components/Header.jsx";
+import Input from "./components/Input.jsx";
+import Dropdown from "./components/Dropdown.jsx";
+import Button from "./components/Button.jsx";
 
 function App() {
   return (
@@ -12,8 +14,37 @@ function App() {
       <Badge num={24}>😍</Badge>
       <Badge num={10}>👍</Badge>
       <Badge num={16}>🎉</Badge> */}
-      <Header />
-      <Header serviceType />
+      {/* <Input />
+      <Input disabled />
+      <Dropdown />
+      <Dropdown disabled /> */}
+      {/* <Button type="primary" size="size56">
+        primary
+      </Button>
+      <Button type="primary" size="size40">
+        primary
+      </Button>
+      <Button type="secondary" size="size40">
+        secondary
+      </Button> */}
+      {/* <Button type="outlined" size="size56">
+        outlined
+      </Button>
+      <Button type="outlined" size="size40" icon disabled>
+        outlined
+      </Button>
+      <Button type="outlined" size="size36" icon>
+        outlined
+      </Button>
+      <Button type="outlined" size="size28" icon>
+        outlined
+      </Button> */}
+      <Button type="plus" size="plusSize" />
+      <Button type="plus" size="plusSize" disabled />
+      <Button type="trash" size="trashSize" />
+      <Button type="trash" size="trashSize" disabled />
+      <Button type="arrowRight" />
+      <Button type="arrowLeft" />
     </>
     // ↑
 
