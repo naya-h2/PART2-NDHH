@@ -4,7 +4,7 @@ import { FONT16 } from "../styles/FontStyles";
 import arrowUp from "../assets/arrow_top.svg";
 import arrowDown from "../assets/arrow_down.svg";
 
-const Dropdown = ({ ...rest }) => {
+function Dropdown({ ...rest }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [arrowDirection, setArrowDirection] = useState(arrowDown);
 
@@ -25,7 +25,7 @@ const Dropdown = ({ ...rest }) => {
       </DropdownList>
     </StyledDropdown>
   );
-};
+}
 
 const StyledDropdown = styled.div`
   position: relative;
