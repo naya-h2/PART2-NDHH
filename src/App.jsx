@@ -1,16 +1,19 @@
 import Badge from "./components/Badge.jsx";
+import Header from "./components/Header.jsx";
 
 function App() {
   return (
     // ↓ 여기서 바로 컴포넌트 import해서 view 확인하세요
     <>
-      <Badge>지인</Badge>
+      {/* <Badge>지인</Badge>
       <Badge>친구</Badge>
       <Badge>동료</Badge>
       <Badge>가족</Badge>
       <Badge num={24}>😍</Badge>
       <Badge num={10}>👍</Badge>
-      <Badge num={16}>🎉</Badge>
+      <Badge num={16}>🎉</Badge> */}
+      <Header />
+      <Header serviceType />
     </>
     // ↑
 
