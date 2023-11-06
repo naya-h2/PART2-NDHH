@@ -17,10 +17,10 @@ const Input = ({ ...rest }) => {
   };
 
   return (
-    <div>
+    <>
       <StyledInput iserror={error} onBlur={handleInputChange} placeholder="Placeholder" {...rest} />
       {error && <ErrorMessage>Error Message</ErrorMessage>}
-    </div>
+    </>
   );
 };
 
