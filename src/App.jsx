@@ -1,26 +1,15 @@
+
 import Badge from './components/Badge.jsx';
 import Card from './components/Card.jsx';
 import CardList from './components/Cardlist.jsx';
 import { MESSAGE, RECIPIENT1, RECIPIENT2 } from './constants/test.js';
 
+
 function App() {
   return (
     // ↓ 여기서 바로 컴포넌트 import해서 view 확인하세요
     <>
-      <Badge>지인</Badge>
-      <Badge>친구</Badge>
-      <Badge>동료</Badge>
-      <Badge>가족</Badge>
-      <Badge num={24}>😍</Badge>
-      <Badge num={10}>👍</Badge>
-      <Badge num={16}>🎉</Badge>
-      {/* Card */}
-      <Card type="Normal" data={MESSAGE} />
-      <Card type="Edit" data={MESSAGE} />
-      <Card type="Plus" />
-      {/* CardList */}
-      <CardList data={RECIPIENT1} />
-      <CardList data={RECIPIENT2} />
+
     </>
     // ↑
 
