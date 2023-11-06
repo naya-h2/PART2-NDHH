@@ -1,4 +1,5 @@
 import Badge from "./components/Badge.jsx";
+import Input from "./components/Input.jsx";
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
       <Badge num={24}>😍</Badge>
       <Badge num={10}>👍</Badge>
       <Badge num={16}>🎉</Badge>
+      <Input />
+      <Input disabled />
     </>
     // ↑
 
