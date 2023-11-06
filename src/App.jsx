@@ -1,15 +1,8 @@
 
-import Badge from './components/Badge.jsx';
-import Card from './components/Card.jsx';
-import CardList from './components/Cardlist.jsx';
-import { MESSAGE, RECIPIENT1, RECIPIENT2 } from './constants/test.js';
-
-
 function App() {
   return (
     // ↓ 여기서 바로 컴포넌트 import해서 view 확인하세요
     <>
-
     </>
     // ↑
 
