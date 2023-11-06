@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { FONT14, FONT16 } from "../styles/FontStyles";
 
 Badge.propTypes = {
-  children: PropTypes.oneOf(["지인", "동료", "가족", "친구"]),
+  children: PropTypes.oneOf(["지인", "동료", "가족", "친구", "😍", "👍", "🎉"]),
   num: PropTypes.number,
 };
 function Badge({ children, num }) {
@@ -41,7 +41,12 @@ const makeEmoji = (children, num) => {
 export default Badge;
 
 const Container = styled.div`
-  display: inline-block;
+  width: 4.2rem;
+  height: 2rem;
+
+  display: flex;
+  align-items: center;
+  grid-area: badge;
 
   padding: 0 0.8rem;
   border-radius: 0.4rem;

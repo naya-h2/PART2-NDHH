@@ -1,4 +1,20 @@
+import Option from "./components/Option.jsx";
 import Badge from "./components/Badge.jsx";
+import OptionProfile from "./components/OptionProfile.jsx";
+import Toast from "./components/Toast.jsx";
+import Modal from "./components/Modal.jsx";
+import Test from "./components/Test.jsx";
+import TestEditor from "./components/Suneditor.jsx";
+
+const TEST = {
+  profileImageURL:
+    "https://mblogthumb-phinf.pstatic.net/MjAyMjA2MTFfODEg/MDAxNjU0OTU5NTI3Mzk5.Lwh7AvFzRUGYKPrR-4E2xr3swlQig3dKppXVIKg-p_8g.DTGMADYT8hE-kFxf5TV7jBhHDLabrPSXB8O3giAGwt4g.JPEG.tlsdkdus1230/IMG_1131.JPG?type=w800",
+  sender: "윤정한",
+  relationship: "가족",
+  createdAt: "2023-11-01T08:05:25.399056Z",
+  content:
+    "나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 나은아 사랑해 ",
+};
 
 function App() {
   return (
@@ -11,6 +27,13 @@ function App() {
       <Badge num={24}>😍</Badge>
       <Badge num={10}>👍</Badge>
       <Badge num={16}>🎉</Badge>
+      <Option color="Orange" />
+      <Option src="https://i.namu.wiki/i/Wr_XJdI8GkMfxK7ovmm93kSWJZ24OO2O7NuG0sdIYsu9nz7uJITaHCJ5U_EMdI7tytcW75OCvzG8yRaYl4pkaw.webp" />
+      <OptionProfile />
+      <Toast />
+      <Modal {...TEST} />
+      <Test />
+      <TestEditor />
     </>
     // ↑
 

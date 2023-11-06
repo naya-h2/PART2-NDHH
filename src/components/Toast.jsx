@@ -1,0 +1,53 @@
+import styled from "styled-components";
+import COMPLETED_IMG from "../assets/completed.svg";
+import CLOSE_IMG from "../assets/close.svg";
+import { FONT16 } from "../styles/FontStyles";
+
+function Toast() {
+  return (
+    <Container>
+      <img src={COMPLETED_IMG} alt="완료" />
+      <p>URL이 복사 되었습니다.</p>
+      <button>
+        <img src={CLOSE_IMG} alt="안내창을 닫는 버튼" />
+      </button>
+    </Container>
+  );
+}
+
+export default Toast;
+
+const Container = styled.div`
+  width: 52.4rem;
+  height: 6.4rem;
+
+  display: grid;
+  grid-template-columns: 2.4rem 1fr 2.4rem;
+  align-items: center;
+
+  padding: 2rem 3.2rem;
+  border-radius: 0.8rem;
+
+  background-color: #00000080;
+
+  img {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  p {
+    margin-left: 1.2rem;
+
+    ${FONT16};
+    color: var(--White);
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 32rem;
+  }
+`;
