@@ -2,7 +2,6 @@ import Badge from "./components/Badge.jsx";
 import Input from "./components/Input.jsx";
 import Dropdown from "./components/Dropdown.jsx";
 import Button from "./components/Button.jsx";
-import ToggleButton from "./components/ToggleButton.jsx";
 
 function App() {
   return (
@@ -40,13 +39,12 @@ function App() {
       <Button type="outlined" size="size28" icon>
         outlined
       </Button> */}
-      {/* <Button type="plus" size="plusSize" />
+      <Button type="plus" size="plusSize" />
       <Button type="plus" size="plusSize" disabled />
       <Button type="trash" size="trashSize" />
       <Button type="trash" size="trashSize" disabled />
       <Button type="arrowRight" />
-      <Button type="arrowLeft" /> */}
-      <ToggleButton />
+      <Button type="arrowLeft" />
     </>
     // ↑
 
