@@ -13,7 +13,6 @@ Card.PropTypes = {
 };
 
 /**
- * @param {*} type Card type
  * @param {*} data 메세지 데이터 객체
  */
 function Card({ type, data = null }) {

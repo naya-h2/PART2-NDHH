@@ -1,6 +1,7 @@
 import Badge from './components/Badge.jsx';
 import Card from './components/Card.jsx';
-import { MESSAGE } from './constants/test.js';
+import CardList from './components/Cardlist.jsx';
+import { MESSAGE, RECIPIENT1, RECIPIENT2 } from './constants/test.js';
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
       <Card type="Normal" data={MESSAGE} />
       <Card type="Edit" data={MESSAGE} />
       <Card type="Plus" />
+      {/* CardList */}
+      <CardList data={RECIPIENT1} />
+      <CardList data={RECIPIENT2} />
     </>
     // ↑
 
