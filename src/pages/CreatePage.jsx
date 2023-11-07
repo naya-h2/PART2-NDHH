@@ -17,7 +17,7 @@ function CreatePage() {
 
   return (
     <PageContainer>
-      <Header />
+      <Header hideButton />
       <BodyContainer>
         <InputContainer>
           <InputTitle>To.</InputTitle>
@@ -31,14 +31,14 @@ function CreatePage() {
         <OptionContainer>
           {selectedType === "color" ? (
             <>
-              <Option color="Orange" />
+              <Option color="Orange" check />
               <Option color="Purple" />
               <Option color="Blue" />
               <Option color="Green" />
             </>
           ) : (
             <>
-              <Option src={chooseImg} />
+              <Option src={chooseImg} check />
               <Option src={chooseImg} />
               <Option src={chooseImg} />
               <Option src={chooseImg} />
