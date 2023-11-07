@@ -9,13 +9,12 @@ Input.propTypes = {
 };
 
 function Input({ placeholder, disabled }) {
-  // 에러 상태 확인하기 위해 임의로 에러 상태 추가 (추후 수정)
   // iserror에 boolean 값 전달해주면 안돼서 state로 falsy, truthy한 값 전달해줌
   const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
-    // 길이가 5보다 작을 경우 에러 메시지 표시하기
-    if (e.target.value.length < 5 && e.target.value.length !== 0) {
+    // input에 아무 값도 입력하지 않았을 경우
+    if (e.target.value.length == 0) {
       setError("true");
     } else {
       setError("");
@@ -25,7 +24,7 @@ function Input({ placeholder, disabled }) {
   return (
     <>
       <StyledInput iserror={error} onBlur={handleInputChange} placeholder={placeholder} disabled={disabled} />
-      {error && <ErrorMessage>Error Message</ErrorMessage>}
+      {error && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>}
     </>
   );
 }
