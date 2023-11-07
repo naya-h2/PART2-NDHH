@@ -1,15 +1,13 @@
-
 import CreatePage from "./pages/CreatePage";
-import PostLayout from "./pages/PostLayout";
+import PostPage from "./pages/post/PostPage";
 import HomePage from "./pages/Homepage";
 import MessagePage from "./pages/message/MessagePage";
-
 
 function App() {
   return (
     <>
-      <CreatePage />
-      {/* <PostLayout /> */}
+      {/* <CreatePage /> */}
+      <PostPage />
       {/* <HomePage /> */}
       {/* <MessagePage /> */}
     </>

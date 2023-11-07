@@ -1,22 +1,22 @@
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import Badge from './Badge';
-import defaultImg from '@/assets/default_profile.svg';
-import deleteIcon from '@/assets/trash_icon.svg';
-import plusIcon from '@/assets/plus_icon.svg';
-import { formatDate } from '../utils/formatDate';
-import { FONT12, FONT18, FONT20, FONT20B } from '../styles/FontStyles';
+import styled from "styled-components";
+import propTypes from "prop-types";
+import Badge from "./Badge";
+import defaultImg from "@/assets/default_profile.svg";
+import deleteIcon from "@/assets/trash_icon.svg";
+import plusIcon from "@/assets/plus_icon.svg";
+import { formatDate } from "../utils/formatDate";
+import { FONT12, FONT18, FONT20, FONT20B } from "../styles/FontStyles";
 
-Card.PropTypes = {
-  type: PropTypes.oneOf(['Normal', 'Edit', 'Plus']),
-  data: PropTypes.object,
+Card.propTypes = {
+  type: propTypes.oneOf(["Normal", "Edit", "Plus"]),
+  data: propTypes.object,
 };
 
 /**
  * @param {*} data 메세지 데이터 객체
  */
 function Card({ type, data = null }) {
-  if (type === 'Plus') {
+  if (type === "Plus") {
     return (
       <Container>
         <PlusIcon src={plusIcon} alt="추가하기 버튼" />
@@ -36,7 +36,7 @@ function Card({ type, data = null }) {
           <Badge>{relationship}</Badge>
         </Wrapper>
       </Profile>
-      {type === 'Edit' && <DeleteIcon src={deleteIcon} alt="삭제하기 버튼" />}
+      {type === "Edit" && <DeleteIcon src={deleteIcon} alt="삭제하기 버튼" />}
       <Content font={font}>{content}</Content>
       <Date>{formatDate(createdAt)}</Date>
     </Container>
@@ -63,6 +63,10 @@ const Container = styled.div`
   border-radius: 16px;
   background-color: var(--White);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
+
+  @media (max-width: 1050px) {
+    max-width: 500px;
+  }
 `;
 const ProfileImg = styled.img`
   width: 56px;
