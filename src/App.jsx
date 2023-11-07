@@ -1,33 +1,12 @@
-import Button from "./components/Button";
+import CreatePage from "./pages/CreatePage";
+import Input from "./components/Input";
 import Dropdown from "./components/Dropdown";
-import ToggleButton from "./components/ToggleButton";
 
 function App() {
   return (
     // ↓ 여기서 바로 컴포넌트 import해서 view 확인하세요
     <>
-      <Dropdown />
-      <Dropdown disabled />
-      <ToggleButton />
-      {/* primary, secondary, outlined */}
-      {/* children prop 꼭 필요 */}
-      {/* size prop으로는 sizeNN 넘겨주면 됩니다 */}
-      <Button type="primary" size="primarySize56">
-        primary
-      </Button>
-      <Button type="secondary" size="size40">
-        secondary
-      </Button>
-      <Button type="outlined" size="outlinedSize56">
-        outlined
-      </Button>
-      {/* outlined type에 icon 넘겨주면 얼굴모양 버튼 생겨요! */}
-      <Button type="outlined" size="size40" icon>
-        outlined
-      </Button>
-      {/* plus, trash 버튼은 아래 코드 그대로 쓰시면 됩니다 */}
-      <Button type="plus" size="plusSize" />
-      <Button type="trash" size="trashSize" />
+      <CreatePage />
     </>
     // ↑
 

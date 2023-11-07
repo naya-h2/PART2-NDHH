@@ -1,20 +1,17 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { FONT16B, FONT16 } from "../styles/FontStyles";
 
-const ToggleButton = () => {
-  const [selectedValue, setSelectedValue] = useState("color");
-
-  const handleToggle = (value) => {
-    setSelectedValue(value);
+const ToggleButton = ({ handleToggle, selected }) => {
+  const handleTypeChange = (value) => {
+    handleToggle(value);
   };
 
   return (
     <ButtonWrapper>
-      <Button onClick={() => handleToggle("color")} selected={selectedValue === "color"}>
+      <Button onClick={() => handleTypeChange("color")} selected={selected === "color"}>
         컬러
       </Button>
-      <Button onClick={() => handleToggle("image")} selected={selectedValue === "image"}>
+      <Button onClick={() => handleTypeChange("image")} selected={selected === "image"}>
         이미지
       </Button>
     </ButtonWrapper>
