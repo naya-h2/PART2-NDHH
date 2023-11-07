@@ -10,6 +10,18 @@ export const MESSAGE = {
   createdAt: "2023-11-01T08:05:25.399056Z",
 };
 
+export const MESSAGE2 = {
+  id: 32,
+  recipientId: 2,
+  sender: '호시',
+  profileImageURL:
+    'https://i.namu.wiki/i/W67p72FdFaRoGfQcJCPDAj2V4D4fGShsAvV0Bu1iuWEUFSuYLmO-M1a-3PZlhBB83KHdB27okikD6OIlaWYiTfaC08U8fZdzaimm9OJg9UF4xEmCIqbtrVhhc_9DLNIAHfJQDJvpLvR0oybP-S4gyA.webp',
+  relationship: '가족',
+  content: '열심히 일하는 모습 멋있습니다.',
+  font: 'Pretendard',
+  createdAt: '2023-11-01T08:05:25.399056Z',
+};
+
 export const RECIPIENT1 = {
   id: 2,
   name: "강영훈",
@@ -21,7 +33,7 @@ export const RECIPIENT1 = {
     {
       id: 32,
       recipientId: 2,
-      sender: "김하은",
+      sender: '호시',
       profileImageURL:
         "https://i.namu.wiki/i/W67p72FdFaRoGfQcJCPDAj2V4D4fGShsAvV0Bu1iuWEUFSuYLmO-M1a-3PZlhBB83KHdB27okikD6OIlaWYiTfaC08U8fZdzaimm9OJg9UF4xEmCIqbtrVhhc_9DLNIAHfJQDJvpLvR0oybP-S4gyA.webp",
       relationship: "가족",
@@ -39,6 +51,28 @@ export const RECIPIENT1 = {
       content: "항상 응원합니다",
       font: "Noto Sans",
       createdAt: "2023-11-01T08:04:12.852691Z",
+    },
+    {
+      id: 33,
+      recipientId: 2,
+      sender: '호랑이',
+      profileImageURL:
+        'https://i.namu.wiki/i/W67p72FdFaRoGfQcJCPDAj2V4D4fGShsAvV0Bu1iuWEUFSuYLmO-M1a-3PZlhBB83KHdB27okikD6OIlaWYiTfaC08U8fZdzaimm9OJg9UF4xEmCIqbtrVhhc_9DLNIAHfJQDJvpLvR0oybP-S4gyA.webp',
+      relationship: '가족',
+      content: '열심히 일하는 모습 멋있습니다.',
+      font: 'Pretendard',
+      createdAt: '2023-11-01T08:05:25.399056Z',
+    },
+    {
+      id: 34,
+      recipientId: 2,
+      sender: '햄찌',
+      profileImageURL:
+        'https://i.namu.wiki/i/W67p72FdFaRoGfQcJCPDAj2V4D4fGShsAvV0Bu1iuWEUFSuYLmO-M1a-3PZlhBB83KHdB27okikD6OIlaWYiTfaC08U8fZdzaimm9OJg9UF4xEmCIqbtrVhhc_9DLNIAHfJQDJvpLvR0oybP-S4gyA.webp',
+      relationship: '가족',
+      content: '열심히 일하는 모습 멋있습니다.',
+      font: 'Pretendard',
+      createdAt: '2023-11-01T08:05:25.399056Z',
     },
   ],
   reactionCount: 48,
