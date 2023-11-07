@@ -12,22 +12,25 @@ import PropTypes from "prop-types";
 
 Header.propTypes = {
   serviceType: PropTypes.oneOf([true, false]),
+  hideButton: PropTypes.oneOf([true, false]),
 };
 
-function Header({ serviceType }) {
-  return serviceType ? makeServiceHeader() : makeNavHeader();
+function Header({ serviceType, hideButton = false }) {
+  return serviceType ? makeServiceHeader() : makeNavHeader({ hideButton });
 }
 
-const makeNavHeader = () => {
+const makeNavHeader = ({ hideButton }) => {
   return (
     <>
       <Container B>
         {/* <Link to="/"> */}
         <img src={Logo} />
         {/* </Link> */}
-        <Button B>
-          <p>롤링 페이퍼 만들기</p>
-        </Button>
+        {!hideButton && (
+          <Button B>
+            <p>롤링 페이퍼 만들기</p>
+          </Button>
+        )}
       </Container>
       <Border></Border>
     </>
@@ -93,8 +96,8 @@ const MobileGrid = css`
 
 const Container = styled.div`
   width: calc(100vw - 1rem);
-  max-width: 119.9rem;
-  padding: ${(props) => (props.B ? "1.1rem 0rem" : "1.3rem 0rem")};
+  height: ${(props) => (props.B ? "6.5rem" : "6.8rem")};
+  max-width: 120rem;
   margin: 0 auto;
 
   display: flex;
@@ -109,6 +112,7 @@ const Container = styled.div`
 
   @media (max-width: 768px) {
     width: calc(100vw - 4rem);
+    height: 5.2rem;
   }
 
   ${(props) => (props.B ? "" : MobileGrid)}
