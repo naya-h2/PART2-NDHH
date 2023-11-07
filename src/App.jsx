@@ -1,8 +1,9 @@
+
 import CreatePage from "./pages/CreatePage";
+
 
 function App() {
   return (
-    // ↓ 여기서 바로 컴포넌트 import해서 view 확인하세요
     <>
       <CreatePage />
     </>

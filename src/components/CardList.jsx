@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import Badge from './Badge';
-import ProfileImgList from './ProfileImgList';
-import patternPurple from '@/assets/pattern_purple.svg';
-import patternOrange from '@/assets/pattern_orange.svg';
-import patternBlue from '@/assets/pattern_blue.svg';
-import patternGreen from '@/assets/pattern_green.svg';
-import { FONT16, FONT16B, FONT24B } from '../styles/FontStyles';
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import Badge from "./Badge";
+import ProfileImgList from "./ProfileImgList";
+import patternPurple from "@/assets/pattern_purple.svg";
+import patternOrange from "@/assets/pattern_orange.svg";
+import patternBlue from "@/assets/pattern_blue.svg";
+import patternGreen from "@/assets/pattern_green.svg";
+import { FONT16, FONT16B, FONT24B } from "../styles/FontStyles";
 
 CardList.PropTypes = {
   data: PropTypes.object,
@@ -53,25 +53,25 @@ const Container = styled.div`
 
   background: ${({ color }) => {
     switch (color) {
-      case 'purple':
+      case "purple":
         return `var(--Purple2)`;
-      case 'orange':
+      case "orange":
         return `var(--Orange2)`;
-      case 'blue':
+      case "blue":
         return `var(--Blue2)`;
-      case 'green':
+      case "green":
         return `var(--Green2)`;
     }
   }};
   background-image: ${({ color, url }) => {
     switch (color) {
-      case 'purple':
+      case "purple":
         return `url(${patternPurple})`;
-      case 'orange':
+      case "orange":
         return `url(${patternOrange})`;
-      case 'blue':
+      case "blue":
         return `url(${patternBlue})`;
-      case 'green':
+      case "green":
         return `url(${patternGreen})`;
       default:
         return `url(${url})`;
