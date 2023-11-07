@@ -6,7 +6,7 @@ function PostPage() {
     <>
       <Header />
       <Header serviceType={true} />
-      <Layout path="" />
+      <Layout path="edit" />
     </>
   );
 }

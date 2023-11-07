@@ -4,13 +4,14 @@ import Card from "@/components/Card";
 import Button from "@/components/Button";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { RECIPIENT1, RECIPIENT2 } from "@/constants/test";
+import useGetWindowWidth from "../../hooks/useGetWindowWidth";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
 };
 
 function Layout({ path = "" }) {
-  const { backgroundColor, backgroundImageURL, messageCount, recentMessages } = RECIPIENT2;
+  const { backgroundColor, backgroundImageURL, messageCount, recentMessages } = RECIPIENT1;
   return (
     <Background color={backgroundColor} url={backgroundImageURL}>
       {backgroundImageURL && <Mask></Mask>}
@@ -23,13 +24,21 @@ function Layout({ path = "" }) {
 }
 
 function Btn({ path }) {
+  const windowWidth = useGetWindowWidth();
+
   return (
     <>
       {path === "edit" ? (
         <DeleteWrapper>
-          <Button type="primary" height="l">
-            저장하기
-          </Button>
+          {windowWidth > 1024 ? (
+            <Button type="primary" height="l" width="100">
+              저장하기
+            </Button>
+          ) : (
+            <Button type="primary" height="xl">
+              저장하기
+            </Button>
+          )}
         </DeleteWrapper>
       ) : (
         <EditWrapper>
@@ -55,6 +64,7 @@ export default Layout;
 
 const Background = styled.div`
   width: 100%;
+  min-height: 100vh;
   padding-bottom: 246px;
 
   position: relative;
@@ -91,6 +101,10 @@ const Container = styled.div`
   padding-top: 63px;
   margin: 0 auto;
 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
   @media (max-width: 1248px) {
     width: 100%;
     padding: 63px 24px 0;
@@ -109,7 +123,7 @@ const CardWrapper = styled.div`
   column-gap: 24px;
   column-gap: min(16px);
 
-  @media (max-width: 1050px) {
+  @media (max-width: ${DeviceSize.tablet}) {
     grid-template-columns: repeat(2, minmax(320px, 500px));
     gap: 16px;
   }
@@ -119,15 +133,13 @@ const CardWrapper = styled.div`
   }
 `;
 const DeleteWrapper = styled.div`
-  width: 100%;
+  width: 10rem;
   padding-bottom: 11px;
 
-  display: flex;
-  justify-content: flex-end;
   position: relative;
   z-index: 10;
 
-  @media (max-width: 1050px) {
+  @media (max-width: ${DeviceSize.tablet}) {
     width: calc(100% - 48px);
     padding: 0;
 
@@ -143,15 +155,12 @@ const DeleteWrapper = styled.div`
   }
 `;
 const EditWrapper = styled.div`
-  width: 100%;
   padding-bottom: 11px;
 
-  display: flex;
-  justify-content: flex-end;
   position: relative;
-  z-index: 5;
+  z-index: 1;
 
-  @media (max-width: 1050px) {
+  @media (max-width: ${DeviceSize.tablet}) {
     padding-bottom: 14px;
   }
   @media (max-width: ${DeviceSize.mobile}) {
