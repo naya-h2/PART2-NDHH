@@ -41,12 +41,12 @@ const StyledInput = styled.input`
   background: var(--White);
   ${FONT16}
 
-  &:focus {
-    outline: 2px solid var(--Gray5);
-  }
-
   &:hover {
     outline: 1px solid var(--Gray5);
+  }
+
+  &:focus {
+    outline: 2px solid var(--Gray5);
   }
 
   &:active {

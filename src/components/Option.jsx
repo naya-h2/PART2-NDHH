@@ -50,10 +50,14 @@ const Container = styled.div`
   border: 0.1rem solid rgba(0, 0, 0, 0.08);
   border-radius: 1.6rem;
 
+  @media (max-width: 768px) {
+    width: 15.4rem;
+    height: 15.4rem;
+  }
+
   ${FONT14};
   ${({ color }) => color};
-  ${({ src }) =>
-    src && `background-image: url(${src}); background-size: cover`};
+  ${({ src }) => src && `background-image: url(${src}); background-size: cover`};
 
   button {
     width: 4.4rem;

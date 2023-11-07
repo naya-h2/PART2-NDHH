@@ -180,11 +180,11 @@ const StyledButton = styled.button`
     background: var(--pressed-bg-color);
   }
 
-  &:focus {
-    color: var(--focus-color);
-    border: 0.1rem solid var(--focus-border-color);
-    background: var(--focus-bg-color);
-  }
+  // &:focus {
+  //   color: var(--focus-color);
+  //   border: 0.1rem solid var(--focus-border-color);
+  //   background: var(--focus-bg-color);
+  // }
 
   ${(props) =>
     props.disabled &&

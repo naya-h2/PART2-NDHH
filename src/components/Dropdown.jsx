@@ -5,7 +5,7 @@ import { FONT16 } from "../styles/FontStyles";
 import arrowUp from "../assets/arrow_top.svg";
 import arrowDown from "../assets/arrow_down.svg";
 
-Input.propTypes = {
+Dropdown.propTypes = {
   disabled: PropTypes.bool,
 };
 
@@ -44,18 +44,18 @@ const StyledDropdown = styled.div`
   ${FONT16}
   color: var(--Gray5);
 
-  &:focus {
-    border: 0.2rem solid var(--Gray5);
-    outline: none;
-    color: var(--Gray9);
-  }
-
   &:hover {
     border: 0.1rem solid var(--Gray5);
   }
 
   &:active {
     border: 0.2rem solid var(--Gray7);
+    color: var(--Gray9);
+  }
+
+  &:focus {
+    border: 0.2rem solid var(--Gray5);
+    outline: none;
     color: var(--Gray9);
   }
 
