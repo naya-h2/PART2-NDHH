@@ -6,23 +6,24 @@ import CHECKIMG from "../assets/check.svg";
 Option.propTypes = {
   color: PropTypes.oneOf(["Orange", "Purple", "Blue", "Green"]),
   src: PropTypes.string,
+  check: PropTypes.boolean,
 };
-function Option({ color, src }) {
+function Option({ color, src, check }) {
   switch (color) {
     case "Orange":
-      return makeOption({ color });
+      return makeOption({ color, check });
     case "Purple":
-      return makeOption({ color });
+      return makeOption({ color, check });
     case "Blue":
-      return makeOption({ color });
+      return makeOption({ color, check });
     case "Green":
-      return makeOption({ color });
+      return makeOption({ color, check });
     default:
-      return makeOption({ src });
+      return makeOption({ src, check });
   }
 }
 
-const makeOption = ({ color, src }) => {
+const makeOption = ({ color, src, check }) => {
   const COLOR =
     color &&
     css`
@@ -30,9 +31,11 @@ const makeOption = ({ color, src }) => {
     `;
   return (
     <Container color={COLOR} src={src}>
-      <button>
-        <img src={CHECKIMG} alt="새로운 메시지 작성하기" />
-      </button>
+      {check && (
+        <button>
+          <img src={CHECKIMG} alt="새로운 메시지 작성하기" />
+        </button>
+      )}
     </Container>
   );
 };
@@ -50,10 +53,14 @@ const Container = styled.div`
   border: 0.1rem solid rgba(0, 0, 0, 0.08);
   border-radius: 1.6rem;
 
+  @media (max-width: 768px) {
+    width: 15.4rem;
+    height: 15.4rem;
+  }
+
   ${FONT14};
   ${({ color }) => color};
-  ${({ src }) =>
-    src && `background-image: url(${src}); background-size: cover`};
+  ${({ src }) => src && `background-image: url(${src}); background-size: cover`};
 
   button {
     width: 4.4rem;

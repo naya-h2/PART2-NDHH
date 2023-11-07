@@ -1,7 +1,9 @@
+import Header from "@/assets/components/Header";
+
 function ListPage() {
-  return (
-    <div></div>
-  )
+  return <Header />;
 }
 
-export default ListPage
+export default ListPage;
+
+// 다은
