@@ -42,12 +42,13 @@ const Button = styled.button`
   flex: 1;
 
   border-radius: 0.6rem;
+  border: 2px solid;
 
   padding: ${(props) => (props.selected ? "0.7rem 1.6rem" : "0.8rem 1.6rem")};
 
   ${(props) => (props.selected ? `${FONT16B}` : `${FONT16}`)};
 
-  border: ${(props) => (props.selected ? "2px solid var(--Purple6)" : "none")};
-  background-color: ${(props) => (props.selected ? "var(--White)" : "var(--Gray1)")};
+  border-color: ${(props) => (props.selected ? "var(--Purple6)" : "var(--Gray1)")};
+  background-color: ${(props) => (props.selected ? "var(--White)" : "transparent")};
   color: ${(props) => (props.selected ? "var(--Purple7)" : "var(--Gray9)")};
 `;

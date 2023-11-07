@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
 import { FONT18B, FONT16, FONT14 } from "../styles/FontStyles";
 import addIconBlack from "../assets/add-24-black.svg";
 import addIconWhite from "../assets/add-24-white.svg";
@@ -9,32 +10,17 @@ import arrowRight from "../assets/arrow_right.svg";
 import arrowLeft from "../assets/arrow_left.svg";
 
 const SIZES = {
-  primarySize56: css`
-    --width: 20.8rem;
-    --height: 5.6rem;
-
-    --padding: 1.4rem 2.4rem;
-    --border-radius: 1.2rem;
-    ${FONT18B}
-  `,
-  outlinedSize56: css`
-    --width: 19.2rem;
-    --height: 5.6rem;
-
-    --padding: 1.4rem 1.6rem;
-    --border-radius: 1.2rem;
+  size56: css`
+    --padding: 14px 24px;
+    --border-radius: 12px;
     ${FONT18B}
   `,
   size40: css`
-    --height: 4rem;
-
     --padding: 0.8rem 1.6rem;
     --border-radius: 0.6rem;
     ${FONT16}
   `,
   size36: css`
-    --height: 3.6rem;
-
     --padding: 0.6rem 1.6rem;
     --border-radius: 0.6rem;
     ${FONT16}
@@ -137,6 +123,14 @@ const TYPES = {
   `,
 };
 
+Button.propTypes = {
+  disabled: PropTypes.bool,
+  size: PropTypes.oneOf(["primarySize56", "outlinedSize56", "size40", "size36", "size28", "plusSize", "trashSize"]),
+  type: PropTypes.oneOf(["primary", "secondary", "outlined", "plus", "trash"]),
+  children: PropTypes.string, // 버튼 이름
+  icon: PropTypes.bool,
+};
+
 function Button({ disabled, size, type, children, icon }) {
   const sizeStyle = SIZES[size];
   const typeStyle = TYPES[type];
@@ -155,12 +149,11 @@ function Button({ disabled, size, type, children, icon }) {
   );
 }
 
+export default Button;
+
 const StyledButton = styled.button`
   ${(props) => props.sizeStyle}
   ${(props) => props.typeStyle}
-
-  width: var(--width);
-  height: var(--height);
 
   padding: var(--padding);
 
@@ -202,6 +195,15 @@ const StyledButton = styled.button`
 
       pointer-events: none;
     `}
+
+  ${(props) =>
+    props.size ||
+    css`
+      width: 100%;
+      height: 100%;
+
+      border-radius: 1.2rem;
+    `}
 `;
 
 const AddFaceIcon = styled.img`
@@ -225,5 +227,3 @@ const ArrowIcon = styled.img`
   width: 4rem;
   height: 4rem;
 `;
-
-export default Button;

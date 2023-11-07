@@ -1,10 +1,15 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
 import { FONT16 } from "../styles/FontStyles";
 import arrowUp from "../assets/arrow_top.svg";
 import arrowDown from "../assets/arrow_down.svg";
 
-function Dropdown({ ...rest }) {
+Input.propTypes = {
+  disabled: PropTypes.bool,
+};
+
+function Dropdown({ disabled }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [arrowDirection, setArrowDirection] = useState(arrowDown);
 
@@ -14,7 +19,7 @@ function Dropdown({ ...rest }) {
   };
 
   return (
-    <StyledDropdown onClick={toggleDropdown} {...rest}>
+    <StyledDropdown onClick={toggleDropdown} disabled={disabled}>
       {/* children으로 받아올 예정 */}
       Placeholder
       <DropdownButton src={arrowDirection} />
