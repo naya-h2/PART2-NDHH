@@ -1,6 +1,4 @@
 import CreatePage from "./pages/CreatePage";
-import Input from "./components/Input";
-import Dropdown from "./components/Dropdown";
 
 function App() {
   return (
