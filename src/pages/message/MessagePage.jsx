@@ -4,7 +4,7 @@ import Layout from "./Layout";
 function MessagePage() {
   return (
     <>
-      <Header />
+      <Header hideButton />
       <Layout />
     </>
   );

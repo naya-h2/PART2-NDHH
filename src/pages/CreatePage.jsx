@@ -2,14 +2,15 @@ import { useState } from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Input from "../components/Input";
-import ToggleButton from "../components/ToggleButton";
+import ToggleButton, { SELECTED } from "../components/ToggleButton";
 import Option from "../components/Option";
 import Button from "../components/Button";
 import { FONT24B, FONT16 } from "../styles/FontStyles";
 import chooseImg from "../assets/jeonghan.jpeg"; // 이미지 수정
+import { PropTypes } from "prop-types";
 
 function CreatePage() {
-  const [selectedType, setSelectedType] = useState("color");
+  const [selectedType, setSelectedType] = useState(SELECTED.color);
 
   const handleToggle = (value) => {
     setSelectedType(value);
@@ -28,30 +29,41 @@ function CreatePage() {
           <Description>컬러를 선택하거나, 이미지를 선택할 수 있습니다.</Description>
         </TextContainer>
         <ToggleButton handleToggle={handleToggle} selected={selectedType} />
-        <OptionContainer>
-          {selectedType === "color" ? (
-            <>
-              <Option color="Orange" check />
-              <Option color="Purple" />
-              <Option color="Blue" />
-              <Option color="Green" />
-            </>
-          ) : (
-            <>
-              <Option src={chooseImg} check />
-              <Option src={chooseImg} />
-              <Option src={chooseImg} />
-              <Option src={chooseImg} />
-            </>
-          )}
-        </OptionContainer>
+        <Options selectedType={selectedType} />
       </BodyContainer>
       <ButtonContainer>
-        <Button type="primary" size="size56">
+        <Button type="primary" height="xl">
           생성하기
         </Button>
       </ButtonContainer>
     </PageContainer>
+  );
+}
+
+export default CreatePage;
+
+Options.propType = {
+  selectedType: PropTypes.oneOf(SELECTED.color, SELECTED.image),
+};
+function Options({ selectedType }) {
+  return (
+    <OptionContainer>
+      {selectedType === SELECTED.color ? (
+        <>
+          <Option color="Orange" check />
+          <Option color="Purple" />
+          <Option color="Blue" />
+          <Option color="Green" />
+        </>
+      ) : (
+        <>
+          <Option src={chooseImg} check />
+          <Option src={chooseImg} />
+          <Option src={chooseImg} />
+          <Option src={chooseImg} />
+        </>
+      )}
+    </OptionContainer>
   );
 }
 
@@ -144,5 +156,3 @@ const ButtonContainer = styled.div`
     transform: translateX(-50%);
   }
 `;
-
-export default CreatePage;

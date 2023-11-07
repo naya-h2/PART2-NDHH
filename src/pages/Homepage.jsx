@@ -6,6 +6,23 @@ import styled from "styled-components";
 import { FONT18B } from "../styles/FontStyles";
 import KeyPointCard from "../components/KeyPointCard";
 
+function HomePage() {
+  return (
+    <>
+      <Header />
+      <Container>
+        <KeyPointCard content={content1} />
+        <KeyPointCard content={content2} isReverse />
+        <Button type="primary" height="xl">
+          <ButtonText>구경해보기</ButtonText>
+        </Button>
+      </Container>
+    </>
+  );
+}
+
+export default HomePage;
+
 const content1 = {
   point: "Point. 01",
   title1: "누구나 손쉽게, 온라인 ",
@@ -21,23 +38,6 @@ const content2 = {
   explain: "롤링 페이퍼에 이모지를 추가할 수 있어요.",
   image: introducePoint2,
 };
-
-function HomePage() {
-  return (
-    <>
-      <Header />
-      <Container>
-        <KeyPointCard content={content1} />
-        <KeyPointCard content={content2} isReverse />
-        <Button size="size56" type="primary">
-          <ButtonText>구경해보기</ButtonText>
-        </Button>
-      </Container>
-    </>
-  );
-}
-
-export default HomePage;
 
 const Container = styled.div`
   margin-top: 6rem;

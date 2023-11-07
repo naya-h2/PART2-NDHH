@@ -1,24 +1,29 @@
 import styled from "styled-components";
 import { FONT16B, FONT16 } from "../styles/FontStyles";
 
-const ToggleButton = ({ handleToggle, selected }) => {
+function ToggleButton({ handleToggle, selected }) {
   const handleTypeChange = (value) => {
     handleToggle(value);
   };
 
   return (
     <ButtonWrapper>
-      <Button onClick={() => handleTypeChange("color")} selected={selected === "color"}>
-        컬러
+      <Button onClick={() => handleTypeChange(SELECTED.color)} selected={selected === SELECTED.color}>
+        {SELECTED.color}
       </Button>
-      <Button onClick={() => handleTypeChange("image")} selected={selected === "image"}>
-        이미지
+      <Button onClick={() => handleTypeChange(SELECTED.image)} selected={selected === SELECTED.image}>
+        {SELECTED.image}
       </Button>
     </ButtonWrapper>
   );
-};
+}
 
 export default ToggleButton;
+
+export const SELECTED = {
+  color: "컬러",
+  image: "이미지",
+};
 
 const ButtonWrapper = styled.div`
   display: flex;

@@ -47,7 +47,7 @@ const StyledButton = styled.button`
   ${({ $heights }) => $heights}
   ${({ $types }) => $types}
 
-  ${({ $width }) => $width && `width: ${$width / 10}rem;`}
+  ${({ $width }) => ($width ? `width: ${$width / 10}rem;` : "width: 100%;")}
 
   padding: var(--padding);
 

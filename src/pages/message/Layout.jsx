@@ -1,56 +1,35 @@
 import styled from "styled-components";
 import Input from "@/components/Input";
-import { FONT24B } from "@/styles/FontStyles";
 import defaultImg from "@/assets/default_profile.svg";
-import { FONT16 } from "../../styles/FontStyles";
+import { FONT16, FONT24B } from "../../styles/FontStyles";
 import Dropdown from "../../components/Dropdown";
 import TextEditor from "./../../components/Editor";
 import Button from "../../components/Button";
 
-function Submit() {
+function Layout() {
   return (
-    <Button type="primary" size="size56">
-      생성하기
-    </Button>
+    <Container>
+      <Wrapper>
+        <Title />
+        <Profile />
+        <Relationship />
+        <Edit />
+        <Submit />
+      </Wrapper>
+    </Container>
   );
 }
 
-function Edit() {
+export default Layout;
+
+function Title() {
   return (
-    <>
-      <BaseContents>
-        <p>내용을 입력해 주세요</p>
-        <TextEditor />
-      </BaseContents>
-      <BaseContents>
-        <p>폰트 선택</p>
-        <Dropdown />
-      </BaseContents>
-    </>
+    <Contents__title>
+      <p>From.</p>
+      <Input placeholder="이름을 입력해 주세요." />
+    </Contents__title>
   );
 }
-
-function Relationship() {
-  return (
-    <BaseContents>
-      <p>상대와의 관계</p>
-      <Dropdown />
-    </BaseContents>
-  );
-}
-
-const PROFILE_IMG = [
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-];
 
 function Profile() {
   return (
@@ -69,30 +48,50 @@ function Profile() {
   );
 }
 
-function Title() {
+const PROFILE_IMG = [
+  defaultImg,
+  defaultImg,
+  defaultImg,
+  defaultImg,
+  defaultImg,
+  defaultImg,
+  defaultImg,
+  defaultImg,
+  defaultImg,
+  defaultImg,
+];
+
+function Relationship() {
   return (
-    <Contents__title>
-      <p>From.</p>
-      <Input placeholder="이름을 입력해 주세요." />
-    </Contents__title>
+    <BaseContents>
+      <p>상대와의 관계</p>
+      <Dropdown />
+    </BaseContents>
   );
 }
 
-function Layout() {
+function Edit() {
   return (
-    <Container>
-      <Wrapper>
-        <Title />
-        <Profile />
-        <Relationship />
-        <Edit />
-        <Submit />
-      </Wrapper>
-    </Container>
+    <>
+      <BaseContents>
+        <p>내용을 입력해 주세요</p>
+        <TextEditor />
+      </BaseContents>
+      <BaseContents>
+        <p>폰트 선택</p>
+        <Dropdown />
+      </BaseContents>
+    </>
   );
 }
 
-export default Layout;
+function Submit() {
+  return (
+    <Button type="primary" height="xl">
+      생성하기
+    </Button>
+  );
+}
 
 const Container = styled.div`
   width: 100%;
