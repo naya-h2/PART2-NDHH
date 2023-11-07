@@ -73,7 +73,7 @@ const Container = styled.div`
     flex-wrap: wrap;
     gap: 0.8rem;
 
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: 768px) {
       justify-content: space-between;
       gap: 1.2rem;
     }
@@ -99,5 +99,15 @@ const Container = styled.div`
     color: var(--Gray4);
 
     pointer-events: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.8rem;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-bottom-right-radius: 0.8rem;
+    border-bottom-left-radius: 0.8rem;
+    background-color: var(--Gray3);
   }
 `;

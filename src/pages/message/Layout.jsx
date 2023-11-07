@@ -114,7 +114,7 @@ const Wrapper = styled.div`
     max-width: 72rem;
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 768px) {
     width: calc(100vw - 4rem);
     max-width: 32rem;
   }
@@ -164,7 +164,7 @@ const ProfileImg = styled.img`
   border: 1px solid var(--Gray2);
   background: var(--white);
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 768px) {
     width: 40px;
     height: 40px;
 
