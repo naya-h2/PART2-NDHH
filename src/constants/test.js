@@ -25,7 +25,7 @@ export const MESSAGE2 = {
 export const RECIPIENT1 = {
   id: 2,
   name: '강영훈',
-  backgroundColor: 'green',
+  backgroundColor: 'blue',
   backgroundImageURL: null,
   createdAt: '2023-10-26T13:19:31.401765Z',
   messageCount: 4,
