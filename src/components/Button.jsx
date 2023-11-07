@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
 import { FONT18B, FONT16, FONT14 } from "../styles/FontStyles";
 import addIconBlack from "../assets/add-24-black.svg";
 import addIconWhite from "../assets/add-24-white.svg";
@@ -15,30 +16,30 @@ const SIZES = {
     ${FONT18B}
   `,
   size40: css`
-    --padding: 8px 16px;
-    --border-radius: 6px;
+    --padding: 0.8rem 1.6rem;
+    --border-radius: 0.6rem;
     ${FONT16}
   `,
   size36: css`
-    --padding: 6px 16px;
-    --border-radius: 6px;
+    --padding: 0.6rem 1.6rem;
+    --border-radius: 0.6rem;
     ${FONT16}
   `,
   size28: css`
-    --padding: 2px 16px;
-    --border-radius: 6px;
+    --padding: 0.2rem 1.6rem;
+    --border-radius: 0.6rem;
     ${FONT14}
 
-    --img-width: 20px;
-    --img-height: 20px;
+    --img-width: 2rem;
+    --img-height: 2rem;
   `,
   plusSize: css`
-    --padding: 16px;
-    --border-radius: 100px;
+    --padding: 1.6rem;
+    --border-radius: 10rem;
   `,
   trashSize: css`
-    --padding: 6px;
-    --border-radius: 6px;
+    --padding: 0.6rem;
+    --border-radius: 0.6rem;
   `,
 };
 
@@ -122,6 +123,14 @@ const TYPES = {
   `,
 };
 
+Button.propTypes = {
+  disabled: PropTypes.bool,
+  size: PropTypes.oneOf(["primarySize56", "outlinedSize56", "size40", "size36", "size28", "plusSize", "trashSize"]),
+  type: PropTypes.oneOf(["primary", "secondary", "outlined", "plus", "trash"]),
+  children: PropTypes.string, // 버튼 이름
+  icon: PropTypes.bool,
+};
+
 function Button({ disabled, size, type, children, icon }) {
   const sizeStyle = SIZES[size];
   const typeStyle = TYPES[type];
@@ -140,6 +149,8 @@ function Button({ disabled, size, type, children, icon }) {
   );
 }
 
+export default Button;
+
 const StyledButton = styled.button`
   ${(props) => props.sizeStyle}
   ${(props) => props.typeStyle}
@@ -149,40 +160,49 @@ const StyledButton = styled.button`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 1rem;
 
   color: var(--color);
   background: var(--bg-color);
 
   border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
+  border: 0.1rem solid var(--border-color);
 
   &:hover {
     color: var(--hover-color);
-    border: 1px solid var(--hover-border-color);
+    border: 0.1rem solid var(--hover-border-color);
     background: var(--hover-bg-color);
   }
 
   &:active {
     color: var(--pressed-color);
-    border: 1px solid var(--pressed-border-color);
+    border: 0.1rem solid var(--pressed-border-color);
     background: var(--pressed-bg-color);
   }
 
-  &:focus {
-    color: var(--focus-color);
-    border: 1px solid var(--focus-border-color);
-    background: var(--focus-bg-color);
-  }
+  // &:focus {
+  //   color: var(--focus-color);
+  //   border: 0.1rem solid var(--focus-border-color);
+  //   background: var(--focus-bg-color);
+  // }
 
   ${(props) =>
     props.disabled &&
     css`
       color: var(--White);
-      border: 1px solid var(--Gray3);
+      border: 0.1rem solid var(--Gray3);
       background: var(--Gray3);
 
       pointer-events: none;
+    `}
+
+  ${(props) =>
+    props.size ||
+    css`
+      width: 100%;
+      height: 100%;
+
+      border-radius: 1.2rem;
     `}
 `;
 
@@ -194,18 +214,16 @@ const AddFaceIcon = styled.img`
 `;
 
 const PlusIcon = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 2.4rem;
+  height: 2.4rem;
 `;
 
 const TrashIcon = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 2.4rem;
+  height: 2.4rem;
 `;
 
 const ArrowIcon = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 4rem;
+  height: 4rem;
 `;
-
-export default Button;
