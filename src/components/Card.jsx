@@ -46,7 +46,9 @@ function Card({ type, data = null }) {
 export default Card;
 
 const Container = styled.div`
-  width: 384px;
+  width: 100%;
+  max-width: 384px;
+  min-width: 320px;
   height: 280px;
   padding: 28px 24px 24px;
 
@@ -59,7 +61,7 @@ const Container = styled.div`
   gap: 16px;
 
   border-radius: 16px;
-  background-color: var(--white);
+  background-color: var(--White);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
 `;
 const ProfileImg = styled.img`
