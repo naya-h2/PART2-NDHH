@@ -51,24 +51,38 @@ const Container = styled.div`
   padding: 0 0.8rem;
   border-radius: 0.4rem;
 
-  ${FONT14}
+  ${FONT14};
   ${({ color }) => color};
 `;
 
 const Emoji = styled.div`
-  display: inline-block;
+  width: 6.6rem;
+  height: 3.6rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   padding: 0.8rem 1.2rem;
   border-radius: 3.2rem;
 
   background-color: #00000080;
 
-  ${FONT16}
+  ${FONT16};
 
   span {
     margin-left: 0.4rem;
 
     ${FONT16}
     color: var(--White);
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 6rem;
+    height: 3.2rem;
+
+    padding: 0.4rem 0.8rem;
+
+    ${FONT14};
   }
 `;
