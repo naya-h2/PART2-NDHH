@@ -1,15 +1,16 @@
 import styled from "styled-components";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import Badge from "./Badge";
 import ProfileImgList from "./ProfileImgList";
 import patternPurple from "@/assets/pattern_purple.svg";
 import patternOrange from "@/assets/pattern_orange.svg";
 import patternBlue from "@/assets/pattern_blue.svg";
 import patternGreen from "@/assets/pattern_green.svg";
-import { FONT16, FONT16B, FONT24B } from "../styles/FontStyles";
+import { DeviceSize } from "@/styles/DeviceSize";
+import { FONT16, FONT16B, FONT18B, FONT14, FONT14B, FONT24B } from "../styles/FontStyles";
 
-CardList.PropTypes = {
-  data: PropTypes.object,
+CardList.propTypes = {
+  data: propTypes.object,
 };
 
 /**
@@ -84,6 +85,14 @@ const Container = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 16px;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    width: 208px;
+    height: 232px;
+    padding: 30px 22px 20px 24px;
+
+    gap: 33px;
+  }
 `;
 const Mask = styled.div`
   width: 275px;
@@ -96,6 +105,11 @@ const Mask = styled.div`
   background-color: rgba(0, 0, 0, 0.54);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 16px;
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    width: 208px;
+    height: 232px;
+  }
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -107,23 +121,43 @@ const Wrapper = styled.div`
 const Name = styled.div`
   ${FONT24B}
   color: ${({ color }) => (color !== null ? `var(--Gray9)` : `var(--White)`)};
-  letter-spacing: -0.24px;
+  letter-spacing: -0.024rem;
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    ${FONT18B}
+    letter-spacing: -0.018rem;
+  }
 `;
 const Count = styled.div`
   ${FONT16}
   color: ${({ color }) => (color !== null ? `var(--Gray7)` : `var(--White)`)};
-  letter-spacing: -0.16px;
+  letter-spacing: -0.016rem;
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    ${FONT14}
+    letter-spacing: -0.007rem;
+  }
 `;
 const Bold = styled.span`
   ${FONT16B}
   color: ${({ color }) => (color !== null ? `var(--Gray7)` : `var(--White)`)};
-  letter-spacing: -0.16px;
+  letter-spacing: -0.016rem;
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    ${FONT14B}
+    letter-spacing: -0.007rem;
+  }
 `;
 const BadgeWrapper = styled.div`
   padding-top: 16px;
 
   display: flex;
   gap: 8px;
-
   z-index: 1;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    gap: 4px;
+  }
 `;
