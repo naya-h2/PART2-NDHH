@@ -13,13 +13,7 @@ PostPage.PropTypes = {
  * @param {*} data Recipient 객체
  */
 function PostPage({ path = "", data }) {
-  const {
-    name,
-    backgroundColor,
-    backgroundImageURL,
-    messageCount,
-    recentMessages,
-  } = data;
+  const { name, backgroundColor, backgroundImageURL, messageCount, recentMessages } = data;
   return (
     <Container>
       {path === "edit" ? (
@@ -30,7 +24,7 @@ function PostPage({ path = "", data }) {
         </DeleteWrapper>
       ) : (
         <EditWrapper>
-          <Button type="outlined" height="l">
+          <Button type="outlined" height="l" width="100">
             편집하기
           </Button>
         </EditWrapper>
@@ -38,14 +32,7 @@ function PostPage({ path = "", data }) {
 
       <CardWrapper>
         {path !== "edit" && <Card type="Plus" />}
-        {messageCount !== 0 &&
-          recentMessages.map((msg) => (
-            <Card
-              key={msg.id}
-              type={path === "edit" ? "Edit" : "Normal"}
-              data={msg}
-            />
-          ))}
+        {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === "edit" ? "Edit" : "Normal"} data={msg} />)}
       </CardWrapper>
     </Container>
   );

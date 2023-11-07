@@ -3,16 +3,7 @@ import Button from "../components/Button";
 import styled from "styled-components";
 import { FONT18B, FONT20B, FONT24B } from "../styles/FontStyles";
 import ListPageCards from "../components/ListPageCards";
-import {
-  RECIPIENT1,
-  RECIPIENT2,
-  RECIPIENT3,
-  RECIPIENT4,
-  RECIPIENT5,
-  RECIPIENT6,
-  RECIPIENT7,
-  RECIPIENT8,
-} from "../constants/test.js";
+import { RECIPIENT1, RECIPIENT2, RECIPIENT3, RECIPIENT4, RECIPIENT5, RECIPIENT6, RECIPIENT7, RECIPIENT8 } from "../constants/test.js";
 
 const Cards = [RECIPIENT1, RECIPIENT2, RECIPIENT3, RECIPIENT4, RECIPIENT5, RECIPIENT6, RECIPIENT7, RECIPIENT8];
 // 원본 데이터 최대한 안건들려고... 일단 이렇게 가져왔습니다.
@@ -32,7 +23,7 @@ function ListPage() {
           <ListPageCards cards={NewestCards} />
         </Wrapper>
         <ButtonFix>
-          <Button size="size56" type="primary">
+          <Button height="xl" type="primary">
             <ButtonText>나도 만들어보기</ButtonText>
           </Button>
         </ButtonFix>

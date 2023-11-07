@@ -48,18 +48,7 @@ function Profile() {
   );
 }
 
-const PROFILE_IMG = [
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-];
+const PROFILE_IMG = [defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg];
 
 function Relationship() {
   return (

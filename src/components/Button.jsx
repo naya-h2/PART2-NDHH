@@ -25,12 +25,7 @@ function Button({ disabled, height, width, type, children, icon }) {
   const deleteIcon = disabled ? deleteWhite : deleteBlack;
 
   return (
-    <StyledButton
-      disabled={disabled}
-      $heights={heights}
-      $types={types}
-      $width={width}
-    >
+    <StyledButton disabled={disabled} $heights={heights} $types={types} $width={width}>
       {icon && <AddFaceIcon src={addFaceIcon} alt="add icon" />}
       {type === "plus" && <PlusIcon src={plusIcon} alt="plus icon" />}
       {type === "trash" && <TrashIcon src={deleteIcon} />}
