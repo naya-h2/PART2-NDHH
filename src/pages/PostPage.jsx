@@ -1,38 +1,51 @@
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import Card from '../components/Card';
-import Button from '../components/Button';
-import { DeviceSize } from '../styles/DeviceSize';
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import Card from "../components/Card";
+import Button from "../components/Button";
+import { DeviceSize } from "../styles/DeviceSize";
 
 PostPage.PropTypes = {
-  path: PropTypes.oneOf(['edit', '']),
+  path: PropTypes.oneOf(["edit", ""]),
   data: PropTypes.object,
 };
 
 /**
  * @param {*} data Recipient 객체
  */
-function PostPage({ path = '', data }) {
-  const { name, backgroundColor, backgroundImageURL, messageCount, recentMessages } = data;
+function PostPage({ path = "", data }) {
+  const {
+    name,
+    backgroundColor,
+    backgroundImageURL,
+    messageCount,
+    recentMessages,
+  } = data;
   return (
     <Container>
-      {path === 'edit' ? (
+      {path === "edit" ? (
         <DeleteWrapper>
-          <Button type="primary" size="size40">
+          <Button type="primary" height="l">
             저장하기
           </Button>
         </DeleteWrapper>
       ) : (
         <EditWrapper>
-          <Button type="outlined" size="size40">
+          <Button type="outlined" height="l">
             편집하기
           </Button>
         </EditWrapper>
       )}
 
       <CardWrapper>
-        {path !== 'edit' && <Card type="Plus" />}
-        {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === 'edit' ? 'Edit' : 'Normal'} data={msg} />)}
+        {path !== "edit" && <Card type="Plus" />}
+        {messageCount !== 0 &&
+          recentMessages.map((msg) => (
+            <Card
+              key={msg.id}
+              type={path === "edit" ? "Edit" : "Normal"}
+              data={msg}
+            />
+          ))}
       </CardWrapper>
     </Container>
   );

@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import { FONT18B, FONT16, FONT14 } from "../styles/FontStyles";
 import addIconBlack from "../assets/add-24-black.svg";
 import addIconWhite from "../assets/add-24-white.svg";
 import plusIcon from "../assets/plus.svg";
@@ -8,137 +7,30 @@ import deleteBlack from "../assets/deleted_black.svg";
 import deleteWhite from "../assets/deleted_white.svg";
 import arrowRight from "../assets/arrow_right.svg";
 import arrowLeft from "../assets/arrow_left.svg";
-
-const SIZES = {
-  size56: css`
-    --padding: 14px 24px;
-    --border-radius: 12px;
-    ${FONT18B}
-  `,
-  size40: css`
-    --padding: 0.8rem 1.6rem;
-    --border-radius: 0.6rem;
-    ${FONT16}
-  `,
-  size36: css`
-    --padding: 0.6rem 1.6rem;
-    --border-radius: 0.6rem;
-    ${FONT16}
-  `,
-  size28: css`
-    --padding: 0.2rem 1.6rem;
-    --border-radius: 0.6rem;
-    ${FONT14}
-
-    --img-width: 2rem;
-    --img-height: 2rem;
-  `,
-  plusSize: css`
-    --padding: 1.6rem;
-    --border-radius: 10rem;
-  `,
-  trashSize: css`
-    --padding: 0.6rem;
-    --border-radius: 0.6rem;
-  `,
-};
-
-const TYPES = {
-  primary: css`
-    --color: var(--White);
-    --border-color: var(--Purple6);
-    --bg-color: var(--Purple6);
-
-    --hover-color: var(--White);
-    --hover-border-color: var(--Purple7);
-    --hover-bg-color: var(--Purple7);
-
-    --pressed-color: var(--White);
-    --pressed-border-color: var(--Purple8);
-    --pressed-bg-color: var(--Purple8);
-
-    --focus-color: var(--White);
-    --focus-bg-color: var(--Purple8);
-    --focus-border-color: var(--Purple9);
-  `,
-  secondary: css`
-    --color: var(--Purple7);
-    --border-color: var(--Purple6);
-    --bg-color: var(--White);
-
-    --hover-color: var(--Purple6);
-    --hover-border-color: var(--Purple7);
-    --hover-bg-color: var(--Purple1);
-
-    --pressed-color: var(--Purple6);
-    --pressed-border-color: var(--Purple8);
-    --pressed-bg-color: var(--Purple1);
-
-    --focus-color: var(--Purple6);
-    --focus-border-color: var(--Purple8);
-    --focus-bg-color: var(--White);
-  `,
-  outlined: css`
-    --color: var(--Gray9);
-    --border-color: var(--Gray3);
-    --bg-color: var(--White);
-
-    --hover-color: var(--Gray9);
-    --hover-border-color: var(--Gray3);
-    --hover-bg-color: var(--Gray1);
-
-    --pressed-color: var(--Gray9);
-    --pressed-border-color: var(--Gray3);
-    --pressed-bg-color: var(--Gray1);
-
-    --focus-color: var(--Gray9);
-    --focus-border-color: var(--Gray5);
-    --focus-bg-color: var(--White);
-  `,
-  plus: css`
-    --border-color: var(--Gray5);
-    --bg-color: var(--Gray5);
-
-    --hover-border-color: var(--Gray6);
-    --hover-bg-color: var(--Gray6);
-
-    --pressed-border-color: var(--Gray7);
-    --pressed-bg-color: var(--Gray7);
-
-    --focus-border-color: var(--Gray8);
-    --focus-bg-color: var(--Gray7);
-  `,
-  trash: css`
-    --border-color: var(--Gray3);
-    --bg-color: var(--White);
-
-    --hover-border-color: var(--Gray3);
-    --hover-bg-color: var(--Gray1);
-
-    --pressed-border-color: var(--Gray3);
-    --pressed-bg-color: var(--Gray1);
-
-    --focus-border-color: var(--Gray5);
-    --focus-bg-color: var(--White);
-  `,
-};
+import { HEIGHTS, TYPES } from "./../styles/ButtonStyles";
 
 Button.propTypes = {
   disabled: PropTypes.bool,
-  size: PropTypes.oneOf(["primarySize56", "outlinedSize56", "size40", "size36", "size28", "plusSize", "trashSize"]),
+  height: PropTypes.oneOf(["xl", "l", "m", "s", "plus", "trash"]),
+  width: PropTypes.string,
   type: PropTypes.oneOf(["primary", "secondary", "outlined", "plus", "trash"]),
   children: PropTypes.string, // 버튼 이름
   icon: PropTypes.bool,
 };
 
-function Button({ disabled, size, type, children, icon }) {
-  const sizeStyle = SIZES[size];
-  const typeStyle = TYPES[type];
+function Button({ disabled, height, width, type, children, icon }) {
+  const heights = HEIGHTS[height];
+  const types = TYPES[type];
   const addFaceIcon = disabled ? addIconWhite : addIconBlack;
   const deleteIcon = disabled ? deleteWhite : deleteBlack;
 
   return (
-    <StyledButton disabled={disabled} sizeStyle={sizeStyle} typeStyle={typeStyle}>
+    <StyledButton
+      disabled={disabled}
+      $heights={heights}
+      $types={types}
+      $width={width}
+    >
       {icon && <AddFaceIcon src={addFaceIcon} alt="add icon" />}
       {type === "plus" && <PlusIcon src={plusIcon} alt="plus icon" />}
       {type === "trash" && <TrashIcon src={deleteIcon} />}
@@ -152,8 +44,10 @@ function Button({ disabled, size, type, children, icon }) {
 export default Button;
 
 const StyledButton = styled.button`
-  ${(props) => props.sizeStyle}
-  ${(props) => props.typeStyle}
+  ${({ $heights }) => $heights}
+  ${({ $types }) => $types}
+
+  ${({ $width }) => $width && `width: ${$width / 10}rem;`}
 
   padding: var(--padding);
 
@@ -167,6 +61,8 @@ const StyledButton = styled.button`
 
   border-radius: var(--border-radius);
   border: 0.1rem solid var(--border-color);
+
+  font-family: "Noto Sans KR";
 
   &:hover {
     color: var(--hover-color);
@@ -195,19 +91,10 @@ const StyledButton = styled.button`
 
       pointer-events: none;
     `}
-
-  ${(props) =>
-    props.size ||
-    css`
-      width: 100%;
-      height: 100%;
-
-      border-radius: 1.2rem;
-    `}
 `;
 
 const AddFaceIcon = styled.img`
-  ${(props) => props.sizeStyle}
+  ${({ $heights }) => $heights}
 
   width: var(--img-width);
   height: var(--img-height);
