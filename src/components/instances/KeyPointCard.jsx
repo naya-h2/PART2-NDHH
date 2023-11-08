@@ -32,7 +32,7 @@ function Point({ point }) {
 export default KeyPointCard;
 
 const Container = styled.div`
-  width: 120rem;
+  width: 116rem;
   padding: 6rem 0px;
   margin-bottom: ${(props) => (props.$isReverse ? "5.2rem" : "3rem")};
 
@@ -40,12 +40,12 @@ const Container = styled.div`
   flex-direction: ${(props) => (props.$isReverse ? "row-reverse" : "row")};
   justify-content: flex-end;
   align-items: flex-start;
-  gap: ${(props) => (props.$isReverse ? "0rem" : "12.8rem")};
+  gap: ${(props) => (props.$isReverse ? "0rem" : "8.8rem")};
 
   border-radius: 1.6rem;
   background: var(--Surface);
 
-  @media (max-width: 1199px) {
+  @media (max-width: ${DeviceSize.pc}) {
     width: calc(100vw - 4.8rem);
     margin-bottom: ${(props) => (props.$isReverse ? "13.3rem" : "3rem")};
     padding: 4rem 0;
@@ -57,6 +57,7 @@ const Container = styled.div`
 
   @media (max-width: ${DeviceSize.mobile}) {
     padding: 2.4rem 0 5.1rem;
+    /* gap: 4.8rem; */
 
     overflow: hidden;
   }
@@ -68,8 +69,6 @@ const Container = styled.div`
     @media (max-width: ${DeviceSize.mobile}) {
       width: 37rem;
       height: auto;
-
-      gap: 4.8rem;
     }
   }
 `;
@@ -92,7 +91,7 @@ const Container__point = styled.div`
   display: inline-block;
 
   border-radius: 5rem;
-  background: var(--Purple6);
+  background: var(--purple6);
 
   p {
     ${FONT14B};
