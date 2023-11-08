@@ -1,17 +1,19 @@
-import CreatePage from "./pages/CreatePage";
-import PostPage from "./pages/post/PostPage";
-import HomePage from "./pages/home/HomePage";
+
+import CreatePage from "./pages/create/CreatePage";
+import PostLayout from "./pages/PostLayout";
+import HomePage from "./pages/Homepage";
 import MessagePage from "./pages/message/MessagePage";
 import ListPage from "./pages/list/ListPage";
 
 function App() {
   return (
     <>
-      {/* <CreatePage /> */}
+      <CreatePage />
       {/* <PostLayout /> */}
       {/* <HomePage /> */}
       {/* <MessagePage /> */}
-      <ListPage />
+
+      {/* <ListPage /> */}
     </>
     // ROUTER 경로 설정 미리 해두었어요.
     // Header나 버튼 겹치는 페이지는 Layout에서 공용컴포넌트 넣고
