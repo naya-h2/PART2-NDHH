@@ -37,7 +37,7 @@ function Card({ type, data = null }) {
         </Wrapper>
       </Profile>
       {type === "Edit" && <DeleteIcon src={deleteIcon} alt="삭제하기 버튼" />}
-      <Content font={font}>{content}</Content>
+      <Content $font={font}>{content}</Content>
       <Date>{formatDate(createdAt)}</Date>
     </Container>
   );
@@ -125,7 +125,7 @@ const Content = styled.div`
 
   /* Font/18 Regular */
   ${FONT18}
-  font-family : ${({ font }) => font};
+  font-family : ${({ $font }) => $font};
   line-height: 155.556%;
   letter-spacing: -0.018rem;
 `;

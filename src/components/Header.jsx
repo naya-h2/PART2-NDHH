@@ -8,6 +8,7 @@ import divideLine from "../assets/Rectangle_38.svg";
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import ProfileImgList from "./ProfileImgList";
+import { DeviceSize } from "../styles/DeviceSize";
 // import { Link } from "react-router-dom";
 
 Header.propTypes = {
@@ -83,7 +84,7 @@ function BorderLine() {
 }
 
 const MobileGrid = css`
-  @media (max-width: 768px) {
+  @media (max-width: ${DeviceSize.mobile}) {
     height: 10.4rem;
     padding: 0;
 
@@ -109,11 +110,11 @@ const Container = styled.div`
 
   background: var(--White);
 
-  @media (max-width: 1199px) {
+  @media (max-width: ${DeviceSize.pc}) {
     width: calc(100vw - 4.8rem);
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${DeviceSize.mobile}) {
     width: calc(100vw - 4rem);
     height: 5.2rem;
   }
@@ -125,7 +126,7 @@ const Recipient = styled.p`
   ${FONT28B};
   grid-area: "Recipient";
 
-  @media (max-width: 768px) {
+  @media (max-width: ${DeviceSize.mobile}) {
     ${FONT18B}
   }
 `;
@@ -155,7 +156,7 @@ const ShareButton = styled.button`
     ${(props) => (props.bold ? FONT16B : FONT16)};
     /* margin-left: ${(props) => (props.bold ? "6rem" : "")}; */
 
-    @media (max-width: 768px) {
+    @media (max-width: ${DeviceSize.mobile}) {
       ${FONT14B}
     }
   }
@@ -169,7 +170,7 @@ const ShareButton = styled.button`
 const DivideImg = styled.img`
   margin: 0 2.8rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${DeviceSize.mobile}) {
     margin: 0 1.5rem;
   }
 `;
@@ -181,7 +182,7 @@ const P = styled.p`
 const SendersNum = styled.div`
   display: flex;
 
-  @media (max-width: 1199px) {
+  @media (max-width: ${DeviceSize.pc}) {
     display: none;
   }
 `;
@@ -198,7 +199,7 @@ const Border = styled.div`
   width: 100%;
   z-index: 5;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${DeviceSize.mobile}) {
     display: ${(props) => (props.bottom ? "block" : "block")};
     bottom: ${(props) => (props.bottom ? "5.2rem" : "0")};
     left: 0;

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import CardList from "./Cardlist";
 import arrowButton from "../assets/button-for-test.svg";
 import { useState } from "react";
+import { DeviceSize } from "../styles/DeviceSize";
 
 function ListPageCards({ cards }) {
   const cardsQuantity = cards.length;
@@ -53,7 +54,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 
-  @media (max-width: 1199px) {
+  @media (max-width: ${DeviceSize.pc}) {
     width: 100vw;
   }
 `;
@@ -62,7 +63,7 @@ const Wrapper = styled.div`
   max-width: 116rem;
   overflow: hidden;
 
-  @media (max-width: 1199px) {
+  @media (max-width: ${DeviceSize.pc}) {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; /* iOS 스와이프 지원 */
   }
@@ -78,11 +79,11 @@ const Items = styled.div`
 
   transition: transform 0.3s;
 
-  @media (max-width: 1199px) {
+  @media (max-width: ${DeviceSize.pc}) {
     margin: 0 2.4rem; // 오른쪽 마진 추후 추가하겠습니다.
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${DeviceSize.mobile}) {
     grid-template-columns: repeat(${(props) => props.num}, 1fr);
     gap: 1.2rem;
   }
@@ -101,7 +102,7 @@ const Button = styled.button`
     transform: ${(props) => (props.isReverse ? "rotate(180deg)" : "0")};
   }
 
-  @media (max-width: 1199px) {
+  @media (max-width: ${DeviceSize.pc}) {
     display: none;
   }
 `;

@@ -33,9 +33,9 @@ const makeOption = ({ color, src, check, onClick }) => {
   return (
     <Container color={COLOR} src={src} $check={check} onClick={onClick}>
       {check && (
-        <button>
+        <div>
           <img src={CHECKIMG} alt="새로운 메시지 작성하기" />
-        </button>
+        </div>
       )}
     </Container>
   );
@@ -43,7 +43,7 @@ const makeOption = ({ color, src, check, onClick }) => {
 
 export default Option;
 
-const Container = styled.div`
+const Container = styled.button`
   width: 100%;
   max-width: 28.8rem;
 
@@ -72,9 +72,13 @@ const Container = styled.div`
       ? `background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${src}); background-size: cover;`
       : `background-image: url(${src}); background-size: cover`};
 
-  button {
+  > div {
     width: 4.4rem;
     height: 4.4rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     border-radius: 10rem;
 

@@ -26,7 +26,7 @@ export const RECIPIENT1 = {
   backgroundColor: "green",
   backgroundImageURL: null,
   createdAt: "2021-10-26T13:19:31.401765Z",
-  messageCount: 4,
+  messageCount: 11111111,
   recentMessages: [
     {
       id: 32,
@@ -47,7 +47,7 @@ export const RECIPIENT1 = {
       relationship: "지인",
       content: "항상 응원합니다",
       font: "Noto Sans",
-      createdAt: "2023-11-01T08:04:12.852691Z",
+      createdAt: "2023-12-01T08:04:12.852691Z",
     },
     {
       id: 33,
@@ -58,7 +58,7 @@ export const RECIPIENT1 = {
       relationship: "가족",
       content: "열심히 일하는 모습 멋있습니다.",
       font: "Pretendard",
-      createdAt: "2023-11-01T08:05:25.399056Z",
+      createdAt: "2023-09-01T08:05:25.399056Z",
     },
     {
       id: 34,

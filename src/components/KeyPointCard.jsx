@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FONT14B, FONT15, FONT18, FONT18B, FONT24B } from "../styles/FontStyles";
+import { DeviceSize } from "../styles/DeviceSize";
 
 function KeyPointCard({ content, isReverse = false }) {
   const { point, title1, title2, explain, image } = content;
@@ -44,7 +45,7 @@ const Container = styled.div`
   border-radius: 1.6rem;
   background: var(--Surface);
 
-  @media (max-width: 1199px) {
+  @media (max-width: ${DeviceSize.pc}) {
     width: calc(100vw - 4.8rem);
     margin-bottom: ${(props) => (props.isReverse ? "13.3rem" : "3rem")};
     gap: 4rem;
@@ -54,7 +55,7 @@ const Container = styled.div`
     align-items: center;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${DeviceSize.mobile}) {
     overflow: hidden;
     padding: 2.4rem 0 5.1rem;
   }
@@ -63,7 +64,7 @@ const Container = styled.div`
     width: 72rem;
     height: 20.4rem;
 
-    @media (max-width: 768px) {
+    @media (max-width: ${DeviceSize.mobile}) {
       width: 37rem;
       height: auto;
       gap: 4.8rem;
@@ -72,12 +73,12 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  @media (max-width: 1199px) {
+  @media (max-width: ${DeviceSize.pc}) {
     width: 72rem;
     padding-left: 4rem;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${DeviceSize.mobile}) {
     width: calc(100% - 4.8rem);
     padding: 0;
   }
@@ -100,14 +101,14 @@ const P = styled.h1`
   ${(props) => (props.title ? FONT24B : FONT18)};
   margin-top: ${(props) => (props.title ? "1.6rem" : "0.8rem")};
 
-  @media (max-width: 768px) {
+  @media (max-width: ${DeviceSize.mobile}) {
     ${(props) => (props.title ? FONT18B : FONT15)};
     margin-top: ${(props) => (props.title ? "1.6rem" : "0.4rem")};
   }
 `;
 
 const Br = styled.br`
-  @media (max-width: 1199px) {
+  @media (max-width: ${DeviceSize.pc}) {
     display: none;
   }
 `;
