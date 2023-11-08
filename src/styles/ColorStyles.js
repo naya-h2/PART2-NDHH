@@ -1,10 +1,10 @@
 import { css } from "styled-components";
 
 export const COLOR = {
-  O: "Orange",
-  P: "Purple",
-  B: "Blue",
-  G: "Green",
+  O: "orange",
+  P: "purple",
+  B: "blue",
+  G: "green",
 }
 
 export const REL = {

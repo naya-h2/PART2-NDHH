@@ -23,11 +23,11 @@ function Badge({ children, num }) {
 }
 
 const makeBadge = (children, color) => {
-  const COLOR = css`
+  const COLOR_CSS = css`
     background-color: var(--${color}1);
     color: var(--${color}${color === COLOR.P ? 6 : 5});
   `;
-  return <Container color={COLOR}>{children}</Container>;
+  return <Container color={COLOR_CSS}>{children}</Container>;
 };
 
 const makeEmoji = (children, num) => {
