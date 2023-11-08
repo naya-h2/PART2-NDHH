@@ -57,7 +57,7 @@ function SelectOption() {
 }
 
 Options.propType = {
-  selectedType: PropTypes.oneOf(SELECTED.color, SELECTED.image),
+  selectedType: PropTypes.oneOf([SELECTED.color, SELECTED.image]),
 };
 function Options({ selectedType }) {
   const [selectedOption, setSelectedOption] = useState(0);

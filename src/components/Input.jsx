@@ -23,7 +23,7 @@ function Input({ placeholder, disabled }) {
 
   return (
     <>
-      <StyledInput iserror={error} onBlur={handleInputChange} placeholder={placeholder} disabled={disabled} />
+      <StyledInput $iserror={error} onBlur={handleInputChange} placeholder={placeholder} disabled={disabled} />
       {error && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>}
     </>
   );
