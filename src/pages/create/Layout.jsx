@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import Input from "../../components/Input";
-import ToggleButton, { SELECTED } from "../../components/ToggleButton";
-import Option from "../../components/Option";
-import Button from "../../components/Button";
-import { FONT24B, FONT16 } from "../../styles/FontStyles";
-import chooseImg from "../../assets/jeonghan.jpeg"; // 이미지 수정
 import { PropTypes } from "prop-types";
+import { useState } from "react";
+import styled from "styled-components";
+import chooseImg from "../../assets/jeonghan.jpeg"; // 이미지 수정
+import Button from "../../components/Button";
+import Input from "../../components/Input";
+import Option from "../../components/Option";
+import ToggleButton, { SELECTED } from "../../components/ToggleButton";
+import { FONT16, FONT24B } from "../../styles/FontStyles";
 
 function Layout() {
   return (
@@ -62,22 +62,20 @@ Options.propType = {
 function Options({ selectedType }) {
   const [selectedOption, setSelectedOption] = useState(0);
 
-  const handleOptionClick = (idx) => {
-    setSelectedOption(idx);
-  };
+  const handleOptionClick = (a) => () => setSelectedOption(a);
 
   return (
     <OptionContainer>
       {selectedType === SELECTED.color ? (
         <>
           {COLOR_OPTIONS.map((color, idx) => (
-            <Option key={idx} color={color} check={selectedType === SELECTED.color && selectedOption === idx} onClick={() => handleOptionClick(idx)} />
+            <Option key={idx} color={color} check={selectedOption === idx} onClick={handleOptionClick(idx)} />
           ))}
         </>
       ) : (
         <>
           {IMG_OPTIONS.map((img, idx) => (
-            <Option key={idx} src={img} check={selectedType === SELECTED.image && selectedOption === idx} onClick={() => handleOptionClick(idx)} />
+            <Option key={idx} src={img} check={selectedOption === idx} onClick={handleOptionClick(idx)} />
           ))}
         </>
       )}

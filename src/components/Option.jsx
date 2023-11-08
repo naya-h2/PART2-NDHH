@@ -45,6 +45,7 @@ export default Option;
 
 const Container = styled.div`
   width: 100%;
+  min-width: 16.8rem;
   max-width: 16.8rem;
 
   &:after {
