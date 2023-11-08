@@ -1,8 +1,12 @@
 import styled from "styled-components";
-import { FONT20B, FONT24B } from "../../styles/FontStyles.js";
-import ListPageCards from "../../components/ListPageCards.jsx";
-import { RECIPIENT1, RECIPIENT2, RECIPIENT3, RECIPIENT4, RECIPIENT5, RECIPIENT6, RECIPIENT7, RECIPIENT8 } from "../../constants/test.js";
-import FixedButton from "../../components/FixedButton.jsx";
+import ListPageCards from "@/components/ListPageCards.jsx";
+import FixedButton from "@/components/FixedButton.jsx";
+import { FONT20B, FONT24B } from "@/styles/FontStyles.js";
+import { RECIPIENT1, RECIPIENT2, RECIPIENT3, RECIPIENT4, RECIPIENT5, RECIPIENT6, RECIPIENT7, RECIPIENT8 } from "@/constants/test.js";
+
+const Cards = [RECIPIENT1, RECIPIENT2, RECIPIENT3, RECIPIENT4, RECIPIENT5, RECIPIENT6, RECIPIENT7, RECIPIENT8];
+const NewestCards = [...Cards].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+const HottestCards = [...Cards].sort((a, b) => b.messageCount - a.messageCount);
 
 function Layout() {
   return (
@@ -20,14 +24,10 @@ function Layout() {
 
 export default Layout;
 
-const Cards = [RECIPIENT1, RECIPIENT2, RECIPIENT3, RECIPIENT4, RECIPIENT5, RECIPIENT6, RECIPIENT7, RECIPIENT8];
-
-const NewestCards = [...Cards].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-const HottestCards = [...Cards].sort((a, b) => b.messageCount - a.messageCount);
-
 const P = styled.p`
-  ${FONT24B};
   margin: 5rem 0 1.6rem 2rem;
+
+  ${FONT24B};
 
   @media (max-width: 768px) {
     ${FONT20B};

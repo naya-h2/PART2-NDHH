@@ -1,13 +1,14 @@
 import styled from "styled-components";
-import CardList from "./Cardlist";
-import arrowButton from "../assets/button-for-test.svg";
+import CardList from "@/components/Cardlist";
+import arrowButton from "@/assets/button-for-test.svg";
 import { useState } from "react";
-import { DeviceSize } from "../styles/DeviceSize";
+import { DeviceSize } from "@/styles/DeviceSize";
 
 function ListPageCards({ cards }) {
-  const cardsQuantity = cards.length;
   const [scrollX, setScrollX] = useState(0);
   const [showNextButton, setShowNextButton] = useState(true);
+
+  const cardsQuantity = cards.length;
 
   const handleClick = () => {
     setScrollX(scrollX - 29.5); // 왼쪽으로 29.5rem 이동
@@ -16,7 +17,6 @@ function ListPageCards({ cards }) {
       setShowNextButton(false);
     }
   };
-
   const handleClickReverse = () => {
     setScrollX(0);
     setShowNextButton(true);
@@ -49,6 +49,7 @@ export default ListPageCards;
 
 const Container = styled.div`
   width: 120rem;
+
   position: relative;
 
   display: flex;
@@ -61,6 +62,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   max-width: 116rem;
+
   overflow: hidden;
 
   @media (max-width: ${DeviceSize.pc}) {
@@ -71,9 +73,9 @@ const Wrapper = styled.div`
 
 const Items = styled.div`
   width: 100%;
+
   display: grid;
   gap: 2rem;
-
   grid-template-columns: repeat(${(props) => props.num}, 1fr);
   grid-template-rows: 1fr;
 
@@ -92,12 +94,15 @@ const Items = styled.div`
 const Button = styled.button`
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  ${(props) => (props.isReverse ? "left: 0" : "right: 0")};
   z-index: 1;
+
+  transform: translateY(-50%);
+
+  ${(props) => (props.isReverse ? "left: 0" : "right: 0")};
 
   img {
     width: 4rem;
+
     opacity: 0.9;
     transform: ${(props) => (props.isReverse ? "rotate(180deg)" : "0")};
   }
