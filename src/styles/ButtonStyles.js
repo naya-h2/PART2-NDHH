@@ -25,49 +25,41 @@ export const HEIGHTS = {
     --img-width: 2rem;
     --img-height: 2rem;
   `,
-  plus: css`
-    --padding: 1.6rem;
-    --border-radius: 10rem;
-  `,
-  trash: css`
-    --padding: 0.6rem;
-    --border-radius: 0.6rem;
-  `,
 };
 
 export const TYPES = {
   primary: css`
     --color: var(--White);
-    --border-color: var(--Purple6);
-    --bg-color: var(--Purple6);
+    --border-color: var(--purple6);
+    --bg-color: var(--purple6);
 
     --hover-color: var(--White);
-    --hover-border-color: var(--Purple7);
-    --hover-bg-color: var(--Purple7);
+    --hover-border-color: var(--purple7);
+    --hover-bg-color: var(--purple7);
 
     --pressed-color: var(--White);
-    --pressed-border-color: var(--Purple8);
-    --pressed-bg-color: var(--Purple8);
+    --pressed-border-color: var(--purple8);
+    --pressed-bg-color: var(--purple8);
 
     --focus-color: var(--White);
-    --focus-bg-color: var(--Purple8);
-    --focus-border-color: var(--Purple9);
+    --focus-bg-color: var(--purple8);
+    --focus-border-color: var(--purple9);
   `,
   secondary: css`
-    --color: var(--Purple7);
-    --border-color: var(--Purple6);
+    --color: var(--purple7);
+    --border-color: var(--purple6);
     --bg-color: var(--White);
 
-    --hover-color: var(--Purple6);
-    --hover-border-color: var(--Purple7);
-    --hover-bg-color: var(--Purple1);
+    --hover-color: var(--purple6);
+    --hover-border-color: var(--purple7);
+    --hover-bg-color: var(--purple1);
 
-    --pressed-color: var(--Purple6);
-    --pressed-border-color: var(--Purple8);
-    --pressed-bg-color: var(--Purple1);
+    --pressed-color: var(--purple6);
+    --pressed-border-color: var(--purple8);
+    --pressed-bg-color: var(--purple1);
 
-    --focus-color: var(--Purple6);
-    --focus-border-color: var(--Purple8);
+    --focus-color: var(--purple6);
+    --focus-border-color: var(--purple8);
     --focus-bg-color: var(--White);
   `,
   outlined: css`
@@ -99,6 +91,9 @@ export const TYPES = {
 
     --focus-border-color: var(--Gray8);
     --focus-bg-color: var(--Gray7);
+
+    --padding: 1.6rem;
+    --border-radius: 10rem;
   `,
   trash: css`
     --border-color: var(--Gray3);
@@ -112,5 +107,8 @@ export const TYPES = {
 
     --focus-border-color: var(--Gray5);
     --focus-bg-color: var(--White);
+
+    --padding: 0.6rem;
+    --border-radius: 0.6rem;
   `,
 };

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import COMPLETED_IMG from "../assets/completed.svg";
 import CLOSE_IMG from "../assets/close.svg";
 import { FONT16 } from "../styles/FontStyles";
+import { DeviceSize } from "../styles/DeviceSize";
 
 function Toast() {
   return (
@@ -47,7 +48,7 @@ const Container = styled.div`
     align-items: center;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: ${DeviceSize.mobile}) {
     width: 32rem;
   }
 `;

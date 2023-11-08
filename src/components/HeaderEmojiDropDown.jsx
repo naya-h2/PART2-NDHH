@@ -3,6 +3,7 @@ import Badge from "./Badge";
 import styled from "styled-components";
 import arrowDown from "../assets/arrow_down.svg";
 import { useState } from "react";
+import { DeviceSize } from "../styles/DeviceSize";
 
 function HeaderEmojis({ topReactions }) {
   let { results } = Reactions;
@@ -48,6 +49,8 @@ export default HeaderEmojis;
 const Container = styled.div`
   position: relative;
   display: flex;
+
+  z-index: 100;
 `;
 
 const ArrowDown = styled.img`
@@ -77,9 +80,11 @@ const EmojiDropDown = styled.div`
   grid-template-columns: repeat(4, auto);
   grid-template-rows: repeat(2, auto);
 
-  @media (max-width: 768px) {
+  @media (max-width: ${DeviceSize.mobile}) {
     width: auto;
     padding: 1.6rem;
     grid-template-columns: repeat(3, auto);
+    top: 3.7rem;
+    right: -20rem;
   }
 `;

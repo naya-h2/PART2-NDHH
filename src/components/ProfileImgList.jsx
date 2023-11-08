@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { FONT12 } from '../styles/FontStyles';
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import { FONT12 } from "../styles/FontStyles";
 
 ProfileImgList.PropTypes = {
   messageCount: PropTypes.number,

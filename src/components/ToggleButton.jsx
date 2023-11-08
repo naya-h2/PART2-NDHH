@@ -1,5 +1,10 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import { FONT16B, FONT16 } from "../styles/FontStyles";
+
+ToggleButton.propTypes = {
+  selected: PropTypes.string,
+};
 
 function ToggleButton({ handleToggle, selected }) {
   const handleTypeChange = (value) => {

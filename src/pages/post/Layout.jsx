@@ -6,6 +6,7 @@ import { DeviceSize } from "@/styles/DeviceSize";
 import { RECIPIENT1, RECIPIENT2 } from "@/constants/test";
 import useGetWindowWidth from "../../hooks/useGetWindowWidth";
 import { sortNew } from "../../utils/sort";
+import { COLOR } from "../../styles/ColorStyles";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
@@ -67,21 +68,21 @@ export default Layout;
 
 const Background = styled.div`
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 13.5rem);
   padding-bottom: 246px;
 
   position: relative;
 
   background-color: ${({ color }) => {
     switch (color) {
-      case "purple":
-        return `var(--Purple2)`;
-      case "orange":
-        return `var(--Orange2)`;
-      case "blue":
-        return `var(--Blue2)`;
-      case "green":
-        return `var(--Green2)`;
+      case COLOR.P:
+        return `var(--${COLOR.P}2)`;
+      case COLOR.O:
+        return `var(--${COLOR.O}2)`;
+      case COLOR.B:
+        return `var(--${COLOR.B}2)`;
+      case COLOR.G:
+        return `var(--${COLOR.G}2)`;
     }
   }};
   background-image: ${({ url }) => `url(${url})`};
