@@ -8,29 +8,29 @@ Option.propTypes = {
   src: PropTypes.string,
   check: PropTypes.boolean,
 };
-function Option({ color, src, check, onClick }) {
+function Option({ color, src, check }) {
   switch (color) {
     case "Orange":
-      return makeOption({ color, check, onClick });
+      return makeOption({ color, check });
     case "Purple":
-      return makeOption({ color, check, onClick });
+      return makeOption({ color, check });
     case "Blue":
-      return makeOption({ color, check, onClick });
+      return makeOption({ color, check });
     case "Green":
-      return makeOption({ color, check, onClick });
+      return makeOption({ color, check });
     default:
-      return makeOption({ src, check, onClick });
+      return makeOption({ src, check });
   }
 }
 
-const makeOption = ({ color, src, check, onClick }) => {
+const makeOption = ({ color, src, check }) => {
   const COLOR =
     color &&
     css`
       background-color: var(--${color}2);
     `;
   return (
-    <Container color={COLOR} src={src} onClick={onClick}>
+    <Container color={COLOR} src={src}>
       {check && (
         <button>
           <img src={CHECKIMG} alt="새로운 메시지 작성하기" />
