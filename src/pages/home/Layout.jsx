@@ -8,7 +8,7 @@ function Layout() {
   return (
     <Container>
       <KeyPointCard content={content1} />
-      <KeyPointCard content={content2} isReverse />
+      <KeyPointCard content={content2} $isReverse />
       <FixedButton>구경해보기</FixedButton>
     </Container>
   );

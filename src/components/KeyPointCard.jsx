@@ -2,11 +2,11 @@ import styled from "styled-components";
 import { FONT14B, FONT15, FONT18, FONT18B, FONT24B } from "../styles/FontStyles";
 import { DeviceSize } from "../styles/DeviceSize";
 
-function KeyPointCard({ content, isReverse = false }) {
+function KeyPointCard({ content, $isReverse = false }) {
   const { point, title1, title2, explain, image } = content;
 
   return (
-    <Container isReverse={isReverse}>
+    <Container $isReverse={$isReverse}>
       <Wrapper>
         <Point point={point} />
         <P title>
@@ -34,20 +34,20 @@ function Point({ point }) {
 const Container = styled.div`
   width: 120rem;
   padding: 6rem 0px;
-  margin-bottom: ${(props) => (props.isReverse ? "5.2rem" : "3rem")};
-  gap: ${(props) => (props.isReverse ? "0rem" : "12.8rem")};
+  margin-bottom: ${(props) => (props.$isReverse ? "5.2rem" : "3rem")};
+  gap: ${(props) => (props.$isReverse ? "0rem" : "12.8rem")};
 
   display: flex;
-  flex-direction: ${(props) => (props.isReverse ? "row-reverse" : "row")};
+  flex-direction: ${(props) => (props.$isReverse ? "row-reverse" : "row")};
   justify-content: flex-end;
   align-items: flex-start;
 
   border-radius: 1.6rem;
   background: var(--Surface);
 
-  @media (max-width: ${DeviceSize.pc}) {
+  @media (max-width: 1199px) {
     width: calc(100vw - 4.8rem);
-    margin-bottom: ${(props) => (props.isReverse ? "13.3rem" : "3rem")};
+    margin-bottom: ${(props) => (props.$isReverse ? "13.3rem" : "3rem")};
     gap: 4rem;
     padding: 4rem 0;
 

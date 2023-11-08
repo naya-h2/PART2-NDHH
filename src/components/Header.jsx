@@ -1,4 +1,4 @@
-import { FONT12, FONT14B, FONT16, FONT16B, FONT18, FONT18B, FONT28B } from "../styles/FontStyles";
+import { FONT14B, FONT16B, FONT18, FONT18B, FONT28B } from "../styles/FontStyles";
 import { Recipients } from "./mockUp";
 import HeaderEmojis from "./HeaderEmojiDropDown";
 import shareIcon from "../assets/share_24.svg";
@@ -6,14 +6,14 @@ import Logo from "../assets/Logo.svg";
 import Button from "./Button";
 import divideLine from "../assets/Rectangle_38.svg";
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import ProfileImgList from "./ProfileImgList";
 import { DeviceSize } from "../styles/DeviceSize";
 // import { Link } from "react-router-dom";
 
 Header.propTypes = {
-  serviceType: PropTypes.oneOf([true, false]),
-  hideButton: PropTypes.oneOf([true, false]),
+  serviceType: propTypes.oneOf([true, false]),
+  hideButton: propTypes.oneOf([true, false]),
 };
 
 function Header({ serviceType, hideButton = false }) {
@@ -23,7 +23,7 @@ function Header({ serviceType, hideButton = false }) {
 const makeNavHeader = ({ hideButton }) => {
   return (
     <>
-      <Container bold>
+      <Container $B>
         {/* <Link to="/"> */}
         <img src={Logo} />
         {/* </Link> */}
@@ -48,7 +48,7 @@ const makeServiceHeader = () => {
         <Wrapper>
           <SendersNum>
             <ProfileImgList messageCount={messageCount} data={recentMessages} />
-            <P bold>{messageCount}</P>
+            <P $B>{messageCount}</P>
             <P> 명이 작성했어요!</P>
             <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           </SendersNum>
@@ -58,6 +58,8 @@ const makeServiceHeader = () => {
           </Button>
           <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           <Button type="outlined" width="56" height="m">
+            {" "}
+            {/*이거 이미지나 p 태그 넣어도 되게 해쥬세요...*/}
             <img src={shareIcon} alt="공유 버튼" />
           </Button>
         </Wrapper>
@@ -72,7 +74,7 @@ export default Header;
 function BorderLine() {
   return (
     <Container__border>
-      <Border bottom></Border>
+      <Border $Bottom></Border>
       <Border></Border>
     </Container__border>
   );
@@ -95,7 +97,7 @@ const MobileGrid = css`
 
 const Container = styled.div`
   width: calc(100vw - 1rem);
-  height: ${(props) => (props.bold ? "6.5rem" : "6.8rem")};
+  height: ${(props) => (props.$B ? "6.5rem" : "6.8rem")};
   max-width: 120rem;
   margin: 0 auto;
 
@@ -114,7 +116,7 @@ const Container = styled.div`
     height: 5.2rem;
   }
 
-  ${(props) => (props.bold ? "" : MobileGrid)}
+  ${(props) => (props.$B ? "" : MobileGrid)}
 `;
 
 const Recipient = styled.p`
@@ -150,7 +152,7 @@ const DivideImg = styled.img`
 `;
 
 const P = styled.p`
-  ${(props) => (props.bold ? FONT18B : FONT18)};
+  ${(props) => (props.$B ? FONT18B : FONT18)};
 `;
 
 const SendersNum = styled.div`
@@ -167,15 +169,15 @@ const Container__border = styled.div`
 `;
 
 const Border = styled.div`
-  display: ${(props) => (props.bottom ? "none" : "block")};
-  position: ${(props) => (props.bottom ? "absolute" : "static")};
+  display: ${(props) => (props.$Bottom ? "none" : "block")};
+  position: ${(props) => (props.$Bottom ? "absolute" : "static")};
   border-bottom: 0.1rem solid var(--Gray2);
   width: 100%;
   z-index: 5;
 
   @media (max-width: ${DeviceSize.mobile}) {
-    display: ${(props) => (props.bottom ? "block" : "block")};
-    bottom: ${(props) => (props.bottom ? "5.2rem" : "0")};
+    display: ${(props) => (props.$Bottom ? "block" : "block")};
+    bottom: ${(props) => (props.$Bottom ? "5.2rem" : "0")};
     left: 0;
   }
 `;
