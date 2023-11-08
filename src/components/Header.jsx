@@ -1,14 +1,14 @@
-import { FONT14B, FONT16B, FONT18, FONT18B, FONT28B } from "../styles/FontStyles";
-import { Recipients } from "./mockUp";
-import HeaderEmojis from "./HeaderEmojiDropDown";
-import shareIcon from "../assets/share_24.svg";
-import Logo from "../assets/Logo.svg";
-import Button from "./Button";
-import divideLine from "../assets/Rectangle_38.svg";
 import styled, { css } from "styled-components";
 import propTypes from "prop-types";
-import ProfileImgList from "./ProfileImgList";
-import { DeviceSize } from "../styles/DeviceSize";
+import { FONT14B, FONT16B, FONT18, FONT18B, FONT28B } from "@/styles/FontStyles";
+import { DeviceSize } from "@/styles/DeviceSize";
+import { Recipients } from "@/constants/mockUp";
+import HeaderEmojis from "@/components/instances/HeaderEmojiDropDown";
+import ProfileImgList from "@/components/commons/ProfileImgList";
+import Button from "@/components/commons/Button";
+import shareIcon from "@/assets/share_24.svg";
+import Logo from "@/assets/Logo.svg";
+import divideLine from "@/assets/Rectangle_38.svg";
 // import { Link } from "react-router-dom";
 
 Header.propTypes = {
@@ -68,8 +68,6 @@ const makeServiceHeader = () => {
   );
 };
 
-export default Header;
-
 function BorderLine() {
   return (
     <Container__border>
@@ -78,6 +76,8 @@ function BorderLine() {
     </Container__border>
   );
 }
+
+export default Header;
 
 const MobileGrid = css`
   @media (max-width: ${DeviceSize.mobile}) {
@@ -119,8 +119,9 @@ const Container = styled.div`
 `;
 
 const Recipient = styled.p`
-  ${FONT28B};
   grid-area: "Recipient";
+
+  ${FONT28B};
 
   @media (max-width: ${DeviceSize.mobile}) {
     ${FONT18B}
@@ -164,15 +165,19 @@ const SendersNum = styled.div`
 
 const Container__border = styled.div`
   width: 100vw;
+
   position: relative;
 `;
 
 const Border = styled.div`
-  display: ${(props) => (props.$Bottom ? "none" : "block")};
-  position: ${(props) => (props.$Bottom ? "absolute" : "static")};
-  border-bottom: 0.1rem solid var(--Gray2);
   width: 100%;
+
+  position: ${(props) => (props.$Bottom ? "absolute" : "static")};
   z-index: 5;
+
+  display: ${(props) => (props.$Bottom ? "none" : "block")};
+
+  border-bottom: 0.1rem solid var(--Gray2);
 
   @media (max-width: ${DeviceSize.mobile}) {
     display: ${(props) => (props.$Bottom ? "block" : "block")};

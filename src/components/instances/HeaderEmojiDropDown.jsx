@@ -1,16 +1,17 @@
-import { Reactions } from "./mockUp";
-import Badge from "./Badge";
 import styled from "styled-components";
-import arrowDown from "../assets/arrow_down.svg";
 import { useState } from "react";
-import { DeviceSize } from "../styles/DeviceSize";
+import { Reactions } from "@/constants/mockUp";
+import { DeviceSize } from "@/styles/DeviceSize";
+import Badge from "@/components/commons/Badge";
+import arrowDown from "@/assets/arrow_down.svg";
 
 function HeaderEmojis({ topReactions }) {
+  const [isVisible, setIsVisible] = useState(false);
+
   let { results } = Reactions;
   const endIndex = 7;
   if (results.length > 8) results = results.slice(0, endIndex);
 
-  const [isVisible, setIsVisible] = useState(false);
   const handleClick = () => {
     setIsVisible(!isVisible);
   };
@@ -48,9 +49,9 @@ export default HeaderEmojis;
 
 const Container = styled.div`
   position: relative;
-  display: flex;
-
   z-index: 100;
+
+  display: flex;
 `;
 
 const ArrowDown = styled.img`
@@ -65,26 +66,29 @@ const Emojis = styled.div`
 
 const EmojiDropDown = styled.div`
   width: 33.25rem;
+  padding: 2.4rem;
+
   position: absolute;
   top: 5.3rem;
   right: 2rem;
-  padding: 2.4rem;
+
+  display: grid;
   gap: 0.8rem 1rem;
+  grid-template-columns: repeat(4, auto);
+  grid-template-rows: repeat(2, auto);
 
   border-radius: 0.8rem;
   border: 0.1rem solid #b6b6b6;
   background: var(--White);
   box-shadow: 0rem 0.2rem 1.2rem 0rem rgba(0, 0, 0, 0.08);
 
-  display: grid;
-  grid-template-columns: repeat(4, auto);
-  grid-template-rows: repeat(2, auto);
-
   @media (max-width: ${DeviceSize.mobile}) {
     width: auto;
     padding: 1.6rem;
-    grid-template-columns: repeat(3, auto);
+
     top: 3.7rem;
     right: -20rem;
+
+    grid-template-columns: repeat(3, auto);
   }
 `;

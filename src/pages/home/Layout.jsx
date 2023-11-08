@@ -1,20 +1,8 @@
+import styled from "styled-components";
 import introducePoint1 from "@/assets/introduce_point_1.svg";
 import introducePoint2 from "@/assets/introduce_point_2.svg";
-import styled from "styled-components";
-import KeyPointCard from "../../components/KeyPointCard";
-import FixedButton from "../../components/FixedButton";
-
-function Layout() {
-  return (
-    <Container>
-      <KeyPointCard content={content1} />
-      <KeyPointCard content={content2} $isReverse />
-      <FixedButton>구경해보기</FixedButton>
-    </Container>
-  );
-}
-
-export default Layout;
+import KeyPointCard from "@/components/KeyPointCard";
+import FixedButton from "@/components/FixedButton";
 
 const content1 = {
   point: "Point. 01",
@@ -31,6 +19,18 @@ const content2 = {
   explain: "롤링 페이퍼에 이모지를 추가할 수 있어요.",
   image: introducePoint2,
 };
+
+function Layout() {
+  return (
+    <Container>
+      <KeyPointCard content={content1} />
+      <KeyPointCard content={content2} $isReverse />
+      <FixedButton>구경해보기</FixedButton>
+    </Container>
+  );
+}
+
+export default Layout;
 
 const Container = styled.div`
   margin-top: 6rem;
