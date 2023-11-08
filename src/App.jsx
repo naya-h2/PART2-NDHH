@@ -8,8 +8,8 @@ function App() {
   return (
     <>
       {/* <CreatePage /> */}
-      {/* <PostPage /> */}
-      <HomePage />
+      <PostPage />
+      {/* <HomePage /> */}
       {/* <MessagePage /> */}
       {/* <ListPage /> */}
     </>

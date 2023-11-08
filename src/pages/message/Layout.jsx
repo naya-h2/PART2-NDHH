@@ -166,9 +166,23 @@ const ButtonText = styled.p`
 `;
 
 const ButtonFix = styled.div`
+  max-width: 72rem;
+
   @media (max-width: 1199px) {
     position: fixed;
+
+    left: 50%;
     bottom: 2.4rem;
-    left: 2.4rem;
+    transform: translateX(-50%);
+  }
+
+  @media (max-width: 768px) {
+    min-width: 32rem;
+
+    position: fixed;
+
+    left: 50%;
+    bottom: 2.4rem;
+    transform: translateX(-50%);
   }
 `;

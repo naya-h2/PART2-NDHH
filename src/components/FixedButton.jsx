@@ -28,6 +28,5 @@ const Container = styled.div`
   @media (max-width: ${DeviceSize.pc}) {
     position: fixed;
     bottom: 2.4rem;
-    left: 2.4rem;
   }
 `;

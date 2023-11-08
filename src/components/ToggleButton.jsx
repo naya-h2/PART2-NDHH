@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { FONT16B, FONT16 } from "../styles/FontStyles";
+import { COLOR } from "../styles/ColorStyles";
 
 ToggleButton.propTypes = {
   selected: PropTypes.string,
@@ -55,7 +56,7 @@ const Button = styled.button`
 
   ${(props) => (props.selected ? `${FONT16B}` : `${FONT16}`)};
 
-  border-color: ${(props) => (props.selected ? "var(--Purple6)" : "var(--Gray1)")};
+  border-color: ${(props) => (props.selected ? `var(--${COLOR.P}6)` : "var(--Gray1)")};
   background-color: ${(props) => (props.selected ? "var(--White)" : "transparent")};
-  color: ${(props) => (props.selected ? "var(--Purple7)" : "var(--Gray9)")};
+  color: ${(props) => (props.selected ? `var(--${COLOR.P}7)` : "var(--Gray9)")};
 `;
