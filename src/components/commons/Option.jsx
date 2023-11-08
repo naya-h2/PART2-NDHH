@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
-import { FONT14 } from "../styles/FontStyles";
+import { FONT14 } from "../../styles/FontStyles";
 import { PropTypes } from "prop-types";
 import CHECKIMG from "../assets/check.svg";
-import { COLOR } from "../styles/ColorStyles";
+import { COLOR } from "../../styles/ColorStyles";
 
 Option.propTypes = {
   color: PropTypes.oneOf(["Orange", "Purple", "Blue", "Green"]),

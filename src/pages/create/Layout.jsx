@@ -2,10 +2,10 @@ import { PropTypes } from "prop-types";
 import { useState } from "react";
 import styled from "styled-components";
 import chooseImg from "../../assets/jeonghan.jpeg"; // 이미지 수정
-import Button from "../../components/Button";
-import Input from "../../components/Input";
-import Option from "../../components/Option";
-import ToggleButton, { SELECTED } from "../../components/ToggleButton";
+import Button from "../../components/commons/Button";
+import Input from "../../components/commons/Input";
+import Option from "../../components/commons/Option";
+import ToggleButton, { SELECTED } from "../../components/commons/ToggleButton";
 import { FONT16, FONT24B } from "../../styles/FontStyles";
 import { COLOR } from "../../styles/ColorStyles";
 
@@ -160,7 +160,7 @@ const OptionContainer = styled.div`
   gap: 1.6rem;
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     gap: 1.2rem;
   }
 `;

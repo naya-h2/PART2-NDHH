@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { FONT16, FONT12 } from "../styles/FontStyles";
+import { FONT16, FONT12 } from "../../styles/FontStyles";
 
 Input.propTypes = {
   placeholder: PropTypes.string,

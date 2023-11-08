@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import { FONT16 } from "../styles/FontStyles";
+import { FONT16 } from "../../styles/FontStyles";
 import arrowUp from "../assets/arrow_top.svg";
 import arrowDown from "../assets/arrow_down.svg";
 

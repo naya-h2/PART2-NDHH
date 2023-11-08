@@ -7,7 +7,7 @@ import deleteBlack from "../assets/deleted_black.svg";
 import deleteWhite from "../assets/deleted_white.svg";
 import arrowRight from "../assets/arrow_right.svg";
 import arrowLeft from "../assets/arrow_left.svg";
-import { HEIGHTS, TYPES } from "./../styles/ButtonStyles";
+import { HEIGHTS, TYPES } from "../../styles/ButtonStyles";
 
 Button.propTypes = {
   disabled: PropTypes.bool,

@@ -7,8 +7,8 @@ import MessagePage from "./pages/message/MessagePage";
 function App() {
   return (
     <>
-      {/* <CreatePage /> */}
-      <PostPage />
+      <CreatePage />
+      {/* <PostPage /> */}
       {/* <HomePage /> */}
       {/* <MessagePage /> */}
       {/* <ListPage /> */}

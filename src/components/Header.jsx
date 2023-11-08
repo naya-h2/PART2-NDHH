@@ -53,12 +53,11 @@ const makeServiceHeader = () => {
             <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           </SendersNum>
           <HeaderEmojis topReactions={topReactions} />
-          <Button type="outlined" width="88" height="m" icon>
+          <Button type="outlined" width="94" height="m" icon>
             추가
           </Button>
           <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           <Button type="outlined" width="56" height="m">
-            {" "}
             {/*이거 이미지나 p 태그 넣어도 되게 해쥬세요...*/}
             <img src={shareIcon} alt="공유 버튼" />
           </Button>
@@ -96,7 +95,7 @@ const MobileGrid = css`
 `;
 
 const Container = styled.div`
-  width: calc(100vw - 1rem);
+  width: calc(100vw - 4.8rem);
   height: ${(props) => (props.$B ? "6.5rem" : "6.8rem")};
   max-width: 120rem;
   margin: 0 auto;

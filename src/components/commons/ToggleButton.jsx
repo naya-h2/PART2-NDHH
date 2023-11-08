@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { FONT16B, FONT16 } from "../styles/FontStyles";
-import { COLOR } from "../styles/ColorStyles";
+import { FONT16B, FONT16 } from "../../styles/FontStyles";
+import { COLOR } from "../../styles/ColorStyles";
 
 ToggleButton.propTypes = {
   selected: PropTypes.string,
