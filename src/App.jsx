@@ -1,4 +1,4 @@
-import CreatePage from "./pages/CreatePage";
+import CreatePage from "./pages/create/CreatePage";
 import PostLayout from "./pages/PostLayout";
 import HomePage from "./pages/Homepage";
 import MessagePage from "./pages/message/MessagePage";
@@ -7,10 +7,10 @@ import ListPage from "./pages/ListPage";
 function App() {
   return (
     <>
-      {/* <CreatePage /> */}
+      <CreatePage />
       {/* <PostLayout /> */}
       {/* <HomePage /> */}
-      <MessagePage />
+      {/* <MessagePage /> */}
       {/* <ListPage /> */}
     </>
     // ROUTER 경로 설정 미리 해두었어요.

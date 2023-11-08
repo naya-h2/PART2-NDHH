@@ -33,27 +33,27 @@ export default Input;
 
 const StyledInput = styled.input`
   width: 100%;
-  padding: 12px 16px;
-  border-radius: 8px;
+  padding: 1.2rem 1.6rem;
+  border-radius: 0.8rem;
   border: none;
-  outline: 1px solid var(--Gray3);
+  outline: 0.1rem solid var(--Gray3);
   background: var(--White);
   ${FONT16}
 
   &:hover {
-    outline: 1px solid var(--Gray5);
+    outline: 0.1rem solid var(--Gray5);
   }
 
   &:focus {
-    outline: 2px solid var(--Gray5);
+    outline: 0.2rem solid var(--Gray5);
   }
 
   &:active {
-    outline: 2px solid var(--Gray7);
+    outline: 0.2rem solid var(--Gray7);
   }
 
   &:disabled {
-    border: 1px solid var(--Gray3);
+    border: 0.1rem solid var(--Gray3);
     background: var(--Gray1);
     color: var(--Gray4);
   }
@@ -61,14 +61,14 @@ const StyledInput = styled.input`
   ${({ iserror }) =>
     iserror &&
     `
-    border: 1px solid var(--Error);
-  `}
+  border: 0.1rem solid var(--Error);
+`}
 `;
 
 const ErrorMessage = styled.div`
-  width: 320px;
-  height: 18px;
-  margin-top: 4px;
+  width: 32rem;
+  height: 1.8rem;
+  margin-top: 0.4rem;
 
   color: var(--Error);
   ${FONT12}
