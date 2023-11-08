@@ -5,6 +5,7 @@ import Button from "@/components/Button";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { RECIPIENT1, RECIPIENT2 } from "@/constants/test";
 import useGetWindowWidth from "../../hooks/useGetWindowWidth";
+import { sortNew } from "../../utils/sort";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
@@ -12,12 +13,14 @@ Layout.propTypes = {
 
 function Layout({ path = "" }) {
   const { backgroundColor, backgroundImageURL, messageCount, recentMessages } = RECIPIENT1;
+  const sortedData = sortNew(recentMessages);
+
   return (
     <Background color={backgroundColor} url={backgroundImageURL}>
       {backgroundImageURL && <Mask></Mask>}
       <Container>
         <Btn path={path} />
-        <CardGrid path={path} messageCount={messageCount} recentMessages={recentMessages} />
+        <CardGrid path={path} messageCount={messageCount} recentMessages={sortedData} />
       </Container>
     </Background>
   );
