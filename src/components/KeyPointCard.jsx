@@ -6,23 +6,29 @@ function KeyPointCard({ content, isReverse = false }) {
 
   return (
     <Container isReverse={isReverse}>
-      <Contents>
-        <Point>
-          <p>{point}</p>
-        </Point>
+      <Wrapper>
+        <Point point={point} />
         <P title>
           {title1}
           <Br />
           {title2}
         </P>
         <P>{explain}</P>
-      </Contents>
+      </Wrapper>
       <img src={image} />
     </Container>
   );
 }
 
 export default KeyPointCard;
+
+function Point({ point }) {
+  return (
+    <Container__point>
+      <p>{point}</p>
+    </Container__point>
+  );
+}
 
 const Container = styled.div`
   width: 120rem;
@@ -40,7 +46,7 @@ const Container = styled.div`
 
   @media (max-width: 1199px) {
     width: calc(100vw - 4.8rem);
-    margin-bottom: ${(props) => (props.isReverse ? "7.3rem" : "3rem")};
+    margin-bottom: ${(props) => (props.isReverse ? "13.3rem" : "3rem")};
     gap: 4rem;
     padding: 4rem 0;
 
@@ -65,7 +71,7 @@ const Container = styled.div`
   }
 `;
 
-const Contents = styled.div`
+const Wrapper = styled.div`
   @media (max-width: 1199px) {
     width: 72rem;
     padding-left: 4rem;
@@ -77,7 +83,7 @@ const Contents = styled.div`
   }
 `;
 
-const Point = styled.div`
+const Container__point = styled.div`
   display: inline-block;
   padding: 0.6rem 1.2rem;
 

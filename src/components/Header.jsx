@@ -1,13 +1,13 @@
 import { FONT12, FONT14B, FONT16, FONT16B, FONT18, FONT18B, FONT28B } from "../styles/FontStyles";
 import { Recipients } from "./mockUp";
 import HeaderEmojis from "./HeaderEmojiDropDown";
-import addIcon from "../assets/add_24.svg";
 import shareIcon from "../assets/share_24.svg";
 import Logo from "../assets/Logo.svg";
-import Ellipse from "../assets/Ellipse_for_messageCount.svg";
+import Button from "./Button";
 import divideLine from "../assets/Rectangle_38.svg";
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
+import ProfileImgList from "./ProfileImgList";
 // import { Link } from "react-router-dom";
 
 Header.propTypes = {
@@ -22,12 +22,12 @@ function Header({ serviceType, hideButton = false }) {
 const makeNavHeader = ({ hideButton }) => {
   return (
     <>
-      <Container B>
+      <Container bold>
         {/* <Link to="/"> */}
         <img src={Logo} />
         {/* </Link> */}
         {!hideButton && (
-          <Button B>
+          <Button bold>
             <p>롤링 페이퍼 만들기</p>
           </Button>
         )}
@@ -37,6 +37,11 @@ const makeNavHeader = ({ hideButton }) => {
   );
 };
 
+// Button: share 아이콘 대응 필요합니다 +
+// 저는 헤더 갭이 0.4인데 이거 어떻게 반영할지... ㅠㅠ gap: 1rem; -> gap: 0.4rem
+// ProfileImgList : 이미지 위치 조절이 안돼는데 왜그런지 모르겠습니다...
+// 저 Share 누르면 뜨는 버튼도 만들어야 돼요 ㅎ
+
 const makeServiceHeader = () => {
   const { name, messageCount, recentMessages, topReactions } = Recipients;
 
@@ -45,44 +50,41 @@ const makeServiceHeader = () => {
       <Container>
         <Recipient>To. {name}</Recipient>
         <Wrapper>
-          {messageCount > 0 && (
-            <Contents>
-              {recentMessages.map((message, index) => {
-                return <ProfileImg src={message.profileImageURL} alt="프로필 이미지" key={index} index={index} />;
-              })}
-              {messageCount > 3 && (
-                <>
-                  <EllipseImg src={Ellipse} />
-                  <p>+{messageCount - 3}</p>
-                </>
-              )}
-            </Contents>
-          )}
           <SendersNum>
-            <P B>{messageCount}</P>
+            <ProfileImgList messageCount={messageCount} data={recentMessages} />
+            <P bold>{messageCount}</P>
             <P> 명이 작성했어요!</P>
             <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           </SendersNum>
           <HeaderEmojis topReactions={topReactions} />
-          <Button>
-            <img src={addIcon} alt="이모티콘 반응 추가 버튼" />
-            <p>추가</p>
+          <Button type="outlined" width="100" height="l" icon>
+            추가
           </Button>
           <DivideImg src={divideLine} alt="영역 분리 아이콘" />
-          <Button>
+          <ShareButton>
             <img src={shareIcon} alt="공유 버튼" />
-          </Button>
+          </ShareButton>
         </Wrapper>
       </Container>
-      <Border></Border>
+      <BorderLine />
     </>
   );
 };
 
 export default Header;
 
+function BorderLine() {
+  return (
+    <Container__border>
+      <Border bottom></Border>
+      <Border></Border>
+    </Container__border>
+  );
+}
+
 const MobileGrid = css`
   @media (max-width: 768px) {
+    height: 10.4rem;
     padding: 0;
 
     display: grid;
@@ -90,13 +92,14 @@ const MobileGrid = css`
     grid-template-areas:
       "Recipient"
       "Wrapper";
-    justify-content: space-evenly;
+    justify-content: start;
+    gap: 0.1rem;
   }
 `;
 
 const Container = styled.div`
   width: calc(100vw - 1rem);
-  height: ${(props) => (props.B ? "6.5rem" : "6.8rem")};
+  height: ${(props) => (props.bold ? "6.5rem" : "6.8rem")};
   max-width: 120rem;
   margin: 0 auto;
 
@@ -115,7 +118,7 @@ const Container = styled.div`
     height: 5.2rem;
   }
 
-  ${(props) => (props.B ? "" : MobileGrid)}
+  ${(props) => (props.bold ? "" : MobileGrid)}
 `;
 
 const Recipient = styled.p`
@@ -134,38 +137,10 @@ const Wrapper = styled.div`
   grid-area: "Wrapper";
 `;
 
-const Contents = styled.div`
-  margin-right: 1.1rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  position: relative;
-
-  p {
-    width: 2.8rem;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0rem;
-
-    position: absolute;
-    text-align: center;
-    z-index: 5;
-    ${FONT12};
-  }
-
-  @media (max-width: 1199px) {
-    display: none;
-  }
-
-  @media (max-width: 768px) {
-    padding: 0.8rem 2rem;
-  }
-`;
-
 // Button 공용 컴포넌트로 수정 예정
-const Button = styled.button`
+const ShareButton = styled.button`
   height: 4.2rem;
-  padding: ${(props) => (props.B ? "0.8rem 1.6rem" : "0.6rem 1.6rem")};
+  padding: ${(props) => (props.bold ? "0.8rem 1.6rem" : "0.6rem 1.6rem")};
   gap: 0.4rem;
 
   display: flex;
@@ -177,7 +152,8 @@ const Button = styled.button`
   background: var(--White);
 
   p {
-    ${(props) => (props.B ? FONT16B : FONT16)};
+    ${(props) => (props.bold ? FONT16B : FONT16)};
+    /* margin-left: ${(props) => (props.bold ? "6rem" : "")}; */
 
     @media (max-width: 768px) {
       ${FONT14B}
@@ -190,24 +166,6 @@ const Button = styled.button`
   }
 `;
 
-// ProfileImg 공용 컴포넌트로 수정 예정
-const ProfileImg = styled.img`
-  width: 2.8rem;
-  height: 2.8rem;
-  padding: 0;
-
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: ${({ index }) => `${(index + 1) * 1.4}rem`};
-
-  z-index: ${({ index }) => `${3 - index}`};
-`;
-
-const EllipseImg = styled.img`
-  z-index: 4;
-`;
-
 const DivideImg = styled.img`
   margin: 0 2.8rem;
 
@@ -217,7 +175,7 @@ const DivideImg = styled.img`
 `;
 
 const P = styled.p`
-  ${(props) => (props.B ? FONT18B : FONT18)};
+  ${(props) => (props.bold ? FONT18B : FONT18)};
 `;
 
 const SendersNum = styled.div`
@@ -228,7 +186,21 @@ const SendersNum = styled.div`
   }
 `;
 
+const Container__border = styled.div`
+  width: 100vw;
+  position: relative;
+`;
+
 const Border = styled.div`
+  display: ${(props) => (props.bottom ? "none" : "block")};
+  position: ${(props) => (props.bottom ? "absolute" : "static")};
   border-bottom: 0.1rem solid var(--Gray2);
-  border-width: 100%;
+  width: 100%;
+  z-index: 5;
+
+  @media (max-width: 768px) {
+    display: ${(props) => (props.bottom ? "block" : "block")};
+    bottom: ${(props) => (props.bottom ? "5.2rem" : "0")};
+    left: 0;
+  }
 `;

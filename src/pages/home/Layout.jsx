@@ -1,27 +1,20 @@
-import Header from "@/components/Header";
-import Button from "../components/Button";
 import introducePoint1 from "@/assets/introduce_point_1.svg";
 import introducePoint2 from "@/assets/introduce_point_2.svg";
 import styled from "styled-components";
-import { FONT18B } from "../styles/FontStyles";
-import KeyPointCard from "../components/KeyPointCard";
+import KeyPointCard from "../../components/KeyPointCard";
+import FixedButton from "../../components/FixedButton";
 
-function HomePage() {
+function Layout() {
   return (
-    <>
-      <Header />
-      <Container>
-        <KeyPointCard content={content1} />
-        <KeyPointCard content={content2} isReverse />
-        <Button type="primary" height="xl">
-          <ButtonText>구경해보기</ButtonText>
-        </Button>
-      </Container>
-    </>
+    <Container>
+      <KeyPointCard content={content1} />
+      <KeyPointCard content={content2} isReverse />
+      <FixedButton>구경해보기</FixedButton>
+    </Container>
   );
 }
 
-export default HomePage;
+export default Layout;
 
 const content1 = {
   point: "Point. 01",
@@ -49,14 +42,5 @@ const Container = styled.div`
 
   @media (max-width: 1199px) {
     margin-top: 4.9rem;
-  }
-`;
-
-const ButtonText = styled.p`
-  width: 23.2rem;
-  ${FONT18B};
-
-  @media (max-width: 1199px) {
-    width: calc(100vw - 9.6rem);
   }
 `;
