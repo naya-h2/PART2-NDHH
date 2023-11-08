@@ -16,7 +16,7 @@ function Layout({ path = "" }) {
   const sortedData = sortNew(recentMessages);
 
   return (
-    <Background color={backgroundColor} url={backgroundImageURL}>
+    <Background $color={backgroundColor} $url={backgroundImageURL}>
       {backgroundImageURL && <Mask></Mask>}
       <Container>
         <Btn path={path} />
@@ -72,8 +72,8 @@ const Background = styled.div`
 
   position: relative;
 
-  background-color: ${({ color }) => {
-    switch (color) {
+  background-color: ${({ $color }) => {
+    switch ($color) {
       case "purple":
         return `var(--Purple2)`;
       case "orange":
@@ -84,7 +84,7 @@ const Background = styled.div`
         return `var(--Green2)`;
     }
   }};
-  background-image: ${({ url }) => `url(${url})`};
+  background-image: ${({ $url }) => `url(${$url})`};
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
