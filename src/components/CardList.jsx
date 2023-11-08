@@ -19,6 +19,7 @@ CardList.propTypes = {
  */
 function CardList({ data }) {
   const { name, backgroundColor, backgroundImageURL, messageCount, recentMessages, topReactions } = data;
+
   return (
     <Container $color={backgroundColor} $url={backgroundImageURL}>
       {backgroundImageURL && <Mask></Mask>}
@@ -95,6 +96,7 @@ const Container = styled.div`
     gap: 3.3rem;
   }
 `;
+
 const Mask = styled.div`
   width: 27.5rem;
   height: 26rem;
@@ -112,6 +114,7 @@ const Mask = styled.div`
     height: 23.2rem;
   }
 `;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -119,6 +122,7 @@ const Wrapper = styled.div`
 
   z-index: 1;
 `;
+
 const Name = styled.div`
   ${FONT24B}
   color: ${({ $color }) => ($color !== null ? `var(--Gray9)` : `var(--White)`)};
@@ -129,6 +133,7 @@ const Name = styled.div`
     letter-spacing: -0.018rem;
   }
 `;
+
 const Count = styled.div`
   ${FONT16}
   color: ${({ $color }) => ($color !== null ? `var(--Gray7)` : `var(--White)`)};
@@ -139,6 +144,7 @@ const Count = styled.div`
     letter-spacing: -0.007rem;
   }
 `;
+
 const Bold = styled.span`
   ${FONT16B}
   color: ${({ $color }) => ($color !== null ? `var(--Gray7)` : `var(--White)`)};
@@ -149,6 +155,7 @@ const Bold = styled.span`
     letter-spacing: -0.007rem;
   }
 `;
+
 const BadgeWrapper = styled.div`
   padding-top: 1.6rem;
 

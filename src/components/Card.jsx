@@ -17,6 +17,8 @@ Card.propTypes = {
  * @param {*} data 메세지 데이터 객체
  */
 function Card({ type, data = null }) {
+  const { sender, profileImageURL, relationship, content, font, createdAt } = data;
+
   if (type === "Plus") {
     return (
       <Container>
@@ -25,7 +27,6 @@ function Card({ type, data = null }) {
     );
   }
 
-  const { sender, profileImageURL, relationship, content, font, createdAt } = data;
   return (
     <Container>
       <Profile>

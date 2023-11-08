@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { FONT12 } from "../styles/FontStyles";
+import { FONT12 } from "@/styles/FontStyles";
 
 ProfileImgList.PropTypes = {
   messageCount: PropTypes.number,
@@ -26,43 +26,47 @@ function ProfileImgList({ messageCount, data }) {
 export default ProfileImgList;
 
 const Container = styled.div`
-  width: 100px;
-  height: 30px;
+  width: 10rem;
+  height: 3rem;
 
   position: relative;
 
   display: flex;
   align-items: center;
 `;
+
 const Img = styled.img`
-  width: 28px;
-  height: 28px;
+  width: 2.8rem;
+  height: 2.8rem;
 
   position: absolute;
-  left: ${({ order }) => `${17 * order - 17}px`};
+  left: ${({ order }) => `${1.7 * order - 1.7}rem`};
   z-index: ${({ order }) => order};
 
   background-size: cover;
   background-position: center;
+
   border-radius: 100%;
-  border: 1.5px solid var(--White);
+  border: 0.15rem solid var(--White);
 `;
+
 const Rest = styled.div`
-  min-width: 28px;
-  height: 28px;
-  padding: 6px 5px;
+  min-width: 2.8rem;
+  height: 2.8rem;
+  padding: 0.6rem 0.5rem;
 
   position: absolute;
-  left: 51px;
+  left: 5.1rem;
   z-index: 4;
 
   display: flex;
   align-items: center;
 
   background-color: var(--White);
-  border-radius: 30px;
+
+  border-radius: 3rem;
 
   ${FONT12}
   color: var(--gray-500, #555);
-  letter-spacing: -0.06px;
+  letter-spacing: -0.006rem;
 `;
