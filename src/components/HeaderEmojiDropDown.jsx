@@ -48,6 +48,8 @@ export default HeaderEmojis;
 const Container = styled.div`
   position: relative;
   display: flex;
+
+  z-index: 100;
 `;
 
 const ArrowDown = styled.img`
@@ -81,5 +83,7 @@ const EmojiDropDown = styled.div`
     width: auto;
     padding: 1.6rem;
     grid-template-columns: repeat(3, auto);
+    top: 3.7rem;
+    right: -20rem;
   }
 `;
