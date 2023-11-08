@@ -4,7 +4,7 @@ import Layout from "./Layout";
 function ListPage() {
   return (
     <>
-      <Header serviceType />
+      <Header />
       <Layout />
     </>
   );
