@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import propTypes from "prop-types";
-import Badge from "./Badge";
-import ProfileImgList from "./ProfileImgList";
+import Badge from "@/components/commons/Badge";
+import ProfileImgList from "@/components/commons/ProfileImgList";
 import patternPurple from "@/assets/pattern_purple.svg";
 import patternOrange from "@/assets/pattern_orange.svg";
 import patternBlue from "@/assets/pattern_blue.svg";
 import patternGreen from "@/assets/pattern_green.svg";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { FONT16, FONT16B, FONT18B, FONT14, FONT14B, FONT24B } from "../styles/FontStyles";
-import { COLOR } from "../styles/ColorStyles";
+import { COLOR } from "@/styles/ColorStyles";
 
 CardList.propTypes = {
   data: propTypes.object,
@@ -43,15 +43,15 @@ function CardList({ data }) {
 export default CardList;
 
 const Container = styled.div`
-  width: 275px;
-  height: 260px;
-  padding: 30px 24px 20px;
+  width: 27.5rem;
+  height: 26rem;
+  padding: 3rem 2.4rem 2rem;
 
   position: relative;
 
   display: flex;
   flex-direction: column;
-  gap: 43px;
+  gap: 4.3rem;
 
   background: ${({ $color }) => {
     switch ($color) {
@@ -83,39 +83,39 @@ const Container = styled.div`
   background-repeat: no-repeat;
   background-position: ${({ $url }) => ($url !== null ? null : `right bottom`)};
 
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 16px;
-  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  border-radius: 1.6rem;
+  box-shadow: 0 0.2rem 1.2rem 0px rgba(0, 0, 0, 0.08);
 
   @media (max-width: ${DeviceSize.mobile}) {
-    width: 208px;
-    height: 232px;
-    padding: 30px 22px 20px 24px;
+    width: 20.8rem;
+    height: 23.2rem;
+    padding: 3rem 2.2rem 2rem 2.4rem;
 
-    gap: 33px;
+    gap: 3.3rem;
   }
 `;
 const Mask = styled.div`
-  width: 275px;
-  height: 260px;
+  width: 27.5rem;
+  height: 26rem;
 
   position: absolute;
   top: 0;
   left: 0;
 
   background-color: rgba(0, 0, 0, 0.54);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 16px;
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  border-radius: 1.6rem;
 
   @media (max-width: ${DeviceSize.mobile}) {
-    width: 208px;
-    height: 232px;
+    width: 20.8rem;
+    height: 23.2rem;
   }
 `;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 1.2rem;
 
   z-index: 1;
 `;
@@ -150,15 +150,15 @@ const Bold = styled.span`
   }
 `;
 const BadgeWrapper = styled.div`
-  padding-top: 16px;
+  padding-top: 1.6rem;
 
   display: flex;
-  gap: 8px;
+  gap: 0.8rem;
   z-index: 1;
 
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-top: 0.1rem solid rgba(0, 0, 0, 0.12);
 
   @media (max-width: ${DeviceSize.mobile}) {
-    gap: 4px;
+    gap: 0.4rem;
   }
 `;

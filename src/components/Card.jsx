@@ -6,6 +6,7 @@ import deleteIcon from "@/assets/trash_icon.svg";
 import plusIcon from "@/assets/plus_icon.svg";
 import { formatDate } from "@/utils/formatDate";
 import { FONT12, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
+import { DeviceSize } from "@/styles/DeviceSize";
 
 Card.propTypes = {
   type: propTypes.oneOf(["Normal", "Edit", "Plus"]),
@@ -64,7 +65,7 @@ const Container = styled.div`
   background-color: var(--White);
   box-shadow: 0px 0.2rem 1.2rem 0px rgba(0, 0, 0, 0.08);
 
-  @media (max-width: 1050px) {
+  @media (max-width: ${DeviceSize.tablet}) {
     max-width: 50rem;
   }
 `;
