@@ -49,7 +49,7 @@ const StyledButton = styled.button`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.4rem;
 
   color: var(--color);
   background: var(--bg-color);
