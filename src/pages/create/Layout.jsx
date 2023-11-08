@@ -152,6 +152,9 @@ const Contents__text = styled.div`
 `;
 
 const OptionContainer = styled.div`
+  width: calc(100vw - 9.6rem);
+  max-width: 120rem;
+
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.6rem;

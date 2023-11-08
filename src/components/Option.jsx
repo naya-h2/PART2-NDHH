@@ -45,8 +45,7 @@ export default Option;
 
 const Container = styled.button`
   width: 100%;
-  min-width: 16.8rem;
-  max-width: 16.8rem;
+  max-width: 28.8rem;
 
   &:after {
     content: "";
