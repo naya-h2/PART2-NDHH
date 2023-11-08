@@ -1,24 +1,21 @@
 import styled from "styled-components";
 import propTypes from "prop-types";
 import Badge from "@/components/commons/Badge";
-import defaultImg from "@/assets/default_profile.svg";
-import deleteIcon from "@/assets/trash_icon.svg";
-import plusIcon from "@/assets/plus_icon.svg";
 import { formatDate } from "@/utils/formatDate";
 import { FONT12, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
-
-Card.propTypes = {
-  type: propTypes.oneOf(["Normal", "Edit", "Plus"]),
-  data: propTypes.object,
-};
+import defaultImg from "@/assets/default_profile.svg";
+import deleteIcon from "@/assets/trash_icon.svg";
+import plusIcon from "@/assets/plus_icon.svg";
 
 /**
  * @param {*} data 메세지 데이터 객체
  */
+Card.propTypes = {
+  type: propTypes.oneOf(["Normal", "Edit", "Plus"]),
+  data: propTypes.object,
+};
 function Card({ type, data = null }) {
-  const { sender, profileImageURL, relationship, content, font, createdAt } = data;
-
   if (type === "Plus") {
     return (
       <Container>
@@ -26,6 +23,8 @@ function Card({ type, data = null }) {
       </Container>
     );
   }
+
+  const { sender, profileImageURL, relationship, content, font, createdAt } = data;
 
   return (
     <Container>
@@ -63,6 +62,7 @@ const Container = styled.div`
   gap: 1.6rem;
 
   border-radius: 1.6rem;
+
   background-color: var(--White);
   box-shadow: 0px 0.2rem 1.2rem 0px rgba(0, 0, 0, 0.08);
 
@@ -77,6 +77,7 @@ const ProfileImg = styled.img`
 
   border-radius: 10rem;
   border: 1px solid var(--Gray2);
+
   background: var(--white);
 `;
 
@@ -128,12 +129,11 @@ const Content = styled.div`
 
   overflow: hidden;
 
+  ${FONT18}
   color: var(--Gray6);
   text-overflow: ellipsis;
   white-space: nowrap;
-
-  ${FONT18}
-  font-family : ${({ $font }) => $font};
+  font-family: ${({ $font }) => $font};
   line-height: 155.556%;
   letter-spacing: -0.018rem;
 `;

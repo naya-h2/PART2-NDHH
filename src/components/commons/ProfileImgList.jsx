@@ -2,14 +2,13 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { FONT12 } from "@/styles/FontStyles";
 
+/**
+ * @param {*} data recentMessages 배열
+ */
 ProfileImgList.PropTypes = {
   messageCount: PropTypes.number,
   data: PropTypes.array,
 };
-
-/**
- * @param {*} data recentMessages 배열
- */
 function ProfileImgList({ messageCount, data }) {
   const rest = messageCount - 3;
 
@@ -41,13 +40,14 @@ const Img = styled.img`
 
   position: absolute;
   left: ${({ order }) => `${1.7 * order - 1.7}rem`};
-  z-index: ${({ order }) => order};
 
-  background-size: cover;
-  background-position: center;
+  z-index: ${({ order }) => order};
 
   border-radius: 100%;
   border: 0.15rem solid var(--White);
+
+  background-size: cover;
+  background-position: center;
 `;
 
 const Rest = styled.div`
@@ -57,14 +57,15 @@ const Rest = styled.div`
 
   position: absolute;
   left: 5.1rem;
+
   z-index: 4;
 
   display: flex;
   align-items: center;
 
-  background-color: var(--White);
-
   border-radius: 3rem;
+
+  background-color: var(--White);
 
   ${FONT12}
   color: var(--gray-500, #555);

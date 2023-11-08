@@ -145,6 +145,7 @@ const DeleteWrapper = styled.div`
   padding-bottom: 1.1rem;
 
   position: relative;
+
   z-index: 10;
 
   @media (max-width: ${DeviceSize.tablet}) {
@@ -167,6 +168,7 @@ const EditWrapper = styled.div`
   padding-bottom: 1.1rem;
 
   position: relative;
+
   z-index: 1;
 
   @media (max-width: ${DeviceSize.tablet}) {

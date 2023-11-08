@@ -2,21 +2,20 @@ import styled from "styled-components";
 import propTypes from "prop-types";
 import Badge from "@/components/commons/Badge";
 import ProfileImgList from "@/components/commons/ProfileImgList";
+import { DeviceSize } from "@/styles/DeviceSize";
+import { FONT16, FONT16B, FONT18B, FONT14, FONT14B, FONT24B } from "../styles/FontStyles";
+import { COLOR } from "@/styles/ColorStyles";
 import patternPurple from "@/assets/pattern_purple.svg";
 import patternOrange from "@/assets/pattern_orange.svg";
 import patternBlue from "@/assets/pattern_blue.svg";
 import patternGreen from "@/assets/pattern_green.svg";
-import { DeviceSize } from "@/styles/DeviceSize";
-import { FONT16, FONT16B, FONT18B, FONT14, FONT14B, FONT24B } from "../styles/FontStyles";
-import { COLOR } from "@/styles/ColorStyles";
-
-CardList.propTypes = {
-  data: propTypes.object,
-};
 
 /**
  * @param {*} data Recipient 데이터 객체
  */
+CardList.propTypes = {
+  data: propTypes.object,
+};
 function CardList({ data }) {
   const { name, backgroundColor, backgroundImageURL, messageCount, recentMessages, topReactions } = data;
 
@@ -54,6 +53,9 @@ const Container = styled.div`
   flex-direction: column;
   gap: 4.3rem;
 
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  border-radius: 1.6rem;
+
   background: ${({ $color }) => {
     switch ($color) {
       case COLOR.P:
@@ -83,9 +85,6 @@ const Container = styled.div`
   background-size: ${({ $url }) => ($url !== null ? `cover` : null)};
   background-repeat: no-repeat;
   background-position: ${({ $url }) => ($url !== null ? null : `right bottom`)};
-
-  border: 0.1rem solid rgba(0, 0, 0, 0.1);
-  border-radius: 1.6rem;
   box-shadow: 0 0.2rem 1.2rem 0px rgba(0, 0, 0, 0.08);
 
   @media (max-width: ${DeviceSize.mobile}) {
@@ -105,9 +104,10 @@ const Mask = styled.div`
   top: 0;
   left: 0;
 
-  background-color: rgba(0, 0, 0, 0.54);
   border: 0.1rem solid rgba(0, 0, 0, 0.1);
   border-radius: 1.6rem;
+
+  background-color: rgba(0, 0, 0, 0.54);
 
   @media (max-width: ${DeviceSize.mobile}) {
     width: 20.8rem;
@@ -161,6 +161,7 @@ const BadgeWrapper = styled.div`
 
   display: flex;
   gap: 0.8rem;
+
   z-index: 1;
 
   border-top: 0.1rem solid rgba(0, 0, 0, 0.12);
