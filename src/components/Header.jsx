@@ -28,8 +28,8 @@ const makeNavHeader = ({ hideButton }) => {
         <img src={Logo} />
         {/* </Link> */}
         {!hideButton && (
-          <Button bold>
-            <p>롤링 페이퍼 만들기</p>
+          <Button type="outlined" width="170" height="l">
+            <ButtonText>롤링 페이퍼 만들기</ButtonText>
           </Button>
         )}
       </Container>
@@ -37,11 +37,6 @@ const makeNavHeader = ({ hideButton }) => {
     </>
   );
 };
-
-// Button: share 아이콘 대응 필요합니다 +
-// 저는 헤더 갭이 0.4인데 이거 어떻게 반영할지... ㅠㅠ gap: 1rem; -> gap: 0.4rem
-// ProfileImgList : 이미지 위치 조절이 안돼는데 왜그런지 모르겠습니다...
-// 저 Share 누르면 뜨는 버튼도 만들어야 돼요 ㅎ
 
 const makeServiceHeader = () => {
   const { name, messageCount, recentMessages, topReactions } = Recipients;
@@ -58,13 +53,13 @@ const makeServiceHeader = () => {
             <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           </SendersNum>
           <HeaderEmojis topReactions={topReactions} />
-          <Button type="outlined" width="100" height="l" icon>
+          <Button type="outlined" width="88" height="m" icon>
             추가
           </Button>
           <DivideImg src={divideLine} alt="영역 분리 아이콘" />
-          <ShareButton>
+          <Button type="outlined" width="56" height="m">
             <img src={shareIcon} alt="공유 버튼" />
-          </ShareButton>
+          </Button>
         </Wrapper>
       </Container>
       <BorderLine />
@@ -138,32 +133,11 @@ const Wrapper = styled.div`
   grid-area: "Wrapper";
 `;
 
-// Button 공용 컴포넌트로 수정 예정
-const ShareButton = styled.button`
-  height: 4.2rem;
-  padding: ${(props) => (props.bold ? "0.8rem 1.6rem" : "0.6rem 1.6rem")};
-  gap: 0.4rem;
+const ButtonText = styled.p`
+  ${FONT16B}
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 0.6rem;
-  border: 0.1rem solid var(--Gray3);
-  background: var(--White);
-
-  p {
-    ${(props) => (props.bold ? FONT16B : FONT16)};
-    /* margin-left: ${(props) => (props.bold ? "6rem" : "")}; */
-
-    @media (max-width: ${DeviceSize.mobile}) {
-      ${FONT14B}
-    }
-  }
-
-  img {
-    width: 2.4rem;
-    height: 2.4rem;
+  @media (max-width: ${DeviceSize.mobile}) {
+    ${FONT14B}
   }
 `;
 
