@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Input from "@/components/Input";
 import defaultImg from "@/assets/default_profile.svg";
-import { FONT16, FONT24B } from "../../styles/FontStyles";
+import { FONT16, FONT18B, FONT24B } from "../../styles/FontStyles";
 import Dropdown from "../../components/Dropdown";
 import TextEditor from "./../../components/Editor";
 import Button from "../../components/Button";
@@ -48,18 +48,7 @@ function Profile() {
   );
 }
 
-const PROFILE_IMG = [
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-  defaultImg,
-];
+const PROFILE_IMG = [defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg];
 
 function Relationship() {
   return (
@@ -87,14 +76,18 @@ function Edit() {
 
 function Submit() {
   return (
-    <Button type="primary" height="xl">
-      생성하기
-    </Button>
+    <ButtonFix>
+      <Button type="primary" height="xl">
+        <ButtonText>생성하기</ButtonText>
+      </Button>
+    </ButtonFix>
   );
 }
 
 const Container = styled.div`
   width: 100%;
+
+  margin-top: 5rem;
 
   display: flex;
   justify-content: center;
@@ -115,7 +108,6 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     width: calc(100vw - 4rem);
-    max-width: 32rem;
   }
 `;
 
@@ -162,11 +154,21 @@ const ProfileImg = styled.img`
   border-radius: 100px;
   border: 1px solid var(--Gray2);
   background: var(--white);
+`;
 
-  @media screen and (max-width: 768px) {
-    width: 40px;
-    height: 40px;
+const ButtonText = styled.p`
+  width: 23.2rem;
+  ${FONT18B};
 
-    margin-right: 0.1rem;
+  @media (max-width: 1199px) {
+    width: calc(100vw - 9.6rem);
+  }
+`;
+
+const ButtonFix = styled.div`
+  @media (max-width: 1199px) {
+    position: fixed;
+    bottom: 2.4rem;
+    left: 2.4rem;
   }
 `;

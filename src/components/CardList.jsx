@@ -8,6 +8,7 @@ import patternBlue from "@/assets/pattern_blue.svg";
 import patternGreen from "@/assets/pattern_green.svg";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { FONT16, FONT16B, FONT18B, FONT14, FONT14B, FONT24B } from "../styles/FontStyles";
+import { COLOR } from "../styles/ColorStyles";
 
 CardList.propTypes = {
   data: propTypes.object,
@@ -54,25 +55,25 @@ const Container = styled.div`
 
   background: ${({ $color }) => {
     switch ($color) {
-      case "purple":
-        return `var(--Purple2)`;
-      case "orange":
-        return `var(--Orange2)`;
-      case "blue":
-        return `var(--Blue2)`;
-      case "green":
-        return `var(--Green2)`;
+      case COLOR.P:
+        return `var(--${COLOR.P}2)`;
+      case COLOR.O:
+        return `var(--${COLOR.O}2)`;
+      case COLOR.B:
+        return `var(--${COLOR.B}2)`;
+      case COLOR.G:
+        return `var(--${COLOR.G}2)`;
     }
   }};
   background-image: ${({ $color, $url }) => {
     switch ($color) {
-      case "purple":
+      case COLOR.P:
         return `url(${patternPurple})`;
-      case "orange":
+      case COLOR.O:
         return `url(${patternOrange})`;
-      case "blue":
+      case COLOR.B:
         return `url(${patternBlue})`;
-      case "green":
+      case COLOR.G:
         return `url(${patternGreen})`;
       default:
         return `url(${$url})`;
@@ -130,7 +131,7 @@ const Name = styled.div`
 `;
 const Count = styled.div`
   ${FONT16}
-  color: ${({ $color }) => (color !== null ? `var(--Gray7)` : `var(--White)`)};
+  color: ${({ $color }) => ($color !== null ? `var(--Gray7)` : `var(--White)`)};
   letter-spacing: -0.016rem;
 
   @media (max-width: ${DeviceSize.mobile}) {

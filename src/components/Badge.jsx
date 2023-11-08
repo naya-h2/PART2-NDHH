@@ -1,32 +1,34 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import { FONT14, FONT16 } from "../styles/FontStyles";
+import { FONT12, FONT14, FONT16 } from "../styles/FontStyles";
+import { COLOR, REL } from "../styles/ColorStyles";
+import { DeviceSize } from "@/styles/DeviceSize";
 
 Badge.propTypes = {
-  children: PropTypes.oneOf(["지인", "동료", "가족", "친구", "😍", "👍", "🎉"]),
+  children: PropTypes.string,
   num: PropTypes.number,
 };
 function Badge({ children, num }) {
   switch (children) {
-    case "지인":
-      return makeBadge(children, "Orange");
-    case "동료":
-      return makeBadge(children, "Purple");
-    case "가족":
-      return makeBadge(children, "Green");
-    case "친구":
-      return makeBadge(children, "Blue");
+    case REL.O:
+      return makeBadge(children, COLOR.O);
+    case REL.P:
+      return makeBadge(children, COLOR.P);
+    case REL.B:
+      return makeBadge(children, COLOR.B);
+    case REL.G:
+      return makeBadge(children, COLOR.G);
     default:
       return makeEmoji(children, num);
   }
 }
 
 const makeBadge = (children, color) => {
-  const COLOR = css`
+  const COLOR_CSS = css`
     background-color: var(--${color}1);
-    color: var(--${color}${color === "Purple" ? 6 : 5});
+    color: var(--${color}${color === COLOR.P ? 6 : 5});
   `;
-  return <Container color={COLOR}>{children}</Container>;
+  return <Container color={COLOR_CSS}>{children}</Container>;
 };
 
 const makeEmoji = (children, num) => {
@@ -77,12 +79,12 @@ const Emoji = styled.div`
     color: var(--White);
   }
 
-  @media screen and (max-width: 768px) {
-    width: 6rem;
-    height: 3.2rem;
+  @media screen and (max-width: ${DeviceSize.mobile}) {
+    width: 5.2rem;
+    height: 2.8rem;
 
     padding: 0.4rem 0.8rem;
 
-    ${FONT14};
+    ${FONT12};
   }
 `;
