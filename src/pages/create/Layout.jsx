@@ -7,6 +7,7 @@ import Input from "../../components/Input";
 import Option from "../../components/Option";
 import ToggleButton, { SELECTED } from "../../components/ToggleButton";
 import { FONT16, FONT24B } from "../../styles/FontStyles";
+import { COLOR } from "../../styles/ColorStyles";
 
 function Layout() {
   return (
@@ -82,7 +83,7 @@ function Options({ selectedType }) {
     </OptionContainer>
   );
 }
-const COLOR_OPTIONS = ["Orange", "Purple", "Blue", "Green"];
+const COLOR_OPTIONS = [COLOR.O, COLOR.P, COLOR.B, COLOR.G];
 const IMG_OPTIONS = [chooseImg, chooseImg, chooseImg, chooseImg];
 
 function Submit() {

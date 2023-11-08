@@ -25,14 +25,6 @@ export const HEIGHTS = {
     --img-width: 2rem;
     --img-height: 2rem;
   `,
-  plus: css`
-    --padding: 1.6rem;
-    --border-radius: 10rem;
-  `,
-  trash: css`
-    --padding: 0.6rem;
-    --border-radius: 0.6rem;
-  `,
 };
 
 export const TYPES = {
@@ -99,6 +91,9 @@ export const TYPES = {
 
     --focus-border-color: var(--Gray8);
     --focus-bg-color: var(--Gray7);
+
+    --padding: 1.6rem;
+    --border-radius: 10rem;
   `,
   trash: css`
     --border-color: var(--Gray3);
@@ -112,5 +107,8 @@ export const TYPES = {
 
     --focus-border-color: var(--Gray5);
     --focus-bg-color: var(--White);
+
+    --padding: 0.6rem;
+    --border-radius: 0.6rem;
   `,
 };
