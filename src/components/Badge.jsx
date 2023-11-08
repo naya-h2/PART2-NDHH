@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { FONT12, FONT14, FONT16 } from "../styles/FontStyles";
 import { COLOR, REL } from "../styles/ColorStyles";
+import { DeviceSize } from "@/styles/DeviceSize";
 
 Badge.propTypes = {
   children: PropTypes.string,
@@ -78,7 +79,7 @@ const Emoji = styled.div`
     color: var(--White);
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: ${DeviceSize.mobile}) {
     width: 5.2rem;
     height: 2.8rem;
 
