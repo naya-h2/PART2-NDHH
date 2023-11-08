@@ -25,7 +25,7 @@ function CardList({ data }) {
         <Name color={backgroundColor}>To. {name}</Name>
         <ProfileImgList messageCount={messageCount} data={recentMessages} />
         <Count color={backgroundColor}>
-          <Bold color={backgroundColor}>{messageCount}</Bold>명이 작성했어요!
+          <Bold color={backgroundColor}>{messageCount <= 999 ? messageCount : "999+"}</Bold>명이 작성했어요!
         </Count>
       </Wrapper>
       <BadgeWrapper>

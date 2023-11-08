@@ -2,10 +2,10 @@ import styled from "styled-components";
 import propTypes from "prop-types";
 import Card from "@/components/Card";
 import Button from "@/components/Button";
+import useGetWindowWidth from "@/hooks/useGetWindowWidth";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { RECIPIENT1, RECIPIENT2 } from "@/constants/test";
-import useGetWindowWidth from "../../hooks/useGetWindowWidth";
-import { sortNew } from "../../utils/sort";
+import { sortNew } from "@/utils/sort";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
