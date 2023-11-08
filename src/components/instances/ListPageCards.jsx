@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import CardList from "@/components/Cardlist";
-import arrowButton from "@/assets/button-for-test.svg";
+import Button from "@/components/commons/Button";
 import { useState } from "react";
 import { DeviceSize } from "@/styles/DeviceSize";
 
@@ -25,21 +25,13 @@ function ListPageCards({ cards }) {
   return (
     <Container>
       <Wrapper>
-        {scrollX !== 0 && (
-          <Button onClick={handleClickReverse} isReverse>
-            <img src={arrowButton} alt="버튼 반응형 없어서 이미지 사용" />
-          </Button>
-        )}
-        <Items num={cardsQuantity} style={{ transform: `translateX(${scrollX}rem)` }}>
+        {scrollX !== 0 && <CustomButton onClick={handleClickReverse} type={"arrowLeft"} width="40" $isReverse />}
+        <Items $num={cardsQuantity} style={{ transform: `translateX(${scrollX}rem)` }}>
           {cards.map((card, index) => {
             return <CardList data={card} key={index} />;
           })}
         </Items>
-        {showNextButton && (
-          <Button onClick={handleClick}>
-            <img src={arrowButton} alt="버튼 반응형 없어서 이미지 사용" />
-          </Button>
-        )}
+        {showNextButton && <CustomButton onClick={handleClick} type={"arrowRight"} width="40" />}
       </Wrapper>
     </Container>
   );
@@ -48,7 +40,7 @@ function ListPageCards({ cards }) {
 export default ListPageCards;
 
 const Container = styled.div`
-  width: 120rem;
+  width: 120rem; // 태블릿 사이즈 기준으로 width 정하면 카드 4개가 안나와서
 
   position: relative;
 
@@ -57,6 +49,7 @@ const Container = styled.div`
 
   @media (max-width: ${DeviceSize.pc}) {
     width: 100vw;
+    justify-content: start;
   }
 `;
 
@@ -66,6 +59,8 @@ const Wrapper = styled.div`
   overflow: hidden;
 
   @media (max-width: ${DeviceSize.pc}) {
+    max-width: 120rem;
+
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; /* iOS 스와이프 지원 */
   }
@@ -76,35 +71,33 @@ const Items = styled.div`
 
   display: grid;
   gap: 2rem;
-  grid-template-columns: repeat(${(props) => props.num}, 1fr);
+  grid-template-columns: repeat(${(props) => props.$num}, 1fr);
   grid-template-rows: 1fr;
 
   transition: transform 0.3s;
 
   @media (max-width: ${DeviceSize.pc}) {
-    margin: 0 2.4rem; // 오른쪽 마진 추후 추가하겠습니다.
+    margin-left: 2.4rem; // 오른쪽 마진 추후 추가하겠습니다.
   }
 
   @media (max-width: ${DeviceSize.mobile}) {
-    grid-template-columns: repeat(${(props) => props.num}, 1fr);
+    grid-template-columns: repeat(${(props) => props.$num}, 1fr);
     gap: 1.2rem;
   }
 `;
 
-const Button = styled.button`
+const CustomButton = styled(Button)`
   position: absolute;
   top: 50%;
   z-index: 1;
 
   transform: translateY(-50%);
 
-  ${(props) => (props.isReverse ? "left: 0" : "right: 0")};
+  ${(props) => (props.$isReverse ? "left: 0" : "right: 0")};
 
   img {
     width: 4rem;
-
     opacity: 0.9;
-    transform: ${(props) => (props.isReverse ? "rotate(180deg)" : "0")};
   }
 
   @media (max-width: ${DeviceSize.pc}) {
