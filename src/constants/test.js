@@ -26,7 +26,7 @@ export const RECIPIENT1 = {
   backgroundColor: "green",
   backgroundImageURL: null,
   createdAt: "2021-10-26T13:19:31.401765Z",
-  messageCount: 4,
+  messageCount: 11111111,
   recentMessages: [
     {
       id: 32,

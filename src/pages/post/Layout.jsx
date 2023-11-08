@@ -2,11 +2,11 @@ import styled from "styled-components";
 import propTypes from "prop-types";
 import Card from "@/components/Card";
 import Button from "@/components/Button";
+import useGetWindowWidth from "@/hooks/useGetWindowWidth";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { RECIPIENT1, RECIPIENT2 } from "@/constants/test";
-import useGetWindowWidth from "../../hooks/useGetWindowWidth";
-import { sortNew } from "../../utils/sort";
-import { COLOR } from "../../styles/ColorStyles";
+import { sortNew } from "@/utils/sort";
+import { COLOR } from "@/styles/ColorStyles";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
@@ -17,7 +17,7 @@ function Layout({ path = "" }) {
   const sortedData = sortNew(recentMessages);
 
   return (
-    <Background color={backgroundColor} url={backgroundImageURL}>
+    <Background $color={backgroundColor} $url={backgroundImageURL}>
       {backgroundImageURL && <Mask></Mask>}
       <Container>
         <Btn path={path} />
@@ -73,8 +73,8 @@ const Background = styled.div`
 
   position: relative;
 
-  background-color: ${({ color }) => {
-    switch (color) {
+  background-color: ${({ $color }) => {
+    switch ($color) {
       case COLOR.P:
         return `var(--${COLOR.P}2)`;
       case COLOR.O:
@@ -85,7 +85,7 @@ const Background = styled.div`
         return `var(--${COLOR.G}2)`;
     }
   }};
-  background-image: ${({ url }) => `url(${url})`};
+  background-image: ${({ $url }) => `url(${$url})`};
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

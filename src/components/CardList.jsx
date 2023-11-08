@@ -20,13 +20,13 @@ CardList.propTypes = {
 function CardList({ data }) {
   const { name, backgroundColor, backgroundImageURL, messageCount, recentMessages, topReactions } = data;
   return (
-    <Container color={backgroundColor} url={backgroundImageURL}>
+    <Container $color={backgroundColor} $url={backgroundImageURL}>
       {backgroundImageURL && <Mask></Mask>}
       <Wrapper>
-        <Name color={backgroundColor}>To. {name}</Name>
+        <Name $color={backgroundColor}>To. {name}</Name>
         <ProfileImgList messageCount={messageCount} data={recentMessages} />
-        <Count color={backgroundColor}>
-          <Bold color={backgroundColor}>{messageCount}</Bold>명이 작성했어요!
+        <Count $color={backgroundColor}>
+          <Bold $color={backgroundColor}>{messageCount <= 999 ? messageCount : "999+"}</Bold>명이 작성했어요!
         </Count>
       </Wrapper>
       <BadgeWrapper>
@@ -53,8 +53,8 @@ const Container = styled.div`
   flex-direction: column;
   gap: 43px;
 
-  background: ${({ color }) => {
-    switch (color) {
+  background: ${({ $color }) => {
+    switch ($color) {
       case COLOR.P:
         return `var(--${COLOR.P}2)`;
       case COLOR.O:
@@ -65,8 +65,8 @@ const Container = styled.div`
         return `var(--${COLOR.G}2)`;
     }
   }};
-  background-image: ${({ color, url }) => {
-    switch (color) {
+  background-image: ${({ $color, $url }) => {
+    switch ($color) {
       case COLOR.P:
         return `url(${patternPurple})`;
       case COLOR.O:
@@ -76,12 +76,12 @@ const Container = styled.div`
       case COLOR.G:
         return `url(${patternGreen})`;
       default:
-        return `url(${url})`;
+        return `url(${$url})`;
     }
   }};
-  background-size: ${({ url }) => (url !== null ? `cover` : null)};
+  background-size: ${({ $url }) => ($url !== null ? `cover` : null)};
   background-repeat: no-repeat;
-  background-position: ${({ url }) => (url !== null ? null : `right bottom`)};
+  background-position: ${({ $url }) => ($url !== null ? null : `right bottom`)};
 
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 16px;
@@ -121,7 +121,7 @@ const Wrapper = styled.div`
 `;
 const Name = styled.div`
   ${FONT24B}
-  color: ${({ color }) => (color !== null ? `var(--Gray9)` : `var(--White)`)};
+  color: ${({ $color }) => ($color !== null ? `var(--Gray9)` : `var(--White)`)};
   letter-spacing: -0.024rem;
 
   @media (max-width: ${DeviceSize.mobile}) {
@@ -131,7 +131,7 @@ const Name = styled.div`
 `;
 const Count = styled.div`
   ${FONT16}
-  color: ${({ color }) => (color !== null ? `var(--Gray7)` : `var(--White)`)};
+  color: ${({ $color }) => ($color !== null ? `var(--Gray7)` : `var(--White)`)};
   letter-spacing: -0.016rem;
 
   @media (max-width: ${DeviceSize.mobile}) {
@@ -141,7 +141,7 @@ const Count = styled.div`
 `;
 const Bold = styled.span`
   ${FONT16B}
-  color: ${({ color }) => (color !== null ? `var(--Gray7)` : `var(--White)`)};
+  color: ${({ $color }) => ($color !== null ? `var(--Gray7)` : `var(--White)`)};
   letter-spacing: -0.016rem;
 
   @media (max-width: ${DeviceSize.mobile}) {

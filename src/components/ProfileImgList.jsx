@@ -11,12 +11,14 @@ ProfileImgList.PropTypes = {
  * @param {*} data recentMessages 배열
  */
 function ProfileImgList({ messageCount, data }) {
+  const rest = messageCount - 3;
+
   return (
     <Container>
       {data[0] && <Img order="1" src={data[0].profileImageURL} />}
       {data[1] && <Img order="2" src={data[1].profileImageURL} />}
       {data[2] && <Img order="3" src={data[2].profileImageURL} />}
-      {messageCount > 3 && <Rest>+{messageCount - 3}</Rest>}
+      {rest > 0 && <Rest>+{rest <= 999 ? rest : "999"}</Rest>}
     </Container>
   );
 }
@@ -24,6 +26,7 @@ function ProfileImgList({ messageCount, data }) {
 export default ProfileImgList;
 
 const Container = styled.div`
+  width: 100px;
   height: 30px;
 
   position: relative;
