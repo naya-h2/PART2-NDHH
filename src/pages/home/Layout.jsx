@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import introducePoint1 from "@/assets/introduce_point_1.svg";
 import introducePoint2 from "@/assets/introduce_point_2.svg";
-import KeyPointCard from "@/components/KeyPointCard";
-import FixedButton from "@/components/FixedButton";
+import KeyPointCard from "@/components/instances/KeyPointCard";
+import FixedButton from "@/components/instances/FixedButton";
+import { DeviceSize } from "@/styles/DeviceSize";
 
 const content1 = {
   point: "Point. 01",
@@ -40,7 +41,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 1199px) {
+  @media (max-width: ${DeviceSize.pc}) {
     margin-top: 4.9rem;
   }
 `;
