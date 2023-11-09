@@ -8,13 +8,13 @@ import ListPage from "@/pages/list/ListPage";
 
 function App() {
   return (
-    // <>
-    //   {/* <CreatePage /> */}
-    //   {/* <PostPage /> */}
-    //   {/* <HomePage /> */}
-    //   {/* <MessagePage /> */}
-    //   {/* <ListPage /> */}
-    // </>
+    <>
+      <CreatePage />
+      {/* <PostPage /> */}
+      {/* <HomePage /> */}
+      {/* <MessagePage /> */}
+      {/* <ListPage /> */}
+    </>
     // ROUTER 경로 설정 미리 해두었어요.
     // Header나 버튼 겹치는 페이지는 Layout에서 공용컴포넌트 넣고
     // Outlet으로 페이지 내용만 바꿔주는 형식을 하고 싶어요.

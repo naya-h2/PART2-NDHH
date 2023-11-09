@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import { FONT14B, FONT16B, FONT18, FONT18B, FONT28B } from "@/styles/FontStyles";
+import { FONT14B, FONT16B, FONT16, FONT18, FONT18B, FONT28B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { Recipients } from "@/constants/mockUp";
 import HeaderEmojis from "@/components/instances/HeaderEmojiDropDown";
@@ -9,6 +9,7 @@ import Button from "@/components/commons/Button";
 import shareIcon from "@/assets/share_24.svg";
 import Logo from "@/assets/Logo.svg";
 import divideLine from "@/assets/Rectangle_38.svg";
+import ShareDropdownButton from "./instances/ShareDropdownButton";
 // import { Link } from "react-router-dom";
 
 Header.propTypes = {
@@ -20,7 +21,7 @@ function Header({ serviceType, hideButton = false }) {
   return serviceType ? makeServiceHeader() : makeNavHeader({ hideButton });
 }
 
-const makeNavHeader = ({ hideButton }) => {
+function makeNavHeader({ hideButton }) {
   return (
     <>
       <Container $B>
@@ -37,9 +38,9 @@ const makeNavHeader = ({ hideButton }) => {
       <Border></Border>
     </>
   );
-};
+}
 
-const makeServiceHeader = () => {
+function makeServiceHeader() {
   const { name, messageCount, recentMessages, topReactions } = Recipients;
 
   return (
@@ -58,16 +59,13 @@ const makeServiceHeader = () => {
             <ButtonText>추가</ButtonText>
           </CustomButton>
           <DivideImg src={divideLine} alt="영역 분리 아이콘" />
-          <CustomButton type="outlined" width="56" height="m">
-            {/*이거 이미지나 p 태그 넣어도 되게 해쥬세요...*/}
-            <img src={shareIcon} alt="공유 버튼" />
-          </CustomButton>
+          <ShareDropdownButton />
         </Wrapper>
       </Container>
       <BorderLine />
     </>
   );
-};
+}
 
 function BorderLine() {
   return (
