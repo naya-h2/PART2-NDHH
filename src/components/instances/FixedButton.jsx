@@ -18,7 +18,7 @@ export default FixedButton;
 const ButtonText = styled.p`
   width: 23.2rem;
 
-  ${FONT18B};
+  ${FONT18B}
 
   @media (max-width: ${DeviceSize.pc}) {
     width: calc(100vw - 9.6rem);
@@ -26,8 +26,10 @@ const ButtonText = styled.p`
 `;
 
 const Container = styled.div`
+  position: fixed;
+  bottom: 7rem;
+
   @media (max-width: ${DeviceSize.pc}) {
-    position: fixed;
     bottom: 2.4rem;
   }
 `;

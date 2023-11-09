@@ -166,8 +166,7 @@ const SendersNum = styled.div`
 `;
 
 const Container__border = styled.div`
-  width: 100vw;
-
+  width: 100%;
   position: relative;
 `;
 
