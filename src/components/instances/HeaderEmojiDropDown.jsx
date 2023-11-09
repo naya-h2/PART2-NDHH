@@ -49,7 +49,7 @@ export default HeaderEmojis;
 
 const Container = styled.div`
   position: relative;
-  z-index: 100;
+  z-index: ${Z_INDEX.header_button_popup};
 
   display: flex;
 `;

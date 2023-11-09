@@ -89,7 +89,7 @@ const Items = styled.div`
 const CustomButton = styled(Button)`
   position: absolute;
   top: 50%;
-  z-index: 1;
+  z-index: ${Z_INDEX.list_page_arrow_button};
 
   transform: translateY(-50%);
 

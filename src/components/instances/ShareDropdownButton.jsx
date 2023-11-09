@@ -51,7 +51,7 @@ const List = styled.ul`
   border: 0.1rem solid var(--Gray3);
   background: var(--White);
   box-shadow: 0 0.2rem 1.2rem 0 rgba(0, 0, 0, 0.08);
-  z-index: 1;
+  z-index: ${Z_INDEX.header_button_popup};
 
   @media (max-width: 1350px) {
     left: -8rem;
