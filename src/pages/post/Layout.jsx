@@ -8,6 +8,7 @@ import { RECIPIENT1, RECIPIENT2 } from "@/constants/test";
 import { sortNew } from "@/utils/sort";
 import { COLOR } from "@/styles/ColorStyles";
 import { Z_INDEX } from "@/styles/ZindexStyles";
+import { Link } from "react-router-dom";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
@@ -35,21 +36,25 @@ function Btn({ path }) {
     <>
       {path === "edit" ? (
         <SaveWrapper>
-          {windowWidth > DeviceSizeNum.tablet ? (
-            <Button type="primary" height="l" width="100">
-              저장하기
-            </Button>
-          ) : (
-            <Button type="primary" height="xl">
-              저장하기
-            </Button>
-          )}
+          <Link to="/post/id">
+            {windowWidth > DeviceSizeNum.tablet ? (
+              <Button type="primary" height="l" width="100">
+                저장하기
+              </Button>
+            ) : (
+              <Button type="primary" height="xl">
+                저장하기
+              </Button>
+            )}
+          </Link>
         </SaveWrapper>
       ) : (
         <EditWrapper>
-          <Button type="outlined" height="l" width="100">
-            편집하기
-          </Button>
+          <Link to="/post/id/edit">
+            <Button type="outlined" height="l" width="100">
+              편집하기
+            </Button>
+          </Link>
         </EditWrapper>
       )}
     </>
