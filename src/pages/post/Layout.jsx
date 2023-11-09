@@ -3,7 +3,7 @@ import propTypes from "prop-types";
 import Card from "@/components/Card";
 import Button from "@/components/commons/Button";
 import useGetWindowWidth from "@/hooks/useGetWindowWidth";
-import { DeviceSize } from "@/styles/DeviceSize";
+import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
 import { RECIPIENT1, RECIPIENT2 } from "@/constants/test";
 import { sortNew } from "@/utils/sort";
 import { COLOR } from "@/styles/ColorStyles";
@@ -34,7 +34,7 @@ function Btn({ path }) {
     <>
       {path === "edit" ? (
         <DeleteWrapper>
-          {windowWidth > 1024 ? (
+          {windowWidth > DeviceSizeNum.tablet ? (
             <Button type="primary" height="l" width="100">
               저장하기
             </Button>
@@ -111,7 +111,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-end;
 
-  @media (max-width: ${DeviceSize.pc}) {
+  @media (max-width: 1248px) {
     width: 100%;
     padding: 6.3rem 2.4rem 0;
   }
@@ -123,6 +123,8 @@ const Container = styled.div`
 `;
 
 const CardWrapper = styled.div`
+  width: 100%;
+
   display: grid;
   grid-template-columns: repeat(3, minmax(32rem, 38.4rem));
   justify-content: space-between;

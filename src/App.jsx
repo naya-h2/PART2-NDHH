@@ -8,10 +8,10 @@ function App() {
   return (
     <>
       {/* <CreatePage /> */}
-      {/* <PostPage /> */}
+      <PostPage />
       {/* <HomePage /> */}
       {/* <MessagePage /> */}
-      <ListPage />
+      {/* <ListPage /> */}
     </>
     // ROUTER 경로 설정 미리 해두었어요.
     // Header나 버튼 겹치는 페이지는 Layout에서 공용컴포넌트 넣고
