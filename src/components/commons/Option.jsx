@@ -1,55 +1,84 @@
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
-import { COLOR } from "@/styles/ColorStyles";
 import { FONT14 } from "@/styles/FontStyles";
 import CHECKIMG from "@/assets/check.svg";
+import PLUSIMG from "@/assets/plus_icon.svg";
 
 Option.propTypes = {
   color: PropTypes.oneOf(["orange", "purple", "blue", "green"]),
   src: PropTypes.string,
   check: PropTypes.bool,
 };
-function Option({ color, src, check, onClick }) {
-  switch (color) {
-    case COLOR.O:
-      return makeOption({ color, check, onClick });
-    case COLOR.P:
-      return makeOption({ color, check, onClick });
-    case COLOR.B:
-      return makeOption({ color, check, onClick });
-    case COLOR.G:
-      return makeOption({ color, check, onClick });
-    default:
-      return makeOption({ src, check, onClick });
+function Option({ color, check, ...props }) {
+  if (color) {
+    return <OptionColor color={color} check={check} {...props} />;
+  }
+  if (!color) {
+    return <OptionImg check={check} {...props} />;
   }
 }
 
-const makeOption = ({ color, src, check, onClick }) => {
+function OptionColor({ color, check, ...props }) {
   const COLOR =
     color &&
     css`
       background-color: var(--${color}2);
     `;
   return (
-    <Container color={COLOR} src={src} $check={check} onClick={onClick}>
+    <Container color={COLOR} $check={check} {...props}>
       {check && (
         <div>
-          <img src={CHECKIMG} alt="새로운 메시지 작성하기" />
+          <img src={CHECKIMG} alt="선택된 색깔" />
         </div>
       )}
     </Container>
   );
-};
+}
+
+function OptionImg({ check, imgFile, setImgFile, ...props }) {
+  const handleChange = (event) => {
+    const nextFile = URL.createObjectURL(event.target.files[0]);
+    setImgFile((prev) => [...prev, nextFile]);
+  };
+
+  return (
+    <Container src={imgFile} $check={check} {...props}>
+      {imgFile ? (
+        check && (
+          <div>
+            <img src={CHECKIMG} alt="선택된 이미지" />
+          </div>
+        )
+      ) : (
+        <>
+          <label htmlFor="file">
+            <img src={PLUSIMG} alt="이미지 추가하기" />
+          </label>
+          <input id="file" type="file" onChange={handleChange} />
+        </>
+      )}
+    </Container>
+  );
+}
 
 export default Option;
 
 const Container = styled.button`
   width: 100%;
+<<<<<<< Updated upstream
+=======
+
+  position: relative;
+>>>>>>> Stashed changes
 
   &:after {
     content: "";
     display: block;
     padding-bottom: 100%;
+  }
+
+  &:hover {
+    opacity: 0.5;
   }
 
   border: 0.1rem solid rgba(0, 0, 0, 0.08);
@@ -58,11 +87,6 @@ const Container = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* @media (max-width: 768px) {
-    width: 15.4rem;
-    height: 15.4rem;
-  } */
 
   ${FONT14}
   ${({ color }) => color};
@@ -84,8 +108,26 @@ const Container = styled.button`
     background-color: var(--Gray5);
   }
 
-  img {
-    width: 2.4rem;
-    height: 2.4rem;
+  > label {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  > label > img {
+    width: 4.4rem;
+  }
+
+  input[type="file"] {
+    width: 0;
+    height: 0;
+    padding: 0;
+    border: 0;
+
+    position: absolute;
+    overflow: hidden;
   }
 `;

@@ -12,12 +12,14 @@ import { DeviceSize } from "@/styles/DeviceSize";
 import chooseImg from "@/assets/jeonghan.jpeg"; // 이미지 수정
 
 function Layout() {
+  const [imgFile, setImgFile] = useState("");
+
   return (
     <>
       <Container>
         <Title />
         <Text />
-        <SelectOption />
+        <SelectOption imgFile={imgFile} setImgFile={setImgFile} />
         <Submit />
       </Container>
     </>
@@ -44,13 +46,13 @@ function Text() {
   );
 }
 
-function SelectOption() {
+function SelectOption({ imgFile, setImgFile }) {
   const [selectedType, setSelectedType] = useState(SELECTED.color);
 
   return (
     <>
       <ToggleButton handleToggle={setSelectedType} selected={selectedType} />
-      <Options selectedType={selectedType} />
+      <Options selectedType={selectedType} imgFile={imgFile} setImgFile={setImgFile} />
     </>
   );
 }
@@ -58,28 +60,25 @@ function SelectOption() {
 Options.propType = {
   selectedType: PropTypes.oneOf([SELECTED.color, SELECTED.image]),
 };
-function Options({ selectedType }) {
+function Options({ selectedType, imgFile, setImgFile }) {
   const [selectedOption, setSelectedOption] = useState(0);
 
   const handleOptionClick = (a) => () => setSelectedOption(a);
 
-  return (
-    <OptionContainer>
-      {selectedType === SELECTED.color ? (
-        <>
-          {COLOR_OPTIONS.map((color, idx) => (
-            <Option key={idx} color={color} check={selectedOption === idx} onClick={handleOptionClick(idx)} />
-          ))}
-        </>
-      ) : (
-        <>
-          {IMG_OPTIONS.map((img, idx) => (
-            <Option key={idx} src={img} check={selectedOption === idx} onClick={handleOptionClick(idx)} />
-          ))}
-        </>
-      )}
-    </OptionContainer>
-  );
+  const option =
+    selectedType === SELECTED.color ? (
+      COLOR_OPTIONS.map((color, idx) => <Option key={idx} color={color} check={selectedOption === idx} onClick={handleOptionClick(idx)} />)
+    ) : (
+      <>
+        <Option setImgFile={setImgFile} />
+        {imgFile &&
+          imgFile.map((imgFile, idx) => {
+            return <Option key={idx} imgFile={imgFile} check={selectedOption === idx} onClick={handleOptionClick(idx)} />;
+          })}
+      </>
+    );
+
+  return <OptionContainer>{option}</OptionContainer>;
 }
 const COLOR_OPTIONS = [COLOR.O, COLOR.P, COLOR.B, COLOR.G];
 const IMG_OPTIONS = [chooseImg, chooseImg, chooseImg, chooseImg];
@@ -106,17 +105,14 @@ const Container = styled.div`
   flex-direction: column;
   gap: 5rem;
 
-  @media (max-width: ${DeviceSize.tablet}) {
+  @media (max-width: ${DeviceSize.pc}) {
     width: calc(100vw - 9.6rem);
-    min-width: 32rem;
-
     margin-bottom: 10rem;
   }
 
   @media (max-width: ${DeviceSize.mobile}) {
     width: calc(100vw - 9.6rem);
     min-width: 32rem;
-
     margin-bottom: 10rem;
   }
 `;
