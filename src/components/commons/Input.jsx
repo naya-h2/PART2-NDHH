@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { FONT16, FONT12 } from "../../styles/FontStyles";
+import { FONT16, FONT12 } from "@/styles/FontStyles";
 
 Input.propTypes = {
   placeholder: PropTypes.string,
@@ -10,14 +10,14 @@ Input.propTypes = {
 
 function Input({ placeholder, disabled }) {
   // iserror에 boolean 값 전달해주면 안돼서 state로 falsy, truthy한 값 전달해줌
-  const [error, setError] = useState(0);
+  const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
     // input에 아무 값도 입력하지 않았을 경우
     if (!e.target.value) {
-      setError(1);
+      setError("true");
     } else {
-      setError(0);
+      setError("");
     }
   };
 
@@ -61,7 +61,7 @@ const Container = styled.input`
   ${({ $error }) => $error && `border: 0.1rem solid var(--Error);`}
 `;
 
-const ErrorMessage = styled.p`
+const ErrorMessage = styled.div`
   width: 32rem;
   height: 1.8rem;
   margin-top: 0.4rem;

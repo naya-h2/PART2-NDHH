@@ -2,7 +2,7 @@ import { useRef } from "react";
 import styled from "styled-components";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
-import { FONT18B } from "../styles/FontStyles";
+import { FONT18B } from "@/styles/FontStyles";
 import lang from "suneditor/src/lang";
 
 function TextEditor() {
@@ -21,17 +21,7 @@ function TextEditor() {
         setOptions={{
           font: ["Noto Sans", "Pretendard"],
           fontSize: [8, 10, 12, 14, 15, 16, 18, 20, 24],
-          buttonList: [
-            [
-              "bold",
-              "italic",
-              "underline",
-              "align",
-              "fontColor",
-              "font",
-              "fontSize",
-            ],
-          ],
+          buttonList: [["bold", "italic", "underline", "align", "fontColor", "font", "fontSize"]],
           lang: lang.ko,
         }}
       />

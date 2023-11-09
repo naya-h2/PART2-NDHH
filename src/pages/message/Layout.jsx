@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { FONT16, FONT18B, FONT24B } from "@/styles/FontStyles";
-import Input from "@/components/Input";
-import Dropdown from "@/components/Dropdown";
-import TextEditor from "@/components/Editor";
-import Button from "@/components/Button";
+import Input from "@/components/commons/Input";
+import Dropdown from "@/components/commons/Dropdown";
+import TextEditor from "@/components/commons/Editor";
+import Button from "@/components/commons/Button";
 import defaultImg from "@/assets/default_profile.svg";
 
 function Layout() {

@@ -2,8 +2,8 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { FONT16B, FONT16 } from "@/styles/FontStyles";
 import { COLOR } from "@/styles/ColorStyles";
-import { SELECTED } from "@/components/commons/ToggleButton";
 import { useCallback } from "react";
+import { SELECTED } from "@/styles/ButtonStyles";
 
 ToggleButton.propTypes = {
   handleToggle: PropTypes.func,

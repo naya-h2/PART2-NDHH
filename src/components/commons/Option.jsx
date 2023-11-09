@@ -5,7 +5,7 @@ import { FONT14 } from "@/styles/FontStyles";
 import CHECKIMG from "@/assets/check.svg";
 
 Option.propTypes = {
-  color: PropTypes.oneOf(["Orange", "Purple", "Blue", "Green"]),
+  color: PropTypes.oneOf(["orange", "purple", "blue", "green"]),
   src: PropTypes.string,
   check: PropTypes.bool,
 };

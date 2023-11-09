@@ -5,7 +5,7 @@ import { FONT12 } from "@/styles/FontStyles";
 /**
  * @param {*} data recentMessages 배열
  */
-ProfileImgList.PropTypes = {
+ProfileImgList.propTypes = {
   messageCount: PropTypes.number,
   data: PropTypes.array,
 };

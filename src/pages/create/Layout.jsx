@@ -2,13 +2,13 @@ import { PropTypes } from "prop-types";
 import { useState } from "react";
 import styled from "styled-components";
 import chooseImg from "@/assets/jeonghan.jpeg"; // 이미지 수정
-import { Input } from "@/components/Input";
-import { SELECTED } from "@/components/commons/ToggleButton";
+import Input from "@/components/commons/Input";
 import ToggleButton from "@/components/commons/ToggleButton";
 import Option from "@/components/commons/Option";
 import { COLOR } from "@/styles/ColorStyles";
-import { Button } from "@/components/Button";
+import Button from "@/components/commons/Button";
 import { FONT16, FONT24B } from "@/styles/FontStyles";
+import { SELECTED } from "@/styles/ButtonStyles";
 
 function Layout() {
   return (

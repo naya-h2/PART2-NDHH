@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import propTypes from "prop-types";
 import Card from "@/components/Card";
-import Button from "@/components/Button";
+import Button from "@/components/commons/Button";
 import useGetWindowWidth from "@/hooks/useGetWindowWidth";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { RECIPIENT1, RECIPIENT2 } from "@/constants/test";

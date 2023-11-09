@@ -9,7 +9,7 @@ function KeyPointCard({ content, $isReverse = false }) {
     <Container $isReverse={$isReverse}>
       <Wrapper>
         <Point point={point} />
-        <P title>
+        <P $title>
           {title1}
           <Br />
           {title2}
@@ -100,14 +100,14 @@ const Container__point = styled.div`
 `;
 
 const P = styled.h1`
-  margin-top: ${(props) => (props.title ? "1.6rem" : "0.8rem")};
+  margin-top: ${($title) => ($title ? "1.6rem" : "0.8rem")};
 
-  ${(props) => (props.title ? FONT24B : FONT18)};
+  ${($title) => ($title ? FONT24B : FONT18)};
 
   @media (max-width: ${DeviceSize.mobile}) {
-    margin-top: ${(props) => (props.title ? "1.6rem" : "0.4rem")};
+    margin-top: ${($title) => ($title ? "1.6rem" : "0.4rem")};
 
-    ${(props) => (props.title ? FONT18B : FONT15)};
+    ${($title) => ($title ? FONT18B : FONT15)};
   }
 `;
 

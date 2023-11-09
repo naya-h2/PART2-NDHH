@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
 import { FONT14B, FONT16B, FONT18, FONT18B, FONT28B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { Recipients } from "@/constants/mockUp";
@@ -12,8 +12,8 @@ import divideLine from "@/assets/Rectangle_38.svg";
 // import { Link } from "react-router-dom";
 
 Header.propTypes = {
-  serviceType: propTypes.oneOf([true, false]),
-  hideButton: propTypes.oneOf([true, false]),
+  serviceType: PropTypes.oneOf([true, false]),
+  hideButton: PropTypes.oneOf([true, false]),
 };
 
 function Header({ serviceType, hideButton = false }) {
