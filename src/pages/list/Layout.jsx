@@ -13,12 +13,12 @@ const HottestCards = sortHot([...Cards]);
 function Layout() {
   return (
     <Container>
-      <Wrapper>
+      <div>
         <P>인기 롤링 페이퍼 🔥</P>
         <ListPageCards cards={HottestCards} />
         <P $Mobile>최근에 만든 롤링 페이퍼 ⭐️️</P>
         <ListPageCards cards={NewestCards} />
-      </Wrapper>
+      </div>
       <FixedButton>나도 만들어보기</FixedButton>
     </Container>
   );
@@ -35,10 +35,6 @@ const P = styled.p`
     ${FONT20B};
     margin: ${(props) => (props.$Mobile ? "7.2rem 0 1.2rem 2rem" : "4rem 0 1.2rem 2rem")};
   }
-`;
-
-const Wrapper = styled.div`
-  margin-bottom: 11.4rem;
 `;
 
 const Container = styled.div`
