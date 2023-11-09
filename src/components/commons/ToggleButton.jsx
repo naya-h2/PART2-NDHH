@@ -1,37 +1,38 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { FONT16B, FONT16 } from "../../styles/FontStyles";
-import { COLOR } from "../../styles/ColorStyles";
+import { FONT16B, FONT16 } from "@/styles/FontStyles";
+import { COLOR } from "@/styles/ColorStyles";
+import { SELECTED } from "@/components/commons/ToggleButton";
+import { useCallback } from "react";
 
 ToggleButton.propTypes = {
+  handleToggle: PropTypes.func,
   selected: PropTypes.string,
 };
 
 function ToggleButton({ handleToggle, selected }) {
-  const handleTypeChange = (value) => {
-    handleToggle(value);
-  };
+  const handleTypeChange = useCallback((type) => () => handleToggle(type), [handleToggle]);
+
+  const Toggle = useCallback(
+    ({ type }) => (
+      <Button onClick={handleTypeChange(type)} selected={selected === type}>
+        {type}
+      </Button>
+    ),
+    [handleTypeChange, selected]
+  );
 
   return (
-    <ButtonWrapper>
-      <Button onClick={() => handleTypeChange(SELECTED.color)} selected={selected === SELECTED.color}>
-        {SELECTED.color}
-      </Button>
-      <Button onClick={() => handleTypeChange(SELECTED.image)} selected={selected === SELECTED.image}>
-        {SELECTED.image}
-      </Button>
-    </ButtonWrapper>
+    <Container>
+      <Toggle type={SELECTED.color} />
+      <Toggle type={SELECTED.image} />
+    </Container>
   );
 }
 
 export default ToggleButton;
 
-export const SELECTED = {
-  color: "컬러",
-  image: "이미지",
-};
-
-const ButtonWrapper = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: row;
 

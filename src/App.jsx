@@ -1,8 +1,4 @@
-import CreatePage from "./pages/create/CreatePage";
-import HomePage from "./pages/home/HomePage";
-import PostPage from "./pages/post/PostPage";
-import ListPage from "./pages/list/ListPage";
-import MessagePage from "./pages/message/MessagePage";
+import CreatePage from "@/pages/create/CreatePage";
 
 function App() {
   return (

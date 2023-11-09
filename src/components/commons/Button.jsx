@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import addIconBlack from "../assets/add-24-black.svg";
-import addIconWhite from "../assets/add-24-white.svg";
+import iconBlack from "../assets/add-24-black.svg";
+import iconWhite from "../assets/add-24-white.svg";
 import plusIcon from "../assets/plus.svg";
 import deleteBlack from "../assets/deleted_black.svg";
 import deleteWhite from "../assets/deleted_white.svg";
@@ -10,102 +10,95 @@ import arrowLeft from "../assets/arrow_left.svg";
 import { HEIGHTS, TYPES } from "../../styles/ButtonStyles";
 
 Button.propTypes = {
-  disabled: PropTypes.bool,
-  height: PropTypes.oneOf(["xl", "l", "m", "s", "plus", "trash"]),
   width: PropTypes.string,
-  type: PropTypes.oneOf(["primary", "secondary", "outlined", "plus", "trash"]),
-  children: PropTypes.string, // 버튼 이름
+  height: PropTypes.oneOf(["xl", "l", "m", "s"]),
+  type: PropTypes.oneOf(["primary", "secondary", "outlined", "plus", "trash", "arrowRight", "arrowLeft"]),
+  disabled: PropTypes.bool,
   icon: PropTypes.bool,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };
 
-function Button({ disabled, height, width, type, children, icon, ...props }) {
+function Button({ width, height, type, disabled, icon, children, ...props }) {
   const heights = HEIGHTS[height];
   const types = TYPES[type];
-  const addFaceIcon = disabled ? addIconWhite : addIconBlack;
+  const iconFace = disabled ? iconWhite : iconBlack;
   const deleteIcon = disabled ? deleteWhite : deleteBlack;
 
   return (
-    <StyledButton disabled={disabled} $heights={heights} $types={types} $width={width} {...props}>
-      {icon && <AddFaceIcon src={addFaceIcon} alt="add icon" />}
-      {type === "plus" && <PlusIcon src={plusIcon} alt="plus icon" />}
-      {type === "trash" && <TrashIcon src={deleteIcon} />}
-      {type === "arrowRight" && <ArrowIcon src={arrowRight} />}
-      {type === "arrowLeft" && <ArrowIcon src={arrowLeft} />}
+    <Container $width={width} $heights={heights} $types={types} $disabled={disabled} {...props}>
+      {icon && <IconFace src={iconFace} alt="이모티콘 추가하기" $heights={height} />}
+      {type === "plus" && <IconSmall src={plusIcon} alt="롤링페이퍼 만들기" />}
+      {type === "trash" && <IconSmall src={deleteIcon} alt="롤링페이퍼 삭제하기" />}
+      {type === "arrowRight" && <IconLarge src={arrowRight} alt="목록 오른쪽으로 넘기기" />}
+      {type === "arrowLeft" && <IconLarge src={arrowLeft} alt="목록 첫번째로 돌아가기" />}
       {children}
-    </StyledButton>
+    </Container>
   );
 }
 
 export default Button;
 
-const StyledButton = styled.button`
+const Container = styled.button`
   ${({ $heights }) => $heights}
   ${({ $types }) => $types}
 
   ${({ $width }) => ($width ? `width: ${$width / 10}rem;` : "width: 100%;")}
-
   padding: var(--padding);
+  border: 0.1rem solid var(--border-color);
+  border-radius: var(--border-radius);
 
   display: inline-flex;
   justify-content: center;
   align-items: center;
   gap: 0.4rem;
 
-  color: var(--color);
   background: var(--bg-color);
 
-  border-radius: var(--border-radius);
-  border: 0.1rem solid var(--border-color);
-
+  color: var(--color);
   font-family: "Noto Sans KR";
 
   &:hover {
-    color: var(--hover-color);
     border: 0.1rem solid var(--hover-border-color);
+
     background: var(--hover-bg-color);
+
+    color: var(--hover-color);
   }
 
   &:active {
-    color: var(--pressed-color);
     border: 0.1rem solid var(--pressed-border-color);
+
     background: var(--pressed-bg-color);
+
+    color: var(--pressed-color);
   }
 
-  // &:focus {
-  //   color: var(--focus-color);
-  //   border: 0.1rem solid var(--focus-border-color);
-  //   background: var(--focus-bg-color);
-  // }
-
-  ${(props) =>
-    props.disabled &&
+  ${({ $disabled }) =>
+    $disabled &&
     css`
-      color: var(--White);
       border: 0.1rem solid var(--Gray3);
+
       background: var(--Gray3);
+
+      color: var(--White);
 
       pointer-events: none;
     `}
 `;
 
-const AddFaceIcon = styled.img`
+const IconFace = styled.img`
   ${({ $heights }) => $heights}
 
   width: var(--img-width);
   height: var(--img-height);
 `;
 
-const PlusIcon = styled.img`
+const IconSmall = styled.img`
   width: 2.4rem;
   height: 2.4rem;
 `;
 
-const TrashIcon = styled.img`
-  width: 2.4rem;
-  height: 2.4rem;
-`;
-
-const ArrowIcon = styled.img`
+const IconLarge = styled.img`
   width: 4rem;
   height: 4rem;
 `;

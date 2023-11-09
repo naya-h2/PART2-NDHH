@@ -19,20 +19,20 @@ function Dropdown({ disabled }) {
   };
 
   return (
-    <StyledDropdown onClick={toggleDropdown} disabled={disabled}>
+    <Container onClick={toggleDropdown} disabled={disabled}>
       {/* children으로 받아올 예정 */}
       Placeholder
-      <DropdownButton src={arrowDirection} />
-      <DropdownList show={showDropdown}>
+      <ArrowImg src={arrowDirection} alt="클릭해서 옵션 선택하기" />
+      <List $show={showDropdown}>
         {/* children으로 받아올 예정 */}
-        <DropdownText>TextTextText</DropdownText>
-        <DropdownText>TextTextText</DropdownText>
-      </DropdownList>
-    </StyledDropdown>
+        <Text>TextTextText</Text>
+        <Text>TextTextText</Text>
+      </List>
+    </Container>
   );
 }
 
-const StyledDropdown = styled.div`
+const Container = styled.div`
   position: relative;
   width: 32rem;
   height: 5rem;
@@ -69,7 +69,7 @@ const StyledDropdown = styled.div`
     `}
 `;
 
-const DropdownButton = styled.img`
+const ArrowImg = styled.img`
   position: absolute;
   top: 1.6rem;
   right: 1.6rem;
@@ -78,8 +78,8 @@ const DropdownButton = styled.img`
   height: 1.6rem;
 `;
 
-const DropdownList = styled.ul`
-  display: ${(props) => (props.show ? "block" : "none")};
+const List = styled.ul`
+  display: ${({ $show }) => ($show ? "block" : "none")};
   width: 32rem;
   position: absolute;
   top: 5.8rem;
@@ -93,7 +93,7 @@ const DropdownList = styled.ul`
   z-index: 1;
 `;
 
-const DropdownText = styled.li`
+const Text = styled.li`
   width: 31.6rem;
   padding: 1.2rem 1.6rem;
 
