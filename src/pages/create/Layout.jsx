@@ -105,17 +105,14 @@ const Container = styled.div`
   flex-direction: column;
   gap: 5rem;
 
-  @media (max-width: ${DeviceSize.tablet}) {
+  @media (max-width: ${DeviceSize.pc}) {
     width: calc(100vw - 9.6rem);
-    min-width: 32rem;
-
     margin-bottom: 10rem;
   }
 
   @media (max-width: ${DeviceSize.mobile}) {
     width: calc(100vw - 9.6rem);
     min-width: 32rem;
-
     margin-bottom: 10rem;
   }
 `;

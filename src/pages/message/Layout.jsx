@@ -5,6 +5,8 @@ import Dropdown from "@/components/commons/Dropdown";
 import TextEditor from "@/components/commons/Editor";
 import Button from "@/components/commons/Button";
 import defaultImg from "@/assets/default_profile.svg";
+import { Link } from "react-router-dom";
+import { DeviceSize } from "@/styles/DeviceSize";
 
 function Layout() {
   return (
@@ -77,11 +79,13 @@ function Edit() {
 // 이거 components/instances/FixedButton 컴포넌트랑 똑같아서 그거 사용하셔도 괜찮을 것 같아욤
 function Submit() {
   return (
-    <ButtonFix>
-      <Button type="primary" height="xl">
-        <ButtonText>생성하기</ButtonText>
-      </Button>
-    </ButtonFix>
+    <Contents__submit>
+      <Link to="/post/id">
+        <Button type="primary" height="xl">
+          <ButtonText>생성하기</ButtonText>
+        </Button>
+      </Link>
+    </Contents__submit>
   );
 }
 
@@ -95,19 +99,23 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 72rem;
+  width: calc(100vw - 9.6rem);
+  max-width: 120rem;
+  padding-bottom: 5rem;
 
   display: flex;
   flex-direction: column;
   gap: 5rem;
 
-  @media screen and (max-width: 1199px) {
-    width: calc(100vw - 4.8rem);
-    max-width: 72rem;
+  @media screen and (max-width: ${DeviceSize.pc}) {
+    width: calc(100vw - 9.6rem);
+    padding-bottom: 12rem;
   }
 
-  @media screen and (max-width: 768px) {
-    width: calc(100vw - 4rem);
+  @media screen and (max-width: ${DeviceSize.mobile}) {
+    width: calc(100vw - 9.6rem);
+    min-width: 32rem;
+    padding-bottom: 12rem;
   }
 `;
 
@@ -165,10 +173,12 @@ const ButtonText = styled.p`
   }
 `;
 
-const ButtonFix = styled.div`
-  max-width: 72rem;
+const Contents__submit = styled.div`
+  width: calc(100vw - 9.6rem);
+  max-width: 120rem;
+  margin: auto;
 
-  @media (max-width: 1199px) {
+  @media (max-width: ${DeviceSize.pc}) {
     position: fixed;
 
     left: 50%;
@@ -176,7 +186,7 @@ const ButtonFix = styled.div`
     transform: translateX(-50%);
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${DeviceSize.mobile}) {
     min-width: 32rem;
 
     position: fixed;
