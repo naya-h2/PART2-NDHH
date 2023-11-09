@@ -1,19 +1,17 @@
+import arrowDown from "@/assets/arrow_down.svg";
+import arrowUp from "@/assets/arrow_top.svg";
+import { FONT16 } from "@/styles/FontStyles";
+import PropTypes from "prop-types";
 import { useState } from "react";
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
-import { FONT16 } from "@/styles/FontStyles";
-import arrowUp from "@/assets/arrow_top.svg";
-import arrowDown from "@/assets/arrow_down.svg";
-
-const RELATIONSHIP = ["지인", "가족", "친구", "애인", "동료"];
 
 Dropdown.propTypes = {
   disabled: PropTypes.bool,
+  font: PropTypes.bool,
 };
 
-function Dropdown({ disabled }) {
+function Dropdown({ disabled, value, setValue, items }) {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("지인");
   const [arrowDirection, setArrowDirection] = useState(arrowDown);
 
   const toggleDropdown = () => {
@@ -21,22 +19,20 @@ function Dropdown({ disabled }) {
     setArrowDirection(showDropdown ? arrowDown : arrowUp);
   };
 
-  const handleSelect = (value) => {
-    setSelectedValue(value); // 선택된 값을 설정하면
-    setShowDropdown(false); // 드롭다운을 닫음
-    setArrowDirection(arrowDown); // 화살표 방향을 원래대로 변경
+  const handleSelect = (item) => () => {
+    setValue(item);
+    setShowDropdown(false);
+    setArrowDirection(arrowDown);
   };
 
   return (
     <Container onClick={toggleDropdown} disabled={disabled}>
-      {/* children으로 받아올 예정 */}
-      {selectedValue}
+      {value ?? items[0]}
       <ArrowImg src={arrowDirection} alt="클릭해서 옵션 선택하기" />
       <List $show={showDropdown}>
-        {/* children으로 받아올 예정 */}
-        {RELATIONSHIP.map((relationship, idx) => (
-          <Text key={idx} onClick={() => handleSelect(relationship)}>
-            {relationship}
+        {items.map((item, idx) => (
+          <Text key={idx} onClick={handleSelect(item)}>
+            {item}
           </Text>
         ))}
       </List>

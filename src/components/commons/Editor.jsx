@@ -2,14 +2,18 @@ import { useRef } from "react";
 import styled from "styled-components";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
-import { FONT18B } from "@/styles/FontStyles";
+import { FONT20B } from "@/styles/FontStyles";
 import lang from "suneditor/src/lang";
 
-function TextEditor() {
+function TextEditor({ setValue }) {
   const editor = useRef();
 
   const getSunEditorInstance = (sunEditor) => {
     editor.current = sunEditor;
+  };
+
+  const handleChange = (text) => {
+    setValue((prev) => ({ ...prev, text }));
   };
 
   return (
@@ -24,6 +28,7 @@ function TextEditor() {
           buttonList: [["bold", "italic", "underline", "align", "fontColor", "font", "fontSize"]],
           lang: lang.ko,
         }}
+        onChange={handleChange}
       />
       <span>마우스 드래그로 박스 크기를 조정해 보세요!</span>
     </Container>
@@ -44,7 +49,9 @@ const Container = styled.div`
     font-style: italic;
   }
 
-  .sun-editor {
+  .sun-editor,
+  .se-container {
+    border: 0.1rem solid var(--Gray3);
     border-radius: 0.8rem;
   }
 
@@ -71,7 +78,7 @@ const Container = styled.div`
 
   .sun-editor .se-btn-tool-font,
   .sun-editor .se-btn-tool-size {
-    ${FONT18B};
+    ${FONT20B};
   }
 
   .sun-editor .se-resizing-bar {
