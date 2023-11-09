@@ -112,3 +112,8 @@ export const TYPES = {
     --border-radius: 0.6rem;
   `,
 };
+
+export const SELECTED = {
+  color: "컬러",
+  image: "이미지",
+};

@@ -1,13 +1,14 @@
 import { PropTypes } from "prop-types";
 import { useState } from "react";
 import styled from "styled-components";
-import chooseImg from "../../assets/jeonghan.jpeg"; // 이미지 수정
-import Button from "../../components/commons/Button";
-import Input from "../../components/commons/Input";
-import Option from "../../components/commons/Option";
-import ToggleButton, { SELECTED } from "../../components/commons/ToggleButton";
-import { FONT16, FONT24B } from "../../styles/FontStyles";
-import { COLOR } from "../../styles/ColorStyles";
+import chooseImg from "@/assets/jeonghan.jpeg"; // 이미지 수정
+import { Input } from "@/components/Input";
+import { SELECTED } from "@/components/commons/ToggleButton";
+import ToggleButton from "@/components/commons/ToggleButton";
+import Option from "@/components/commons/Option";
+import { COLOR } from "@/styles/ColorStyles";
+import { Button } from "@/components/Button";
+import { FONT16, FONT24B } from "@/styles/FontStyles";
 
 function Layout() {
   return (
@@ -45,13 +46,9 @@ function Text() {
 function SelectOption() {
   const [selectedType, setSelectedType] = useState(SELECTED.color);
 
-  const handleToggle = (value) => {
-    setSelectedType(value);
-  };
-
   return (
     <>
-      <ToggleButton handleToggle={handleToggle} selected={selectedType} />
+      <ToggleButton handleToggle={setSelectedType} selected={selectedType} />
       <Options selectedType={selectedType} />
     </>
   );
