@@ -106,9 +106,18 @@ const Container = styled.div`
   flex-direction: column;
   gap: 5rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${DeviceSize.tablet}) {
     width: calc(100vw - 9.6rem);
     min-width: 32rem;
+
+    margin-bottom: 10rem;
+  }
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    width: calc(100vw - 9.6rem);
+    min-width: 32rem;
+
+    margin-bottom: 10rem;
   }
 `;
 
@@ -121,7 +130,7 @@ const Contents__title = styled.div`
   align-items: flex-start;
   gap: 1.2rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${DeviceSize.mobile}) {
     width: calc(100vw - 9.6rem);
     min-width: 32rem;
   }
@@ -173,7 +182,7 @@ const Contents__button = styled.div`
   max-width: 120rem;
   margin: auto;
 
-  @media (max-width: 1199px) {
+  @media (max-width: ${DeviceSize.tablet}) {
     position: fixed;
 
     left: 50%;
@@ -181,7 +190,7 @@ const Contents__button = styled.div`
     transform: translateX(-50%);
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${DeviceSize.mobile}) {
     min-width: 32rem;
 
     position: fixed;
