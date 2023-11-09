@@ -10,20 +10,20 @@ Input.propTypes = {
 
 function Input({ placeholder, disabled }) {
   // iserror에 boolean 값 전달해주면 안돼서 state로 falsy, truthy한 값 전달해줌
-  const [error, setError] = useState("");
+  const [error, setError] = useState(0);
 
   const handleInputChange = (e) => {
     // input에 아무 값도 입력하지 않았을 경우
-    if (e.target.value.length == 0) {
-      setError("true");
+    if (!e.target.value) {
+      setError(1);
     } else {
-      setError("");
+      setError(0);
     }
   };
 
   return (
     <>
-      <StyledInput $iserror={error} onBlur={handleInputChange} placeholder={placeholder} disabled={disabled} />
+      <Container $error={error} onBlur={handleInputChange} placeholder={placeholder} disabled={disabled} />
       {error && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>}
     </>
   );
@@ -31,7 +31,7 @@ function Input({ placeholder, disabled }) {
 
 export default Input;
 
-const StyledInput = styled.input`
+const Container = styled.input`
   width: 100%;
   padding: 1.2rem 1.6rem;
   border-radius: 0.8rem;
@@ -58,14 +58,10 @@ const StyledInput = styled.input`
     color: var(--Gray4);
   }
 
-  ${({ iserror }) =>
-    iserror &&
-    `
-  border: 0.1rem solid var(--Error);
-`}
+  ${({ $error }) => $error && `border: 0.1rem solid var(--Error);`}
 `;
 
-const ErrorMessage = styled.div`
+const ErrorMessage = styled.p`
   width: 32rem;
   height: 1.8rem;
   margin-top: 0.4rem;
