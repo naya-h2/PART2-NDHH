@@ -20,9 +20,7 @@ function Layout() {
         <P $Mobile>최근에 만든 롤링 페이퍼 ⭐️️</P>
         <ListPageCards cards={NewestCards} />
       </div>
-      <FixedButton>
-        <Link to="/post">나도 만들어보기</Link>
-      </FixedButton>
+      <FixedButton link="/post">나도 만들어보기</FixedButton>
     </Container>
   );
 }
