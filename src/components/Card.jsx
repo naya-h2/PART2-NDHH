@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import propTypes from "prop-types";
-import Badge from "@/components/commons/Badge";
-import Button from "@/components/commons/Button";
+import { Link } from "react-router-dom";
 import { formatDate } from "@/utils/formatDate";
 import { FONT12, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
+import Badge from "@/components/commons/Badge";
+import Button from "@/components/commons/Button";
 import defaultImg from "@/assets/default_profile.svg";
 
 /**
@@ -18,9 +19,11 @@ function Card({ type, data = null }) {
   if (type === "Plus") {
     return (
       <Container>
-        <PlusIcon>
-          <Button type="plus" />
-        </PlusIcon>
+        <Link to="/post/id/message">
+          <PlusIcon>
+            <Button type="plus" />
+          </PlusIcon>
+        </Link>
       </Container>
     );
   }
