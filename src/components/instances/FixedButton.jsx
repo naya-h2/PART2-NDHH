@@ -17,8 +17,11 @@ export default FixedButton;
 
 const ButtonText = styled.p`
   width: 23.2rem;
+  /* position: fixed;
+  bottom: 2.4rem;
+  left: 0; */
 
-  ${FONT18B};
+  ${FONT18B}
 
   @media (max-width: ${DeviceSize.pc}) {
     width: calc(100vw - 9.6rem);
