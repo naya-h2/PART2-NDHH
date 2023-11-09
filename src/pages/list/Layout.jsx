@@ -5,6 +5,7 @@ import FixedButton from "@/components/instances/FixedButton.jsx";
 import { FONT20B, FONT24B } from "@/styles/FontStyles.js";
 import { RECIPIENT1, RECIPIENT2, RECIPIENT3, RECIPIENT4, RECIPIENT5, RECIPIENT6, RECIPIENT7, RECIPIENT8 } from "@/constants/test.js";
 import { sortHot, sortNew } from "@/utils/sort";
+import { Link } from "react-router-dom";
 
 const Cards = [RECIPIENT1, RECIPIENT2, RECIPIENT3, RECIPIENT4, RECIPIENT5, RECIPIENT6, RECIPIENT7, RECIPIENT8];
 const NewestCards = sortNew([...Cards]);
@@ -19,7 +20,9 @@ function Layout() {
         <P $Mobile>최근에 만든 롤링 페이퍼 ⭐️️</P>
         <ListPageCards cards={NewestCards} />
       </div>
-      <FixedButton>나도 만들어보기</FixedButton>
+      <FixedButton>
+        <Link to="/post">나도 만들어보기</Link>
+      </FixedButton>
     </Container>
   );
 }

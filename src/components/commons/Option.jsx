@@ -65,11 +65,7 @@ export default Option;
 
 const Container = styled.button`
   width: 100%;
-<<<<<<< Updated upstream
-=======
-
   position: relative;
->>>>>>> Stashed changes
 
   &:after {
     content: "";
@@ -87,6 +83,8 @@ const Container = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  background-color: var(--Gray1);
 
   ${FONT14}
   ${({ color }) => color};
@@ -115,6 +113,8 @@ const Container = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    cursor: pointer;
   }
 
   > label > img {

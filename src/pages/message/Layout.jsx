@@ -80,11 +80,11 @@ function Edit() {
 function Submit() {
   return (
     <Contents__submit>
-      <Link to="/post/id">
-        <Button type="primary" height="xl">
+      <Button type="primary" height="xl">
+        <Link to="/post/id">
           <ButtonText>생성하기</ButtonText>
-        </Button>
-      </Link>
+        </Link>
+      </Button>
     </Contents__submit>
   );
 }

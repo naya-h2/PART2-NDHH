@@ -10,6 +10,7 @@ import { FONT16, FONT24B } from "@/styles/FontStyles";
 import { SELECTED } from "@/styles/ButtonStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
 import chooseImg from "@/assets/jeonghan.jpeg"; // 이미지 수정
+import { Link } from "react-router-dom";
 
 function Layout() {
   const [imgFile, setImgFile] = useState("");
@@ -57,6 +58,8 @@ function SelectOption({ imgFile, setImgFile }) {
   );
 }
 
+const COLOR_OPTIONS = [COLOR.O, COLOR.P, COLOR.B, COLOR.G];
+
 Options.propType = {
   selectedType: PropTypes.oneOf([SELECTED.color, SELECTED.image]),
 };
@@ -80,15 +83,15 @@ function Options({ selectedType, imgFile, setImgFile }) {
 
   return <OptionContainer>{option}</OptionContainer>;
 }
-const COLOR_OPTIONS = [COLOR.O, COLOR.P, COLOR.B, COLOR.G];
-const IMG_OPTIONS = [chooseImg, chooseImg, chooseImg, chooseImg];
 
 function Submit() {
   return (
     <Contents__button>
-      <Button type="primary" height="xl">
-        생성하기
-      </Button>
+      <Link to="/post/id">
+        <Button type="primary" height="xl">
+          생성하기
+        </Button>
+      </Link>
     </Contents__button>
   );
 }
@@ -105,7 +108,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 5rem;
 
-  @media (max-width: ${DeviceSize.pc}) {
+  @media (max-width: ${DeviceSize.tablet}) {
     width: calc(100vw - 9.6rem);
     margin-bottom: 10rem;
   }

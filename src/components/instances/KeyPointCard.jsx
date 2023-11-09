@@ -100,14 +100,14 @@ const Container__point = styled.div`
 `;
 
 const P = styled.h1`
-  margin-top: ${($title) => ($title ? "1.6rem" : "0.8rem")};
+  margin-top: ${({ $title }) => ($title ? "1.6rem" : "0.8rem")};
 
-  ${($title) => ($title ? FONT24B : FONT18)};
+  ${({ $title }) => ($title ? FONT24B : FONT18)};
 
   @media (max-width: ${DeviceSize.mobile}) {
-    margin-top: ${($title) => ($title ? "1.6rem" : "0.4rem")};
+    margin-top: ${({ $title }) => ($title ? "1.6rem" : "0.4rem")};
 
-    ${($title) => ($title ? FONT18B : FONT15)};
+    ${({ $title }) => ($title ? FONT18B : FONT15)};
   }
 `;
 

@@ -4,6 +4,7 @@ import introducePoint2 from "@/assets/introduce_point_2.svg";
 import KeyPointCard from "@/components/instances/KeyPointCard";
 import FixedButton from "@/components/instances/FixedButton";
 import { DeviceSize } from "@/styles/DeviceSize";
+import { Link } from "react-router-dom";
 
 const content1 = {
   point: "Point. 01",
@@ -26,7 +27,9 @@ function Layout() {
     <Container>
       <KeyPointCard content={content1} />
       <KeyPointCard content={content2} $isReverse />
-      <FixedButton>구경해보기</FixedButton>
+      <FixedButton>
+        <Link to="/list">구경해보기</Link>
+      </FixedButton>
     </Container>
   );
 }
