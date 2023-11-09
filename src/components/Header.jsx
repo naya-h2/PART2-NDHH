@@ -1,14 +1,14 @@
-import { FONT14B, FONT16B, FONT18, FONT18B, FONT28B } from "../styles/FontStyles";
-import { Recipients } from "./mockUp";
-import HeaderEmojis from "./HeaderEmojiDropDown";
-import shareIcon from "../assets/share_24.svg";
-import Logo from "../assets/Logo.svg";
-import Button from "./Button";
-import divideLine from "../assets/Rectangle_38.svg";
 import styled, { css } from "styled-components";
 import propTypes from "prop-types";
-import ProfileImgList from "./ProfileImgList";
-import { DeviceSize } from "../styles/DeviceSize";
+import { FONT14B, FONT16B, FONT18, FONT18B, FONT28B } from "@/styles/FontStyles";
+import { DeviceSize } from "@/styles/DeviceSize";
+import { Recipients } from "@/constants/mockUp";
+import HeaderEmojis from "@/components/instances/HeaderEmojiDropDown";
+import ProfileImgList from "@/components/commons/ProfileImgList";
+import Button from "@/components/commons/Button";
+import shareIcon from "@/assets/share_24.svg";
+import Logo from "@/assets/Logo.svg";
+import divideLine from "@/assets/Rectangle_38.svg";
 // import { Link } from "react-router-dom";
 
 Header.propTypes = {
@@ -29,7 +29,8 @@ const makeNavHeader = ({ hideButton }) => {
         {/* </Link> */}
         {!hideButton && (
           <Button type="outlined" width="170" height="l">
-            <ButtonText>롤링 페이퍼 만들기</ButtonText>
+            {/*모바일에서 width가 줄어드는데 그냥 버튼 두 개 만드는 수밖에 없을까요..?*/}
+            <ButtonText $B>롤링 페이퍼 만들기</ButtonText>
           </Button>
         )}
       </Container>
@@ -53,22 +54,20 @@ const makeServiceHeader = () => {
             <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           </SendersNum>
           <HeaderEmojis topReactions={topReactions} />
-          <Button type="outlined" width="94" height="m" icon>
-            추가
-          </Button>
+          <CustomButton type="outlined" width="94" height="m" icon>
+            <ButtonText>추가</ButtonText>
+          </CustomButton>
           <DivideImg src={divideLine} alt="영역 분리 아이콘" />
-          <Button type="outlined" width="56" height="m">
+          <CustomButton type="outlined" width="56" height="m">
             {/*이거 이미지나 p 태그 넣어도 되게 해쥬세요...*/}
             <img src={shareIcon} alt="공유 버튼" />
-          </Button>
+          </CustomButton>
         </Wrapper>
       </Container>
       <BorderLine />
     </>
   );
 };
-
-export default Header;
 
 function BorderLine() {
   return (
@@ -78,6 +77,8 @@ function BorderLine() {
     </Container__border>
   );
 }
+
+export default Header;
 
 const MobileGrid = css`
   @media (max-width: ${DeviceSize.mobile}) {
@@ -97,7 +98,7 @@ const MobileGrid = css`
 const Container = styled.div`
   width: calc(100vw - 4.8rem);
   height: ${(props) => (props.$B ? "6.5rem" : "6.8rem")};
-  max-width: 120rem;
+  max-width: 115.2rem;
   margin: 0 auto;
 
   display: flex;
@@ -106,12 +107,8 @@ const Container = styled.div`
 
   background: var(--White);
 
-  @media (max-width: ${DeviceSize.pc}) {
-    width: calc(100vw - 4.8rem);
-  }
-
   @media (max-width: ${DeviceSize.mobile}) {
-    width: calc(100vw - 4rem);
+    /* width: calc(100vw - 4rem); */
     height: 5.2rem;
   }
 
@@ -119,8 +116,9 @@ const Container = styled.div`
 `;
 
 const Recipient = styled.p`
-  ${FONT28B};
   grid-area: "Recipient";
+
+  ${FONT28B};
 
   @media (max-width: ${DeviceSize.mobile}) {
     ${FONT18B}
@@ -134,11 +132,18 @@ const Wrapper = styled.div`
   grid-area: "Wrapper";
 `;
 
+const CustomButton = styled(Button)`
+  @media (max-width: ${DeviceSize.mobile}) {
+    width: 4.4rem;
+    padding: 0.6rem 0.6rem;
+  }
+`;
+
 const ButtonText = styled.p`
-  ${FONT16B}
+  ${(props) => (props.$B ? FONT16B : FONT16B)}
 
   @media (max-width: ${DeviceSize.mobile}) {
-    ${FONT14B}
+    ${(props) => (props.$B ? FONT14B : "display: none")}
   }
 `;
 
@@ -164,15 +169,19 @@ const SendersNum = styled.div`
 
 const Container__border = styled.div`
   width: 100vw;
+
   position: relative;
 `;
 
 const Border = styled.div`
-  display: ${(props) => (props.$Bottom ? "none" : "block")};
-  position: ${(props) => (props.$Bottom ? "absolute" : "static")};
-  border-bottom: 0.1rem solid var(--Gray2);
   width: 100%;
+
+  position: ${(props) => (props.$Bottom ? "absolute" : "static")};
   z-index: 5;
+
+  display: ${(props) => (props.$Bottom ? "none" : "block")};
+
+  border-bottom: 0.1rem solid var(--Gray2);
 
   @media (max-width: ${DeviceSize.mobile}) {
     display: ${(props) => (props.$Bottom ? "block" : "block")};

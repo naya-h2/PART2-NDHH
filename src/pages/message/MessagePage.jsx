@@ -1,5 +1,5 @@
-import Header from "../../components/Header";
-import Layout from "./Layout";
+import Header from "@/components/Header";
+import Layout from "@/pages/message/Layout";
 
 function MessagePage() {
   return (

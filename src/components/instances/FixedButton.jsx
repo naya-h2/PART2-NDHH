@@ -1,7 +1,7 @@
-import Button from "./Button.jsx";
+import Button from "@/components/commons/Button.jsx";
 import styled from "styled-components";
-import { FONT18B } from "../styles/FontStyles.js";
-import { DeviceSize } from "../styles/DeviceSize.js";
+import { FONT18B } from "@/styles/FontStyles.js";
+import { DeviceSize } from "@/styles/DeviceSize.js";
 
 function FixedButton({ children }) {
   return (
@@ -17,6 +17,7 @@ export default FixedButton;
 
 const ButtonText = styled.p`
   width: 23.2rem;
+
   ${FONT18B};
 
   @media (max-width: ${DeviceSize.pc}) {

@@ -1,20 +1,9 @@
+import styled from "styled-components";
 import introducePoint1 from "@/assets/introduce_point_1.svg";
 import introducePoint2 from "@/assets/introduce_point_2.svg";
-import styled from "styled-components";
-import KeyPointCard from "../../components/KeyPointCard";
-import FixedButton from "../../components/FixedButton";
-
-function Layout() {
-  return (
-    <Container>
-      <KeyPointCard content={content1} />
-      <KeyPointCard content={content2} $isReverse />
-      <FixedButton>구경해보기</FixedButton>
-    </Container>
-  );
-}
-
-export default Layout;
+import KeyPointCard from "@/components/instances/KeyPointCard";
+import FixedButton from "@/components/instances/FixedButton";
+import { DeviceSize } from "@/styles/DeviceSize";
 
 const content1 = {
   point: "Point. 01",
@@ -32,6 +21,18 @@ const content2 = {
   image: introducePoint2,
 };
 
+function Layout() {
+  return (
+    <Container>
+      <KeyPointCard content={content1} />
+      <KeyPointCard content={content2} $isReverse />
+      <FixedButton>구경해보기</FixedButton>
+    </Container>
+  );
+}
+
+export default Layout;
+
 const Container = styled.div`
   margin-top: 6rem;
 
@@ -40,7 +41,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 1199px) {
+  @media (max-width: ${DeviceSize.pc}) {
     margin-top: 4.9rem;
   }
 `;

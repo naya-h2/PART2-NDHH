@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import PERSONIMG from "../assets/person.svg";
+import PERSONIMG from "@/assets/person.svg";
 
 function OptionProfile() {
   return (
@@ -15,7 +15,7 @@ const Container = styled.div`
   display: inline-block;
 
   padding: 2.4rem;
-
   border-radius: 10rem;
+
   background-color: var(--Gray3);
 `;
