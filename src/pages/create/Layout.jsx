@@ -1,14 +1,15 @@
-import { PropTypes } from "prop-types";
 import { useState } from "react";
 import styled from "styled-components";
-import chooseImg from "@/assets/jeonghan.jpeg"; // 이미지 수정
+import { PropTypes } from "prop-types";
 import Input from "@/components/commons/Input";
 import ToggleButton from "@/components/commons/ToggleButton";
 import Option from "@/components/commons/Option";
-import { COLOR } from "@/styles/ColorStyles";
 import Button from "@/components/commons/Button";
+import { COLOR } from "@/styles/ColorStyles";
 import { FONT16, FONT24B } from "@/styles/FontStyles";
 import { SELECTED } from "@/styles/ButtonStyles";
+import { DeviceSize } from "@/styles/DeviceSize";
+import chooseImg from "@/assets/jeonghan.jpeg"; // 이미지 수정
 
 function Layout() {
   return (
@@ -153,12 +154,17 @@ const OptionContainer = styled.div`
   max-width: 120rem;
 
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(20.8rem, 28.8rem));
+  justify-content: space-between;
   gap: 1.6rem;
 
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-    gap: 1.2rem;
+  @media (max-width: ${DeviceSize.tablet}) {
+    grid-template-columns: repeat(3, minmax(20.8rem, 29.9rem));
+    gap: 1.6rem;
+  }
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    grid-template-columns: repeat(2, minmax(15.2rem, 32.8rem));
   }
 `;
 
