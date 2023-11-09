@@ -6,11 +6,10 @@ import { Recipients } from "@/constants/mockUp";
 import HeaderEmojis from "@/components/instances/HeaderEmojiDropDown";
 import ProfileImgList from "@/components/commons/ProfileImgList";
 import Button from "@/components/commons/Button";
-import shareIcon from "@/assets/share_24.svg";
 import Logo from "@/assets/Logo.svg";
 import divideLine from "@/assets/Rectangle_38.svg";
 import ShareDropdownButton from "./instances/ShareDropdownButton";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 Header.propTypes = {
   serviceType: PropTypes.oneOf([true, false]),
@@ -25,13 +24,15 @@ function makeNavHeader({ hideButton }) {
   return (
     <>
       <Container $B>
-        {/* <Link to="/"> */}
-        <img src={Logo} />
-        {/* </Link> */}
+        <Link to="/">
+          <img src={Logo} />
+        </Link>
         {!hideButton && (
           <Button type="outlined" width="170" height="l">
             {/*모바일에서 width가 줄어드는데 그냥 버튼 두 개 만드는 수밖에 없을까요..?*/}
-            <ButtonText $B>롤링 페이퍼 만들기</ButtonText>
+            <Link to="/post">
+              <ButtonText $B>롤링 페이퍼 만들기</ButtonText>
+            </Link>
           </Button>
         )}
       </Container>
