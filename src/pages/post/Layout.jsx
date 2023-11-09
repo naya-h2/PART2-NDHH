@@ -9,17 +9,27 @@ import { sortNew } from "@/utils/sort";
 import { COLOR } from "@/styles/ColorStyles";
 import { Z_INDEX } from "@/styles/ZindexStyles";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import useGetData from "@/hooks/useGetData";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
 };
 
 function Layout({ path = "" }) {
+  const [testImgs, setTestImgs] = useState(null);
+  const data = useGetData("BACKGROUND_IMGS");
+
+  useEffect(() => {
+    setTestImgs(data["imageUrls"][0]);
+    console.log(testImgs);
+  }, [data]);
+
   const { backgroundColor, backgroundImageURL, messageCount, recentMessages } = RECIPIENT2;
   const sortedData = sortNew(recentMessages);
 
   return (
-    <Background $color={backgroundColor} $url={backgroundImageURL}>
+    <Background $color={backgroundColor} $url={testImgs}>
       {backgroundImageURL && <Mask></Mask>}
       <Container>
         <Btn path={path} />
