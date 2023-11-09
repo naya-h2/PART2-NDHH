@@ -35,7 +35,7 @@ export const RECIPIENT1 = {
       profileImageURL:
         "https://i.namu.wiki/i/W67p72FdFaRoGfQcJCPDAj2V4D4fGShsAvV0Bu1iuWEUFSuYLmO-M1a-3PZlhBB83KHdB27okikD6OIlaWYiTfaC08U8fZdzaimm9OJg9UF4xEmCIqbtrVhhc_9DLNIAHfJQDJvpLvR0oybP-S4gyA.webp",
       relationship: "가족",
-      content: "열심히 일하는 모습 멋있습니다.",
+      content: "열심히 일하는 모습 멋있습니다. 열심히 일하는 모습 멋있습니다. 열심히 일하는 모습 멋있습니다.",
       font: "Pretendard",
       createdAt: "2023-11-01T08:05:25.399056Z",
     },
@@ -108,7 +108,8 @@ export const RECIPIENT2 = {
       profileImageURL:
         "https://i.namu.wiki/i/W67p72FdFaRoGfQcJCPDAj2V4D4fGShsAvV0Bu1iuWEUFSuYLmO-M1a-3PZlhBB83KHdB27okikD6OIlaWYiTfaC08U8fZdzaimm9OJg9UF4xEmCIqbtrVhhc_9DLNIAHfJQDJvpLvR0oybP-S4gyA.webp",
       relationship: "가족",
-      content: "열심히 일하는 모습 멋있습니다.",
+      content:
+        "열심히 일하는 모습 멋있습니다. 열심히 일하는 모습 멋있습니다. 열심히 일하는 모습 멋있습니다. 열심히 일하는 모습 멋있습니다. 열심히 일하는 모습 멋있습니다. 열심히 일하는 모습 멋있습니다. 열심히 일하는 모습 멋있습니다. 열심히 일하는 모습 멋있습니다.",
       font: "Pretendard",
       createdAt: "2023-11-01T08:05:25.399056Z",
     },

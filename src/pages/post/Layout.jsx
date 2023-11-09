@@ -9,6 +9,10 @@ import { sortNew } from "@/utils/sort";
 import { COLOR } from "@/styles/ColorStyles";
 import { Z_INDEX } from "@/styles/ZindexStyles";
 import { Link } from "react-router-dom";
+import Modal from "@/components/Modal";
+import ModalPortal from "@/components/ModalPortal";
+import { useState } from "react";
+import ModalFrame from "@/components/ModalFrame";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
@@ -62,10 +66,33 @@ function Btn({ path }) {
 }
 
 function CardGrid({ path, messageCount, recentMessages }) {
+  const [modal, setModal] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleModalOpen = () => {
+    setModal(true);
+  };
+
+  const handleModalClose = () => {
+    setModal(false);
+  };
+
+  const handleCardClick = (msg) => {
+    setMessage(msg);
+    handleModalOpen();
+  };
+
   return (
     <CardWrapper>
       {path !== "edit" && <Card type="Plus" />}
-      {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === "edit" ? "Edit" : "Normal"} data={msg} />)}
+      {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === "edit" ? "Edit" : "Normal"} data={msg} onCardClick={handleCardClick} />)}
+      {modal && (
+        <ModalPortal>
+          <ModalFrame onClickClose={handleModalClose}>
+            <Modal {...message} />
+          </ModalFrame>
+        </ModalPortal>
+      )}
     </CardWrapper>
   );
 }
