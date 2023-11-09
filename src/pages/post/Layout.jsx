@@ -13,6 +13,7 @@ import Modal from "@/components/Modal";
 import ModalPortal from "@/components/ModalPortal";
 import { useState } from "react";
 import ModalFrame from "@/components/ModalFrame";
+import InputModal from "@/components/InputModal";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
@@ -34,7 +35,18 @@ function Layout({ path = "" }) {
 }
 
 function Btn({ path }) {
+  const [modal, setModal] = useState(false);
+
   const windowWidth = useGetWindowWidth();
+
+  const handleModalOpen = (event) => {
+    event.preventDefault();
+    setModal(true);
+  };
+
+  const handleModalClose = () => {
+    setModal(false);
+  };
 
   return (
     <>
@@ -54,12 +66,19 @@ function Btn({ path }) {
         </SaveWrapper>
       ) : (
         <EditWrapper>
-          <Link to="/post/id/edit">
+          <Link to="/post/id/edit" onClick={handleModalOpen}>
             <Button type="outlined" height="l" width="100">
               편집하기
             </Button>
           </Link>
         </EditWrapper>
+      )}
+      {modal && (
+        <ModalPortal>
+          <ModalFrame onClickClose={handleModalClose}>
+            <InputModal />
+          </ModalFrame>
+        </ModalPortal>
       )}
     </>
   );
