@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { FONT14, FONT18, FONT20, FONT20B } from "../styles/FontStyles";
-import Badge from "./Badge";
-import { PropTypes } from "prop-types";
-import { formatDate } from "./../utils/utils";
+import PropTypes from "prop-types";
+import { FONT14, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
+import Badge from "@/components/commons/Badge";
+import { formatDate } from "@/utils/formatDate";
 
 Modal.propTypes = {
   profileImageURL: PropTypes.string,
@@ -14,17 +14,17 @@ Modal.propTypes = {
 function Modal({ profileImageURL, sender, relationship, createdAt, content }) {
   return (
     <Container>
-      <Header>
-        <Profile>
+      <Wrapper>
+        <Contents__profile>
           <img src={profileImageURL} />
           <p>From.</p>
           <h1>{sender}</h1>
           <Badge>{relationship}</Badge>
-        </Profile>
-        <Date>
+        </Contents__profile>
+        <Contents__date>
           <p>{formatDate(createdAt)}</p>
-        </Date>
-      </Header>
+        </Contents__date>
+      </Wrapper>
       <CutLine />
       <Text>{content}</Text>
     </Container>
@@ -47,16 +47,17 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Header = styled.div`
+const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const Profile = styled.div`
+const Contents__profile = styled.div`
   display: grid;
   grid-template: auto auto / auto 1.6rem auto auto;
   grid-template-areas: "img . from who" "img . badge .";
+
   row-gap: 0.6rem;
 
   img {
@@ -85,7 +86,7 @@ const Profile = styled.div`
   }
 `;
 
-const Date = styled.div`
+const Contents__date = styled.div`
   p {
     ${FONT14}
     color: var(--Gray4);

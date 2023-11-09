@@ -1,10 +1,10 @@
 import styled from "styled-components";
+import { FONT16, FONT18B, FONT24B } from "@/styles/FontStyles";
 import Input from "@/components/Input";
+import Dropdown from "@/components/Dropdown";
+import TextEditor from "@/components/Editor";
+import Button from "@/components/Button";
 import defaultImg from "@/assets/default_profile.svg";
-import { FONT16, FONT18B, FONT24B } from "../../styles/FontStyles";
-import Dropdown from "../../components/Dropdown";
-import TextEditor from "./../../components/Editor";
-import Button from "../../components/Button";
 
 function Layout() {
   return (
@@ -74,6 +74,7 @@ function Edit() {
   );
 }
 
+// 이거 components/instances/FixedButton 컴포넌트랑 똑같아서 그거 사용하셔도 괜찮을 것 같아욤
 function Submit() {
   return (
     <ButtonFix>
@@ -86,7 +87,6 @@ function Submit() {
 
 const Container = styled.div`
   width: 100%;
-
   margin-top: 5rem;
 
   display: flex;
@@ -137,10 +137,10 @@ const Contents__profile = styled(BaseContents)`
     gap: 3.2rem;
 
     p {
+      margin-bottom: 1.2rem;
+
       ${FONT16};
       color: var(--Gray5);
-
-      margin-bottom: 1.2rem;
     }
   }
 `;
@@ -148,11 +148,11 @@ const Contents__profile = styled(BaseContents)`
 const ProfileImg = styled.img`
   width: 56px;
   height: 56px;
-
   margin-right: 0.4rem;
 
   border-radius: 100px;
   border: 1px solid var(--Gray2);
+
   background: var(--white);
 `;
 

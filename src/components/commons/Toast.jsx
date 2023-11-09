@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import COMPLETED_IMG from "../assets/completed.svg";
-import CLOSE_IMG from "../assets/close.svg";
-import { FONT16 } from "../styles/FontStyles";
-import { DeviceSize } from "../styles/DeviceSize";
+import { FONT16 } from "@/styles/FontStyles";
+import { DeviceSize } from "@/styles/DeviceSize";
+import COMPLETED_IMG from "@/assets/completed.svg";
+import CLOSE_IMG from "@/assets/close.svg";
 
 function Toast() {
   return (
@@ -22,12 +22,12 @@ const Container = styled.div`
   width: 52.4rem;
   height: 6.4rem;
 
+  padding: 2rem 3.2rem;
+  border-radius: 0.8rem;
+
   display: grid;
   grid-template-columns: 2.4rem 1fr 2.4rem;
   align-items: center;
-
-  padding: 2rem 3.2rem;
-  border-radius: 0.8rem;
 
   background-color: #00000080;
 

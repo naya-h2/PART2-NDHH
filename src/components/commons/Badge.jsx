@@ -1,7 +1,7 @@
-import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import { FONT12, FONT14, FONT16 } from "../styles/FontStyles";
-import { COLOR, REL } from "../styles/ColorStyles";
+import styled, { css } from "styled-components";
+import { FONT12, FONT14, FONT16 } from "@/styles/FontStyles";
+import { COLOR, REL } from "@/styles/ColorStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
 
 Badge.propTypes = {
@@ -33,10 +33,10 @@ const makeBadge = (children, color) => {
 
 const makeEmoji = (children, num) => {
   return (
-    <Emoji>
+    <Container__Emoji>
       {children}
       <span>{num}</span>
-    </Emoji>
+    </Container__Emoji>
   );
 };
 
@@ -46,27 +46,27 @@ const Container = styled.div`
   width: 4.2rem;
   height: 2rem;
 
+  padding: 0 0.8rem;
+  border-radius: 0.4rem;
+
   display: flex;
   align-items: center;
   grid-area: badge;
-
-  padding: 0 0.8rem;
-  border-radius: 0.4rem;
 
   ${FONT14};
   ${({ color }) => color};
 `;
 
-const Emoji = styled.div`
+const Container__Emoji = styled.div`
   width: 6.6rem;
   height: 3.6rem;
+
+  padding: 0.8rem 1.2rem;
+  border-radius: 3.2rem;
 
   display: flex;
   justify-content: center;
   align-items: center;
-
-  padding: 0.8rem 1.2rem;
-  border-radius: 3.2rem;
 
   background-color: #00000080;
 
