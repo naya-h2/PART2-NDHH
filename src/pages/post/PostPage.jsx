@@ -5,7 +5,7 @@ import { DeviceSizeNum } from "@/styles/DeviceSize";
 
 function PostPage() {
   const windowWidth = useGetWindowWidth();
-  console.log(windowWidth);
+
   return (
     <>
       {windowWidth > DeviceSizeNum.mobile && <Header />}

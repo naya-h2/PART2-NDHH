@@ -7,13 +7,14 @@ import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
 import { RECIPIENT1, RECIPIENT2 } from "@/constants/test";
 import { sortNew } from "@/utils/sort";
 import { COLOR } from "@/styles/ColorStyles";
+import { Z_INDEX } from "@/styles/ZindexStyles";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
 };
 
 function Layout({ path = "" }) {
-  const { backgroundColor, backgroundImageURL, messageCount, recentMessages } = RECIPIENT1;
+  const { backgroundColor, backgroundImageURL, messageCount, recentMessages } = RECIPIENT2;
   const sortedData = sortNew(recentMessages);
 
   return (
@@ -33,7 +34,7 @@ function Btn({ path }) {
   return (
     <>
       {path === "edit" ? (
-        <DeleteWrapper>
+        <SaveWrapper>
           {windowWidth > DeviceSizeNum.tablet ? (
             <Button type="primary" height="l" width="100">
               저장하기
@@ -43,7 +44,7 @@ function Btn({ path }) {
               저장하기
             </Button>
           )}
-        </DeleteWrapper>
+        </SaveWrapper>
       ) : (
         <EditWrapper>
           <Button type="outlined" height="l" width="100">
@@ -142,13 +143,13 @@ const CardWrapper = styled.div`
   }
 `;
 
-const DeleteWrapper = styled.div`
+const SaveWrapper = styled.div`
   width: 10rem;
   padding-bottom: 1.1rem;
 
   position: relative;
 
-  z-index: 10;
+  z-index: ${Z_INDEX.postLayout_SaveWrapper};
 
   @media (max-width: ${DeviceSize.tablet}) {
     width: calc(100% - 4.8rem);
@@ -171,7 +172,7 @@ const EditWrapper = styled.div`
 
   position: relative;
 
-  z-index: 1;
+  z-index: ${Z_INDEX.postLayout_EditWrapper};
 
   @media (max-width: ${DeviceSize.tablet}) {
     padding-bottom: 1.4rem;
