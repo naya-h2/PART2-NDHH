@@ -10,33 +10,30 @@ import { COLOR } from "@/styles/ColorStyles";
 import { Z_INDEX } from "@/styles/ZindexStyles";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import useGetData from "@/hooks/useGetData";
+import useSomethingData from "@/hooks/useSomethingData";
+import useGetImg from "@/hooks/test";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
 };
 
 function Layout({ path = "" }) {
-  const [testImgs, setTestImgs] = useState(null);
-  const data = useGetData("BACKGROUND_IMGS");
-
-  useEffect(() => {
-    setTestImgs(data["imageUrls"][0]);
-    console.log(testImgs);
-  }, [data]);
+  const data = useSomethingData("BACKGROUND_IMGS"); // useGetImg 훅 호출하여 이미지 URL을 추출
+  console.log(data);
 
   const { backgroundColor, backgroundImageURL, messageCount, recentMessages } = RECIPIENT2;
   const sortedData = sortNew(recentMessages);
 
-  return (
-    <Background $color={backgroundColor} $url={testImgs}>
-      {backgroundImageURL && <Mask></Mask>}
-      <Container>
-        <Btn path={path} />
-        <CardGrid path={path} messageCount={messageCount} recentMessages={sortedData} />
-      </Container>
-    </Background>
-  );
+  if (data)
+    return (
+      <Background $color={backgroundColor} $url={data["imageUrls"][0]}>
+        {backgroundImageURL && <Mask></Mask>}
+        <Container>
+          <Btn path={path} />
+          <CardGrid path={path} messageCount={messageCount} recentMessages={sortedData} />
+        </Container>
+      </Background>
+    );
 }
 
 function Btn({ path }) {
