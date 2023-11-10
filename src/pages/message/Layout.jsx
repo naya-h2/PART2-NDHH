@@ -8,33 +8,43 @@ import { FONT16, FONT24B } from "@/styles/FontStyles";
 import { useState } from "react";
 import styled from "styled-components";
 import PLUSIMG from "@/assets/plus_icon.svg";
+import { getURL } from "@/utils/getURL";
 
 const INITIAL = {
-  writer: "",
-  img: defaultImg,
-  rel: REL.O,
-  text: "",
+  sender: "",
+  profileImageURL: defaultImg,
+  relationship: REL.O,
+  content: undefined,
+  createdAt: undefined,
 };
 
 function Layout() {
   const [value, setValue] = useState(INITIAL);
 
   const handleClick = (event) => {
-    if (!value.text) {
+    if (!(value.sender && value.content)) {
       event.preventDefault();
       return;
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async () => {
+    value.createdAt = new Date().toJSON();
+
+    const formData = new FormData();
+    for (const key of Object.keys(INITIAL)) {
+      formData.append(key, value[key]);
+    }
+    for (const v of formData.values()) {
+      console.log(v);
+    }
   };
 
   return (
     <Container>
-      <Title message value={value.writer} setValue={setValue} />
-      <Profile value={value.img} setValue={setValue} />
-      <Relationship value={value.rel} setValue={setValue} />
+      <Title message value={value.sender} setValue={setValue} />
+      <Profile value={value.profileImageURL} setValue={setValue} />
+      <Relationship value={value.relationship} setValue={setValue} />
       <Edit setValue={setValue} />
       <Submit onClick={handleClick} onSubmit={handleSubmit} />
     </Container>
@@ -44,35 +54,41 @@ function Layout() {
 export default Layout;
 
 function Profile({ value, setValue }) {
+  const [imgs, setImgs] = useState([defaultImg]);
+  const [selected, setSelected] = useState(0);
+
   return (
     <Contents__profile>
       <p>프로필 이미지</p>
       <div>
-        <ProfileImg $src={value} alt="설정된 프로필 이미지" />
         <div>
-          <p>프로필 이미지를 선택해주세요!</p>
-          <AddImg setValue={setValue} />
+          <ProfileImg $src={imgs[selected]} alt="설정된 프로필 이미지" />
+        </div>
+        <div>
+          <p>{value ? `프로필 이미지를 선택해 주세요!` : `프로필 이미지를 추가해 주세요!`}</p>
+          <AddImg setValue={setValue} imgs={imgs} setImgs={setImgs} selected={selected} setSelected={setSelected} />
         </div>
       </div>
     </Contents__profile>
   );
 }
 
-function AddImg({ setValue }) {
-  const [imgs, setImgs] = useState([]);
-  const [selected, setSelected] = useState(0);
-
-  const handleClick = (idx, img) => () => {
+function AddImg({ setValue, imgs, setImgs, selected, setSelected }) {
+  const handleClick = (idx, profileImageURL) => () => {
     setSelected(idx);
-    setValue((prev) => ({ ...prev, img }));
+    setValue((prev) => ({ ...prev, profileImageURL }));
   };
 
   const handleChange = (event) => {
     const file = event.target.files[0];
-    if (file) {
-      const img = URL.createObjectURL(file);
-      setImgs((prev) => [img, ...prev]);
-      setValue((prev) => ({ ...prev, img }));
+    if (file && file.size < 1024 ** 2 * 1) {
+      (async function (file) {
+        const profileImageURL = await getURL(file);
+        const thumbNailURL = URL.createObjectURL(file);
+        setSelected(0);
+        setImgs((prev) => [thumbNailURL, ...prev]);
+        setValue((prev) => ({ ...prev, profileImageURL }));
+      })(file);
     }
   };
 
@@ -97,8 +113,8 @@ function AddImg({ setValue }) {
 const RELATIONSHIP = Object.values(REL);
 
 function Relationship({ value, setValue }) {
-  const handleClick = (rel) => {
-    setValue((prev) => ({ ...prev, rel }));
+  const handleClick = (relationship) => {
+    setValue((prev) => ({ ...prev, relationship }));
   };
 
   return (
@@ -170,6 +186,12 @@ const Contents__addImg = styled.div`
     cursor: pointer;
   }
 
+  span {
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
   input[type="file"] {
     width: 0;
     height: 0;
@@ -187,10 +209,6 @@ const Img = styled.div`
   border-radius: 10rem;
 
   cursor: pointer;
-
-  &:hover {
-    opacity: 0.5;
-  }
 
   ${({ $check }) => $check && `opacity: 0.5;`}
   ${({ $src }) => $src && `background-image: url(${$src}); background-size: cover;`}

@@ -3,18 +3,19 @@ import styled, { css } from "styled-components";
 import { FONT14 } from "@/styles/FontStyles";
 import CHECKIMG from "@/assets/check.svg";
 import PLUSIMG from "@/assets/plus_icon.svg";
+import { getURL } from "@/utils/getURL";
 
 Option.propTypes = {
-  color: PropTypes.oneOf(["orange", "purple", "blue", "green"]),
+  color: PropTypes.oneOf(["orange", "purple", "blue", "green", "red"]),
   src: PropTypes.string,
   check: PropTypes.bool,
 };
-function Option({ color, check, ...props }) {
+function Option({ color, ...props }) {
   if (color) {
-    return <OptionColor color={color} check={check} {...props} />;
+    return <OptionColor color={color} {...props} />;
   }
   if (!color) {
-    return <OptionImg check={check} {...props} />;
+    return <OptionImg {...props} />;
   }
 }
 
@@ -35,18 +36,23 @@ function OptionColor({ color, check, ...props }) {
   );
 }
 
-function OptionImg({ check, imgFile, setImgFile, ...props }) {
+function OptionImg({ check, setValue, img, setImgs, setSelected, ...props }) {
   const handleChange = (event) => {
     const file = event.target.files[0];
-    if (file) {
-      const nextFile = URL.createObjectURL(file);
-      setImgFile((prev) => [nextFile, ...prev]);
+    if (file && file.size < 1024 ** 2 * 3) {
+      (async function (file) {
+        const backgroundImageURL = await getURL(file);
+        const thumbNailURL = URL.createObjectURL(file);
+        setSelected(0);
+        setImgs((prev) => [thumbNailURL, ...prev]);
+        setValue((prev) => ({ ...prev, backgroundImageURL }));
+      })(file);
     }
   };
 
   return (
-    <Container src={imgFile} $check={check} {...props}>
-      {imgFile ? (
+    <Container src={img} $check={check} {...props}>
+      {img ? (
         check && (
           <div>
             <img src={CHECKIMG} alt="선택된 이미지" />

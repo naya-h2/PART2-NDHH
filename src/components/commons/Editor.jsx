@@ -12,8 +12,8 @@ function TextEditor({ setValue }) {
     editor.current = sunEditor;
   };
 
-  const handleChange = (text) => {
-    setValue((prev) => ({ ...prev, text }));
+  const handleChange = (content) => {
+    setValue((prev) => ({ ...prev, content }));
   };
 
   return (
