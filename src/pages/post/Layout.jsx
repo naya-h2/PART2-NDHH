@@ -26,7 +26,7 @@ function Layout({ path = "" }) {
 
   if (data)
     return (
-      <Background $color={backgroundColor} $url={data["imageUrls"][0]}>
+      <Background $color={backgroundColor} $url={data[0]}>
         {backgroundImageURL && <Mask></Mask>}
         <Container>
           <Btn path={path} />
