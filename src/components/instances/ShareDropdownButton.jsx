@@ -1,11 +1,26 @@
 import shareIcon from "@/assets/share_24.svg";
 import Button from "@/components/commons/Button";
 import { FONT15 } from "@/styles/FontStyles";
+import { Z_INDEX } from "@/styles/ZindexStyles";
+import shareKakaoTalk from "@/utils/shareKakao";
 import { useState } from "react";
 import styled from "styled-components";
 
-function ShareDropdownButton() {
+function ShareDropdownButton({ currentPath = "/" }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+
+  const host = "http://localhost:5173";
+
+  const copyClipboard = () => {
+    navigator.clipboard
+      .writeText(host + currentPath)
+      .then(() => {
+        alert("클립보드에 복사되었습니다.");
+      })
+      .catch((err) => {
+        console.error("URL 복사 실패:", err);
+      });
+  };
 
   const handleClick = () => {
     setIsMenuVisible(!isMenuVisible);
@@ -18,8 +33,12 @@ function ShareDropdownButton() {
       </CustomButton>
       {isMenuVisible && (
         <List>
-          <Text>카카오톡 공유</Text>
-          <Text>URL 공유</Text>
+          <button onClick={() => shareKakaoTalk(host + currentPath)}>
+            <Text>카카오톡 공유</Text>
+          </button>
+          <button onClick={copyClipboard}>
+            <Text>URL 공유</Text>
+          </button>
         </List>
       )}
     </ShareButton>
@@ -51,7 +70,7 @@ const List = styled.ul`
   border: 0.1rem solid var(--Gray3);
   background: var(--White);
   box-shadow: 0 0.2rem 1.2rem 0 rgba(0, 0, 0, 0.08);
-  z-index: 1;
+  z-index: ${Z_INDEX.header_button_popup};
 
   @media (max-width: 1350px) {
     left: -8rem;

@@ -2,10 +2,17 @@ import Button from "@/components/commons/Button.jsx";
 import styled from "styled-components";
 import { FONT18B } from "@/styles/FontStyles.js";
 import { DeviceSize } from "@/styles/DeviceSize.js";
+import { useNavigate } from "react-router-dom";
 
-function FixedButton({ children }) {
+function FixedButton({ children, link }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(link);
+  };
+
   return (
-    <Container>
+    <Container onClick={handleClick}>
       <Button type="primary" height="xl">
         <ButtonText>{children}</ButtonText>
       </Button>
@@ -18,9 +25,7 @@ export default FixedButton;
 const ButtonText = styled.p`
   width: 23.2rem;
 
-  > a {
-    ${FONT18B}
-  }
+  ${FONT18B}
 
   @media (max-width: ${DeviceSize.pc}) {
     width: calc(100vw - 9.6rem);

@@ -27,9 +27,7 @@ function Layout() {
     <Container>
       <KeyPointCard content={content1} />
       <KeyPointCard content={content2} $isReverse />
-      <FixedButton>
-        <Link to="/list">구경해보기</Link>
-      </FixedButton>
+      <FixedButton link="/list">구경해보기</FixedButton>
     </Container>
   );
 }

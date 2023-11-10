@@ -18,6 +18,8 @@ function Badge({ children, num }) {
       return makeBadge(children, COLOR.B);
     case REL.G:
       return makeBadge(children, COLOR.G);
+    case REL.R:
+      return makeBadge(children, COLOR.R);
     default:
       return makeEmoji(children, num);
   }

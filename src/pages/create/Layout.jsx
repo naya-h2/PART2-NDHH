@@ -1,16 +1,13 @@
+import Option from "@/components/commons/Option";
+import ToggleButton from "@/components/commons/ToggleButton";
+import { Container, Submit, Title } from "@/components/instances/CreateMessage";
+import { SELECTED } from "@/styles/ButtonStyles";
+import { COLOR } from "@/styles/ColorStyles";
+import { DeviceSize } from "@/styles/DeviceSize";
+import { FONT16, FONT24B } from "@/styles/FontStyles";
+import { PropTypes } from "prop-types";
 import { useState } from "react";
 import styled from "styled-components";
-import { PropTypes } from "prop-types";
-import Input from "@/components/commons/Input";
-import ToggleButton from "@/components/commons/ToggleButton";
-import Option from "@/components/commons/Option";
-import Button from "@/components/commons/Button";
-import { COLOR } from "@/styles/ColorStyles";
-import { FONT16, FONT24B } from "@/styles/FontStyles";
-import { SELECTED } from "@/styles/ButtonStyles";
-import { DeviceSize } from "@/styles/DeviceSize";
-import chooseImg from "@/assets/jeonghan.jpeg"; // 이미지 수정
-import { Link } from "react-router-dom";
 
 function Layout() {
   const [imgFile, setImgFile] = useState("");
@@ -28,15 +25,6 @@ function Layout() {
 }
 
 export default Layout;
-
-function Title() {
-  return (
-    <Contents__title>
-      <p>To.</p>
-      <Input placeholder="받는 사람 이름을 입력해주세요" />
-    </Contents__title>
-  );
-}
 
 function Text() {
   return (
@@ -81,64 +69,8 @@ function Options({ selectedType, imgFile, setImgFile }) {
       </>
     );
 
-  return <OptionContainer>{option}</OptionContainer>;
+  return <Container__Options>{option}</Container__Options>;
 }
-
-function Submit() {
-  return (
-    <Contents__button>
-      <Link to="/post/id">
-        <Button type="primary" height="xl">
-          생성하기
-        </Button>
-      </Link>
-    </Contents__button>
-  );
-}
-
-const Container = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
-
-  margin: auto;
-  margin-top: 5rem;
-
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  gap: 5rem;
-
-  @media (max-width: ${DeviceSize.tablet}) {
-    width: calc(100vw - 9.6rem);
-    margin-bottom: 10rem;
-  }
-
-  @media (max-width: ${DeviceSize.mobile}) {
-    width: calc(100vw - 9.6rem);
-    min-width: 32rem;
-    margin-bottom: 10rem;
-  }
-`;
-
-const Contents__title = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
-
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.2rem;
-
-  @media (max-width: ${DeviceSize.mobile}) {
-    width: calc(100vw - 9.6rem);
-    min-width: 32rem;
-  }
-
-  > p {
-    color: var(--Gray9);
-    ${FONT24B}
-  }
-`;
 
 const Contents__text = styled.div`
   display: flex;
@@ -157,7 +89,7 @@ const Contents__text = styled.div`
   }
 `;
 
-const OptionContainer = styled.div`
+const Container__Options = styled.div`
   width: calc(100vw - 9.6rem);
   max-width: 120rem;
 
@@ -173,29 +105,5 @@ const OptionContainer = styled.div`
 
   @media (max-width: ${DeviceSize.mobile}) {
     grid-template-columns: repeat(2, minmax(15.2rem, 32.8rem));
-  }
-`;
-
-const Contents__button = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
-  margin: auto;
-
-  @media (max-width: ${DeviceSize.tablet}) {
-    position: fixed;
-
-    left: 50%;
-    bottom: 2.4rem;
-    transform: translateX(-50%);
-  }
-
-  @media (max-width: ${DeviceSize.mobile}) {
-    min-width: 32rem;
-
-    position: fixed;
-
-    left: 50%;
-    bottom: 2.4rem;
-    transform: translateX(-50%);
   }
 `;
