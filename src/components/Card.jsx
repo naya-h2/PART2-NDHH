@@ -31,7 +31,7 @@ function Card({ type, data = null, onCardClick }) {
   const { sender, profileImageURL, relationship, content, font, createdAt } = data;
 
   return (
-    <Container onClick={() => onCardClick(data)}>
+    <Container>
       <Profile>
         <ProfileImg src={profileImageURL || defaultImg} alt={`${sender}님의 프로필 사진`} />
         <Wrapper>
@@ -48,7 +48,7 @@ function Card({ type, data = null, onCardClick }) {
       )}
       <ContentWrapper>
         <Content $font={font}>{content}</Content>
-        <More>더보기</More>
+        <More onClick={() => onCardClick(data)}>더보기</More>
       </ContentWrapper>
       <Date>{formatDate(createdAt)}</Date>
     </Container>
@@ -76,10 +76,6 @@ const Container = styled.div`
 
   background-color: var(--White);
   box-shadow: 0px 0.2rem 1.2rem 0px rgba(0, 0, 0, 0.08);
-
-  &:hover {
-    cursor: ${({ $type }) => ($type === "Plus" ? "default" : "pointer")};
-  }
 
   @media (max-width: ${DeviceSize.tablet}) {
     max-width: 50rem;
@@ -135,7 +131,7 @@ const DeleteIcon = styled.div`
 `;
 
 const Content = styled.div`
-  height: 6rem;
+  height: 5.3rem;
 
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -146,7 +142,6 @@ const Content = styled.div`
   color: var(--Gray6);
   word-wrap: break-word;
   font-family: ${({ $font }) => $font};
-  line-height: 155.556%;
   letter-spacing: -0.018rem;
 `;
 
@@ -170,6 +165,8 @@ const More = styled.div`
   text-align: right;
 
   &:hover {
+    cursor: pointer;
+
     color: var(--Gray7);
   }
 `;
