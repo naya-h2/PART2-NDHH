@@ -6,29 +6,6 @@ import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import { PropTypes } from "prop-types";
 
-export const Container = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
-
-  margin: auto;
-
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  gap: 5rem;
-
-  @media (max-width: ${DeviceSize.tablet}) {
-    width: calc(100vw - 9.6rem);
-    margin-bottom: 10rem;
-  }
-
-  @media (max-width: ${DeviceSize.mobile}) {
-    width: calc(100vw - 9.6rem);
-    min-width: 32rem;
-    margin-bottom: 10rem;
-  }
-`;
-
 const CONTENTS = {
   create: {
     p: "To.",
@@ -73,6 +50,29 @@ export function Submit({ onClick, onSubmit }) {
     </Contents__button>
   );
 }
+
+export const Container = styled.div`
+  width: calc(100vw - 9.6rem);
+  max-width: 120rem;
+
+  margin: auto;
+
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 5rem;
+
+  @media (max-width: ${DeviceSize.tablet}) {
+    width: calc(100vw - 9.6rem);
+    margin-bottom: 10rem;
+  }
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    width: calc(100vw - 9.6rem);
+    min-width: 32rem;
+    margin-bottom: 10rem;
+  }
+`;
 
 const Contents__title = styled.div`
   width: 100%;
