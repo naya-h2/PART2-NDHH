@@ -89,7 +89,7 @@ function CardGrid({ path, messageCount, recentMessages }) {
       {isOpen && (
         <ModalPortal>
           <ModalFrame onClickClose={handleModalClose}>
-            <Modal {...message} />
+            <Modal message={message} onClose={handleModalClose} />
           </ModalFrame>
         </ModalPortal>
       )}

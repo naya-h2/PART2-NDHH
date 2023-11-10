@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { FONT14, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
 import Badge from "@/components/commons/Badge";
 import { formatDate } from "@/utils/formatDate";
+import Button from "./commons/Button";
 
 Modal.propTypes = {
   profileImageURL: PropTypes.string,
@@ -11,7 +12,8 @@ Modal.propTypes = {
   createdAt: PropTypes.string,
   content: PropTypes.string,
 };
-function Modal({ profileImageURL, sender, relationship, createdAt, content }) {
+function Modal({ message, onClose }) {
+  const { profileImageURL, sender, relationship, createdAt, content } = message;
   return (
     <Container>
       <Wrapper>
@@ -27,6 +29,11 @@ function Modal({ profileImageURL, sender, relationship, createdAt, content }) {
       </Wrapper>
       <CutLine />
       <Text>{content}</Text>
+      <ButtonWrapper onClick={onClose}>
+        <Button width="120" height="l" type="primary">
+          확인
+        </Button>
+      </ButtonWrapper>
     </Container>
   );
 }
@@ -45,6 +52,7 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 `;
 
 const Wrapper = styled.div`
@@ -122,4 +130,11 @@ const Text = styled.p`
   }
 
   ${FONT18};
+`;
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
 `;

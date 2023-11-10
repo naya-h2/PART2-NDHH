@@ -142,7 +142,6 @@ const Content = styled.div`
   color: var(--Gray6);
   word-wrap: break-word;
   font-family: ${({ $font }) => $font};
-  line-height: 155.556%;
   letter-spacing: -0.018rem;
 `;
 
