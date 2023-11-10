@@ -21,21 +21,21 @@ Layout.propTypes = {
 };
 
 function Layout({ path = "" }) {
-  const { backgroundColor, backgroundImageURL, messageCount, recentMessages } = RECIPIENT2;
+  const { backgroundColor, backgroundImageURL, messageCount, recentMessages, password } = RECIPIENT2;
   const sortedData = sortNew(recentMessages);
 
   return (
     <Background $color={backgroundColor} $url={backgroundImageURL}>
       {backgroundImageURL && <Mask></Mask>}
       <Container>
-        <Btn path={path} />
+        <Btn path={path} password={password} />
         <CardGrid path={path} messageCount={messageCount} recentMessages={sortedData} />
       </Container>
     </Background>
   );
 }
 
-function Btn({ path }) {
+function Btn({ path, password }) {
   const { isOpen, handleModalOpen, handleModalClose } = useModal();
   const windowWidth = useGetWindowWidth();
 
@@ -65,7 +65,7 @@ function Btn({ path }) {
       {isOpen && (
         <ModalPortal>
           <ModalFrame onClickClose={handleModalClose}>
-            <InputModal />
+            <InputModal password={password} onClose={handleModalClose} />
           </ModalFrame>
         </ModalPortal>
       )}

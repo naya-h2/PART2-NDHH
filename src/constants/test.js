@@ -22,11 +22,12 @@ export const MESSAGE2 = {
 
 export const RECIPIENT1 = {
   id: 2,
-  name: "강영훈",
+  name: "김나은",
   backgroundColor: "green",
   backgroundImageURL: null,
   createdAt: "2021-10-26T13:19:31.401765Z",
   messageCount: 11111111,
+  password: 1234,
   recentMessages: [
     {
       id: 32,
@@ -100,6 +101,7 @@ export const RECIPIENT2 = {
     "https://i.namu.wiki/i/eJhZH5b6Qg6Tbds1uk1PYRD4pkOZpSx0aefRNWiId7-Fwa7bYpAThZFMePZbD95s4T0IkXCAOvrAUumjDb-fSYhGbpuBk79iuaw7mfmXQwGtJ7UgTLTerVW_NzR7gP9q64I4qVYO4v5QcZBBsxCZGQ.webp",
   createdAt: "2023-10-26T13:19:31.401765Z",
   messageCount: 320,
+  password: 1234,
   recentMessages: [
     {
       id: 32,
