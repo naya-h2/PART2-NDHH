@@ -1,7 +1,12 @@
-import { ENDPOINTS, BASE_URL } from "./config";
+/**
+ * API 호출 함수
+ * @param {string} method - HTTP 메서드 (GET, POST, DELETE)
+ * @param {string} url - API 엔드포인트 URL. useData가 자동으로 생성.
+ * @param {Object} postData - POST 요청 시 전송할 데이터
+ * @returns {Promise<Object>} - API 응답을 나타내는 Promise 객체
+ */
 
-async function api(type, method) {
-  const url = BASE_URL + ENDPOINTS[type][method];
+async function api(method, url, postData) {
   // console.log(url);
   switch (method) {
     case "GET":
