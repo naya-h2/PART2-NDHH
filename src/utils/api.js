@@ -2,7 +2,7 @@ const BASE_URL = "https://rolling-api.vercel.app/";
 
 const URLS = {
   BACKGROUND_IMGS: BASE_URL + "background-images/", // 배경 이미지 받아오기
-  // PROFILE_IMGS: BASE_URL + "profile-images/", // 프로필 이미지 설정
+  PROFILE_IMGS: BASE_URL + "profile-images/", // 프로필 이미지 설정
   // MESSAGES: BASE_URL + `1-7/messages/${id}`, // id에 해당하는 메세지 객체 삭제
 
   // RECIPIENTS: BASE_URL + "1-7/recipients/", // 새로운 대상객체 (To.~~) 생성 or 리스트에서 조회 시 사용
@@ -11,7 +11,7 @@ const URLS = {
   // RECIPIENTS_REACTIONS: BASE_URL + `1-7/recipients/recipients/${recipient_id}/reactions/`,
 };
 
-const actionResponse = async (type, method = "GET", postData = null) => {
+const actionResponse = async (type, method, postData = null) => {
   const url = URLS[type];
   switch (method) {
     case "GET":
@@ -20,6 +20,7 @@ const actionResponse = async (type, method = "GET", postData = null) => {
         throw new Error("데이터를 불러오는데 실패했습니다.");
       }
       const getData = await getResponse.json();
+      // return { type: `${type}`, payload: getData };
       return getData;
 
     case "POST":
