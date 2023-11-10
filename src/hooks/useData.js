@@ -8,14 +8,21 @@ function useData(type, method, recipient_id, postData = null) {
   useEffect(() => {
     (async function () {
       const result = await api(type, method);
+
       // 가공함수
-      setData(result);
+      if (type === "RECIPIENTS") setData(() => getCardList(result));
     })();
   }, []);
 
-  console.log(data);
-
-  return { ...data };
+  // return { ...data };
+  return data;
 }
 
 export default useData;
+
+//
+
+const getCardList = (result) => {
+  const { results } = result;
+  return results;
+};
