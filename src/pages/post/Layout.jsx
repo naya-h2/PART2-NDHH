@@ -1,32 +1,29 @@
-import styled from "styled-components";
-import propTypes from "prop-types";
 import Card from "@/components/Card";
 import Button from "@/components/commons/Button";
+import { RECIPIENT2 } from "@/constants/test";
+import useData from "@/hooks/useData";
 import useGetWindowWidth from "@/hooks/useGetWindowWidth";
-import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
-import { RECIPIENT1, RECIPIENT2 } from "@/constants/test";
-import { sortNew } from "@/utils/sort";
 import { COLOR } from "@/styles/ColorStyles";
+import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
 import { Z_INDEX } from "@/styles/ZindexStyles";
+import { sortNew } from "@/utils/sort";
+import propTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import useSomethingData from "@/hooks/useSomethingData";
-import useGetImg from "@/hooks/test";
+import styled from "styled-components";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
 };
 
 function Layout({ path = "" }) {
-  const data = useSomethingData("BACKGROUND_IMGS"); // useGetImg 훅 호출하여 이미지 URL을 추출
-  console.log(data);
+  const { imageUrls } = useData("BACKGROUND_IMGS", "GET");
 
   const { backgroundColor, backgroundImageURL, messageCount, recentMessages } = RECIPIENT2;
   const sortedData = sortNew(recentMessages);
 
-  if (data)
+  if (imageUrls)
     return (
-      <Background $color={backgroundColor} $url={data[0]}>
+      <Background $color={backgroundColor} $url={imageUrls[0]}>
         {backgroundImageURL && <Mask></Mask>}
         <Container>
           <Btn path={path} />
