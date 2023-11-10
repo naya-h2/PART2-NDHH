@@ -2,6 +2,11 @@ import styled from "styled-components";
 import propTypes from "prop-types";
 import Card from "@/components/Card";
 import Button from "@/components/commons/Button";
+import Modal from "@/components/Modal";
+import ModalPortal from "@/components/ModalPortal";
+import ModalFrame from "@/components/ModalFrame";
+import InputModal from "@/components/InputModal";
+import useModal from "@/hooks/useModal";
 import useGetWindowWidth from "@/hooks/useGetWindowWidth";
 import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
 import { RECIPIENT1, RECIPIENT2 } from "@/constants/test";
@@ -9,6 +14,7 @@ import { sortNew } from "@/utils/sort";
 import { COLOR } from "@/styles/ColorStyles";
 import { Z_INDEX } from "@/styles/ZindexStyles";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
@@ -30,6 +36,7 @@ function Layout({ path = "" }) {
 }
 
 function Btn({ path }) {
+  const { isOpen, handleModalOpen, handleModalClose } = useModal();
   const windowWidth = useGetWindowWidth();
 
   return (
@@ -50,22 +57,42 @@ function Btn({ path }) {
         </SaveWrapper>
       ) : (
         <EditWrapper>
-          <Link to="/post/id/edit">
-            <Button type="outlined" height="l" width="100">
-              편집하기
-            </Button>
-          </Link>
+          <Button type="outlined" height="l" width="100" onClick={handleModalOpen}>
+            편집하기
+          </Button>
         </EditWrapper>
+      )}
+      {isOpen && (
+        <ModalPortal>
+          <ModalFrame onClickClose={handleModalClose}>
+            <InputModal />
+          </ModalFrame>
+        </ModalPortal>
       )}
     </>
   );
 }
 
 function CardGrid({ path, messageCount, recentMessages }) {
+  const { isOpen, handleModalOpen, handleModalClose } = useModal();
+  const [message, setMessage] = useState("");
+
+  const handleCardClick = (msg) => {
+    setMessage(msg);
+    handleModalOpen();
+  };
+
   return (
     <CardWrapper>
       {path !== "edit" && <Card type="Plus" />}
-      {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === "edit" ? "Edit" : "Normal"} data={msg} />)}
+      {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === "edit" ? "Edit" : "Normal"} data={msg} onCardClick={handleCardClick} />)}
+      {isOpen && (
+        <ModalPortal>
+          <ModalFrame onClickClose={handleModalClose}>
+            <Modal {...message} />
+          </ModalFrame>
+        </ModalPortal>
+      )}
     </CardWrapper>
   );
 }

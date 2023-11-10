@@ -8,4 +8,6 @@ export const Z_INDEX = {
   profileImgList_Rest: 4,
   postLayout_EditWrapper: 1,
   postLayout_SaveWrapper: 2,
+  modalFrame_Mask: 999,
+  modalFrame_Body: 999,
 };

@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import propTypes from "prop-types";
-import Badge from "@/components/commons/Badge";
-import Button from "@/components/commons/Button";
+import { Link } from "react-router-dom";
 import { formatDate } from "@/utils/formatDate";
 import { FONT12, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
+import Badge from "@/components/commons/Badge";
+import Button from "@/components/commons/Button";
 import defaultImg from "@/assets/default_profile.svg";
 
 /**
@@ -14,13 +15,15 @@ Card.propTypes = {
   type: propTypes.oneOf(["Normal", "Edit", "Plus"]),
   data: propTypes.object,
 };
-function Card({ type, data = null }) {
+function Card({ type, data = null, onCardClick }) {
   if (type === "Plus") {
     return (
-      <Container>
-        <PlusIcon>
-          <Button type="plus" />
-        </PlusIcon>
+      <Container $type="Plus">
+        <Link to="/post/id/message">
+          <PlusIcon>
+            <Button type="plus" />
+          </PlusIcon>
+        </Link>
       </Container>
     );
   }
@@ -28,7 +31,7 @@ function Card({ type, data = null }) {
   const { sender, profileImageURL, relationship, content, font, createdAt } = data;
 
   return (
-    <Container>
+    <Container onClick={() => onCardClick(data)}>
       <Profile>
         <ProfileImg src={profileImageURL || defaultImg} alt={`${sender}님의 프로필 사진`} />
         <Wrapper>
@@ -70,6 +73,10 @@ const Container = styled.div`
 
   background-color: var(--White);
   box-shadow: 0px 0.2rem 1.2rem 0px rgba(0, 0, 0, 0.08);
+
+  &:hover {
+    cursor: ${({ $type }) => ($type === "Plus" ? "default" : "pointer")};
+  }
 
   @media (max-width: ${DeviceSize.tablet}) {
     max-width: 50rem;
@@ -128,12 +135,15 @@ const Content = styled.div`
   width: 100%;
   height: 10.6rem;
 
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
   overflow: hidden;
 
   ${FONT18}
   color: var(--Gray6);
   text-overflow: ellipsis;
-  white-space: nowrap;
+  word-wrap: break-word;
   font-family: ${({ $font }) => $font};
   line-height: 155.556%;
   letter-spacing: -0.018rem;
