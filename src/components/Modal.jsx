@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { FONT14, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
 import Badge from "@/components/commons/Badge";
 import { formatDate } from "@/utils/formatDate";
-import Button from "./commons/Button";
+import Button from "@/components/commons/Button";
+import { DeviceSize } from "@/styles/DeviceSize";
 
 Modal.propTypes = {
   profileImageURL: PropTypes.string,
@@ -53,6 +54,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    width: 36rem;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -109,6 +114,10 @@ const CutLine = styled.div`
   margin-bottom: 1.6rem;
 
   background-color: var(--Gray2);
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    width: 100%;
+  }
 `;
 
 const Text = styled.p`
@@ -130,10 +139,15 @@ const Text = styled.p`
   }
 
   ${FONT18};
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    width: 100%;
+  }
 `;
 
 const ButtonWrapper = styled.div`
   width: 100%;
+  padding-top: 1rem;
 
   display: flex;
   justify-content: center;

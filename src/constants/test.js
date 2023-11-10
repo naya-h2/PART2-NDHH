@@ -122,7 +122,7 @@ export const RECIPIENT2 = {
       profileImageURL:
         "https://i.namu.wiki/i/hEjiSn700tioUHnRXevpFdhG626dPCBC_Xwgi_8P5WhvhhOiC_D5UJ_9y6Rq2MLQ8K754qPSfBHsH1fOOHIB9P5XlM_BuHNtsh0g5QPUZAiAulZHiCKUgW1VKOhRa02ikEWKfah0ASQDopp4kYY8EQ.webp",
       relationship: "지인",
-      content: "항상 응원합니다",
+      content: "메세지에 엔터는 어떻게 입력하는 걸까요? \n이건가\n\n마자요?",
       font: "Noto Sans",
       createdAt: "2023-11-01T08:04:12.852691Z",
     },
@@ -205,6 +205,82 @@ export const RECIPIENT2 = {
       쿵 치 팍 치 쿵 쿵 치 팍 치 예
       쿵 치 팍 치 쿵 쿵 치 팍 치 예
       음악의 신이 있다면`,
+      font: "Noto Sans",
+      createdAt: "2023-11-01T08:04:12.852691Z",
+    },
+    {
+      id: 44,
+      recipientId: 2,
+      sender: "NCT U",
+      profileImageURL: "https://image.bugsm.co.kr/album/images/200/40917/4091769.jpg?version=20231018011154.0",
+      relationship: "지인",
+      content: `That's in the vibe
+      Hold up Yeah
+      
+      Iconic move my motion
+      늘 뭔가 색다른 옷 전시해
+      Soul, emotion
+      Bad kid with a strong ego
+      깎아내려 봐도
+      (Glow)
+      싹 다 보란 듯이 G.O.A.T
+      (G.O.A.T)
+      That's my check,
+      Full with the facts
+      접어 의심 그냥 보고
+      Fact Check
+      (Fact Check)
+      
+      띄워 Question question question
+      marks in everywhere
+      How u do that?
+      아마 그건 DNA
+      Monalisa never cry don't you see
+      Tap tap u tappin' all day
+      내 패는 Stand, black jack (ah!)
+      
+      Check the facts go check that
+      Check the facts go check that
+      Check the stats go check that
+      Check that check that
+      Check the facts go check that
+      Check the facts go check that
+      Check the stats go check that
+      Check that check that
+      
+      Ooooh 난 불가사의
+      Check that check that
+      Go ask the world and check that`,
+      font: "Noto Sans",
+      createdAt: "2023-11-01T08:04:12.852691Z",
+    },
+    {
+      id: 45,
+      recipientId: 2,
+      sender: "카리나",
+      profileImageURL: "https://image.bugsm.co.kr/album/images/200/40902/4090282.jpg?version=20231011011815.0",
+      relationship: "지인",
+      content: `Oh Got better things
+      to do with my time
+      Better things
+      to do with my time
+      Do with my time than you
+      Oh I got better things
+      to do with my time
+      Better things
+      to do with my time
+      Do with my time
+      
+      I wasn't ever sure
+      that I loved you
+      But I was always sure
+      you would let me down
+      I wasn't ever sure
+      if I'd trust you
+      But I'm so goddamn sure
+      my energy is
+      just too precious to waste
+      So now you, now you wanna`,
       font: "Noto Sans",
       createdAt: "2023-11-01T08:04:12.852691Z",
     },
