@@ -46,7 +46,10 @@ function Card({ type, data = null, onCardClick }) {
           <Button type="trash" />
         </DeleteIcon>
       )}
-      <Content $font={font}>{content}</Content>
+      <ContentWrapper>
+        <Content $font={font}>{content}</Content>
+        <More>더보기</More>
+      </ContentWrapper>
       <Date>{formatDate(createdAt)}</Date>
     </Container>
   );
@@ -132,17 +135,15 @@ const DeleteIcon = styled.div`
 `;
 
 const Content = styled.div`
-  width: 100%;
-  height: 10.6rem;
+  height: 6rem;
 
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 
   ${FONT18}
   color: var(--Gray6);
-  text-overflow: ellipsis;
   word-wrap: break-word;
   font-family: ${({ $font }) => $font};
   line-height: 155.556%;
@@ -161,4 +162,23 @@ const Date = styled.div`
 const PlusIcon = styled.div`
   width: 5.6rem;
   height: 5.6rem;
+`;
+
+const More = styled.div`
+  ${FONT12}
+  color: var(--Gray4);
+  text-align: right;
+
+  &:hover {
+    color: var(--Gray7);
+  }
+`;
+
+const ContentWrapper = styled.div`
+  width: 100%;
+  height: 10.6rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
