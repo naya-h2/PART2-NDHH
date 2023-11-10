@@ -21,7 +21,7 @@ export default InputModal;
 
 const Container = styled.div`
   width: 36rem;
-  padding: 4rem 4rem;
+  padding: 4rem 4rem 3rem;
 
   display: flex;
   flex-direction: column;
