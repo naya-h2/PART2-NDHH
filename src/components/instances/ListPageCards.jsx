@@ -3,6 +3,7 @@ import CardList from "@/components/Cardlist";
 import Button from "@/components/commons/Button";
 import { useState } from "react";
 import { DeviceSize } from "@/styles/DeviceSize";
+import { Z_INDEX } from "@/styles/ZindexStyles";
 
 function ListPageCards({ cards }) {
   const [scrollX, setScrollX] = useState(0);

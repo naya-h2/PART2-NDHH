@@ -4,6 +4,7 @@ import { Reactions } from "@/constants/mockUp";
 import { DeviceSize } from "@/styles/DeviceSize";
 import Badge from "@/components/commons/Badge";
 import arrowDown from "@/assets/arrow_down.svg";
+import { Z_INDEX } from "@/styles/ZindexStyles";
 
 function HeaderEmojis({ topReactions }) {
   const [isVisible, setIsVisible] = useState(false);
