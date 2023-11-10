@@ -6,10 +6,10 @@ import shareKakaoTalk from "@/utils/shareKakao";
 import { useState } from "react";
 import styled from "styled-components";
 
-function ShareDropdownButton(currentPath = "") {
+function ShareDropdownButton({ currentPath = "/" }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
-  const host = "http://localhost:3000";
+  const host = "http://localhost:5173";
 
   const copyClipboard = () => {
     navigator.clipboard
