@@ -6,10 +6,10 @@ const checkType = (type, result) => {
   switch (type) {
     case "BACKGROUND_IMGS":
       const { imageUrls: background_imgs } = result;
-      break;
+      return background_imgs;
     case "PROFILE_IMGS":
       const { imageUrls: profile_imgs } = result;
-      break;
+      return profile_imgs;
     // case ("MESSAGES") 딜리트만 있음
     // case ("RECIPIENTS") :
     //   const { count, next, previous, results } = result;
@@ -22,15 +22,14 @@ const checkType = (type, result) => {
 
     // case ("RECIPIENTS_REACTIONS") :
   }
-  return result;
 };
 
-const useSomethingData = (type, method = "GET", postData) => {
+const useSomethingData = (type, method = "GET", postData, path) => {
   const [data, setData] = useState(null);
 
   const doSomethingData = useCallback(async () => {
     try {
-      const result = await actionResponse(type, method, postData);
+      const result = await actionResponse(type, method, postData, path);
       const result2 = checkType(type, result);
       setData(result2);
     } catch (error) {
