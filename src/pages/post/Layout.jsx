@@ -159,19 +159,19 @@ const CardWrapper = styled.div`
   width: 100%;
 
   display: grid;
-  grid-template-columns: repeat(3, minmax(32rem, 38.4rem));
+  grid-template-columns: repeat(3, minmax(30rem, 38.4rem));
   justify-content: space-between;
   row-gap: 2.8rem;
   column-gap: 2.4rem;
   column-gap: min(1.6rem);
 
   @media (max-width: ${DeviceSize.tablet}) {
-    grid-template-columns: repeat(2, minmax(32rem, 50rem)); /* Assuming 500px is 50rem */
+    grid-template-columns: repeat(2, minmax(30rem, 50rem)); /* Assuming 500px is 50rem */
     gap: 1.6rem;
   }
 
   @media (max-width: ${DeviceSize.mobile}) {
-    grid-template-columns: repeat(1, minmax(32rem, 38.4rem));
+    grid-template-columns: repeat(1, minmax(30rem, 38.4rem));
   }
 `;
 

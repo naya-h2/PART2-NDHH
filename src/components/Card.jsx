@@ -60,7 +60,7 @@ export default Card;
 const Container = styled.div`
   width: 100%;
   max-width: 38.4rem;
-  min-width: 32rem;
+  min-width: 30rem;
   height: 28rem;
   padding: 2.8rem 2.4rem 2.4rem;
 
