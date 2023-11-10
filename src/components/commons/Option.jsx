@@ -37,8 +37,11 @@ function OptionColor({ color, check, ...props }) {
 
 function OptionImg({ check, imgFile, setImgFile, ...props }) {
   const handleChange = (event) => {
-    const nextFile = URL.createObjectURL(event.target.files[0]);
-    setImgFile((prev) => [...prev, nextFile]);
+    const file = event.target.files[0];
+    if (file) {
+      const nextFile = URL.createObjectURL(file);
+      setImgFile((prev) => [nextFile, ...prev]);
+    }
   };
 
   return (
