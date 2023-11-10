@@ -88,6 +88,10 @@ const Container = styled.div`
   background-position: ${({ $url }) => ($url !== null ? null : `right bottom`)};
   box-shadow: 0 0.2rem 1.2rem 0px rgba(0, 0, 0, 0.08);
 
+  &:hover {
+    cursor: pointer;
+  }
+
   @media (max-width: ${DeviceSize.mobile}) {
     width: 20.8rem;
     height: 23.2rem;
