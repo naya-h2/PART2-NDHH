@@ -96,8 +96,7 @@ export const RECIPIENT2 = {
   id: 2,
   name: "백호",
   backgroundColor: null,
-  backgroundImageURL:
-    "https://i.namu.wiki/i/eJhZH5b6Qg6Tbds1uk1PYRD4pkOZpSx0aefRNWiId7-Fwa7bYpAThZFMePZbD95s4T0IkXCAOvrAUumjDb-fSYhGbpuBk79iuaw7mfmXQwGtJ7UgTLTerVW_NzR7gP9q64I4qVYO4v5QcZBBsxCZGQ.webp",
+  backgroundImageURL: null,
   createdAt: "2023-10-26T13:19:31.401765Z",
   messageCount: 320,
   recentMessages: [

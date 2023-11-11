@@ -1,32 +1,31 @@
-import styled from "styled-components";
-import propTypes from "prop-types";
 import Card from "@/components/Card";
 import Button from "@/components/commons/Button";
+import { RECIPIENT2 } from "@/constants/test";
+import useData from "@/hooks/useData";
 import useGetWindowWidth from "@/hooks/useGetWindowWidth";
-import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
-import { RECIPIENT1, RECIPIENT2 } from "@/constants/test";
-import { sortNew } from "@/utils/sort";
 import { COLOR } from "@/styles/ColorStyles";
+import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
 import { Z_INDEX } from "@/styles/ZindexStyles";
+import { sortNew } from "@/utils/sort";
+import propTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import useSomethingData from "@/hooks/useSomethingData";
-import useGetImg from "@/hooks/test";
+import styled from "styled-components";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
 };
 
 function Layout({ path = "" }) {
-  const data = useSomethingData("BACKGROUND_IMGS"); // useGetImg 훅 호출하여 이미지 URL을 추출
-  console.log(data);
+  const userData = useData("RECIPIENTS_ID", "GET", 212);
+  const senderData = useData("RECIPIENTS_MESSAGES", "GET", 212);
+  // 일단 id 목업 데이터 서버에 넣은 걸로 지정
 
-  const { backgroundColor, backgroundImageURL, messageCount, recentMessages } = RECIPIENT2;
-  const sortedData = sortNew(recentMessages);
-
-  if (data)
+  if (userData && senderData) {
+    const { backgroundColor, backgroundImageURL, messageCount } = userData;
+    // 이거 recentMessages면 항상 카드 3개만 뜨는 것 같아서 데이터만 바꿔줬습니당...!
+    const sortedData = sortNew(senderData);
     return (
-      <Background $color={backgroundColor} $url={data[0]}>
+      <Background $color={backgroundColor} $url={backgroundImageURL}>
         {backgroundImageURL && <Mask></Mask>}
         <Container>
           <Btn path={path} />
@@ -34,6 +33,7 @@ function Layout({ path = "" }) {
         </Container>
       </Background>
     );
+  }
 }
 
 function Btn({ path }) {

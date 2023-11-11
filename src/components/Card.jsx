@@ -6,6 +6,8 @@ import { formatDate } from "@/utils/formatDate";
 import { FONT12, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
 import defaultImg from "@/assets/default_profile.svg";
+import useData from "@/hooks/useData";
+import { useState, useEffect } from "react";
 
 /**
  * @param {*} data 메세지 데이터 객체
@@ -15,6 +17,13 @@ Card.propTypes = {
   data: propTypes.object,
 };
 function Card({ type, data = null }) {
+  // const [id, setId] = useState(null);
+
+  // const handleClick = () => {
+  //   setId(318); // 누른 버튼의 작성자 id가 리턴된다고 가정.
+  //   useData("MESSAGES", "DELETE", id);
+  // };
+
   if (type === "Plus") {
     return (
       <Container>
