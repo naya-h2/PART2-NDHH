@@ -31,8 +31,8 @@ function Dropdown({ disabled, value, setValue, items }) {
       <ArrowImg src={arrowDirection} alt="클릭해서 옵션 선택하기" />
       <List $show={showDropdown}>
         {items.map((item, idx) => (
-          <Text key={idx} onClick={handleSelect(item)}>
-            {item}
+          <Text key={idx} onFocus={handleSelect(item)}>
+            <button> {item}</button>
           </Text>
         ))}
       </List>
@@ -40,7 +40,7 @@ function Dropdown({ disabled, value, setValue, items }) {
   );
 }
 
-const Container = styled.div`
+const Container = styled.button`
   position: relative;
   width: 32rem;
   height: 5rem;
@@ -49,6 +49,7 @@ const Container = styled.div`
   border: 0.1rem solid var(--Gray3);
   background: var(--White);
 
+  text-align: left;
   ${FONT16}
   color: var(--Gray5);
 
@@ -108,11 +109,16 @@ const Text = styled.li`
   display: flex;
   align-items: center;
 
-  color: var(--Gray9);
-  ${FONT16}
-
   &:hover {
     background: var(--Gray1);
+  }
+
+  button {
+    width: 100%;
+
+    text-align: left;
+    color: var(--Gray9);
+    ${FONT16}
   }
 `;
 
