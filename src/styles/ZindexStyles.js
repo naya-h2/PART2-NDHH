@@ -13,4 +13,5 @@ export const Z_INDEX = {
   header_button_popup: 5,
   list_page_arrow_button: 1,
   Toast_Wrapper: 998,
+  Wrapper_Emoji: 998,
 };
