@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { FONT14, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
 import Badge from "@/components/commons/Badge";
 import { formatDate } from "@/utils/formatDate";
+import Button from "@/components/commons/Button";
+import { DeviceSize } from "@/styles/DeviceSize";
 
 Modal.propTypes = {
   profileImageURL: PropTypes.string,
@@ -11,7 +13,8 @@ Modal.propTypes = {
   createdAt: PropTypes.string,
   content: PropTypes.string,
 };
-function Modal({ profileImageURL, sender, relationship, createdAt, content }) {
+function Modal({ message, onClose }) {
+  const { profileImageURL, sender, relationship, createdAt, content } = message;
   return (
     <Container>
       <Wrapper>
@@ -27,6 +30,11 @@ function Modal({ profileImageURL, sender, relationship, createdAt, content }) {
       </Wrapper>
       <CutLine />
       <Text>{content}</Text>
+      <ButtonWrapper onClick={onClose}>
+        <Button width="120" height="l" type="primary">
+          확인
+        </Button>
+      </ButtonWrapper>
     </Container>
   );
 }
@@ -45,6 +53,11 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    width: 36rem;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -101,6 +114,10 @@ const CutLine = styled.div`
   margin-bottom: 1.6rem;
 
   background-color: var(--Gray2);
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    width: 100%;
+  }
 `;
 
 const Text = styled.p`
@@ -122,4 +139,16 @@ const Text = styled.p`
   }
 
   ${FONT18};
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    width: 100%;
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  padding-top: 1rem;
+
+  display: flex;
+  justify-content: center;
 `;

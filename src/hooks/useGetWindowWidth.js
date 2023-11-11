@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 /**
  * @returns 현재 윈도우 창크기의 innerWidth값
  */
-function useGetWindowWidth() {
+const useGetWindowWidth = () => {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -13,6 +13,6 @@ function useGetWindowWidth() {
     window.addEventListener("resize", resizeListener);
   });
   return innerWidth;
-}
+};
 
 export default useGetWindowWidth;
