@@ -1,20 +1,27 @@
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
-import { FONT14 } from "@/styles/FontStyles";
+import { FONT14, FONT14B, FONT16B, FONT18 } from "@/styles/FontStyles";
 import CHECKIMG from "@/assets/check.svg";
 import PLUSIMG from "@/assets/plus_icon.svg";
+import { getURL } from "@/utils/getURL";
+import useModal from "@/hooks/useModal";
+import ModalPortal from "@/components/ModalPortal";
+import ModalFrame from "@/components/ModalFrame";
+import Input from "@/components/commons/Input";
+import Button from "@/components/commons/Button";
+import { useRef } from "react";
 
 Option.propTypes = {
-  color: PropTypes.oneOf(["orange", "purple", "blue", "green"]),
+  color: PropTypes.oneOf(["orange", "purple", "blue", "green", "red"]),
   src: PropTypes.string,
   check: PropTypes.bool,
 };
-function Option({ color, check, ...props }) {
+function Option({ color, ...props }) {
   if (color) {
-    return <OptionColor color={color} check={check} {...props} />;
+    return <OptionColor color={color} {...props} />;
   }
   if (!color) {
-    return <OptionImg check={check} {...props} />;
+    return <OptionImg {...props} />;
   }
 }
 
@@ -35,18 +42,40 @@ function OptionColor({ color, check, ...props }) {
   );
 }
 
-function OptionImg({ check, imgFile, setImgFile, ...props }) {
+const REG = /^([A-Za-z]{1}[A-Za-z\d_]*\.)*[A-Za-z][A-Za-z\d_]*$/;
+
+function OptionImg({ check, setValue, img, setImgs, setSelected, ...props }) {
   const handleChange = (event) => {
     const file = event.target.files[0];
-    if (file) {
-      const nextFile = URL.createObjectURL(file);
-      setImgFile((prev) => [nextFile, ...prev]);
+    if (file && file.size < 1024 ** 2 * 3) {
+      (async function (file) {
+        const backgroundImageURL = await getURL(file);
+        const thumbNailURL = URL.createObjectURL(file);
+        setSelected(0);
+        setImgs((prev) => [thumbNailURL, ...prev]);
+        setValue((prev) => ({ ...prev, backgroundImageURL }));
+      })(file);
     }
   };
 
+  const handleSubmit = (handleModalClose) => (event) => {
+    event.preventDefault();
+    const backgroundImageURL = event.target.value;
+    console.log(backgroundImageURL);
+    // if (REG.test(backgroundImageURL)) {
+    //   console.log("good");
+    //   setSelected(0);
+    //   setImgs((prev) => [backgroundImageURL, ...prev]);
+    //   setValue((prev) => ({ ...prev, backgroundImageURL }));
+    //   handleModalClose();
+    //   return;
+    // }
+    // alert("정확한 URL 주소를 입력해주세요.");
+  };
+
   return (
-    <Container src={imgFile} $check={check} {...props}>
-      {imgFile ? (
+    <Container src={img} $check={check} {...props}>
+      {img ? (
         check && (
           <div>
             <img src={CHECKIMG} alt="선택된 이미지" />
@@ -54,13 +83,72 @@ function OptionImg({ check, imgFile, setImgFile, ...props }) {
         )
       ) : (
         <>
-          <label htmlFor="file">
-            <img src={PLUSIMG} alt="이미지 추가하기" />
-          </label>
-          <input id="file" type="file" onChange={handleChange} />
+          <img src={PLUSIMG} alt="이미지 추가하기" />
+          <InputFile onChange={handleChange} />
+          <InputURL onSubmit={handleSubmit} />
         </>
       )}
     </Container>
+  );
+}
+
+function InputFile({ ...props }) {
+  const input = useRef();
+  const handleClick = (event) => {
+    if (event.key === "Enter" || event.key === " ") input.current.click();
+  };
+
+  return (
+    <>
+      <label tabIndex={0} htmlFor="file" onKeyDown={handleClick}>
+        <p>
+          <strong>파일</strong>
+          <br />
+          추가하기
+        </p>
+      </label>
+      <input id="file" type="file" accept="image/*" ref={input} {...props} />
+    </>
+  );
+}
+
+function InputURL({ onSubmit, ...props }) {
+  const { isOpen, handleModalOpen, handleModalClose } = useModal();
+  const handleClick = (event) => {
+    if (event.key === "Enter" || event.key === " ") handleModalOpen();
+  };
+
+  return (
+    <>
+      <label tabIndex={0} onClick={handleModalOpen} onKeyDown={handleClick}>
+        <p>
+          <strong>URL</strong>
+          <br />
+          주소로 추가하기
+        </p>
+      </label>
+      {isOpen && (
+        <ModalPortal>
+          <ModalFrame onClickClose={handleModalClose}>
+            <InputModal onSubmit={onSubmit(handleModalClose)} {...props} />
+          </ModalFrame>
+        </ModalPortal>
+      )}
+    </>
+  );
+}
+
+function InputModal({ onSubmit }) {
+  return (
+    <Container__modal onSubmit={onSubmit}>
+      <Text>URL 주소</Text>
+      <InputWrapper>
+        <Input placeholder="이미지 주소 붙여넣기" autoFocus />
+      </InputWrapper>
+      <Button width="100" height="l" type="primary">
+        확인
+      </Button>
+    </Container__modal>
   );
 }
 
@@ -70,16 +158,6 @@ const Container = styled.button`
   width: 100%;
   position: relative;
 
-  &:after {
-    content: "";
-    display: block;
-    padding-bottom: 100%;
-  }
-
-  &:hover {
-    opacity: 0.5;
-  }
-
   border: 0.1rem solid rgba(0, 0, 0, 0.08);
   border-radius: 1.6rem;
 
@@ -88,6 +166,43 @@ const Container = styled.button`
   align-items: center;
 
   background-color: var(--Gray1);
+
+  &:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  &:hover,
+  &:focus-within {
+    opacity: 0.5;
+
+    > img {
+      display: none;
+    }
+
+    > label {
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      cursor: pointer;
+
+      p {
+        ${FONT14}
+      }
+
+      &:hover {
+        strong {
+          ${FONT16B};
+        }
+      }
+    }
+  }
 
   ${FONT14}
   ${({ color }) => color};
@@ -110,18 +225,7 @@ const Container = styled.button`
   }
 
   > label {
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    cursor: pointer;
-  }
-
-  > label > img {
-    width: 4.4rem;
+    display: none;
   }
 
   input[type="file"] {
@@ -130,7 +234,29 @@ const Container = styled.button`
     padding: 0;
     border: 0;
 
+    display: none;
+
     position: absolute;
     overflow: hidden;
   }
+`;
+
+const Container__modal = styled.form`
+  width: 36rem;
+  padding: 4rem 4rem 3rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+
+  background-color: white;
+  border-radius: 15px;
+  border: 1px solid var(--GRAY2);
+`;
+const Text = styled.div`
+  ${FONT18}
+`;
+const InputWrapper = styled.div`
+  width: 100%;
 `;
