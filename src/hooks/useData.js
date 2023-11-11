@@ -20,6 +20,7 @@ function useData(type, method, path, postData = null) {
       // url 생성
       const endpoint = ENDPOINTS[type][method];
       const url = typeof endpoint === "function" ? BASE_URL + endpoint(path) : BASE_URL + endpoint;
+      // endpoint === instance Function
 
       const result = await api(method, url, postData);
 
