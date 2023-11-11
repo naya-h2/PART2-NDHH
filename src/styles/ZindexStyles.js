@@ -12,4 +12,5 @@ export const Z_INDEX = {
   modalFrame_Body: 999,
   header_button_popup: 5,
   list_page_arrow_button: 1,
+  Toast_Wrapper: 998,
 };

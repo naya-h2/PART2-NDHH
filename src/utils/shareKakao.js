@@ -1,9 +1,11 @@
+const KEY = "c893120693cd3c7efdd63b83220acc55";
+
 const shareKakaoTalk = (url) => {
   if (window.Kakao) {
     const kakao = window.Kakao;
 
     if (!kakao.isInitialized()) {
-      kakao.init("c893120693cd3c7efdd63b83220acc55");
+      kakao.init(KEY);
     }
 
     kakao.Share.sendDefault({
