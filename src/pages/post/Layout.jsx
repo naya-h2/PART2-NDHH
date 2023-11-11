@@ -14,6 +14,8 @@ import { Z_INDEX } from "@/styles/ZindexStyles";
 import { sortNew } from "@/utils/sort";
 import propTypes from "prop-types";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { useState } from "react";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
