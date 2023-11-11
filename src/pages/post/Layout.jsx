@@ -1,5 +1,3 @@
-import styled from "styled-components";
-import propTypes from "prop-types";
 import Card from "@/components/Card";
 import Button from "@/components/commons/Button";
 import Modal from "@/components/Modal";
@@ -7,28 +5,29 @@ import ModalPortal from "@/components/ModalPortal";
 import ModalFrame from "@/components/ModalFrame";
 import InputModal from "@/components/InputModal";
 import useModal from "@/hooks/useModal";
+import { RECIPIENT2 } from "@/constants/test";
+import useData from "@/hooks/useData";
 import useGetWindowWidth from "@/hooks/useGetWindowWidth";
-import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
-import { RECIPIENT1, RECIPIENT2 } from "@/constants/test";
-import { sortNew } from "@/utils/sort";
 import { COLOR } from "@/styles/ColorStyles";
+import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
 import { Z_INDEX } from "@/styles/ZindexStyles";
+import { sortNew } from "@/utils/sort";
+import propTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
 };
 
 function Layout({ path = "" }) {
-  const { backgroundColor, backgroundImageURL, messageCount, recentMessages, password } = RECIPIENT2;
+  const { backgroundColor, backgroundImageURL, messageCount, recentMessages } = RECIPIENT2;
   const sortedData = sortNew(recentMessages);
 
   return (
     <Background $color={backgroundColor} $url={backgroundImageURL}>
       {backgroundImageURL && <Mask></Mask>}
       <Container>
-        <Btn path={path} password={password} />
+        <Btn path={path} />
         <CardGrid path={path} messageCount={messageCount} recentMessages={sortedData} />
       </Container>
     </Background>

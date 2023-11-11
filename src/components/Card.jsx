@@ -7,6 +7,8 @@ import { DeviceSize } from "@/styles/DeviceSize";
 import Badge from "@/components/commons/Badge";
 import Button from "@/components/commons/Button";
 import defaultImg from "@/assets/default_profile.svg";
+import useData from "@/hooks/useData";
+import { useState, useEffect } from "react";
 
 /**
  * @param {*} data 메세지 데이터 객체
