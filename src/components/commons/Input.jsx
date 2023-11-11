@@ -9,11 +9,9 @@ Input.propTypes = {
 };
 
 function Input({ placeholder, disabled, ...props }) {
-  // iserror에 boolean 값 전달해주면 안돼서 state로 falsy, truthy한 값 전달해줌
   const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
-    // input에 아무 값도 입력하지 않았을 경우
     if (!e.target.value) {
       setError("true");
     } else {

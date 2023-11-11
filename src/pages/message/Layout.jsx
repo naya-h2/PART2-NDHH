@@ -53,23 +53,25 @@ function Layout() {
 
 export default Layout;
 
-function Profile({ value, setValue }) {
+function Profile({ ...props }) {
+  return (
+    <BaseContents>
+      <p>프로필 이미지</p>
+      <ProfileImgControl {...props} />
+    </BaseContents>
+  );
+}
+
+function ProfileImgControl({ value, setValue }) {
   const [imgs, setImgs] = useState([defaultImg]);
   const [selected, setSelected] = useState(0);
 
   return (
-    <Contents__profile>
-      <p>프로필 이미지</p>
-      <div>
-        <div>
-          <ProfileImg $src={imgs[selected]} alt="설정된 프로필 이미지" />
-        </div>
-        <div>
-          <p>{value ? `프로필 이미지를 선택해 주세요!` : `프로필 이미지를 추가해 주세요!`}</p>
-          <AddImg setValue={setValue} imgs={imgs} setImgs={setImgs} selected={selected} setSelected={setSelected} />
-        </div>
-      </div>
-    </Contents__profile>
+    <Contents__profileControl>
+      <ProfileImg $src={imgs[selected]} alt="설정된 프로필 이미지" />
+      <p>{value ? `프로필 이미지를 선택해 주세요!` : `프로필 이미지를 추가해 주세요!`}</p>
+      <AddImg setValue={setValue} imgs={imgs} setImgs={setImgs} selected={selected} setSelected={setSelected} />
+    </Contents__profileControl>
   );
 }
 
@@ -94,19 +96,25 @@ function AddImg({ setValue, imgs, setImgs, selected, setSelected }) {
 
   return (
     <Contents__addImg>
-      <span>
-        <label htmlFor="file">
-          <img src={PLUSIMG} alt="이미지 추가하기" />
-        </label>
-        <input id="file" type="file" onChange={handleChange} />
-      </span>
+      <InputAdd onChange={handleChange} />
       {imgs.map((img, idx) => (
-        <span key={idx}>
+        <button key={idx}>
           <Img $src={img} alt={`${idx + 1}번째로 추가한 사진`} onClick={handleClick(idx, img)} $check={selected === idx} />
           <CheckImg src={CHECKIMG} $check={selected === idx} />
-        </span>
+        </button>
       ))}
     </Contents__addImg>
+  );
+}
+
+function InputAdd({ ...props }) {
+  return (
+    <button>
+      <label htmlFor="file">
+        <img src={PLUSIMG} alt="이미지 추가하기" />
+      </label>
+      <input id="file" type="file" accept="image/*" {...props} />
+    </button>
   );
 }
 
@@ -146,30 +154,31 @@ const BaseContents = styled.div`
   }
 `;
 
-const Contents__profile = styled(BaseContents)`
-  > div > img {
-    width: 8rem;
-    height: 8rem;
-    border: 10rem;
+const Contents__profileControl = styled.div`
+  display: grid;
+  grid-template: auto auto / auto 100%;
+  grid-template-areas:
+    "img text"
+    "img add";
+  column-gap: 3.2rem;
+
+  p {
+    margin-bottom: 1.2rem;
+
+    ${FONT16};
+    color: var(--Gray5);
+
+    grid-area: text;
   }
 
-  > div {
-    display: flex;
-    gap: 3.2rem;
+  button {
+    width: 5.6rem;
+    height: 5.6rem;
+    margin-right: 0.4rem;
+    border-radius: 10rem;
 
-    p {
-      margin-bottom: 1.2rem;
-
-      ${FONT16};
-      color: var(--Gray5);
-    }
-
-    span {
-      margin-right: 0.4rem;
-
-      display: inline-block;
-      position: relative;
-    }
+    display: inline-block;
+    position: relative;
   }
 `;
 
@@ -178,10 +187,14 @@ const ProfileImg = styled.div`
   height: 9.3rem;
   border-radius: 10rem;
 
+  grid-area: img;
+
   ${({ $src }) => $src && `background-image: url(${$src}); background-size: cover;`}
 `;
 
 const Contents__addImg = styled.div`
+  grid-area: add;
+
   label {
     cursor: pointer;
   }
@@ -200,6 +213,7 @@ const Contents__addImg = styled.div`
 
     position: absolute;
     overflow: hidden;
+    visibility: hidden;
   }
 `;
 
