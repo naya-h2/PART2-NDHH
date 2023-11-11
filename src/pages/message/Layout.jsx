@@ -5,10 +5,13 @@ import TextEditor from "@/components/commons/Editor";
 import { Container, Submit, Title } from "@/components/instances/CreateMessage";
 import { REL } from "@/styles/ColorStyles";
 import { FONT12, FONT16, FONT24B } from "@/styles/FontStyles";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import PLUSIMG from "@/assets/plus_icon.svg";
 import { getURL } from "@/utils/getURL";
+import ModalPortal from "@/components/ModalPortal";
+import ModalFrame from "@/components/ModalFrame";
+import Option from "@/components/commons/Option";
 
 const INITIAL = {
   sender: "",
@@ -81,51 +84,13 @@ function AddImg({ setValue, imgs, setImgs, selected, setSelected }) {
     setValue((prev) => ({ ...prev, profileImageURL }));
   };
 
-  const handleChange = (event) => {
-    const file = event.target.files[0];
-    if (file && file.size < 1024 ** 2 * 1) {
-      (async function (file) {
-        const profileImageURL = await getURL(file);
-        const thumbNailURL = URL.createObjectURL(file);
-        setSelected(0);
-        setImgs((prev) => [thumbNailURL, ...prev]);
-        setValue((prev) => ({ ...prev, profileImageURL }));
-      })(file);
-    }
-  };
-
   return (
     <Contents__addImg>
-      <InputAdd onChange={handleChange} />
+      <Option setValue={setValue} setImgs={setImgs} setSelected={setSelected} />
       {imgs.map((img, idx) => (
-        <button key={idx}>
-          <Img $src={img} alt={`${idx + 1}번째로 추가한 사진`} onClick={handleClick(idx, img)} $check={selected === idx} />
-          <CheckImg src={CHECKIMG} $check={selected === idx} />
-        </button>
+        <Option key={idx} alt={`${idx + 1}번째로 추가한 사진`} check={selected === idx} img={img} onClick={handleClick(idx, img)} />
       ))}
     </Contents__addImg>
-  );
-}
-
-function InputAdd({ ...props }) {
-  return (
-    <Contents__inputAdd>
-      <label htmlFor="file">
-        <img src={PLUSIMG} alt="이미지 추가하기" />
-        <span>
-          파일로
-          <br />
-          추가하기
-        </span>
-      </label>
-      <input id="file" type="file" accept="image/*" {...props} />
-      <div />
-      <span>
-        URL로
-        <br />
-        추가하기
-      </span>
-    </Contents__inputAdd>
   );
 }
 
@@ -167,29 +132,19 @@ const BaseContents = styled.div`
 
 const Contents__profileControl = styled.div`
   display: grid;
-  grid-template: auto auto / auto 100%;
+  grid-template: auto auto / auto 1fr;
   grid-template-areas:
     "img text"
     "img add";
   column-gap: 3.2rem;
 
-  p {
+  > p {
     margin-bottom: 1.2rem;
 
     ${FONT16};
     color: var(--Gray5);
 
     grid-area: text;
-  }
-
-  button {
-    width: 5.6rem;
-    height: 5.6rem;
-    margin-right: 0.4rem;
-    border-radius: 10rem;
-
-    display: inline-block;
-    position: relative;
   }
 `;
 
@@ -203,58 +158,6 @@ const ProfileImg = styled.div`
   ${({ $src }) => $src && `background-image: url(${$src}); background-size: cover;`}
 `;
 
-const Contents__addImg = styled.div`
-  grid-area: add;
-  display: flex;
-
-  label {
-    cursor: pointer;
-  }
-
-  span {
-    &:hover {
-      opacity: 0.5;
-    }
-  }
-
-  input[type="file"] {
-    width: 0;
-    height: 0;
-    padding: 0;
-    border: 0;
-
-    position: absolute;
-    overflow: hidden;
-    visibility: hidden;
-  }
-`;
-
-const Img = styled.div`
-  width: 5.6rem;
-  height: 5.6rem;
-  border-radius: 10rem;
-
-  cursor: pointer;
-
-  ${({ $check }) => $check && `opacity: 0.5;`}
-  ${({ $src }) => $src && `background-image: url(${$src}); background-size: cover;`}
-`;
-
-const CheckImg = styled.img`
-  padding: 0.5rem;
-  border-radius: 5rem;
-
-  display: ${({ $check }) => ($check ? `inline` : `none`)};
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  opacity: 0.7;
-  background-color: var(--Black);
-`;
-
 const fadeIn = keyframes`
   0% {
     opacity: 0;
@@ -264,41 +167,53 @@ const fadeIn = keyframes`
   }
 `;
 
-const Contents__inputAdd = styled.button`
-  &:hover {
-    width: 13rem;
+const Contents__addImg = styled.div`
+  grid-area: add;
+  display: flex;
+  align-items: center;
 
-    transition: width 0.5s ease-out;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+  > button:first-child {
     background-color: var(--Gray5);
 
+    transition: 0.5s ease-in;
+
+    &:hover,
+    &:focus-within {
+      width: 15rem;
+      height: 5.6rem;
+
+      display: flex;
+      align-items: center;
+
+      background-color: var(--Gray2);
+
+      transition: 0.5s ease-out;
+
+      label {
+        animation: ${fadeIn} 1.5s;
+      }
+    }
+
     img {
-      display: none;
-    }
-
-    span {
-      display: inline-block;
-      animation: ${fadeIn} 1s ease-in;
-
-      color: var(--White);
-      ${FONT12}
-    }
-
-    div {
-      margin: 0 0.8rem;
-      height: 80%;
-
-      animation: ${fadeIn} 1s ease-in;
-
-      border-right: 0.1rem solid var(--Gray3);
+      width: 5.6rem;
     }
   }
 
-  span {
-    display: none;
+  > button {
+    width: 5.6rem;
+    height: 5.6rem;
+    margin-right: 0.4rem;
+
+    border: 0;
+    border-radius: 10rem;
+
+    &::after {
+      display: none;
+    }
+
+    div {
+      width: 60%;
+      height: 60%;
+    }
   }
 `;
