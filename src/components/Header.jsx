@@ -13,6 +13,8 @@ import { Link } from "react-router-dom";
 import EmojiPicker from "emoji-picker-react";
 import { useState } from "react";
 import { Z_INDEX } from "@/styles/ZindexStyles";
+import { CreateEmoji } from "@/api/getPostDate";
+import api from "@/api/api";
 
 Header.propTypes = {
   serviceType: PropTypes.oneOf([true, false]),
@@ -20,10 +22,10 @@ Header.propTypes = {
 };
 
 function Header({ serviceType, hideButton = false }) {
-  return serviceType ? makeServiceHeader() : makeNavHeader({ hideButton });
+  return serviceType ? MakeServiceHeader() : MakeNavHeader({ hideButton });
 }
 
-function makeNavHeader({ hideButton }) {
+function MakeNavHeader({ hideButton }) {
   return (
     <>
       <Container $B>
@@ -44,14 +46,14 @@ function makeNavHeader({ hideButton }) {
   );
 }
 
-function makeServiceHeader() {
+function MakeServiceHeader() {
   const { name, messageCount, recentMessages, topReactions } = Recipients;
   const [isEmojiVisible, setIsEmojiVisible] = useState(false);
-  const [chosenEmoji, setChosenEmoji] = useState(null);
 
-  const onEmojiClick = (event, emojiObject) => {
-    setChosenEmoji(emojiObject);
-    console.log(emojiObject.target);
+  const onEmojiClick = async (event, emojiObject) => {
+    const emojiSrc = emojiObject.target.src;
+    const postData = CreateEmoji(emojiSrc, "increase");
+    await api("RECIPIENTS_REACTIONS", "POST", 214, postData);
   };
 
   const handleClick = () => {
