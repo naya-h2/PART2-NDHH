@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
-import { FONT14, FONT14B, FONT16B, FONT18 } from "@/styles/FontStyles";
+import { FONT14, FONT14B, FONT16B, FONT18, FONT18B } from "@/styles/FontStyles";
 import CHECKIMG from "@/assets/check.svg";
 import PLUSIMG from "@/assets/plus_icon.svg";
 import { getURL } from "@/utils/getURL";
@@ -42,7 +42,7 @@ function OptionColor({ color, check, ...props }) {
   );
 }
 
-const REG = /^([A-Za-z]{1}[A-Za-z\d_]*\.)*[A-Za-z][A-Za-z\d_]*$/;
+const REG = /^http[s]?:\/\/([\S]{3,})/i;
 
 function OptionImg({ check, setValue, img, setImgs, setSelected, ...props }) {
   const handleChange = (event) => {
@@ -58,19 +58,17 @@ function OptionImg({ check, setValue, img, setImgs, setSelected, ...props }) {
     }
   };
 
-  const handleSubmit = (handleModalClose) => (event) => {
+  const handleSubmit = (handleModalClose) => (ref) => (event) => {
     event.preventDefault();
-    const backgroundImageURL = event.target.value;
-    console.log(backgroundImageURL);
-    // if (REG.test(backgroundImageURL)) {
-    //   console.log("good");
-    //   setSelected(0);
-    //   setImgs((prev) => [backgroundImageURL, ...prev]);
-    //   setValue((prev) => ({ ...prev, backgroundImageURL }));
-    //   handleModalClose();
-    //   return;
-    // }
-    // alert("정확한 URL 주소를 입력해주세요.");
+    const backgroundImageURL = ref.current.value;
+    if (REG.test(backgroundImageURL)) {
+      setSelected(0);
+      setImgs((prev) => [backgroundImageURL, ...prev]);
+      setValue((prev) => ({ ...prev, backgroundImageURL }));
+      handleModalClose();
+      return;
+    }
+    alert("정확한 URL 주소를 입력해주세요.");
   };
 
   return (
@@ -85,6 +83,7 @@ function OptionImg({ check, setValue, img, setImgs, setSelected, ...props }) {
         <>
           <img src={PLUSIMG} alt="이미지 추가하기" />
           <InputFile onChange={handleChange} />
+          <span></span>
           <InputURL onSubmit={handleSubmit} />
         </>
       )}
@@ -100,7 +99,7 @@ function InputFile({ ...props }) {
 
   return (
     <>
-      <label tabIndex={0} htmlFor="file" onKeyDown={handleClick}>
+      <label tabIndex={0} htmlFor="file" onKeyUp={handleClick}>
         <p>
           <strong>파일</strong>
           <br />
@@ -120,11 +119,13 @@ function InputURL({ onSubmit, ...props }) {
 
   return (
     <>
-      <label tabIndex={0} onClick={handleModalOpen} onKeyDown={handleClick}>
+      <label tabIndex={0} onClick={handleModalOpen} onKeyUp={handleClick}>
         <p>
           <strong>URL</strong>
           <br />
-          주소로 추가하기
+          주소로
+          <br />
+          추가하기
         </p>
       </label>
       {isOpen && (
@@ -139,11 +140,16 @@ function InputURL({ onSubmit, ...props }) {
 }
 
 function InputModal({ onSubmit }) {
+  const input = useRef();
+
   return (
-    <Container__modal onSubmit={onSubmit}>
-      <Text>URL 주소</Text>
+    <Container__modal onSubmit={onSubmit(input)}>
+      <div>
+        <h1>URL 주소</h1>
+        <p>Tab + Shift로 뒤로 돌아갈 수 있습니다.</p>
+      </div>
       <InputWrapper>
-        <Input placeholder="이미지 주소 붙여넣기" autoFocus />
+        <Input inputRef={input} placeholder="이미지 주소 붙여넣기" autoFocus />
       </InputWrapper>
       <Button width="100" height="l" type="primary">
         확인
@@ -181,9 +187,16 @@ const Container = styled.button`
       display: none;
     }
 
+    > span {
+      height: 80%;
+      border-right: 0.1rem solid var(--Gray4);
+
+      display: block;
+    }
+
     > label {
       width: 100%;
-      height: 100%;
+      height: auto;
 
       display: flex;
       flex-direction: column;
@@ -224,6 +237,10 @@ const Container = styled.button`
     background-color: var(--Gray5);
   }
 
+  > span {
+    display: none;
+  }
+
   > label {
     display: none;
   }
@@ -252,10 +269,19 @@ const Container__modal = styled.form`
 
   background-color: white;
   border-radius: 15px;
-  border: 1px solid var(--GRAY2);
-`;
-const Text = styled.div`
-  ${FONT18}
+  border: 1px solid var(--Gray2);
+
+  div {
+    text-align: center;
+  }
+
+  h1 {
+    ${FONT18B}
+  }
+
+  p {
+    color: var(--Gray4);
+  }
 `;
 const InputWrapper = styled.div`
   width: 100%;

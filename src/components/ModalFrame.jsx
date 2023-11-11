@@ -7,7 +7,7 @@ function ModalFrame({ children, onClickClose }) {
 
   return (
     <>
-      <Mask onClick={onClickClose} />
+      <Mask tabIndex={0} onClick={onClickClose} onFocus={onClickClose} />
       <Body>{children}</Body>
     </>
   );

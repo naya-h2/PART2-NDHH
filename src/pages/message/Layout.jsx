@@ -4,9 +4,9 @@ import Dropdown from "@/components/commons/Dropdown";
 import TextEditor from "@/components/commons/Editor";
 import { Container, Submit, Title } from "@/components/instances/CreateMessage";
 import { REL } from "@/styles/ColorStyles";
-import { FONT16, FONT24B } from "@/styles/FontStyles";
+import { FONT12, FONT16, FONT24B } from "@/styles/FontStyles";
 import { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import PLUSIMG from "@/assets/plus_icon.svg";
 import { getURL } from "@/utils/getURL";
 
@@ -109,12 +109,23 @@ function AddImg({ setValue, imgs, setImgs, selected, setSelected }) {
 
 function InputAdd({ ...props }) {
   return (
-    <button>
+    <Contents__inputAdd>
       <label htmlFor="file">
         <img src={PLUSIMG} alt="이미지 추가하기" />
+        <span>
+          파일로
+          <br />
+          추가하기
+        </span>
       </label>
       <input id="file" type="file" accept="image/*" {...props} />
-    </button>
+      <div />
+      <span>
+        URL로
+        <br />
+        추가하기
+      </span>
+    </Contents__inputAdd>
   );
 }
 
@@ -194,6 +205,7 @@ const ProfileImg = styled.div`
 
 const Contents__addImg = styled.div`
   grid-area: add;
+  display: flex;
 
   label {
     cursor: pointer;
@@ -241,4 +253,52 @@ const CheckImg = styled.img`
 
   opacity: 0.7;
   background-color: var(--Black);
+`;
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const Contents__inputAdd = styled.button`
+  &:hover {
+    width: 13rem;
+
+    transition: width 0.5s ease-out;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--Gray5);
+
+    img {
+      display: none;
+    }
+
+    span {
+      display: inline-block;
+      animation: ${fadeIn} 1s ease-in;
+
+      color: var(--White);
+      ${FONT12}
+    }
+
+    div {
+      margin: 0 0.8rem;
+      height: 80%;
+
+      animation: ${fadeIn} 1s ease-in;
+
+      border-right: 0.1rem solid var(--Gray3);
+    }
+  }
+
+  span {
+    display: none;
+  }
 `;
