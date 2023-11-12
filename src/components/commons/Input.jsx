@@ -8,12 +8,11 @@ Input.propTypes = {
   disabled: PropTypes.bool,
 };
 
-function Input({ placeholder, disabled }) {
+function Input({ placeholder, disabled, pwError, ...props }) {
   // iserror에 boolean 값 전달해주면 안돼서 state로 falsy, truthy한 값 전달해줌
   const [error, setError] = useState("");
 
   const handleInputChange = (e) => {
-    // input에 아무 값도 입력하지 않았을 경우
     if (!e.target.value) {
       setError("true");
     } else {
@@ -23,8 +22,8 @@ function Input({ placeholder, disabled }) {
 
   return (
     <>
-      <Container $error={error} onBlur={handleInputChange} placeholder={placeholder} disabled={disabled} />
-      {error && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>}
+      <Container $error={pwError || error} onBlur={handleInputChange} placeholder={placeholder} disabled={disabled} {...props} />
+      {(pwError && <ErrorMessage>비밀번호를 다시 입력해 주세요.</ErrorMessage>) || (error && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>)}
     </>
   );
 }

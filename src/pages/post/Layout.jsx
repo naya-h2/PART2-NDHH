@@ -1,7 +1,12 @@
 import Card from "@/components/Card";
 import Button from "@/components/commons/Button";
+import Modal from "@/components/Modal";
+import ModalPortal from "@/components/ModalPortal";
+import ModalFrame from "@/components/ModalFrame";
+import InputModal from "@/components/InputModal";
+import useModal from "@/hooks/useModal";
 import { RECIPIENT2 } from "@/constants/test";
-import useData from "@/hooks/useData";
+import useGetData from "@/hooks/useGetData";
 import useGetWindowWidth from "@/hooks/useGetWindowWidth";
 import { COLOR } from "@/styles/ColorStyles";
 import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
@@ -10,33 +15,29 @@ import { sortNew } from "@/utils/sort";
 import propTypes from "prop-types";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useState } from "react";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
 };
 
 function Layout({ path = "" }) {
-  const userData = useData("RECIPIENTS_ID", "GET", 212);
-  const senderData = useData("RECIPIENTS_MESSAGES", "GET", 212);
-  // 일단 id 목업 데이터 서버에 넣은 걸로 지정
+  const { backgroundColor, backgroundImageURL, messageCount, recentMessages } = RECIPIENT2;
+  const sortedData = sortNew(recentMessages);
 
-  if (userData && senderData) {
-    const { backgroundColor, backgroundImageURL, messageCount } = userData;
-    // 이거 recentMessages면 항상 카드 3개만 뜨는 것 같아서 데이터만 바꿔줬습니당...!
-    const sortedData = sortNew(senderData);
-    return (
-      <Background $color={backgroundColor} $url={backgroundImageURL}>
-        {backgroundImageURL && <Mask></Mask>}
-        <Container>
-          <Btn path={path} />
-          <CardGrid path={path} messageCount={messageCount} recentMessages={sortedData} />
-        </Container>
-      </Background>
-    );
-  }
+  return (
+    <Background $color={backgroundColor} $url={backgroundImageURL}>
+      {backgroundImageURL && <Mask></Mask>}
+      <Container>
+        <Btn path={path} />
+        <CardGrid path={path} messageCount={messageCount} recentMessages={sortedData} />
+      </Container>
+    </Background>
+  );
 }
 
-function Btn({ path }) {
+function Btn({ path, password }) {
+  const { isOpen, handleModalOpen, handleModalClose } = useModal();
   const windowWidth = useGetWindowWidth();
 
   return (
@@ -57,22 +58,42 @@ function Btn({ path }) {
         </SaveWrapper>
       ) : (
         <EditWrapper>
-          <Link to="/post/id/edit">
-            <Button type="outlined" height="l" width="100">
-              편집하기
-            </Button>
-          </Link>
+          <Button type="outlined" height="l" width="100" onClick={handleModalOpen}>
+            편집하기
+          </Button>
         </EditWrapper>
+      )}
+      {isOpen && (
+        <ModalPortal>
+          <ModalFrame onClickClose={handleModalClose}>
+            <InputModal password={password} onClose={handleModalClose} />
+          </ModalFrame>
+        </ModalPortal>
       )}
     </>
   );
 }
 
 function CardGrid({ path, messageCount, recentMessages }) {
+  const { isOpen, handleModalOpen, handleModalClose } = useModal();
+  const [message, setMessage] = useState("");
+
+  const handleCardClick = (msg) => {
+    setMessage(msg);
+    handleModalOpen();
+  };
+
   return (
     <CardWrapper>
       {path !== "edit" && <Card type="Plus" />}
-      {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === "edit" ? "Edit" : "Normal"} data={msg} />)}
+      {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === "edit" ? "Edit" : "Normal"} data={msg} onCardClick={handleCardClick} />)}
+      {isOpen && (
+        <ModalPortal>
+          <ModalFrame onClickClose={handleModalClose}>
+            <Modal message={message} onClose={handleModalClose} />
+          </ModalFrame>
+        </ModalPortal>
+      )}
     </CardWrapper>
   );
 }
@@ -139,19 +160,19 @@ const CardWrapper = styled.div`
   width: 100%;
 
   display: grid;
-  grid-template-columns: repeat(3, minmax(32rem, 38.4rem));
+  grid-template-columns: repeat(3, minmax(30rem, 38.4rem));
   justify-content: space-between;
   row-gap: 2.8rem;
   column-gap: 2.4rem;
   column-gap: min(1.6rem);
 
   @media (max-width: ${DeviceSize.tablet}) {
-    grid-template-columns: repeat(2, minmax(32rem, 50rem)); /* Assuming 500px is 50rem */
+    grid-template-columns: repeat(2, minmax(30rem, 50rem)); /* Assuming 500px is 50rem */
     gap: 1.6rem;
   }
 
   @media (max-width: ${DeviceSize.mobile}) {
-    grid-template-columns: repeat(1, minmax(32rem, 38.4rem));
+    grid-template-columns: repeat(1, minmax(30rem, 38.4rem));
   }
 `;
 

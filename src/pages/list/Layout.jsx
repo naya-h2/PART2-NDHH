@@ -5,10 +5,10 @@ import FixedButton from "@/components/instances/FixedButton.jsx";
 import { FONT20B, FONT24B } from "@/styles/FontStyles.js";
 import { sortHot, sortNew } from "@/utils/sort";
 import { Link } from "react-router-dom";
-import useData from "@/hooks/useData";
+import useGetData from "@/hooks/useGetData";
 
 function Layout() {
-  const Cards = useData("RECIPIENTS", "GET");
+  const Cards = useGetData("RECIPIENTS", "GET");
 
   if (Cards) {
     const NewestCards = sortNew([...Cards]);

@@ -24,10 +24,10 @@ function CardList({ data }) {
     <Container $color={backgroundColor} $url={backgroundImageURL}>
       {backgroundImageURL && <Mask></Mask>}
       <Wrapper>
-        <Name $color={backgroundColor}>To. {name}</Name>
+        <Name $url={backgroundImageURL}>To. {name}</Name>
         <ProfileImgList messageCount={messageCount} data={recentMessages} />
-        <Count $color={backgroundColor}>
-          <Bold $color={backgroundColor}>{messageCount <= 999 ? messageCount : "999+"}</Bold>명이 작성했어요!
+        <Count $url={backgroundImageURL}>
+          <Bold $url={backgroundImageURL}>{messageCount <= 999 ? messageCount : "999+"}</Bold>명이 작성했어요!
         </Count>
       </Wrapper>
       <BadgeWrapper>
@@ -70,6 +70,7 @@ const Container = styled.div`
     }
   }};
   background-image: ${({ $color, $url }) => {
+    if ($url) return `url(${$url})`;
     switch ($color) {
       case COLOR.P:
         return `url(${patternPurple})`;
@@ -79,14 +80,16 @@ const Container = styled.div`
         return `url(${patternBlue})`;
       case COLOR.G:
         return `url(${patternGreen})`;
-      default:
-        return `url(${$url})`;
     }
   }};
   background-size: ${({ $url }) => ($url !== null ? `cover` : null)};
   background-repeat: no-repeat;
   background-position: ${({ $url }) => ($url !== null ? null : `right bottom`)};
   box-shadow: 0 0.2rem 1.2rem 0px rgba(0, 0, 0, 0.08);
+
+  &:hover {
+    cursor: pointer;
+  }
 
   @media (max-width: ${DeviceSize.mobile}) {
     width: 20.8rem;
@@ -126,7 +129,7 @@ const Wrapper = styled.div`
 
 const Name = styled.div`
   ${FONT24B}
-  color: ${({ $color }) => ($color !== null ? `var(--Gray9)` : `var(--White)`)};
+  color: ${({ $url }) => ($url === null ? `var(--Gray9)` : `var(--White)`)};
   letter-spacing: -0.024rem;
 
   @media (max-width: ${DeviceSize.mobile}) {
@@ -137,7 +140,7 @@ const Name = styled.div`
 
 const Count = styled.div`
   ${FONT16}
-  color: ${({ $color }) => ($color !== null ? `var(--Gray7)` : `var(--White)`)};
+  color: ${({ $url }) => ($url === null ? `var(--Gray7)` : `var(--White)`)};
   letter-spacing: -0.016rem;
 
   @media (max-width: ${DeviceSize.mobile}) {
@@ -148,7 +151,7 @@ const Count = styled.div`
 
 const Bold = styled.span`
   ${FONT16B}
-  color: ${({ $color }) => ($color !== null ? `var(--Gray7)` : `var(--White)`)};
+  color: ${({ $url }) => ($url === null ? `var(--Gray7)` : `var(--White)`)};
   letter-spacing: -0.016rem;
 
   @media (max-width: ${DeviceSize.mobile}) {

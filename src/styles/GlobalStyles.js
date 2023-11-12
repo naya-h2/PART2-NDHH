@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import { BLUE, GRAYSCALE, GREEN, MAIN, ORANGE, PURPLE } from './ColorStyles';
+import { BLUE, GRAYSCALE, GREEN, MAIN, ORANGE, PURPLE, RED } from '@/styles/ColorStyles';
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -8,6 +8,7 @@ const GlobalStyles = createGlobalStyle`
     ${PURPLE};
     ${BLUE};
     ${GREEN};
+    ${RED}
     ${GRAYSCALE};
     ${MAIN};
   }
@@ -15,6 +16,7 @@ const GlobalStyles = createGlobalStyle`
   ${reset}
   *{
     box-sizing: border-box;
+    font-family: "Noto Sans KR";
   }
 
   a{

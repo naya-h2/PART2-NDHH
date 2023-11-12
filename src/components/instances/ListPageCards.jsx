@@ -3,6 +3,7 @@ import CardList from "@/components/Cardlist";
 import Button from "@/components/commons/Button";
 import { useState } from "react";
 import { DeviceSize } from "@/styles/DeviceSize";
+import { Z_INDEX } from "@/styles/ZindexStyles";
 
 function ListPageCards({ cards }) {
   const [scrollX, setScrollX] = useState(0);
@@ -89,7 +90,7 @@ const Items = styled.div`
 const CustomButton = styled(Button)`
   position: absolute;
   top: 50%;
-  z-index: 1;
+  z-index: ${Z_INDEX.list_page_arrow_button};
 
   transform: translateY(-50%);
 

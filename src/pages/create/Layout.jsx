@@ -1,42 +1,56 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { PropTypes } from "prop-types";
-import Input from "@/components/commons/Input";
-import ToggleButton from "@/components/commons/ToggleButton";
 import Option from "@/components/commons/Option";
-import Button from "@/components/commons/Button";
-import { COLOR } from "@/styles/ColorStyles";
-import { FONT16, FONT24B } from "@/styles/FontStyles";
+import ToggleButton from "@/components/commons/ToggleButton";
+import { Container, Submit, Title } from "@/components/instances/CreateMessage";
 import { SELECTED } from "@/styles/ButtonStyles";
+import { COLOR } from "@/styles/ColorStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
-import chooseImg from "@/assets/jeonghan.jpeg"; // 이미지 수정
-import { Link } from "react-router-dom";
+import { FONT16, FONT24B } from "@/styles/FontStyles";
+import { PropTypes } from "prop-types";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+
+const INITIAL = {
+  name: "",
+  backgroundColor: "orange",
+  backgroundImageURL: null,
+  createdAt: null,
+};
 
 function Layout() {
-  const [imgFile, setImgFile] = useState("");
+  const [value, setValue] = useState(INITIAL);
+
+  const handleClick = (event) => {
+    if (!(value.name && (value.backgroundColor || value.backgroundImageURL))) {
+      event.preventDefault();
+      return;
+    }
+  };
+
+  const handleSubmit = async () => {
+    value.createdAt = new Date().toJSON();
+
+    const formData = new FormData();
+    for (const key of Object.keys(INITIAL)) {
+      formData.append(key, value[key]);
+    }
+    for (const v of formData.values()) {
+      console.log(v);
+    }
+  };
 
   return (
     <>
       <Container>
-        <Title />
+        <Title value={value.name} setValue={setValue} />
         <Text />
-        <SelectOption imgFile={imgFile} setImgFile={setImgFile} />
-        <Submit />
+        <SelectOption setValue={setValue} />
+        <Submit onClick={handleClick} onSubmit={handleSubmit} />
       </Container>
     </>
   );
 }
 
 export default Layout;
-
-function Title() {
-  return (
-    <Contents__title>
-      <p>To.</p>
-      <Input placeholder="받는 사람 이름을 입력해주세요" />
-    </Contents__title>
-  );
-}
 
 function Text() {
   return (
@@ -47,98 +61,51 @@ function Text() {
   );
 }
 
-function SelectOption({ imgFile, setImgFile }) {
+function SelectOption({ setValue }) {
   const [selectedType, setSelectedType] = useState(SELECTED.color);
 
   return (
     <>
       <ToggleButton handleToggle={setSelectedType} selected={selectedType} />
-      <Options selectedType={selectedType} imgFile={imgFile} setImgFile={setImgFile} />
+      <Options selectedType={selectedType} setValue={setValue} />
     </>
   );
 }
 
-const COLOR_OPTIONS = [COLOR.O, COLOR.P, COLOR.B, COLOR.G];
-
 Options.propType = {
   selectedType: PropTypes.oneOf([SELECTED.color, SELECTED.image]),
 };
-function Options({ selectedType, imgFile, setImgFile }) {
+function Options({ selectedType, setValue }) {
+  const [imgs, setImgs] = useState([]);
   const [selectedOption, setSelectedOption] = useState(0);
+  const isColor = selectedType === SELECTED.color ? true : false;
 
-  const handleOptionClick = (a) => () => setSelectedOption(a);
+  const handleOptionClick = (idx, item) => () => {
+    setSelectedOption(idx);
+    if (isColor) {
+      const backgroundColor = item;
+      setValue((prev) => ({ ...prev, backgroundColor, backgroundImageURL: null }));
+      return;
+    }
+    const backgroundImageURL = item;
+    setValue((prev) => ({ ...prev, backgroundColor: null, backgroundImageURL }));
+  };
 
-  const option =
-    selectedType === SELECTED.color ? (
-      COLOR_OPTIONS.map((color, idx) => <Option key={idx} color={color} check={selectedOption === idx} onClick={handleOptionClick(idx)} />)
-    ) : (
-      <>
-        <Option setImgFile={setImgFile} />
-        {imgFile &&
-          imgFile.map((imgFile, idx) => {
-            return <Option key={idx} imgFile={imgFile} check={selectedOption === idx} onClick={handleOptionClick(idx)} />;
-          })}
-      </>
-    );
-
-  return <OptionContainer>{option}</OptionContainer>;
-}
-
-function Submit() {
-  return (
-    <Contents__button>
-      <Link to="/post/id">
-        <Button type="primary" height="xl">
-          생성하기
-        </Button>
-      </Link>
-    </Contents__button>
+  const option = isColor ? (
+    Object.values(COLOR).map((color, idx) => <Option key={idx} color={color} check={selectedOption === idx} onClick={handleOptionClick(idx, color)} />)
+  ) : (
+    <>
+      <Option setValue={setValue} setImgs={setImgs} setSelected={setSelectedOption} />
+      {imgs && imgs.map((img, idx) => <Option key={idx} check={selectedOption === idx} img={img} onClick={handleOptionClick(idx, img)} />)}
+    </>
   );
+
+  useEffect(() => {
+    setSelectedOption(0);
+  }, [selectedType]);
+
+  return <Container__Options>{option}</Container__Options>;
 }
-
-const Container = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
-
-  margin: auto;
-  margin-top: 5rem;
-
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  gap: 5rem;
-
-  @media (max-width: ${DeviceSize.tablet}) {
-    width: calc(100vw - 9.6rem);
-    margin-bottom: 10rem;
-  }
-
-  @media (max-width: ${DeviceSize.mobile}) {
-    width: calc(100vw - 9.6rem);
-    min-width: 32rem;
-    margin-bottom: 10rem;
-  }
-`;
-
-const Contents__title = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
-
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.2rem;
-
-  @media (max-width: ${DeviceSize.mobile}) {
-    width: calc(100vw - 9.6rem);
-    min-width: 32rem;
-  }
-
-  > p {
-    color: var(--Gray9);
-    ${FONT24B}
-  }
-`;
 
 const Contents__text = styled.div`
   display: flex;
@@ -157,7 +124,7 @@ const Contents__text = styled.div`
   }
 `;
 
-const OptionContainer = styled.div`
+const Container__Options = styled.div`
   width: calc(100vw - 9.6rem);
   max-width: 120rem;
 
@@ -173,29 +140,5 @@ const OptionContainer = styled.div`
 
   @media (max-width: ${DeviceSize.mobile}) {
     grid-template-columns: repeat(2, minmax(15.2rem, 32.8rem));
-  }
-`;
-
-const Contents__button = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
-  margin: auto;
-
-  @media (max-width: ${DeviceSize.tablet}) {
-    position: fixed;
-
-    left: 50%;
-    bottom: 2.4rem;
-    transform: translateX(-50%);
-  }
-
-  @media (max-width: ${DeviceSize.mobile}) {
-    min-width: 32rem;
-
-    position: fixed;
-
-    left: 50%;
-    bottom: 2.4rem;
-    transform: translateX(-50%);
   }
 `;

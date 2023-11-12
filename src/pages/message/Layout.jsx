@@ -1,125 +1,150 @@
-import styled from "styled-components";
-import { FONT16, FONT18B, FONT24B } from "@/styles/FontStyles";
-import Input from "@/components/commons/Input";
+import CHECKIMG from "@/assets/check.svg";
+import defaultImg from "@/assets/default_profile.svg";
 import Dropdown from "@/components/commons/Dropdown";
 import TextEditor from "@/components/commons/Editor";
-import Button from "@/components/commons/Button";
-import defaultImg from "@/assets/default_profile.svg";
-import { Link } from "react-router-dom";
-import { DeviceSize } from "@/styles/DeviceSize";
+import { Container, Submit, Title } from "@/components/instances/CreateMessage";
+import { REL } from "@/styles/ColorStyles";
+import { FONT16, FONT24B } from "@/styles/FontStyles";
+import { useState } from "react";
+import styled from "styled-components";
+import PLUSIMG from "@/assets/plus_icon.svg";
+import { getURL } from "@/utils/getURL";
+
+const INITIAL = {
+  sender: "",
+  profileImageURL: defaultImg,
+  relationship: REL.O,
+  content: undefined,
+  createdAt: undefined,
+};
 
 function Layout() {
+  const [value, setValue] = useState(INITIAL);
+
+  const handleClick = (event) => {
+    if (!(value.sender && value.content)) {
+      event.preventDefault();
+      return;
+    }
+  };
+
+  const handleSubmit = async () => {
+    value.createdAt = new Date().toJSON();
+
+    const formData = new FormData();
+    for (const key of Object.keys(INITIAL)) {
+      formData.append(key, value[key]);
+    }
+    for (const v of formData.values()) {
+      console.log(v);
+    }
+  };
+
   return (
     <Container>
-      <Wrapper>
-        <Title />
-        <Profile />
-        <Relationship />
-        <Edit />
-        <Submit />
-      </Wrapper>
+      <Title message value={value.sender} setValue={setValue} />
+      <Profile value={value.profileImageURL} setValue={setValue} />
+      <Relationship value={value.relationship} setValue={setValue} />
+      <Edit setValue={setValue} />
+      <Submit onClick={handleClick} onSubmit={handleSubmit} />
     </Container>
   );
 }
 
 export default Layout;
 
-function Title() {
-  return (
-    <Contents__title>
-      <p>From.</p>
-      <Input placeholder="이름을 입력해 주세요." />
-    </Contents__title>
-  );
-}
-
-function Profile() {
-  return (
-    <Contents__profile>
-      <p>프로필 이미지</p>
-      <div>
-        <img src={defaultImg} alt="설정된 프로필 이미지" />
-        <div>
-          <p>프로필 이미지를 선택해주세요!</p>
-          {PROFILE_IMG.map((img, idx) => (
-            <ProfileImg key={idx} src={img} />
-          ))}
-        </div>
-      </div>
-    </Contents__profile>
-  );
-}
-
-const PROFILE_IMG = [defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg];
-
-function Relationship() {
+function Profile({ ...props }) {
   return (
     <BaseContents>
-      <p>상대와의 관계</p>
-      <Dropdown />
+      <p>프로필 이미지</p>
+      <ProfileImgControl {...props} />
     </BaseContents>
   );
 }
 
-function Edit() {
+function ProfileImgControl({ value, setValue }) {
+  const [imgs, setImgs] = useState([defaultImg]);
+  const [selected, setSelected] = useState(0);
+
   return (
-    <>
-      <BaseContents>
-        <p>내용을 입력해 주세요</p>
-        <TextEditor />
-      </BaseContents>
-      <BaseContents>
-        <p>폰트 선택</p>
-        <Dropdown />
-      </BaseContents>
-    </>
+    <Contents__profileControl>
+      <ProfileImg $src={imgs[selected]} alt="설정된 프로필 이미지" />
+      <p>{value ? `프로필 이미지를 선택해 주세요!` : `프로필 이미지를 추가해 주세요!`}</p>
+      <AddImg setValue={setValue} imgs={imgs} setImgs={setImgs} selected={selected} setSelected={setSelected} />
+    </Contents__profileControl>
   );
 }
 
-// 이거 components/instances/FixedButton 컴포넌트랑 똑같아서 그거 사용하셔도 괜찮을 것 같아욤
-function Submit() {
+function AddImg({ setValue, imgs, setImgs, selected, setSelected }) {
+  const handleClick = (idx, profileImageURL) => () => {
+    setSelected(idx);
+    setValue((prev) => ({ ...prev, profileImageURL }));
+  };
+
+  const handleChange = (event) => {
+    const file = event.target.files[0];
+    if (file && file.size < 1024 ** 2 * 1) {
+      (async function (file) {
+        const profileImageURL = await getURL(file);
+        const thumbNailURL = URL.createObjectURL(file);
+        setSelected(0);
+        setImgs((prev) => [thumbNailURL, ...prev]);
+        setValue((prev) => ({ ...prev, profileImageURL }));
+      })(file);
+    }
+  };
+
   return (
-    <Contents__submit>
-      <Button type="primary" height="xl">
-        <Link to="/post/id">
-          <ButtonText>생성하기</ButtonText>
-        </Link>
-      </Button>
-    </Contents__submit>
+    <Contents__addImg>
+      <InputAdd onChange={handleChange} />
+      {imgs.map((img, idx) => (
+        <button key={idx}>
+          <Img $src={img} alt={`${idx + 1}번째로 추가한 사진`} onClick={handleClick(idx, img)} $check={selected === idx} />
+          <CheckImg src={CHECKIMG} $check={selected === idx} />
+        </button>
+      ))}
+    </Contents__addImg>
   );
 }
 
-const Container = styled.div`
-  width: 100%;
-  margin-top: 5rem;
+function InputAdd({ ...props }) {
+  return (
+    <button>
+      <label htmlFor="file">
+        <img src={PLUSIMG} alt="이미지 추가하기" />
+      </label>
+      <input id="file" type="file" accept="image/*" {...props} />
+    </button>
+  );
+}
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const RELATIONSHIP = Object.values(REL);
 
-const Wrapper = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
-  padding-bottom: 5rem;
+function Relationship({ value, setValue }) {
+  const handleClick = (relationship) => {
+    setValue((prev) => ({ ...prev, relationship }));
+  };
 
-  display: flex;
-  flex-direction: column;
-  gap: 5rem;
+  return (
+    <BaseContents>
+      <p>상대와의 관계</p>
+      <Dropdown value={value} setValue={handleClick} items={RELATIONSHIP} />
+    </BaseContents>
+  );
+}
 
-  @media screen and (max-width: ${DeviceSize.pc}) {
-    width: calc(100vw - 9.6rem);
-    padding-bottom: 12rem;
-  }
-
-  @media screen and (max-width: ${DeviceSize.mobile}) {
-    width: calc(100vw - 9.6rem);
-    min-width: 32rem;
-    padding-bottom: 12rem;
-  }
-`;
+function Edit({ setValue }) {
+  return (
+    <BaseContents>
+      <p>내용을 입력해 주세요</p>
+      <TextEditor setValue={setValue} />
+    </BaseContents>
+  );
+}
 
 const BaseContents = styled.div`
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -129,70 +154,91 @@ const BaseContents = styled.div`
   }
 `;
 
-const Contents__title = styled(BaseContents)`
-  input {
-    width: 100%;
+const Contents__profileControl = styled.div`
+  display: grid;
+  grid-template: auto auto / auto 100%;
+  grid-template-areas:
+    "img text"
+    "img add";
+  column-gap: 3.2rem;
+
+  p {
+    margin-bottom: 1.2rem;
+
+    ${FONT16};
+    color: var(--Gray5);
+
+    grid-area: text;
+  }
+
+  button {
+    width: 5.6rem;
+    height: 5.6rem;
+    margin-right: 0.4rem;
+    border-radius: 10rem;
+
+    display: inline-block;
+    position: relative;
   }
 `;
 
-const Contents__profile = styled(BaseContents)`
-  > img {
-    width: 8rem;
+const ProfileImg = styled.div`
+  width: 9.3rem;
+  height: 9.3rem;
+  border-radius: 10rem;
+
+  grid-area: img;
+
+  ${({ $src }) => $src && `background-image: url(${$src}); background-size: cover;`}
+`;
+
+const Contents__addImg = styled.div`
+  grid-area: add;
+
+  label {
+    cursor: pointer;
   }
 
-  > div {
-    display: flex;
-    gap: 3.2rem;
-
-    p {
-      margin-bottom: 1.2rem;
-
-      ${FONT16};
-      color: var(--Gray5);
+  span {
+    &:hover {
+      opacity: 0.5;
     }
   }
-`;
 
-const ProfileImg = styled.img`
-  width: 56px;
-  height: 56px;
-  margin-right: 0.4rem;
+  input[type="file"] {
+    width: 0;
+    height: 0;
+    padding: 0;
+    border: 0;
 
-  border-radius: 100px;
-  border: 1px solid var(--Gray2);
-
-  background: var(--white);
-`;
-
-const ButtonText = styled.p`
-  width: 23.2rem;
-  ${FONT18B};
-
-  @media (max-width: 1199px) {
-    width: calc(100vw - 9.6rem);
+    position: absolute;
+    overflow: hidden;
+    visibility: hidden;
   }
 `;
 
-const Contents__submit = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
-  margin: auto;
+const Img = styled.div`
+  width: 5.6rem;
+  height: 5.6rem;
+  border-radius: 10rem;
 
-  @media (max-width: ${DeviceSize.pc}) {
-    position: fixed;
+  cursor: pointer;
 
-    left: 50%;
-    bottom: 2.4rem;
-    transform: translateX(-50%);
-  }
+  ${({ $check }) => $check && `opacity: 0.5;`}
+  ${({ $src }) => $src && `background-image: url(${$src}); background-size: cover;`}
+`;
 
-  @media (max-width: ${DeviceSize.mobile}) {
-    min-width: 32rem;
+const CheckImg = styled.img`
+  padding: 0.5rem;
+  border-radius: 5rem;
 
-    position: fixed;
+  display: ${({ $check }) => ($check ? `inline` : `none`)};
 
-    left: 50%;
-    bottom: 2.4rem;
-    transform: translateX(-50%);
-  }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  opacity: 0.7;
+  background-color: var(--Black);
 `;

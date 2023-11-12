@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import propTypes from "prop-types";
-import Badge from "@/components/commons/Badge";
-import Button from "@/components/commons/Button";
+import { Link } from "react-router-dom";
 import { formatDate } from "@/utils/formatDate";
 import { FONT12, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
+import Badge from "@/components/commons/Badge";
+import Button from "@/components/commons/Button";
 import defaultImg from "@/assets/default_profile.svg";
-import useData from "@/hooks/useData";
+import useGetData from "@/hooks/useGetData";
 import { useState, useEffect } from "react";
 
 /**
@@ -16,20 +17,15 @@ Card.propTypes = {
   type: propTypes.oneOf(["Normal", "Edit", "Plus"]),
   data: propTypes.object,
 };
-function Card({ type, data = null }) {
-  // const [id, setId] = useState(null);
-
-  // const handleClick = () => {
-  //   setId(318); // 누른 버튼의 작성자 id가 리턴된다고 가정.
-  //   useData("MESSAGES", "DELETE", id);
-  // };
-
+function Card({ type, data = null, onCardClick }) {
   if (type === "Plus") {
     return (
-      <Container>
-        <PlusIcon>
-          <Button type="plus" />
-        </PlusIcon>
+      <Container $type="Plus">
+        <Link to="/post/id/message">
+          <PlusIcon>
+            <Button type="plus" />
+          </PlusIcon>
+        </Link>
       </Container>
     );
   }
@@ -52,7 +48,10 @@ function Card({ type, data = null }) {
           <Button type="trash" />
         </DeleteIcon>
       )}
-      <Content $font={font}>{content}</Content>
+      <ContentWrapper>
+        <Content $font={font}>{content}</Content>
+        <More onClick={() => onCardClick(data)}>더보기</More>
+      </ContentWrapper>
       <Date>{formatDate(createdAt)}</Date>
     </Container>
   );
@@ -63,7 +62,7 @@ export default Card;
 const Container = styled.div`
   width: 100%;
   max-width: 38.4rem;
-  min-width: 32rem;
+  min-width: 30rem;
   height: 28rem;
   padding: 2.8rem 2.4rem 2.4rem;
 
@@ -134,17 +133,17 @@ const DeleteIcon = styled.div`
 `;
 
 const Content = styled.div`
-  width: 100%;
-  height: 10.6rem;
+  height: 5.3rem;
 
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
 
   ${FONT18}
   color: var(--Gray6);
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  word-wrap: break-word;
   font-family: ${({ $font }) => $font};
-  line-height: 155.556%;
   letter-spacing: -0.018rem;
 `;
 
@@ -160,4 +159,25 @@ const Date = styled.div`
 const PlusIcon = styled.div`
   width: 5.6rem;
   height: 5.6rem;
+`;
+
+const More = styled.div`
+  ${FONT12}
+  color: var(--Gray4);
+  text-align: right;
+
+  &:hover {
+    cursor: pointer;
+
+    color: var(--Gray7);
+  }
+`;
+
+const ContentWrapper = styled.div`
+  width: 100%;
+  height: 10.6rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
