@@ -4,10 +4,12 @@ import { FONT15 } from "@/styles/FontStyles";
 import { Z_INDEX } from "@/styles/ZindexStyles";
 import shareKakaoTalk from "@/utils/shareKakao";
 import { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import Toast from "../commons/Toast";
 
 function ShareDropdownButton({ currentPath = "/" }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [isToastVisible, setIsToastVisible] = useState(false);
 
   const host = "http://localhost:5173";
 
@@ -15,7 +17,10 @@ function ShareDropdownButton({ currentPath = "/" }) {
     navigator.clipboard
       .writeText(host + currentPath)
       .then(() => {
-        alert("클립보드에 복사되었습니다.");
+        setIsToastVisible(true);
+        setTimeout(() => {
+          setIsToastVisible(false);
+        }, 3000);
       })
       .catch((err) => {
         console.error("URL 복사 실패:", err);
@@ -41,6 +46,9 @@ function ShareDropdownButton({ currentPath = "/" }) {
           </button>
         </List>
       )}
+      <Wrapper $isVisible={isToastVisible}>
+        <Toast />
+      </Wrapper>
     </ShareButton>
   );
 }
@@ -92,4 +100,13 @@ const Text = styled.li`
   &:hover {
     background: var(--Gray1);
   }
+`;
+
+const Wrapper = styled.div`
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%) translateY(${({ $isVisible }) => ($isVisible ? "2rem" : "-4rem")});
+  top: ${({ $isVisible }) => ($isVisible ? "2rem" : "-4rem")};
+  z-index: ${Z_INDEX.Toast_Wrapper};
+  transition: transform 0.5s ease-in-out;
 `;

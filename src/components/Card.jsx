@@ -7,7 +7,7 @@ import { DeviceSize } from "@/styles/DeviceSize";
 import Badge from "@/components/commons/Badge";
 import Button from "@/components/commons/Button";
 import defaultImg from "@/assets/default_profile.svg";
-import useData from "@/hooks/useData";
+import useGetData from "@/hooks/useGetData";
 import { useState, useEffect } from "react";
 
 /**

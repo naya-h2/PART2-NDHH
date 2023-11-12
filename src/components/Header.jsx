@@ -10,6 +10,11 @@ import Logo from "@/assets/Logo.svg";
 import divideLine from "@/assets/Rectangle_38.svg";
 import ShareDropdownButton from "./instances/ShareDropdownButton";
 import { Link } from "react-router-dom";
+import EmojiPicker from "emoji-picker-react";
+import { useState } from "react";
+import { Z_INDEX } from "@/styles/ZindexStyles";
+import { CreateEmoji } from "@/api/getPostDate";
+import api from "@/api/api";
 
 Header.propTypes = {
   serviceType: PropTypes.oneOf([true, false]),
@@ -17,10 +22,10 @@ Header.propTypes = {
 };
 
 function Header({ serviceType, hideButton = false }) {
-  return serviceType ? makeServiceHeader() : makeNavHeader({ hideButton });
+  return serviceType ? MakeServiceHeader() : MakeNavHeader({ hideButton });
 }
 
-function makeNavHeader({ hideButton }) {
+function MakeNavHeader({ hideButton }) {
   return (
     <>
       <Container $B>
@@ -41,8 +46,19 @@ function makeNavHeader({ hideButton }) {
   );
 }
 
-function makeServiceHeader() {
+function MakeServiceHeader() {
   const { name, messageCount, recentMessages, topReactions } = Recipients;
+  const [isEmojiVisible, setIsEmojiVisible] = useState(false);
+
+  const onEmojiClick = async (event) => {
+    const emojiSrc = event.emoji;
+    const { postData } = CreateEmoji(emojiSrc, "increase");
+    const fetchResult = await api("RECIPIENTS_REACTIONS", "POST", 214, postData); //true (postResponse.ok)
+  };
+
+  const handleClick = () => {
+    setIsEmojiVisible(!isEmojiVisible);
+  };
 
   return (
     <>
@@ -56,8 +72,13 @@ function makeServiceHeader() {
             <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           </SendersNum>
           <HeaderEmojis topReactions={topReactions} />
-          <CustomButton type="outlined" width="94" height="m" icon>
+          <CustomButton type="outlined" width="94" height="m" icon onClick={handleClick}>
             <ButtonText>추가</ButtonText>
+            {isEmojiVisible && (
+              <Wrapper_Emoji>
+                <EmojiPicker onEmojiClick={onEmojiClick} />
+              </Wrapper_Emoji>
+            )}
           </CustomButton>
           <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           <ShareDropdownButton />
@@ -132,6 +153,7 @@ const Wrapper = styled.div`
 `;
 
 const CustomButton = styled(Button)`
+  position: relative;
   @media (max-width: ${DeviceSize.mobile}) {
     width: 4.4rem;
     padding: 0.6rem 0.6rem;
@@ -185,5 +207,21 @@ const Border = styled.div`
     display: ${(props) => (props.$Bottom ? "block" : "block")};
     bottom: ${(props) => (props.$Bottom ? "5.2rem" : "0")};
     left: 0;
+  }
+`;
+
+const Wrapper_Emoji = styled.div`
+  position: absolute;
+  top: 4rem;
+  right: 0rem;
+
+  z-index: ${Z_INDEX.Wrapper_Emoji};
+
+  @media (max-width: 1350px) {
+    right: 3rem;
+  }
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    right: -14rem;
   }
 `;

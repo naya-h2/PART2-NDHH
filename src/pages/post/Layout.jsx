@@ -6,7 +6,7 @@ import ModalFrame from "@/components/ModalFrame";
 import InputModal from "@/components/InputModal";
 import useModal from "@/hooks/useModal";
 import { RECIPIENT2 } from "@/constants/test";
-import useData from "@/hooks/useData";
+import useGetData from "@/hooks/useGetData";
 import useGetWindowWidth from "@/hooks/useGetWindowWidth";
 import { COLOR } from "@/styles/ColorStyles";
 import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
