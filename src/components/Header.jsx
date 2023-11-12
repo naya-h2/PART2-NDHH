@@ -50,10 +50,10 @@ function MakeServiceHeader() {
   const { name, messageCount, recentMessages, topReactions } = Recipients;
   const [isEmojiVisible, setIsEmojiVisible] = useState(false);
 
-  const onEmojiClick = async (event, emojiObject) => {
-    const emojiSrc = emojiObject.target.src;
-    const postData = CreateEmoji(emojiSrc, "increase");
-    await api("RECIPIENTS_REACTIONS", "POST", 214, postData);
+  const onEmojiClick = async (event) => {
+    const emojiSrc = event.emoji;
+    const { postData } = CreateEmoji(emojiSrc, "increase");
+    const fetchResult = await api("RECIPIENTS_REACTIONS", "POST", 214, postData); //true (postResponse.ok)
   };
 
   const handleClick = () => {

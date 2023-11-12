@@ -33,8 +33,7 @@ async function api(type, method, path, postData) {
       if (!postResponse.ok) {
         throw new Error("데이터 전송에 실패했습니다.");
       }
-      const postResult = await postResponse.json();
-      return postResult;
+      return postResponse.ok;
 
     case "DELETE":
       const deleteResponse = await fetch(url, {
@@ -43,7 +42,7 @@ async function api(type, method, path, postData) {
       if (!deleteResponse.ok) {
         throw new Error("데이터 삭제에 실패했습니다.");
       }
-      break;
+      return deleteResponse.ok;
 
     default:
       throw new Error("GET, POST, DELETE 중 하나를 입력해주세요");
