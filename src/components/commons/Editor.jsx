@@ -62,7 +62,6 @@ const Container = styled.div`
 
   .sun-editor,
   .se-container {
-    border: 0.1rem solid var(--Gray3);
     border-radius: 0.8rem;
   }
 

@@ -77,11 +77,11 @@ Options.propType = {
 };
 function Options({ selectedType, setValue }) {
   const [imgs, setImgs] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(0);
+  const [selected, setSelected] = useState(0);
   const isColor = selectedType === SELECTED.color ? true : false;
 
   const handleOptionClick = (idx, item) => () => {
-    setSelectedOption(idx);
+    setSelected(idx);
     if (isColor) {
       const backgroundColor = item;
       setValue((prev) => ({ ...prev, backgroundColor, backgroundImageURL: null }));
@@ -92,16 +92,16 @@ function Options({ selectedType, setValue }) {
   };
 
   const option = isColor ? (
-    Object.values(COLOR).map((color, idx) => <Option key={idx} color={color} check={selectedOption === idx} onClick={handleOptionClick(idx, color)} />)
+    Object.values(COLOR).map((color, idx) => <Option key={idx} color={color} check={selected === idx} onClick={handleOptionClick(idx, color)} />)
   ) : (
     <>
-      <Option setValue={setValue} setImgs={setImgs} setSelected={setSelectedOption} />
-      {imgs && imgs.map((img, idx) => <Option key={idx} check={selectedOption === idx} img={img} onClick={handleOptionClick(idx, img)} />)}
+      <Option setValue={setValue} setImgs={setImgs} setSelected={setSelected} />
+      {imgs && imgs.map((img, idx) => <Option key={idx} check={selected === idx} img={img} onClick={handleOptionClick(idx, img)} />)}
     </>
   );
 
   useEffect(() => {
-    setSelectedOption(0);
+    setSelected(0);
   }, [selectedType]);
 
   return <Container__Options>{option}</Container__Options>;

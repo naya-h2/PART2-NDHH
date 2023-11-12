@@ -1,15 +1,16 @@
-import PropTypes from "prop-types";
-import styled, { css } from "styled-components";
-import { FONT14, FONT14B, FONT16B, FONT18, FONT18B } from "@/styles/FontStyles";
 import CHECKIMG from "@/assets/check.svg";
 import PLUSIMG from "@/assets/plus_icon.svg";
-import { getURL } from "@/utils/getURL";
-import useModal from "@/hooks/useModal";
-import ModalPortal from "@/components/ModalPortal";
 import ModalFrame from "@/components/ModalFrame";
-import Input from "@/components/commons/Input";
+import ModalPortal from "@/components/ModalPortal";
 import Button from "@/components/commons/Button";
+import Input from "@/components/commons/Input";
+import useModal from "@/hooks/useModal";
+import { DeviceSize } from "@/styles/DeviceSize";
+import { FONT14, FONT14B, FONT18B } from "@/styles/FontStyles";
+import { getURL } from "@/utils/getURL";
+import PropTypes from "prop-types";
 import { useRef } from "react";
+import styled, { css, keyframes } from "styled-components";
 
 Option.propTypes = {
   color: PropTypes.oneOf(["orange", "purple", "blue", "green", "red"]),
@@ -94,14 +95,19 @@ function OptionImg({ check, setValue, img, setImgs, setSelected, ...props }) {
 function InputFile({ ...props }) {
   const input = useRef();
   const handleClick = (event) => {
-    if (event.key === "Enter" || event.key === " ") input.current.click();
+    console.log(event);
+    if (event.key === "Enter" || event.key === " " || event.type === "click") {
+      event.preventDefault();
+      input.current.click();
+      event.currentTarget.blur();
+    }
   };
 
   return (
     <>
-      <label tabIndex={0} htmlFor="file" onKeyUp={handleClick}>
+      <label tabIndex={0} htmlFor="file" onClick={handleClick} onKeyUp={handleClick}>
         <p>
-          <strong>파일</strong>
+          파일
           <br />
           추가하기
         </p>
@@ -121,9 +127,7 @@ function InputURL({ onSubmit, ...props }) {
     <>
       <label tabIndex={0} onClick={handleModalOpen} onKeyUp={handleClick}>
         <p>
-          <strong>URL</strong>
-          <br />
-          주소로
+          URL
           <br />
           추가하기
         </p>
@@ -181,8 +185,6 @@ const Container = styled.button`
 
   &:hover,
   &:focus-within {
-    opacity: 0.5;
-
     > img {
       display: none;
     }
@@ -196,7 +198,7 @@ const Container = styled.button`
 
     > label {
       width: 100%;
-      height: auto;
+      height: 100%;
 
       display: flex;
       flex-direction: column;
@@ -205,14 +207,15 @@ const Container = styled.button`
 
       cursor: pointer;
 
-      p {
-        ${FONT14}
+      &:hover,
+      &:focus {
+        p {
+          ${FONT14B};
+        }
       }
 
-      &:hover {
-        strong {
-          ${FONT16B};
-        }
+      p {
+        ${FONT14}
       }
     }
   }
@@ -225,8 +228,8 @@ const Container = styled.button`
       : `background-image: url(${src}); background-size: cover`};
 
   > div {
-    width: 4.4rem;
-    height: 4.4rem;
+    width: 20%;
+    height: 20%;
 
     border-radius: 10rem;
 
@@ -255,6 +258,13 @@ const Container = styled.button`
 
     position: absolute;
     overflow: hidden;
+  }
+
+  > img {
+    @media (max-width: ${DeviceSize.mobile}) {
+      width: 20%;
+      height: auto;
+    }
   }
 `;
 
