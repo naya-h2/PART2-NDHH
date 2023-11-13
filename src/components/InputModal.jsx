@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FONT18 } from "@/styles/FontStyles";
 import styled from "styled-components";
 import Input from "./commons/Input";
@@ -6,6 +6,7 @@ import Button from "./commons/Button";
 import { useState } from "react";
 
 function InputModal({ password, onClose }) {
+  const { id } = useParams();
   const [pwError, setPwError] = useState(false);
   const navigate = useNavigate();
 
@@ -15,7 +16,7 @@ function InputModal({ password, onClose }) {
     if (inputValue == import.meta.env.VITE_EDIT_KEY || inputValue == password) {
       setPwError(false);
       onClose();
-      return navigate("/post/id/edit");
+      return navigate(`/post/${id}/edit`);
     }
     setPwError(true);
   };

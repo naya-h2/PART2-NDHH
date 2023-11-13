@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import propTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { formatDate } from "@/utils/formatDate";
 import { FONT12, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
@@ -18,10 +18,12 @@ Card.propTypes = {
   data: propTypes.object,
 };
 function Card({ type, data = null, onCardClick }) {
+  const { id } = useParams();
+
   if (type === "Plus") {
     return (
       <Container $type="Plus">
-        <Link to="/post/id/message">
+        <Link to={`/post/${id}/message`}>
           <PlusIcon>
             <Button type="plus" />
           </PlusIcon>

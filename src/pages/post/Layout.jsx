@@ -4,8 +4,8 @@ import Modal from "@/components/Modal";
 import ModalPortal from "@/components/ModalPortal";
 import ModalFrame from "@/components/ModalFrame";
 import InputModal from "@/components/InputModal";
+import Header from "@/components/Header";
 import useModal from "@/hooks/useModal";
-import { RECIPIENT2 } from "@/constants/test";
 import useGetData from "@/hooks/useGetData";
 import useGetWindowWidth from "@/hooks/useGetWindowWidth";
 import { COLOR } from "@/styles/ColorStyles";
@@ -13,7 +13,7 @@ import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
 import { Z_INDEX } from "@/styles/ZindexStyles";
 import { sortNew } from "@/utils/sort";
 import propTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 
@@ -22,17 +22,29 @@ Layout.propTypes = {
 };
 
 function Layout({ path = "" }) {
-  const { backgroundColor, backgroundImageURL, messageCount, recentMessages } = RECIPIENT2;
-  const sortedData = sortNew(recentMessages);
+  const { id } = useParams();
+  const recipientData = useGetData("RECIPIENTS_ID", "GET", id);
+  const messageData = useGetData("RECIPIENTS_MESSAGES", "GET", id);
+
+  if (!recipientData || !messageData) {
+    //return <Navigate to="/notFound" />;
+    return;
+  }
+
+  const { backgroundColor, backgroundImageURL, messageCount } = recipientData;
+  const sortedData = sortNew(messageData);
 
   return (
-    <Background $color={backgroundColor} $url={backgroundImageURL}>
-      {backgroundImageURL && <Mask></Mask>}
-      <Container>
-        <Btn path={path} />
-        <CardGrid path={path} messageCount={messageCount} recentMessages={sortedData} />
-      </Container>
-    </Background>
+    <>
+      <Header serviceType={true} />
+      <Background $color={backgroundColor} $url={backgroundImageURL}>
+        {backgroundImageURL && <Mask></Mask>}
+        <Container>
+          <Btn path={path} />
+          <CardGrid path={path} messageCount={messageCount} recentMessages={sortedData} />
+        </Container>
+      </Background>
+    </>
   );
 }
 
