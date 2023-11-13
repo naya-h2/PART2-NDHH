@@ -7,11 +7,10 @@ import { useState } from "react";
 import { useRef } from "react";
 
 function InputModal({ password, onClose }) {
-  const { id } = useParams();
   const [pwError, setPwError] = useState(false);
-  const navigate = useNavigate();
-
+  const { id } = useParams();
   const inputRef = useRef();
+  const navigate = useNavigate();
 
   const handlePasswordCheck = (event) => {
     const inputValue = inputRef.current.value;
@@ -19,6 +18,7 @@ function InputModal({ password, onClose }) {
     if (inputValue == import.meta.env.VITE_EDIT_KEY || inputValue == password) {
       setPwError(false);
       onClose();
+      sessionStorage.setItem("editToken", id);
       return navigate(`/post/${id}/edit`);
     }
     setPwError(true);
