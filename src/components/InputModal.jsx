@@ -4,14 +4,17 @@ import styled from "styled-components";
 import Input from "./commons/Input";
 import Button from "./commons/Button";
 import { useState } from "react";
+import { useRef } from "react";
 
 function InputModal({ password, onClose }) {
   const { id } = useParams();
   const [pwError, setPwError] = useState(false);
   const navigate = useNavigate();
 
+  const inputRef = useRef();
+
   const handlePasswordCheck = (event) => {
-    const inputValue = event.target.children[1].children[0].value;
+    const inputValue = inputRef.current.value;
     event.preventDefault();
     if (inputValue == import.meta.env.VITE_EDIT_KEY || inputValue == password) {
       setPwError(false);
@@ -25,7 +28,7 @@ function InputModal({ password, onClose }) {
     <Container onSubmit={handlePasswordCheck}>
       <Text>🔐 비밀번호를 입력하세요.</Text>
       <InputWrapper>
-        <Input placeholder="●●●●" pwError={pwError} />
+        <Input placeholder="●●●●" pwError={pwError} inputRef={inputRef} />
       </InputWrapper>
       <Button width="100" height="l" type="primary">
         확인
