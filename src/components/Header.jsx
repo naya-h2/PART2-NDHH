@@ -3,26 +3,21 @@ import PropTypes from "prop-types";
 import { FONT14B, FONT16B, FONT16, FONT18, FONT18B, FONT28B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { Recipients } from "@/constants/mockUp";
-import HeaderEmojis from "@/components/instances/HeaderEmojiDropDown";
+import HeaderEmojis from "@/components/instances/HeaderEmoji";
 import ProfileImgList from "@/components/commons/ProfileImgList";
 import Button from "@/components/commons/Button";
 import Logo from "@/assets/Logo.svg";
 import divideLine from "@/assets/Rectangle_38.svg";
 import ShareDropdownButton from "./instances/ShareDropdownButton";
 import { Link } from "react-router-dom";
-import EmojiPicker from "emoji-picker-react";
-import { useState } from "react";
-import { Z_INDEX } from "@/styles/ZindexStyles";
-import { CreateEmoji } from "@/api/getPostDate";
-import api from "@/api/api";
 
 Header.propTypes = {
   serviceType: PropTypes.oneOf([true, false]),
   hideButton: PropTypes.oneOf([true, false]),
 };
 
-function Header({ serviceType, hideButton = false }) {
-  return serviceType ? MakeServiceHeader() : MakeNavHeader({ hideButton });
+function Header({ serviceType, hideButton = false, id }) {
+  return serviceType ? MakeServiceHeader({ id }) : MakeNavHeader({ hideButton });
 }
 
 function MakeNavHeader({ hideButton }) {
@@ -34,7 +29,6 @@ function MakeNavHeader({ hideButton }) {
         </Link>
         {!hideButton && (
           <Button type="outlined" width="170" height="l">
-            {/*모바일에서 width가 줄어드는데 그냥 버튼 두 개 만드는 수밖에 없을까요..?*/}
             <Link to="/post">
               <ButtonText $B>롤링 페이퍼 만들기</ButtonText>
             </Link>
@@ -46,19 +40,8 @@ function MakeNavHeader({ hideButton }) {
   );
 }
 
-function MakeServiceHeader() {
+function MakeServiceHeader({ id }) {
   const { name, messageCount, recentMessages, topReactions } = Recipients;
-  const [isEmojiVisible, setIsEmojiVisible] = useState(false);
-
-  const onEmojiClick = async (event) => {
-    const emojiSrc = event.emoji;
-    const { postData } = CreateEmoji(emojiSrc, "increase");
-    const fetchResult = await api("RECIPIENTS_REACTIONS", "POST", 214, postData); //true (postResponse.ok)
-  };
-
-  const handleClick = () => {
-    setIsEmojiVisible(!isEmojiVisible);
-  };
 
   return (
     <>
@@ -72,14 +55,6 @@ function MakeServiceHeader() {
             <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           </SendersNum>
           <HeaderEmojis topReactions={topReactions} />
-          <CustomButton type="outlined" width="94" height="m" icon onClick={handleClick}>
-            <ButtonText>추가</ButtonText>
-            {isEmojiVisible && (
-              <Wrapper_Emoji>
-                <EmojiPicker onEmojiClick={onEmojiClick} />
-              </Wrapper_Emoji>
-            )}
-          </CustomButton>
           <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           <ShareDropdownButton />
         </Wrapper>
@@ -152,14 +127,6 @@ const Wrapper = styled.div`
   grid-area: "Wrapper";
 `;
 
-const CustomButton = styled(Button)`
-  position: relative;
-  @media (max-width: ${DeviceSize.mobile}) {
-    width: 4.4rem;
-    padding: 0.6rem 0.6rem;
-  }
-`;
-
 const ButtonText = styled.p`
   ${(props) => (props.$B ? FONT16B : FONT16B)}
 
@@ -207,21 +174,5 @@ const Border = styled.div`
     display: ${(props) => (props.$Bottom ? "block" : "block")};
     bottom: ${(props) => (props.$Bottom ? "5.2rem" : "0")};
     left: 0;
-  }
-`;
-
-const Wrapper_Emoji = styled.div`
-  position: absolute;
-  top: 4rem;
-  right: 0rem;
-
-  z-index: ${Z_INDEX.Wrapper_Emoji};
-
-  @media (max-width: 1350px) {
-    right: 3rem;
-  }
-
-  @media (max-width: ${DeviceSize.mobile}) {
-    right: -14rem;
   }
 `;
