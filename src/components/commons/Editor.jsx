@@ -7,13 +7,22 @@ import lang from "suneditor/src/lang";
 
 function TextEditor({ setValue }) {
   const editor = useRef();
+  let KEY = {};
 
   const getSunEditorInstance = (sunEditor) => {
     editor.current = sunEditor;
+    editor.current.onKeyDown = (event, core) => {
+      if (KEY["Control"]) {
+        core.blur();
+        KEY = {};
+        return;
+      }
+      KEY[event.key] = true;
+    };
   };
 
-  const handleChange = (text) => {
-    setValue((prev) => ({ ...prev, text }));
+  const handleChange = (content) => {
+    setValue((prev) => ({ ...prev, content }));
   };
 
   return (
@@ -29,8 +38,10 @@ function TextEditor({ setValue }) {
           lang: lang.ko,
         }}
         onChange={handleChange}
+        placeholder="당신의 마음을 표현해주세요."
       />
       <span>마우스 드래그로 박스 크기를 조정해 보세요!</span>
+      <p>Ctrl키를 두 번 눌러 에디터 바깥으로 나갈 수 있습니다.</p>
     </Container>
   );
 }
@@ -51,7 +62,6 @@ const Container = styled.div`
 
   .sun-editor,
   .se-container {
-    border: 0.1rem solid var(--Gray3);
     border-radius: 0.8rem;
   }
 
@@ -91,11 +101,26 @@ const Container = styled.div`
   > span {
     position: absolute;
     right: 2rem;
-    bottom: 0.5rem;
+    bottom: 0.3rem;
 
-    color: var(--Gray4);
+    color: var(--Gray5);
 
     pointer-events: none;
+  }
+
+  > p {
+    display: none;
+
+    position: absolute;
+    left: 0.5rem;
+
+    color: var(--Gray5);
+  }
+
+  &:focus-within {
+    > p {
+      display: block;
+    }
   }
 
   ::-webkit-scrollbar {

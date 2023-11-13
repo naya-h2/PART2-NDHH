@@ -9,7 +9,6 @@ function PostPage({ page }) {
   return (
     <>
       {windowWidth > DeviceSizeNum.mobile && <Header />}
-      <Header serviceType={true} />
       <Layout path={page} />
     </>
   );

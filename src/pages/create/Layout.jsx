@@ -1,24 +1,50 @@
+import api from "@/api/api";
+import { TEAM } from "@/api/config";
 import Option from "@/components/commons/Option";
 import ToggleButton from "@/components/commons/ToggleButton";
 import { Container, Submit, Title } from "@/components/instances/CreateMessage";
 import { SELECTED } from "@/styles/ButtonStyles";
-import { COLOR } from "@/styles/ColorStyles";
+import { COLOR, REL } from "@/styles/ColorStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { FONT16, FONT24B } from "@/styles/FontStyles";
 import { PropTypes } from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
+const INITIAL = {
+  team: TEAM,
+  name: "",
+  backgroundColor: COLOR.O,
+  backgroundImageURL: null,
+  createdAt: null,
+};
+
 function Layout() {
-  const [imgFile, setImgFile] = useState("");
+  const [value, setValue] = useState(INITIAL);
+
+  const handleSubmit = async (event) => {
+    if (!value.name || !value.backgroundImageURL) {
+      event.preventDefault();
+      return;
+    }
+    value.createdAt = new Date();
+
+    try {
+      const postRes = await api("RECIPIENTS", "POST", null, value);
+      console.log(postRes);
+    } catch (error) {
+      alert(error);
+      event.preventDefault();
+    }
+  };
 
   return (
     <>
       <Container>
-        <Title />
+        <Title value={value.name} setValue={setValue} />
         <Text />
-        <SelectOption imgFile={imgFile} setImgFile={setImgFile} />
-        <Submit />
+        <SelectOption value={value} setValue={setValue} />
+        <Submit onSubmit={handleSubmit} />
       </Container>
     </>
   );
@@ -35,39 +61,62 @@ function Text() {
   );
 }
 
-function SelectOption({ imgFile, setImgFile }) {
+let temp;
+
+function SelectOption({ value, setValue }) {
   const [selectedType, setSelectedType] = useState(SELECTED.color);
+
+  useEffect(() => {
+    const isColor = selectedType === SELECTED.color ? true : false;
+    if (isColor) {
+      temp = value.backgroundImageURL;
+      setValue((prev) => ({ ...prev, backgroundColor: COLOR.O, backgroundImageURL: null }));
+      return;
+    }
+    setValue((prev) => ({ ...prev, backgroundColor: COLOR.O, backgroundImageURL: temp }));
+  }, [selectedType, setValue]);
 
   return (
     <>
       <ToggleButton handleToggle={setSelectedType} selected={selectedType} />
-      <Options selectedType={selectedType} imgFile={imgFile} setImgFile={setImgFile} />
+      <Options selectedType={selectedType} setValue={setValue} />
     </>
   );
 }
 
-const COLOR_OPTIONS = [COLOR.O, COLOR.P, COLOR.B, COLOR.G];
-
 Options.propType = {
   selectedType: PropTypes.oneOf([SELECTED.color, SELECTED.image]),
 };
-function Options({ selectedType, imgFile, setImgFile }) {
-  const [selectedOption, setSelectedOption] = useState(0);
+function Options({ selectedType, setValue }) {
+  const [imgs, setImgs] = useState([]);
+  const [selected, setSelected] = useState(0);
+  const isColor = selectedType === SELECTED.color ? true : false;
 
-  const handleOptionClick = (a) => () => setSelectedOption(a);
+  const handleOptionClick = (idx, item) => () => {
+    setSelected(idx);
+    if (isColor) {
+      const backgroundColor = item;
+      setValue((prev) => ({ ...prev, backgroundColor }));
+      return;
+    }
+    const backgroundImageURL = item;
+    setValue((prev) => ({ ...prev, backgroundImageURL }));
+  };
 
-  const option =
-    selectedType === SELECTED.color ? (
-      COLOR_OPTIONS.map((color, idx) => <Option key={idx} color={color} check={selectedOption === idx} onClick={handleOptionClick(idx)} />)
-    ) : (
-      <>
-        <Option setImgFile={setImgFile} />
-        {imgFile &&
-          imgFile.map((imgFile, idx) => {
-            return <Option key={idx} imgFile={imgFile} check={selectedOption === idx} onClick={handleOptionClick(idx)} />;
-          })}
-      </>
-    );
+  const option = isColor ? (
+    Object.values(COLOR).map((color, idx) => <Option key={idx} color={color} check={selected === idx} onClick={handleOptionClick(idx, color)} />)
+  ) : (
+    <>
+      <Option setValue={setValue} setImgs={setImgs} setSelected={setSelected} />
+      {imgs.map((img, idx) => (
+        <Option key={idx} check={selected === idx} img={img} onClick={handleOptionClick(idx, img)} />
+      ))}
+    </>
+  );
+
+  useEffect(() => {
+    setSelected(0);
+  }, [selectedType]);
 
   return <Container__Options>{option}</Container__Options>;
 }

@@ -19,6 +19,13 @@ function Dropdown({ disabled, value, setValue, items }) {
     setArrowDirection(showDropdown ? arrowDown : arrowUp);
   };
 
+  const handleBlur = (event) => {
+    if (!event.relatedTarget || event.relatedTarget.tagName !== "LI") {
+      setShowDropdown(false);
+      setArrowDirection(arrowDown);
+    }
+  };
+
   const handleSelect = (item) => () => {
     setValue(item);
     setShowDropdown(false);
@@ -26,21 +33,29 @@ function Dropdown({ disabled, value, setValue, items }) {
   };
 
   return (
-    <Container onClick={toggleDropdown} disabled={disabled}>
-      {value ?? items[0]}
-      <ArrowImg src={arrowDirection} alt="클릭해서 옵션 선택하기" />
-      <List $show={showDropdown}>
-        {items.map((item, idx) => (
-          <Text key={idx} onClick={handleSelect(item)}>
-            {item}
-          </Text>
-        ))}
-      </List>
+    <Container disabled={disabled}>
+      <Wrapper onClick={toggleDropdown} onBlur={handleBlur}>
+        {value ?? items[0]}
+        <ArrowImg src={arrowDirection} alt="클릭해서 옵션 선택하기" />
+      </Wrapper>
+      {showDropdown && (
+        <List autoFocus={true}>
+          {items.map((item, idx) => (
+            <Text tabIndex={0} key={idx} onClick={handleSelect(item)}>
+              {item}
+            </Text>
+          ))}
+        </List>
+      )}
     </Container>
   );
 }
 
 const Container = styled.div`
+  position: relative;
+`;
+
+const Wrapper = styled.button`
   position: relative;
   width: 32rem;
   height: 5rem;
@@ -49,6 +64,7 @@ const Container = styled.div`
   border: 0.1rem solid var(--Gray3);
   background: var(--White);
 
+  text-align: left;
   ${FONT16}
   color: var(--Gray5);
 
@@ -87,11 +103,11 @@ const ArrowImg = styled.img`
 `;
 
 const List = styled.ul`
-  display: ${({ $show }) => ($show ? "block" : "none")};
+  display: block;
   width: 32rem;
   position: absolute;
   top: 5.8rem;
-  right: 0;
+  left: 0;
   padding: 1rem 0.1rem;
 
   border-radius: 0.8rem;
@@ -108,12 +124,11 @@ const Text = styled.li`
   display: flex;
   align-items: center;
 
-  color: var(--Gray9);
-  ${FONT16}
-
   &:hover {
     background: var(--Gray1);
   }
+
+  ${FONT16}
 `;
 
 export default Dropdown;

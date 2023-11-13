@@ -1,19 +1,20 @@
-import styled from "styled-components";
-import propTypes from "prop-types";
 import Card from "@/components/Card";
 import Button from "@/components/commons/Button";
 import Modal from "@/components/Modal";
 import ModalPortal from "@/components/ModalPortal";
 import ModalFrame from "@/components/ModalFrame";
 import InputModal from "@/components/InputModal";
+import Header from "@/components/Header";
 import useModal from "@/hooks/useModal";
+import useGetData from "@/hooks/useGetData";
 import useGetWindowWidth from "@/hooks/useGetWindowWidth";
-import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
-import { RECIPIENT1, RECIPIENT2 } from "@/constants/test";
-import { sortNew } from "@/utils/sort";
 import { COLOR } from "@/styles/ColorStyles";
+import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
 import { Z_INDEX } from "@/styles/ZindexStyles";
-import { Link } from "react-router-dom";
+import { sortNew } from "@/utils/sort";
+import propTypes from "prop-types";
+import { Link, Navigate, useParams } from "react-router-dom";
+import styled from "styled-components";
 import { useState } from "react";
 
 Layout.propTypes = {
@@ -21,21 +22,38 @@ Layout.propTypes = {
 };
 
 function Layout({ path = "" }) {
-  const { backgroundColor, backgroundImageURL, messageCount, recentMessages, password } = RECIPIENT2;
-  const sortedData = sortNew(recentMessages);
+  const [cardData, setCardData] = useState(null);
+  const { id } = useParams();
+
+  const recipientData = useGetData("RECIPIENTS_ID", "GET", id);
+  const messageData = useGetData("RECIPIENTS_MESSAGES", "GET", id);
+
+  if (!recipientData || !messageData) {
+    //return <Navigate to="/notFound" />;
+    return;
+  }
+
+  const { backgroundColor, backgroundImageURL, messageCount, password } = recipientData;
+  const sortedData = sortNew(messageData);
+  if (!cardData) {
+    setCardData(sortedData);
+  }
 
   return (
-    <Background $color={backgroundColor} $url={backgroundImageURL}>
-      {backgroundImageURL && <Mask></Mask>}
-      <Container>
-        <Btn path={path} password={password} />
-        <CardGrid path={path} messageCount={messageCount} recentMessages={sortedData} />
-      </Container>
-    </Background>
+    <>
+      <Header serviceType={true} />
+      <Background $color={backgroundColor} $url={backgroundImageURL}>
+        {backgroundImageURL && <Mask></Mask>}
+        <Container>
+          <Btn path={path} password={password} id={id} />
+          <CardGrid setCardData={setCardData} path={path} messageCount={messageCount} recentMessages={cardData} />
+        </Container>
+      </Background>
+    </>
   );
 }
 
-function Btn({ path, password }) {
+function Btn({ path, password, id }) {
   const { isOpen, handleModalOpen, handleModalClose } = useModal();
   const windowWidth = useGetWindowWidth();
 
@@ -43,7 +61,7 @@ function Btn({ path, password }) {
     <>
       {path === "edit" ? (
         <SaveWrapper>
-          <Link to="/post/id">
+          <Link to={`/post/${id}`}>
             {windowWidth > DeviceSizeNum.tablet ? (
               <Button type="primary" height="l" width="100">
                 저장하기
@@ -73,7 +91,7 @@ function Btn({ path, password }) {
   );
 }
 
-function CardGrid({ path, messageCount, recentMessages }) {
+function CardGrid({ setCardData, path, messageCount, recentMessages }) {
   const { isOpen, handleModalOpen, handleModalClose } = useModal();
   const [message, setMessage] = useState("");
 
@@ -85,7 +103,7 @@ function CardGrid({ path, messageCount, recentMessages }) {
   return (
     <CardWrapper>
       {path !== "edit" && <Card type="Plus" />}
-      {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === "edit" ? "Edit" : "Normal"} data={msg} onCardClick={handleCardClick} />)}
+      {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === "edit" ? "Edit" : "Normal"} data={msg} setCardData={setCardData} onCardClick={handleCardClick} />)}
       {isOpen && (
         <ModalPortal>
           <ModalFrame onClickClose={handleModalClose}>

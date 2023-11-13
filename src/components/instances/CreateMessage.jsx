@@ -24,10 +24,19 @@ Title.propTypes = {
 };
 export function Title({ message, value, setValue }) {
   const handleChange = (event) => {
-    const writer = event.target.value;
+    const txt = event.target.value;
+    if (message) {
+      const sender = txt;
+      setValue((prev) => ({
+        ...prev,
+        sender,
+      }));
+      return;
+    }
+    const name = txt;
     setValue((prev) => ({
       ...prev,
-      writer,
+      name,
     }));
   };
 
@@ -43,7 +52,7 @@ export function Submit({ onClick, onSubmit }) {
   return (
     <Contents__button>
       <Link to="/post/id" onClick={onClick}>
-        <Button type="primary" height="xl" onSubmit={onSubmit}>
+        <Button type="primary" height="xl" onClick={onSubmit}>
           생성하기
         </Button>
       </Link>

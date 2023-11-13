@@ -1,7 +1,7 @@
 import { css } from "styled-components";
 
 export const COLOR = {
-  O: "orange",
+  O: "beige",
   P: "purple",
   B: "blue",
   G: "green",
