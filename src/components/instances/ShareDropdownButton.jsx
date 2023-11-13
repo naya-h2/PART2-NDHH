@@ -116,5 +116,5 @@ const Wrapper = styled.div`
   transform: translateX(-50%) translateY(${({ $isVisible }) => ($isVisible ? "2rem" : "-4rem")});
   top: ${({ $isVisible }) => ($isVisible ? "2rem" : "-4rem")};
   z-index: ${Z_INDEX.Toast_Wrapper};
-  transition: transform 0.5s ease-in-out; // transform 지우기
+  transition: 0.5s ease-in-out; // transform 지우기
 `;
