@@ -10,10 +10,6 @@ import Logo from "@/assets/Logo.svg";
 import divideLine from "@/assets/Rectangle_38.svg";
 import ShareDropdownButton from "./instances/ShareDropdownButton";
 import { Link } from "react-router-dom";
-import EmojiPicker from "emoji-picker-react";
-import { useRef, useState } from "react";
-import { Z_INDEX } from "@/styles/ZindexStyles";
-import api from "@/api/api";
 
 Header.propTypes = {
   serviceType: PropTypes.oneOf([true, false]),
@@ -46,31 +42,7 @@ function MakeNavHeader({ hideButton }) {
 }
 
 function MakeServiceHeader({ id }) {
-  const containerRef = useRef(null);
-
   const { name, messageCount, recentMessages, topReactions } = Recipients;
-  const [isEmojiVisible, setIsEmojiVisible] = useState(false);
-
-  const onEmojiClick = async (event) => {
-    const emojiSrc = event.emoji;
-    const postData = {
-      emoji: emojiSrc,
-      type: "increase",
-    };
-
-    const fetchResult = await api("RECIPIENTS_REACTIONS", "POST", id, postData); //true (postResponse.ok)
-    if (fetchResult) setIsEmojiVisible(false);
-  };
-
-  const handleBlur = (event) => {
-    if (!containerRef.current.contains(event.relatedTarget)) {
-      setIsEmojiVisible(false);
-    }
-  };
-
-  const handleClick = () => {
-    setIsEmojiVisible(true);
-  };
 
   return (
     <>
@@ -84,14 +56,6 @@ function MakeServiceHeader({ id }) {
             <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           </SendersNum>
           <HeaderEmojis topReactions={topReactions} />
-          <CustomButton type="outlined" width="94" height="m" icon onClick={handleClick}>
-            <ButtonText>추가</ButtonText>
-            {isEmojiVisible && (
-              <Wrapper_Emoji onBlur={handleBlur} ref={containerRef}>
-                <EmojiPicker onEmojiClick={onEmojiClick} />
-              </Wrapper_Emoji>
-            )}
-          </CustomButton>
           <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           <ShareDropdownButton />
         </Wrapper>
@@ -164,14 +128,6 @@ const Wrapper = styled.div`
   grid-area: "Wrapper";
 `;
 
-const CustomButton = styled(Button)`
-  position: relative;
-  @media (max-width: ${DeviceSize.mobile}) {
-    width: 4.4rem;
-    padding: 0.6rem 0.6rem;
-  }
-`;
-
 const ButtonText = styled.p`
   ${(props) => (props.$B ? FONT16B : FONT16B)}
 
@@ -219,21 +175,5 @@ const Border = styled.div`
     display: ${(props) => (props.$Bottom ? "block" : "block")};
     bottom: ${(props) => (props.$Bottom ? "5.2rem" : "0")};
     left: 0;
-  }
-`;
-
-const Wrapper_Emoji = styled.div`
-  position: absolute;
-  top: 4rem;
-  right: 0rem;
-
-  z-index: ${Z_INDEX.Wrapper_Emoji};
-
-  @media (max-width: 1350px) {
-    right: 3rem;
-  }
-
-  @media (max-width: ${DeviceSize.mobile}) {
-    right: -14rem;
   }
 `;

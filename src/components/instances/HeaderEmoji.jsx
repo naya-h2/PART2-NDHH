@@ -5,7 +5,7 @@ import { DeviceSize } from "@/styles/DeviceSize";
 import Badge from "@/components/commons/Badge";
 import arrowDown from "@/assets/arrow_down.svg";
 import { Z_INDEX } from "@/styles/ZindexStyles";
-import Button from "../commons/Button";
+import EmojiPickButton from "./EmojiPickButton";
 
 function HeaderEmojis({ topReactions }) {
   const containerRef = useRef(null);
@@ -27,35 +27,48 @@ function HeaderEmojis({ topReactions }) {
   };
 
   return (
-    <Container onBlur={handleBlur} ref={containerRef}>
-      <Emojis>
-        {topReactions.map((reaction, index) => {
-          return (
-            <Badge num={reaction.count} key={index}>
-              {reaction.emoji}
-            </Badge>
-          );
-        })}
-      </Emojis>
-      <button onClick={handleClick}>
-        <ArrowDown src={arrowDown} alt="이모티콘 반응 더보기 버튼" />
-      </button>
-      {isVisible && (
-        <EmojiDropDown>
-          {results.map((result, index) => {
-            return (
-              <Badge num={result.count} key={index}>
-                {result.emoji}
-              </Badge>
-            );
-          })}
-        </EmojiDropDown>
-      )}
-    </Container>
+    <>
+      <Container onBlur={handleBlur} ref={containerRef}>
+        <TopEmojis topReactions={topReactions} />
+        <button onClick={handleClick}>
+          <ArrowDown src={arrowDown} alt="이모티콘 반응 더보기 버튼" />
+        </button>
+        {isVisible && <EmojiList results={results} />}
+      </Container>
+      <EmojiPickButton />
+    </>
   );
 }
 
 export default HeaderEmojis;
+
+const TopEmojis = ({ topReactions }) => {
+  return (
+    <Emojis>
+      {topReactions.map((reaction, index) => {
+        return (
+          <Badge num={reaction.count} key={index}>
+            {reaction.emoji}
+          </Badge>
+        );
+      })}
+    </Emojis>
+  );
+};
+
+const EmojiList = ({ results }) => {
+  return (
+    <EmojiDropDown results={results}>
+      {results.map((result, index) => {
+        return (
+          <Badge num={result.count} key={index}>
+            {result.emoji}
+          </Badge>
+        );
+      })}
+    </EmojiDropDown>
+  );
+};
 
 const Container = styled.div`
   position: relative;
