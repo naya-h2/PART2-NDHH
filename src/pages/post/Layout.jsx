@@ -22,7 +22,9 @@ Layout.propTypes = {
 };
 
 function Layout({ path = "" }) {
+  const [cardData, setCardData] = useState(null);
   const { id } = useParams();
+
   const recipientData = useGetData("RECIPIENTS_ID", "GET", id);
   const messageData = useGetData("RECIPIENTS_MESSAGES", "GET", id);
 
@@ -31,8 +33,11 @@ function Layout({ path = "" }) {
     return;
   }
 
-  const { backgroundColor, backgroundImageURL, messageCount } = recipientData;
+  const { backgroundColor, backgroundImageURL, messageCount, password } = recipientData;
   const sortedData = sortNew(messageData);
+  if (!cardData) {
+    setCardData(sortedData);
+  }
 
   return (
     <>
@@ -40,15 +45,15 @@ function Layout({ path = "" }) {
       <Background $color={backgroundColor} $url={backgroundImageURL}>
         {backgroundImageURL && <Mask></Mask>}
         <Container>
-          <Btn path={path} />
-          <CardGrid path={path} messageCount={messageCount} recentMessages={sortedData} />
+          <Btn path={path} password={password} id={id} />
+          <CardGrid setCardData={setCardData} path={path} messageCount={messageCount} recentMessages={cardData} />
         </Container>
       </Background>
     </>
   );
 }
 
-function Btn({ path, password }) {
+function Btn({ path, password, id }) {
   const { isOpen, handleModalOpen, handleModalClose } = useModal();
   const windowWidth = useGetWindowWidth();
 
@@ -56,7 +61,7 @@ function Btn({ path, password }) {
     <>
       {path === "edit" ? (
         <SaveWrapper>
-          <Link to="/post/id">
+          <Link to={`/post/${id}`}>
             {windowWidth > DeviceSizeNum.tablet ? (
               <Button type="primary" height="l" width="100">
                 저장하기
@@ -86,7 +91,7 @@ function Btn({ path, password }) {
   );
 }
 
-function CardGrid({ path, messageCount, recentMessages }) {
+function CardGrid({ setCardData, path, messageCount, recentMessages }) {
   const { isOpen, handleModalOpen, handleModalClose } = useModal();
   const [message, setMessage] = useState("");
 
@@ -98,7 +103,7 @@ function CardGrid({ path, messageCount, recentMessages }) {
   return (
     <CardWrapper>
       {path !== "edit" && <Card type="Plus" />}
-      {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === "edit" ? "Edit" : "Normal"} data={msg} onCardClick={handleCardClick} />)}
+      {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === "edit" ? "Edit" : "Normal"} data={msg} setCardData={setCardData} onCardClick={handleCardClick} />)}
       {isOpen && (
         <ModalPortal>
           <ModalFrame onClickClose={handleModalClose}>

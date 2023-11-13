@@ -14,7 +14,7 @@ export const ENDPOINTS = {
   },
   MESSAGES: {
     // id에 해당하는 메세지 객체 삭제 -> Card 컴포넌트
-    DELETE: (path) => `/${TEAM}/messages/${path}/messages_delete/`,
+    DELETE: (path) => `/${TEAM}/messages/${path}/`,
   },
   RECIPIENTS: {
     // 새로운 대상객체 (To.~~) 생성 or 리스트에서 조회 시 사용
