@@ -40,10 +40,15 @@ function ShareDropdownButton({ currentPath = "/" }) {
   };
 
   return (
-    <ShareButton onBlur={handleBlur} ref={containerRef}>
-      <CustomButton type="outlined" width="56" height="m" onClick={handleClick}>
-        <img src={shareIcon} alt="공유 버튼" />
-      </CustomButton>
+    <Container>
+      <ShareButton onBlur={handleBlur} ref={containerRef}>
+        <CustomButton type="outlined" width="56" height="m" onClick={handleClick}>
+          <img src={shareIcon} alt="공유 버튼" />
+        </CustomButton>
+        <Wrapper $isVisible={isToastVisible}>
+          <Toast />
+        </Wrapper>
+      </ShareButton>
       {isMenuVisible && (
         <List>
           <button onClick={() => shareKakaoTalk(host + currentPath)}>
@@ -54,25 +59,25 @@ function ShareDropdownButton({ currentPath = "/" }) {
           </button>
         </List>
       )}
-      <Wrapper $isVisible={isToastVisible}>
-        <Toast />
-      </Wrapper>
-    </ShareButton>
+    </Container>
   );
 }
 
 export default ShareDropdownButton;
+
+const Container = styled.div`
+  position: relative;
+`;
+
+const ShareButton = styled.button`
+  display: inline-block;
+`;
 
 const CustomButton = styled(Button)`
   @media (max-width: 768px) {
     width: 4.4rem;
     padding: 0.6rem 0.6rem;
   }
-`;
-
-const ShareButton = styled.button`
-  position: relative;
-  display: inline-block;
 `;
 
 const List = styled.ul`

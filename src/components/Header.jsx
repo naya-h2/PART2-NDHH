@@ -29,7 +29,6 @@ function MakeNavHeader({ hideButton }) {
         </Link>
         {!hideButton && (
           <Button type="outlined" width="170" height="l">
-            {/*모바일에서 width가 줄어드는데 그냥 버튼 두 개 만드는 수밖에 없을까요..?*/}
             <Link to="/post">
               <ButtonText $B>롤링 페이퍼 만들기</ButtonText>
             </Link>
