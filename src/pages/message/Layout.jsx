@@ -1,17 +1,15 @@
-import CHECKIMG from "@/assets/check.svg";
+import api from "@/api/api";
+import { TEAM } from "@/api/config";
 import defaultImg from "@/assets/default_profile.svg";
 import Dropdown from "@/components/commons/Dropdown";
 import TextEditor from "@/components/commons/Editor";
+import Option from "@/components/commons/Option";
 import { Container, Submit, Title } from "@/components/instances/CreateMessage";
 import { REL } from "@/styles/ColorStyles";
-import { FONT12, FONT16, FONT24B } from "@/styles/FontStyles";
-import { useRef, useState } from "react";
+import { FONT16, FONT24B } from "@/styles/FontStyles";
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
-import PLUSIMG from "@/assets/plus_icon.svg";
-import { getURL } from "@/utils/getURL";
-import ModalPortal from "@/components/ModalPortal";
-import ModalFrame from "@/components/ModalFrame";
-import Option from "@/components/commons/Option";
 
 const INITIAL = {
   sender: "",
@@ -23,24 +21,18 @@ const INITIAL = {
 
 function Layout() {
   const [value, setValue] = useState(INITIAL);
+  // const [searchParams] = useSearchParams();
+  // const id = searchParams.get(id);
 
-  const handleClick = (event) => {
+  const handleSubmit = async (event) => {
     if (!(value.sender && value.content)) {
       event.preventDefault();
       return;
     }
-  };
 
-  const handleSubmit = async () => {
-    value.createdAt = new Date().toJSON();
-
-    const formData = new FormData();
-    for (const key of Object.keys(INITIAL)) {
-      formData.append(key, value[key]);
-    }
-    for (const v of formData.values()) {
-      console.log(v);
-    }
+    value.createdAt = new Date();
+    // const postRes = await api("RECIPIENTS_MESSAGES", "POST", id, value);
+    console.log(postRes);
   };
 
   return (
@@ -49,7 +41,7 @@ function Layout() {
       <Profile value={value.profileImageURL} setValue={setValue} />
       <Relationship value={value.relationship} setValue={setValue} />
       <Edit setValue={setValue} />
-      <Submit onClick={handleClick} onSubmit={handleSubmit} />
+      <Submit onSubmit={handleSubmit} />
     </Container>
   );
 }

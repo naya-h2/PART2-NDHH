@@ -30,10 +30,7 @@ async function api(type, method, path, postData) {
           "Content-Type": "application/json",
         },
       });
-      if (!postResponse.ok) {
-        throw new Error("데이터 전송에 실패했습니다.");
-      }
-      return postResponse.ok;
+      return postResponse;
 
     case "DELETE":
       const deleteResponse = await fetch(url, {

@@ -13,7 +13,7 @@ import { useRef } from "react";
 import styled, { css, keyframes } from "styled-components";
 
 Option.propTypes = {
-  color: PropTypes.oneOf(["orange", "purple", "blue", "green", "red"]),
+  color: PropTypes.oneOf(["beige", "purple", "blue", "green", "red"]),
   src: PropTypes.string,
   check: PropTypes.bool,
 };
@@ -51,9 +51,8 @@ function OptionImg({ check, setValue, img, setImgs, setSelected, ...props }) {
     if (file && file.size < 1024 ** 2 * 3) {
       (async function (file) {
         const backgroundImageURL = await getURL(file);
-        const thumbNailURL = URL.createObjectURL(file);
         setSelected(0);
-        setImgs((prev) => [thumbNailURL, ...prev]);
+        setImgs((prev) => [backgroundImageURL, ...prev]);
         setValue((prev) => ({ ...prev, backgroundImageURL }));
       })(file);
     }
@@ -95,7 +94,6 @@ function OptionImg({ check, setValue, img, setImgs, setSelected, ...props }) {
 function InputFile({ ...props }) {
   const input = useRef();
   const handleClick = (event) => {
-    console.log(event);
     if (event.key === "Enter" || event.key === " " || event.type === "click") {
       event.preventDefault();
       input.current.click();

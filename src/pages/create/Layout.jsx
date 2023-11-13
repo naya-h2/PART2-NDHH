@@ -1,8 +1,10 @@
+import api from "@/api/api";
+import { TEAM } from "@/api/config";
 import Option from "@/components/commons/Option";
 import ToggleButton from "@/components/commons/ToggleButton";
 import { Container, Submit, Title } from "@/components/instances/CreateMessage";
 import { SELECTED } from "@/styles/ButtonStyles";
-import { COLOR } from "@/styles/ColorStyles";
+import { COLOR, REL } from "@/styles/ColorStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { FONT16, FONT24B } from "@/styles/FontStyles";
 import { PropTypes } from "prop-types";
@@ -10,8 +12,9 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const INITIAL = {
+  team: TEAM,
   name: "",
-  backgroundColor: "orange",
+  backgroundColor: COLOR.O,
   backgroundImageURL: null,
   createdAt: null,
 };
@@ -19,22 +22,19 @@ const INITIAL = {
 function Layout() {
   const [value, setValue] = useState(INITIAL);
 
-  const handleClick = (event) => {
-    if (!(value.name && (value.backgroundColor || value.backgroundImageURL))) {
+  const handleSubmit = async (event) => {
+    if (!value.name || !value.backgroundImageURL) {
       event.preventDefault();
       return;
     }
-  };
+    value.createdAt = new Date();
 
-  const handleSubmit = async () => {
-    value.createdAt = new Date().toJSON();
-
-    const formData = new FormData();
-    for (const key of Object.keys(INITIAL)) {
-      formData.append(key, value[key]);
-    }
-    for (const v of formData.values()) {
-      console.log(v);
+    try {
+      const postRes = await api("RECIPIENTS", "POST", null, value);
+      console.log(postRes);
+    } catch (error) {
+      alert(error);
+      event.preventDefault();
     }
   };
 
@@ -43,8 +43,8 @@ function Layout() {
       <Container>
         <Title value={value.name} setValue={setValue} />
         <Text />
-        <SelectOption setValue={setValue} />
-        <Submit onClick={handleClick} onSubmit={handleSubmit} />
+        <SelectOption value={value} setValue={setValue} />
+        <Submit onSubmit={handleSubmit} />
       </Container>
     </>
   );
@@ -61,8 +61,20 @@ function Text() {
   );
 }
 
-function SelectOption({ setValue }) {
+let temp;
+
+function SelectOption({ value, setValue }) {
   const [selectedType, setSelectedType] = useState(SELECTED.color);
+
+  useEffect(() => {
+    const isColor = selectedType === SELECTED.color ? true : false;
+    if (isColor) {
+      temp = value.backgroundImageURL;
+      setValue((prev) => ({ ...prev, backgroundColor: COLOR.O, backgroundImageURL: null }));
+      return;
+    }
+    setValue((prev) => ({ ...prev, backgroundColor: COLOR.O, backgroundImageURL: temp }));
+  }, [selectedType, setValue]);
 
   return (
     <>
@@ -84,11 +96,11 @@ function Options({ selectedType, setValue }) {
     setSelected(idx);
     if (isColor) {
       const backgroundColor = item;
-      setValue((prev) => ({ ...prev, backgroundColor, backgroundImageURL: null }));
+      setValue((prev) => ({ ...prev, backgroundColor }));
       return;
     }
     const backgroundImageURL = item;
-    setValue((prev) => ({ ...prev, backgroundColor: null, backgroundImageURL }));
+    setValue((prev) => ({ ...prev, backgroundImageURL }));
   };
 
   const option = isColor ? (
@@ -96,7 +108,9 @@ function Options({ selectedType, setValue }) {
   ) : (
     <>
       <Option setValue={setValue} setImgs={setImgs} setSelected={setSelected} />
-      {imgs && imgs.map((img, idx) => <Option key={idx} check={selected === idx} img={img} onClick={handleOptionClick(idx, img)} />)}
+      {imgs.map((img, idx) => (
+        <Option key={idx} check={selected === idx} img={img} onClick={handleOptionClick(idx, img)} />
+      ))}
     </>
   );
 
