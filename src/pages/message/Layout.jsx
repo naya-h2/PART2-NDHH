@@ -1,6 +1,5 @@
 import api from "@/api/api";
-import { TEAM } from "@/api/config";
-import defaultImg from "@/assets/default_profile.svg";
+import { CreateMessage } from "@/api/getPostDate";
 import Dropdown from "@/components/commons/Dropdown";
 import TextEditor from "@/components/commons/Editor";
 import Option from "@/components/commons/Option";
@@ -8,31 +7,36 @@ import { Container, Submit, Title } from "@/components/instances/CreateMessage";
 import { REL } from "@/styles/ColorStyles";
 import { FONT16, FONT24B } from "@/styles/FontStyles";
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import styled, { keyframes } from "styled-components";
+
+const DEFAULT = "https://i.ibb.co/YBLJML7/Frame-2593.png";
 
 const INITIAL = {
   sender: "",
-  profileImageURL: defaultImg,
+  URL: DEFAULT,
   relationship: REL.O,
   content: undefined,
-  createdAt: undefined,
+  font: "Noto Sans",
 };
 
 function Layout() {
+  const { id } = useParams();
+  INITIAL.recipientId = id;
   const [value, setValue] = useState(INITIAL);
-  // const [searchParams] = useSearchParams();
-  // const id = searchParams.get(id);
+  const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async () => {
     if (!(value.sender && value.content)) {
-      event.preventDefault();
       return;
     }
 
-    value.createdAt = new Date();
-    // const postRes = await api("RECIPIENTS_MESSAGES", "POST", id, value);
-    console.log(postRes);
+    try {
+      api("RECIPIENTS_MESSAGES", "POST", id, CreateMessage(value));
+      navigate(`/post/${id}`);
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -58,7 +62,7 @@ function Profile({ ...props }) {
 }
 
 function ProfileImgControl({ value, setValue }) {
-  const [imgs, setImgs] = useState([defaultImg]);
+  const [imgs, setImgs] = useState([DEFAULT]);
   const [selected, setSelected] = useState(0);
 
   return (
