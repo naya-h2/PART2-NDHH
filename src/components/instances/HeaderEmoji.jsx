@@ -1,12 +1,15 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Reactions } from "@/constants/mockUp";
 import { DeviceSize } from "@/styles/DeviceSize";
 import Badge from "@/components/commons/Badge";
 import arrowDown from "@/assets/arrow_down.svg";
 import { Z_INDEX } from "@/styles/ZindexStyles";
+import Button from "../commons/Button";
 
 function HeaderEmojis({ topReactions }) {
+  const containerRef = useRef(null);
+
   const [isVisible, setIsVisible] = useState(false);
 
   let { results } = Reactions;
@@ -17,8 +20,14 @@ function HeaderEmojis({ topReactions }) {
     setIsVisible(!isVisible);
   };
 
+  const handleBlur = (event) => {
+    if (!containerRef.current.contains(event.relatedTarget)) {
+      setIsVisible(false);
+    }
+  };
+
   return (
-    <Container>
+    <Container onBlur={handleBlur} ref={containerRef}>
       <Emojis>
         {topReactions.map((reaction, index) => {
           return (

@@ -3,11 +3,13 @@ import Button from "@/components/commons/Button";
 import { FONT15 } from "@/styles/FontStyles";
 import { Z_INDEX } from "@/styles/ZindexStyles";
 import shareKakaoTalk from "@/utils/shareKakao";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Toast from "../commons/Toast";
 
 function ShareDropdownButton({ currentPath = "/" }) {
+  const containerRef = useRef(null);
+
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isToastVisible, setIsToastVisible] = useState(false);
 
@@ -31,8 +33,14 @@ function ShareDropdownButton({ currentPath = "/" }) {
     setIsMenuVisible(!isMenuVisible);
   };
 
+  const handleBlur = (event) => {
+    if (!containerRef.current.contains(event.relatedTarget)) {
+      setIsMenuVisible(false);
+    }
+  };
+
   return (
-    <ShareButton>
+    <ShareButton onBlur={handleBlur} ref={containerRef}>
       <CustomButton type="outlined" width="56" height="m" onClick={handleClick}>
         <img src={shareIcon} alt="공유 버튼" />
       </CustomButton>
@@ -108,5 +116,5 @@ const Wrapper = styled.div`
   transform: translateX(-50%) translateY(${({ $isVisible }) => ($isVisible ? "2rem" : "-4rem")});
   top: ${({ $isVisible }) => ($isVisible ? "2rem" : "-4rem")};
   z-index: ${Z_INDEX.Toast_Wrapper};
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out; // transform 지우기
 `;

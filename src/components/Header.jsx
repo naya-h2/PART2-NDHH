@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { FONT14B, FONT16B, FONT16, FONT18, FONT18B, FONT28B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { Recipients } from "@/constants/mockUp";
-import HeaderEmojis from "@/components/instances/HeaderEmojiDropDown";
+import HeaderEmojis from "@/components/instances/HeaderEmoji";
 import ProfileImgList from "@/components/commons/ProfileImgList";
 import Button from "@/components/commons/Button";
 import Logo from "@/assets/Logo.svg";
@@ -11,9 +11,8 @@ import divideLine from "@/assets/Rectangle_38.svg";
 import ShareDropdownButton from "./instances/ShareDropdownButton";
 import { Link } from "react-router-dom";
 import EmojiPicker from "emoji-picker-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Z_INDEX } from "@/styles/ZindexStyles";
-import { CreateEmoji } from "@/api/getPostDate";
 import api from "@/api/api";
 
 Header.propTypes = {
@@ -21,8 +20,8 @@ Header.propTypes = {
   hideButton: PropTypes.oneOf([true, false]),
 };
 
-function Header({ serviceType, hideButton = false }) {
-  return serviceType ? MakeServiceHeader() : MakeNavHeader({ hideButton });
+function Header({ serviceType, hideButton = false, id }) {
+  return serviceType ? MakeServiceHeader({ id }) : MakeNavHeader({ hideButton });
 }
 
 function MakeNavHeader({ hideButton }) {
@@ -46,18 +45,31 @@ function MakeNavHeader({ hideButton }) {
   );
 }
 
-function MakeServiceHeader() {
+function MakeServiceHeader({ id }) {
+  const containerRef = useRef(null);
+
   const { name, messageCount, recentMessages, topReactions } = Recipients;
   const [isEmojiVisible, setIsEmojiVisible] = useState(false);
 
   const onEmojiClick = async (event) => {
     const emojiSrc = event.emoji;
-    const { postData } = CreateEmoji(emojiSrc, "increase");
-    const fetchResult = await api("RECIPIENTS_REACTIONS", "POST", 214, postData); //true (postResponse.ok)
+    const postData = {
+      emoji: emojiSrc,
+      type: "increase",
+    };
+
+    const fetchResult = await api("RECIPIENTS_REACTIONS", "POST", id, postData); //true (postResponse.ok)
+    if (fetchResult) setIsEmojiVisible(false);
+  };
+
+  const handleBlur = (event) => {
+    if (!containerRef.current.contains(event.relatedTarget)) {
+      setIsEmojiVisible(false);
+    }
   };
 
   const handleClick = () => {
-    setIsEmojiVisible(!isEmojiVisible);
+    setIsEmojiVisible(true);
   };
 
   return (
@@ -75,7 +87,7 @@ function MakeServiceHeader() {
           <CustomButton type="outlined" width="94" height="m" icon onClick={handleClick}>
             <ButtonText>추가</ButtonText>
             {isEmojiVisible && (
-              <Wrapper_Emoji>
+              <Wrapper_Emoji onBlur={handleBlur} ref={containerRef}>
                 <EmojiPicker onEmojiClick={onEmojiClick} />
               </Wrapper_Emoji>
             )}
