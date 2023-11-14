@@ -33,8 +33,6 @@ function Layout({ path = "" }) {
   const messageData = useGetData("RECIPIENTS_MESSAGES", id, null, DEP);
   const reactions = useGetData("RECIPIENTS_REACTIONS", id, null, DEP);
 
-  console.log(messageData);
-
   if (path === "edit" && sessionStorage.getItem("editToken") !== id) navigate("/notFound");
 
   if (!recipientData || !messageData) return;
