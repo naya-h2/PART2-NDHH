@@ -31,7 +31,7 @@ async function api(type, method, path, postData, limit) {
           "Content-Type": "application/json",
         },
       });
-      const result = postResponse.json()
+      const result = await postResponse.json()
       return result;
     }
     case "DELETE":

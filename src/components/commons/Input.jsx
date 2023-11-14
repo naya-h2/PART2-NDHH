@@ -9,22 +9,10 @@ Input.propTypes = {
 };
 
 function Input({ placeholder, disabled, pwError, inputRef, ...props }) {
-  const [value, setValue] = useState("");
-  const [error, setError] = useState("");
-
-  const handleInputChange = (e) => {
-    if (!e.target.value) {
-      setError("true");
-    } else {
-      setError("");
-    }
-    setValue(inputRef.current.value);
-  };
-
   return (
     <>
-      <Container value={value} ref={inputRef} $error={pwError || error} onChange={handleInputChange} placeholder={placeholder} disabled={disabled} {...props} />
-      {(pwError && <ErrorMessage>비밀번호를 다시 입력해 주세요.</ErrorMessage>) || (error && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>)}
+      <Container ref={inputRef} $error={pwError} placeholder={placeholder} disabled={disabled} {...props} />
+      {pwError && <ErrorMessage>비밀번호를 다시 입력해 주세요.</ErrorMessage>}
     </>
   );
 }
