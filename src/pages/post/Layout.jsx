@@ -4,6 +4,7 @@ import Modal from "@/components/Modal";
 import ModalPortal from "@/components/ModalPortal";
 import ModalFrame from "@/components/ModalFrame";
 import InputModal from "@/components/InputModal";
+import DeleteModal from "@/components/DeleteModal";
 import Header from "@/components/Header";
 import useModal from "@/hooks/useModal";
 import useGetData from "@/hooks/useGetData";
@@ -31,7 +32,6 @@ function Layout({ path = "" }) {
   const messageData = useGetData("RECIPIENTS_MESSAGES", "GET", id);
 
   if (path === "edit") {
-    console.log(sessionStorage.getItem("editToken"));
     if (sessionStorage.getItem("editToken") !== id) navigate("/notFound");
   }
 
@@ -61,7 +61,7 @@ function Layout({ path = "" }) {
       <Background $color={backgroundColor} $url={backgroundImageURL}>
         {backgroundImageURL && <Mask></Mask>}
         <Container>
-          <Btn path={path} password={name.slice(-4)} id={id} />
+          <ButtonControl path={path} password={name.slice(-4)} name={name.slice(0, -4)} id={id} recentMessages={cardData} />
           <CardGrid setCardData={setCardData} path={path} messageCount={messageCount} recentMessages={cardData} />
         </Container>
       </Background>
@@ -69,33 +69,81 @@ function Layout({ path = "" }) {
   );
 }
 
-function Btn({ path, password, id }) {
-  const { isOpen, handleModalOpen, handleModalClose } = useModal();
+function ButtonControl({ path, password, name, id, recentMessages }) {
   const windowWidth = useGetWindowWidth();
 
   return (
     <>
       {path === "edit" ? (
-        <SaveWrapper>
-          <Link to={`/post/${id}`}>
-            {windowWidth > DeviceSizeNum.tablet ? (
-              <Button type="primary" height="l" width="100">
-                저장하기
-              </Button>
-            ) : (
-              <Button type="primary" height="xl">
-                저장하기
-              </Button>
-            )}
-          </Link>
-        </SaveWrapper>
+        windowWidth > DeviceSizeNum.tablet ? (
+          <ButtonWrapper>
+            <SaveBtn id={id} pc={true} />
+            <DeleteBtn />
+          </ButtonWrapper>
+        ) : (
+          <>
+            <SaveBtn id={id} />
+            <DeleteBtn name={name} recentMessages={recentMessages} />
+          </>
+        )
       ) : (
-        <EditWrapper>
-          <Button type="outlined" height="l" width="100" onClick={handleModalOpen}>
-            편집하기
-          </Button>
-        </EditWrapper>
+        <EditBtn password={password} />
       )}
+    </>
+  );
+}
+
+function SaveBtn({ id, pc = false }) {
+  return pc ? (
+    <SaveWrapper>
+      <Link to={`/post/${id}`}>
+        <Button type="primary" height="l" width="100">
+          저장하기
+        </Button>
+      </Link>
+    </SaveWrapper>
+  ) : (
+    <SaveWrapper>
+      <Link to={`/post/${id}`}>
+        <Button type="primary" height="xl">
+          저장하기
+        </Button>
+      </Link>
+    </SaveWrapper>
+  );
+}
+
+function DeleteBtn({ name, recentMessages }) {
+  const { isOpen, handleModalOpen, handleModalClose } = useModal();
+
+  return (
+    <>
+      <EditWrapper>
+        <Button type="error" height="l" width="100" onClick={handleModalOpen}>
+          삭제하기
+        </Button>
+      </EditWrapper>
+      {isOpen && (
+        <ModalPortal>
+          <ModalFrame onClickClose={handleModalClose}>
+            <DeleteModal name={name} recentMessages={recentMessages} onClose={handleModalClose} />
+          </ModalFrame>
+        </ModalPortal>
+      )}
+    </>
+  );
+}
+
+function EditBtn({ password }) {
+  const { isOpen, handleModalOpen, handleModalClose } = useModal();
+
+  return (
+    <>
+      <EditWrapper>
+        <Button type="outlined" height="l" width="100" onClick={handleModalOpen}>
+          편집하기
+        </Button>
+      </EditWrapper>
       {isOpen && (
         <ModalPortal>
           <ModalFrame onClickClose={handleModalClose}>
@@ -247,4 +295,11 @@ const EditWrapper = styled.div`
   @media (max-width: ${DeviceSize.mobile}) {
     padding-bottom: 1.6rem;
   }
+`;
+
+const ButtonWrapper = styled.div`
+  width: 21rem;
+
+  display: flex;
+  justify-content: space-between;
 `;
