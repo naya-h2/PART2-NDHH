@@ -30,7 +30,7 @@ function CardList({ data }) {
     <Container $color={backgroundColor} $url={backgroundImageURL} onClick={handleCardListClick}>
       {backgroundImageURL && <Mask></Mask>}
       <Wrapper>
-        <Name $url={backgroundImageURL}>To. {name}</Name>
+        <Name $url={backgroundImageURL}>To. {name.slice(0, -4)}</Name>
         <ProfileImgList messageCount={messageCount} data={recentMessages} />
         <Count $url={backgroundImageURL}>
           <Bold $url={backgroundImageURL}>{messageCount <= 999 ? messageCount : "999+"}</Bold>명이 작성했어요!

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import propTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { formatDate } from "@/utils/formatDate";
-import { FONT12, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
+import { FONT12, FONT16, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
 import Badge from "@/components/commons/Badge";
 import Button from "@/components/commons/Button";
@@ -57,7 +57,7 @@ function Card({ type, data = null, onCardClick, setCardData }) {
         </DeleteIcon>
       )}
       <ContentWrapper>
-        <Content $font={font}>{content}</Content>
+        <Content dangerouslySetInnerHTML={{ __html: content }}></Content>
         <More onClick={() => onCardClick(data)}>더보기</More>
       </ContentWrapper>
       <Date>{formatDate(createdAt)}</Date>
@@ -95,6 +95,8 @@ const Container = styled.div`
 const ProfileImg = styled.img`
   width: 5.6rem;
   height: 5.6rem;
+
+  object-fit: cover;
 
   border-radius: 10rem;
   border: 1px solid var(--Gray2);
@@ -141,17 +143,35 @@ const DeleteIcon = styled.div`
 `;
 
 const Content = styled.div`
-  height: 5.3rem;
+  max-height: 10rem;
+  padding-right: 1rem;
+
+  > p {
+    ${FONT16}
+  }
+
+  span,
+  strong,
+  em,
+  u {
+    font: inherit;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  em {
+    font-style: italic;
+  }
 
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 
-  ${FONT18}
   color: var(--Gray6);
   word-wrap: break-word;
-  font-family: ${({ $font }) => $font};
   letter-spacing: -0.018rem;
 `;
 
