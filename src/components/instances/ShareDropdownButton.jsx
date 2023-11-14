@@ -13,7 +13,7 @@ function ShareDropdownButton({ userData }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isToastVisible, setIsToastVisible] = useState(false);
   const { id, name, backgroundImageURL } = userData;
-  console.log(userData);
+
   const host = "http://localhost:5173";
   const currentPath = `/post/${id}`;
 

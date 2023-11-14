@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useRef, useState } from "react";
 import { Reactions } from "@/constants/mockUp";
-import { DeviceSize } from "@/styles/DeviceSize";
+import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
 import Badge from "@/components/commons/Badge";
 import arrowDown from "@/assets/arrow_down.svg";
 import { Z_INDEX } from "@/styles/ZindexStyles";
@@ -12,8 +12,8 @@ function HeaderEmojis({ topReactions, reactions, id, setDEP }) {
 
   const [isVisible, setIsVisible] = useState(false);
 
-  const endIndex = 7;
-  if (topReactions.length > 8) topReactions = topReactions.slice(0, endIndex);
+  const endIndex = window.innerWidth <= DeviceSizeNum.mobile ? 6 : 8;
+  if (reactions.length > endIndex) reactions = reactions.slice(0, endIndex);
 
   const handleClick = () => {
     setIsVisible(!isVisible);
@@ -87,7 +87,7 @@ const Emojis = styled.div`
 `;
 
 const EmojiDropDown = styled.div`
-  width: 33.25rem;
+  /* width: 34.5rem; */
   padding: 2.4rem;
 
   position: absolute;
@@ -96,8 +96,8 @@ const EmojiDropDown = styled.div`
 
   display: grid;
   gap: 0.8rem 1rem;
-  grid-template-columns: repeat(4, auto);
-  grid-template-rows: repeat(2, auto);
+  grid-template-columns: repeat(4, 6.6rem);
+  grid-template-rows: 3.6rem;
 
   border-radius: 0.8rem;
   border: 0.1rem solid #b6b6b6;
@@ -105,12 +105,15 @@ const EmojiDropDown = styled.div`
   box-shadow: 0rem 0.2rem 1.2rem 0rem rgba(0, 0, 0, 0.08);
 
   @media (max-width: ${DeviceSize.mobile}) {
-    width: auto;
+    /* width: 21rem;
+    height: 9.8rem; */
     padding: 1.6rem;
 
     top: 3.7rem;
-    right: -20rem;
+    right: -17rem;
 
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(3, 5.2rem);
+    grid-template-rows: 2.8rem;
+    grid-auto-flow: dense;
   }
 `;

@@ -29,7 +29,7 @@ function Layout({ path = "" }) {
 
   const recipientData = useGetData("RECIPIENTS_ID", id, null, DEP);
   const messageData = useGetData("RECIPIENTS_MESSAGES", id, null, DEP);
-  const reactions = useGetData("RECIPIENTS_REACTIONS", id);
+  const reactions = useGetData("RECIPIENTS_REACTIONS", id, null, DEP);
 
   if (path === "edit") {
     console.log(sessionStorage.getItem("editToken"));
