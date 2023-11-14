@@ -183,7 +183,7 @@ export default Layout;
 
 const Background = styled.div`
   width: 100%;
-  min-height: calc(100vh - 13.5rem);
+  min-height: 100vh;
   padding-bottom: 24.6rem;
 
   position: relative;
