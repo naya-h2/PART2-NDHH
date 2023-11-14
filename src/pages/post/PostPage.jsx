@@ -8,14 +8,9 @@ import { useParams } from "react-router";
 function PostPage({ page }) {
   const windowWidth = useGetWindowWidth();
 
-  const { id } = useParams();
-
-  const userData = useGetData("RECIPIENTS_ID", "GET", id);
-
   return (
     <>
       {windowWidth > DeviceSizeNum.mobile && <Header />}
-      <Header userData={userData} serviceType />
       <Layout path={page} />
     </>
   );

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import useGetData from "@/hooks/useGetData";
 
 function Layout() {
-  const Cards = useGetData("RECIPIENTS", "GET", null, 1000);
+  const Cards = useGetData("RECIPIENTS", null, 1000);
 
   if (Cards) {
     const NewestCards = sortNew([...Cards]);

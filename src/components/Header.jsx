@@ -41,11 +41,12 @@ function MakeNavHeader({ hideButton }) {
 
 function MakeServiceHeader({ userData }) {
   if (!userData) return;
+  const name = userData.name.slice(0, -4);
 
   return (
     <>
       <Container>
-        <Recipient>To. {userData.name}</Recipient>
+        <Recipient>To. {name}</Recipient>
         <Wrapper>
           <SendersNum>
             <Contents messageCount={userData.messageCount}>
