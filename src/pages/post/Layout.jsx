@@ -79,7 +79,7 @@ function ButtonControl({ path, password, name, id, recentMessages }) {
         windowWidth > DeviceSizeNum.tablet ? (
           <ButtonWrapper>
             <SaveBtn id={id} pc={true} />
-            <DeleteBtn />
+            <DeleteBtn name={name} recentMessages={recentMessages} />
           </ButtonWrapper>
         ) : (
           <>
@@ -189,18 +189,7 @@ const Background = styled.div`
 
   position: relative;
 
-  background-color: ${({ $color }) => {
-    switch ($color) {
-      case COLOR.P:
-        return `var(--${COLOR.P}2)`;
-      case COLOR.O:
-        return `var(--${COLOR.O}2)`;
-      case COLOR.B:
-        return `var(--${COLOR.B}2)`;
-      case COLOR.G:
-        return `var(--${COLOR.G}2)`;
-    }
-  }};
+  background-color: ${({ $color }) => `var(--${$color}2)`};
   background-image: ${({ $url }) => `url(${$url})`};
   background-repeat: no-repeat;
   background-position: center;
