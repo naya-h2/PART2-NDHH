@@ -1,6 +1,6 @@
 import { BLUE, GRAYSCALE, GREEN, MAIN, ORANGE, PURPLE } from '@/styles/ColorStyles';
+import { FONT16 } from '@/styles/FontStyles';
 import { createGlobalStyle, keyframes } from 'styled-components';
-import reset from 'styled-reset';
 
 const fadeIn = keyframes`
   0% {
@@ -21,7 +21,6 @@ const GlobalStyles = createGlobalStyle`
     ${MAIN};
   }
 
-  ${reset}
   *{
     box-sizing: border-box;
     font-family: "Noto Sans KR";
@@ -41,6 +40,8 @@ const GlobalStyles = createGlobalStyle`
     vertical-align: baseline;
     /* animation: ${fadeIn} 0.3s ease-out; */
   }
+
+
   
   ol, ul{
     list-style: none;
