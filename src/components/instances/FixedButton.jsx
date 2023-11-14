@@ -14,7 +14,8 @@ function FixedButton({ children, link }) {
   return (
     <Container onClick={handleClick}>
       <Button type="primary" height="xl">
-        <ButtonText>{children}</ButtonText>
+        {/* <ButtonText>{children}</ButtonText> */}
+        {children}
       </Button>
     </Container>
   );
@@ -22,21 +23,27 @@ function FixedButton({ children, link }) {
 
 export default FixedButton;
 
-const ButtonText = styled.p`
-  width: 23.2rem;
-
-  ${FONT18B}
-
-  @media (max-width: ${DeviceSize.pc}) {
-    width: calc(100vw - 9.6rem);
-  }
-`;
-
 const Container = styled.div`
+  width: 28rem;
+
   position: fixed;
-  bottom: 4rem;
+  bottom: 7rem;
 
   @media (max-width: ${DeviceSize.pc}) {
-    bottom: 0.5rem;
+    bottom: 2.4rem;
   }
 `;
+
+// const ButtonText = styled.p`
+//   width: 23.2rem;
+
+//   ${FONT18B}
+
+//   @media (max-width: ${DeviceSize.pc}) {
+//     width: calc(100vw - 15rem);
+//   }
+
+//   @media (max-width: ${DeviceSize.mobile}) {
+//     width: calc(100vw - 9.2rem);
+//   }
+// `;
