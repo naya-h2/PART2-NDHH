@@ -12,12 +12,16 @@ function TextEditor({ setValue }) {
   const getSunEditorInstance = (sunEditor) => {
     editor.current = sunEditor;
     editor.current.onKeyDown = (event, core) => {
-      if (KEY["Control"]) {
+      if (!KEY.Control) {
+        KEY[event.key] = true;
+        return;
+      }
+      if (event.key === "Control") {
         core.blur();
         KEY = {};
         return;
       }
-      KEY[event.key] = true;
+      KEY = {};
     };
   };
 

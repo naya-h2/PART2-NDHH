@@ -35,7 +35,6 @@ function usePostData(value) {
         throw new Error("비밀번호가 4자리인가요?")
       }
 
-      console.log(value);
       const { id } = await api("RECIPIENTS", "POST", null, makeRecipient(value));
       if (id) {
         navigate(`/post/${id}`);
