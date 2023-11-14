@@ -36,22 +36,24 @@ function ListPageCards({ cards, children }) {
   };
 
   return (
-    <Container>
+    <>
       <P>{children}</P>
-      <Wrapper>
-        {scrollX !== 0 && <CustomButton onClick={handleClickReverse} onDoubleClick={handleDbClickReverse} type={"arrowLeft"} width="40" $isReverse />}
-        <Items $num={cardsQuantity} style={{ transform: `translateX(${scrollX}rem)` }}>
-          {cards.map((card, index) => {
-            return (
-              <Link to={`/post/${card.id}`} key={index}>
-                <CardList data={card} />
-              </Link>
-            );
-          })}
-        </Items>
-        {showNextButton && <CustomButton onClick={handleClick} onDoubleClick={handleDbClick} type={"arrowRight"} width="40" />}
-      </Wrapper>
-    </Container>
+      <Container>
+        <Wrapper>
+          {scrollX !== 0 && <CustomButton onClick={handleClickReverse} onDoubleClick={handleDbClickReverse} type={"arrowLeft"} width="40" $isReverse />}
+          <Items $num={cardsQuantity} style={{ transform: `translateX(${scrollX}rem)` }}>
+            {cards.map((card, index) => {
+              return (
+                <Link to={`/post/${card.id}`} key={index}>
+                  <CardList data={card} />
+                </Link>
+              );
+            })}
+          </Items>
+          {showNextButton && <CustomButton onClick={handleClick} onDoubleClick={handleDbClick} type={"arrowRight"} width="40" />}
+        </Wrapper>
+      </Container>
+    </>
   );
 }
 

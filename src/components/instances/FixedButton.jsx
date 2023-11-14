@@ -27,9 +27,17 @@ const Container = styled.div`
   width: 28rem;
 
   position: fixed;
-  bottom: 7rem;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
 
   @media (max-width: ${DeviceSize.pc}) {
+    width: calc(100vw - 6.2rem);
+    bottom: 2.4rem;
+  }
+
+  @media (max-width: ${DeviceSize.mobile}) {
+    width: calc(100vw - 5.5rem);
     bottom: 2.4rem;
   }
 `;
