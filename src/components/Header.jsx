@@ -48,7 +48,9 @@ function MakeServiceHeader({ userData }) {
         <Recipient>To. {userData.name}</Recipient>
         <Wrapper>
           <SendersNum>
-            <ProfileImgList messageCount={userData.messageCount} data={userData.recentMessages} />
+            <Contents messageCount={userData.messageCount}>
+              <ProfileImgList messageCount={userData.messageCount} data={userData.recentMessages} />
+            </Contents>
             <P $B>{userData.messageCount}</P>
             <P> 명이 작성했어요!</P>
             <DivideImg src={divideLine} alt="영역 분리 아이콘" />
@@ -124,6 +126,11 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   grid-area: "Wrapper";
+`;
+
+const Contents = styled.div`
+  position: relative;
+  left: ${({ messageCount }) => (messageCount > 2 ? "1.4rem" : "4.5rem")};
 `;
 
 const ButtonText = styled.p`
