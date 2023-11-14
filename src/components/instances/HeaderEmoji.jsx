@@ -11,7 +11,6 @@ function HeaderEmojis({ topReactions, id }) {
   const containerRef = useRef(null);
 
   const [isVisible, setIsVisible] = useState(false);
-  const [shouldRender, setShouldRender] = useState(0);
 
   const endIndex = 7;
   if (topReactions.length > 8) topReactions = topReactions.slice(0, endIndex);
@@ -35,7 +34,7 @@ function HeaderEmojis({ topReactions, id }) {
         </button>
         {isVisible && <EmojiList results={topReactions} id={id} />}
       </Container>
-      <EmojiPickButton id={id} setShouldRender={setShouldRender} />
+      <EmojiPickButton id={id} />
     </>
   );
 }

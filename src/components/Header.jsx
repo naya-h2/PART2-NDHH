@@ -2,23 +2,21 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { FONT14B, FONT16B, FONT16, FONT18, FONT18B, FONT28B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
-import { Recipients } from "@/constants/mockUp";
 import HeaderEmojis from "@/components/instances/HeaderEmoji";
 import ProfileImgList from "@/components/commons/ProfileImgList";
 import Button from "@/components/commons/Button";
 import Logo from "@/assets/Logo.svg";
 import divideLine from "@/assets/Rectangle_38.svg";
 import ShareDropdownButton from "./instances/ShareDropdownButton";
-import { Link, useParams } from "react-router-dom";
-import useGetData from "@/hooks/useGetData";
+import { Link } from "react-router-dom";
 
 Header.propTypes = {
   serviceType: PropTypes.oneOf([true, false]),
   hideButton: PropTypes.oneOf([true, false]),
 };
 
-function Header({ serviceType, hideButton = false }) {
-  return serviceType ? MakeServiceHeader() : MakeNavHeader({ hideButton });
+function Header({ serviceType, hideButton = false, userData }) {
+  return serviceType ? MakeServiceHeader({ userData }) : MakeNavHeader({ hideButton });
 }
 
 function MakeNavHeader({ hideButton }) {
@@ -41,10 +39,9 @@ function MakeNavHeader({ hideButton }) {
   );
 }
 
-function MakeServiceHeader() {
-  const { id } = useParams();
-  const userData = useGetData("RECIPIENTS_ID", "GET", id);
+function MakeServiceHeader({ userData }) {
   if (!userData) return;
+
   return (
     <>
       <Container>
@@ -58,7 +55,7 @@ function MakeServiceHeader() {
           </SendersNum>
           <HeaderEmojis topReactions={userData.topReactions} id={userData.id} />
           <DivideImg src={divideLine} alt="영역 분리 아이콘" />
-          <ShareDropdownButton />
+          <ShareDropdownButton id={userData.id} />
         </Wrapper>
       </Container>
       <BorderLine />
