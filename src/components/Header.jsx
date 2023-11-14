@@ -8,7 +8,8 @@ import Button from "@/components/commons/Button";
 import Logo from "@/assets/Logo.svg";
 import divideLine from "@/assets/Rectangle_38.svg";
 import ShareDropdownButton from "./instances/ShareDropdownButton";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import useGetData from "@/hooks/useGetData";
 
 Header.propTypes = {
   serviceType: PropTypes.oneOf([true, false]),
