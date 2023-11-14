@@ -15,15 +15,15 @@ async function api(type, method, path, postData, limit) {
   if (limit) url = url + `?limit=${limit}`;
 
   switch (method) {
-    case "GET":
+    case "GET": {
       const getResponse = await fetch(url);
       if (!getResponse.ok) {
         throw new Error("데이터를 불러오는데 실패했습니다.");
       }
       const result = await getResponse.json();
       return result;
-
-    case "POST":
+    }
+    case "POST": {
       const postResponse = await fetch(url, {
         method: "POST",
         body: JSON.stringify(postData),
@@ -31,8 +31,9 @@ async function api(type, method, path, postData, limit) {
           "Content-Type": "application/json",
         },
       });
-      return postResponse;
-
+      const result = await postResponse.json()
+      return result;
+    }
     case "DELETE":
       const deleteResponse = await fetch(url, {
         method: "DELETE",

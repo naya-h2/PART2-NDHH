@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import propTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { formatDate } from "@/utils/formatDate";
 import { FONT12, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
 import Badge from "@/components/commons/Badge";
 import Button from "@/components/commons/Button";
 import defaultImg from "@/assets/default_profile.svg";
-import useGetData from "@/hooks/useGetData";
-import { useState, useEffect } from "react";
+import api from "@/api/api";
 
 /**
  * @param {*} data 메세지 데이터 객체
@@ -17,11 +16,13 @@ Card.propTypes = {
   type: propTypes.oneOf(["Normal", "Edit", "Plus"]),
   data: propTypes.object,
 };
-function Card({ type, data = null, onCardClick }) {
+function Card({ type, data = null, onCardClick, setCardData }) {
+  const { id } = useParams();
+
   if (type === "Plus") {
     return (
       <Container $type="Plus">
-        <Link to="/post/id/message">
+        <Link to={`/post/${id}/message`}>
           <PlusIcon>
             <Button type="plus" />
           </PlusIcon>
@@ -30,7 +31,14 @@ function Card({ type, data = null, onCardClick }) {
     );
   }
 
-  const { sender, profileImageURL, relationship, content, font, createdAt } = data;
+  const { id: messageId, sender, profileImageURL, relationship, content, font, createdAt } = data;
+
+  const handleCardDelete = async () => {
+    const res = await api("MESSAGES", "DELETE", messageId);
+    if (res) {
+      setCardData((prev) => prev.filter(({ id }) => id !== messageId));
+    }
+  };
 
   return (
     <Container>
@@ -44,7 +52,7 @@ function Card({ type, data = null, onCardClick }) {
         </Wrapper>
       </Profile>
       {type === "Edit" && (
-        <DeleteIcon>
+        <DeleteIcon onClick={handleCardDelete}>
           <Button type="trash" />
         </DeleteIcon>
       )}

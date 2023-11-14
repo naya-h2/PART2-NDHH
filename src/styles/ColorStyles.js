@@ -5,7 +5,6 @@ export const COLOR = {
   P: "purple",
   B: "blue",
   G: "green",
-  R: "red",
 }
 
 export const REL = {
@@ -13,7 +12,6 @@ export const REL = {
   P: "동료",
   B: "친구",
   G: "가족",
-  R: "애인"
 }
 
 export const ORANGE = css`
@@ -52,20 +50,12 @@ export const GREEN = css`
   --${COLOR.G}5: #2BA600;
 `
 
-export const RED = css`
-  --${COLOR.R}1: #FFCCCC;
-  --${COLOR.R}2: #FF9999;
-  --${COLOR.R}3: #FF6666;
-  --${COLOR.R}4: #FF3333;
-  --${COLOR.R}5: #FF0000;
-`
-
 export const GRAYSCALE = css`
   --Gray1: #F6F6F6;
   --Gray2: #EEEEEE;
   --Gray3: #CCCCCC;
   --Gray4: #999999;
-  --Gray5: #555555;
+  --Gray5: #6e6e73;
   --Gray6: #4A4A4A;
   --Gray7: #3A3A3A;
   --Gray8: #2B2B2B;
@@ -75,6 +65,8 @@ export const GRAYSCALE = css`
 export const MAIN = css`
   --White: #FFFFFF;
   --Black: #000000;
-  --Error: #DC3A3A;
+  --Error1: #e36161;
+  --Error2: #DC3A3A;
+  --Error3: #b02e2e;
   --Surface: #F6F8FF;
 `

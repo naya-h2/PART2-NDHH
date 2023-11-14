@@ -50,21 +50,21 @@ function OptionImg({ check, setValue, img, setImgs, setSelected, ...props }) {
     const file = event.target.files[0];
     if (file && file.size < 1024 ** 2 * 3) {
       (async function (file) {
-        const backgroundImageURL = await getURL(file);
+        const URL = await getURL(file);
         setSelected(0);
-        setImgs((prev) => [backgroundImageURL, ...prev]);
-        setValue((prev) => ({ ...prev, backgroundImageURL }));
+        setImgs((prev) => [URL, ...prev]);
+        setValue((prev) => ({ ...prev, URL }));
       })(file);
     }
   };
 
   const handleSubmit = (handleModalClose) => (ref) => (event) => {
     event.preventDefault();
-    const backgroundImageURL = ref.current.value;
-    if (REG.test(backgroundImageURL)) {
+    const URL = ref.current.value;
+    if (REG.test(URL)) {
       setSelected(0);
-      setImgs((prev) => [backgroundImageURL, ...prev]);
-      setValue((prev) => ({ ...prev, backgroundImageURL }));
+      setImgs((prev) => [URL, ...prev]);
+      setValue((prev) => ({ ...prev, URL }));
       handleModalClose();
       return;
     }
