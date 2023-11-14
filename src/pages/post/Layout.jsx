@@ -13,7 +13,7 @@ import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
 import { Z_INDEX } from "@/styles/ZindexStyles";
 import { sortNew } from "@/utils/sort";
 import propTypes from "prop-types";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 
@@ -24,9 +24,15 @@ Layout.propTypes = {
 function Layout({ path = "" }) {
   const [cardData, setCardData] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const recipientData = useGetData("RECIPIENTS_ID", "GET", id);
   const messageData = useGetData("RECIPIENTS_MESSAGES", "GET", id);
+
+  if (path === "edit") {
+    console.log(sessionStorage.getItem("editToken"));
+    if (sessionStorage.getItem("editToken") !== id) navigate("/notFound");
+  }
 
   if (!recipientData || !messageData) {
     //return <Navigate to="/notFound" />;

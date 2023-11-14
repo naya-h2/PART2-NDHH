@@ -34,9 +34,9 @@ const ButtonText = styled.p`
 
 const Container = styled.div`
   position: fixed;
-  bottom: 7rem;
+  bottom: 4rem;
 
   @media (max-width: ${DeviceSize.pc}) {
-    bottom: 2.4rem;
+    bottom: 0.5rem;
   }
 `;
