@@ -20,13 +20,13 @@ export const makeMessage = ({ recipientId, sender, URL, relationship, content, f
     content,
     font,
   };
-}
+};
 
-export const makeEmoji = (emoji, type) => {
+export const makeEmoji = (emoji) => {
   return {
     postData: {
       emoji: emoji,
-      type: type,
+      type: "increase",
     },
   };
 };

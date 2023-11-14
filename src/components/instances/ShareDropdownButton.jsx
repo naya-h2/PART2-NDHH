@@ -7,13 +7,14 @@ import { useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Toast from "../commons/Toast";
 
-function ShareDropdownButton({ currentPath = "/" }) {
+function ShareDropdownButton({ id }) {
   const containerRef = useRef(null);
 
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isToastVisible, setIsToastVisible] = useState(false);
 
   const host = "http://localhost:5173";
+  const currentPath = `/post/${id}`;
 
   const copyClipboard = () => {
     navigator.clipboard
@@ -41,7 +42,7 @@ function ShareDropdownButton({ currentPath = "/" }) {
 
   return (
     <Container>
-      <ShareButton onBlur={handleBlur} ref={containerRef}>
+      <ShareButton onBlur={handleBlur}>
         <CustomButton type="outlined" width="56" height="m" onClick={handleClick}>
           <img src={shareIcon} alt="공유 버튼" />
         </CustomButton>
@@ -50,7 +51,7 @@ function ShareDropdownButton({ currentPath = "/" }) {
         </Wrapper>
       </ShareButton>
       {isMenuVisible && (
-        <List>
+        <List ref={containerRef}>
           <button onClick={() => shareKakaoTalk(host + currentPath)}>
             <Text>카카오톡 공유</Text>
           </button>
@@ -118,8 +119,8 @@ const Text = styled.li`
 const Wrapper = styled.div`
   position: fixed;
   left: 50%;
-  transform: translateX(-50%) translateY(${({ $isVisible }) => ($isVisible ? "2rem" : "-4rem")});
-  top: ${({ $isVisible }) => ($isVisible ? "2rem" : "-4rem")};
+  transform: translateX(-50%) translateY(${({ $isVisible }) => ($isVisible ? "8rem" : "-4rem")});
+  top: ${({ $isVisible }) => ($isVisible ? "8rem" : "-4rem")};
   z-index: ${Z_INDEX.Toast_Wrapper};
-  transition: 0.5s ease-in-out; // transform 지우기
+  transition: 0.5s ease-in-out;
 `;
