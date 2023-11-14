@@ -7,27 +7,36 @@ import { useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Toast from "../commons/Toast";
 
-function ShareDropdownButton({ id }) {
+function ShareDropdownButton({ userData }) {
   const containerRef = useRef(null);
 
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isToastVisible, setIsToastVisible] = useState(false);
-
+  const { id, name, backgroundImageURL } = userData;
+  console.log(userData);
   const host = "http://localhost:5173";
   const currentPath = `/post/${id}`;
 
   const copyClipboard = () => {
+    setIsMenuVisible(false);
+
     navigator.clipboard
       .writeText(host + currentPath)
       .then(() => {
         setIsToastVisible(true);
         setTimeout(() => {
           setIsToastVisible(false);
-        }, 3000);
+        }, 2000);
       })
+
       .catch((err) => {
         console.error("URL 복사 실패:", err);
       });
+  };
+
+  const sendKakaoTalk = () => {
+    setIsMenuVisible(false);
+    shareKakaoTalk(host + currentPath, name, backgroundImageURL);
   };
 
   const handleClick = () => {
@@ -40,19 +49,21 @@ function ShareDropdownButton({ id }) {
     }
   };
 
+  const handleClose = () => {
+    setIsToastVisible(false);
+  };
+
   return (
     <Container>
-      <ShareButton onBlur={handleBlur}>
-        <CustomButton type="outlined" width="56" height="m" onClick={handleClick}>
-          <img src={shareIcon} alt="공유 버튼" />
-        </CustomButton>
-        <Wrapper $isVisible={isToastVisible}>
-          <Toast />
-        </Wrapper>
-      </ShareButton>
+      <Wrapper $isVisible={isToastVisible}>
+        <Toast onClick={handleClose} />
+      </Wrapper>
+      <CustomButton type="outlined" width="56" height="m" onClick={handleClick} onBlur={handleBlur}>
+        <img src={shareIcon} alt="공유 버튼" />
+      </CustomButton>
       {isMenuVisible && (
         <List ref={containerRef}>
-          <button onClick={() => shareKakaoTalk(host + currentPath)}>
+          <button onClick={sendKakaoTalk}>
             <Text>카카오톡 공유</Text>
           </button>
           <button onClick={copyClipboard}>
@@ -68,10 +79,6 @@ export default ShareDropdownButton;
 
 const Container = styled.div`
   position: relative;
-`;
-
-const ShareButton = styled.button`
-  display: inline-block;
 `;
 
 const CustomButton = styled(Button)`
@@ -119,8 +126,8 @@ const Text = styled.li`
 const Wrapper = styled.div`
   position: fixed;
   left: 50%;
-  transform: translateX(-50%) translateY(${({ $isVisible }) => ($isVisible ? "8rem" : "-4rem")});
-  top: ${({ $isVisible }) => ($isVisible ? "8rem" : "-4rem")};
+  transform: translateX(-50%) translateY(${({ $isVisible }) => ($isVisible ? "-4rem" : "4rem")});
+  bottom: ${({ $isVisible }) => ($isVisible ? "4rem" : "-4rem")};
   z-index: ${Z_INDEX.Toast_Wrapper};
-  transition: 0.5s ease-in-out;
+  transition: 0.5s ease-out;
 `;
