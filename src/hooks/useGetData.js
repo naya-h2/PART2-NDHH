@@ -23,8 +23,10 @@ function useGetData(type, method, path, limit) {
     (async function () {
       const result = await api(type, method, path, null, limit);
 
-      if (["RECIPIENTS", "RECIPIENTS_MESSAGES"].includes(type)) setData(() => transformData(result));
-      if (["RECIPIENTS_ID", "BACKGROUND_IMGS", "PROFILE_IMGS", "MESSAGES"].includes(type)) setData(result);
+      if (["RECIPIENTS_ID", "BACKGROUND_IMGS", "PROFILE_IMGS", "MESSAGES"].includes(type)) return setData(result);
+
+      const { results } = result;
+      return setData(results);
     })();
   }, []);
 
@@ -32,14 +34,3 @@ function useGetData(type, method, path, limit) {
 }
 
 export default useGetData;
-
-/**
- * API 응답에서 데이터를 가공하는 함수
- * @param {Object} result - API 응답 객체
- * @returns {Array}
- */
-
-const transformData = (result) => {
-  const { results } = result;
-  return results;
-};

@@ -4,6 +4,7 @@ import Button from "@/components/commons/Button";
 import { useState } from "react";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { Z_INDEX } from "@/styles/ZindexStyles";
+import { Link } from "react-router-dom";
 
 function ListPageCards({ cards }) {
   const [scrollX, setScrollX] = useState(0);
@@ -29,7 +30,11 @@ function ListPageCards({ cards }) {
         {scrollX !== 0 && <CustomButton onClick={handleClickReverse} type={"arrowLeft"} width="40" $isReverse />}
         <Items $num={cardsQuantity} style={{ transform: `translateX(${scrollX}rem)` }}>
           {cards.map((card, index) => {
-            return <CardList data={card} key={index} />;
+            return (
+              <Link to={`/post/${card.id}`}>
+                <CardList data={card} key={index} />
+              </Link>
+            );
           })}
         </Items>
         {showNextButton && <CustomButton onClick={handleClick} type={"arrowRight"} width="40" />}

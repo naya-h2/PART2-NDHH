@@ -7,7 +7,7 @@ import api from "@/api/api";
 import styled from "styled-components";
 import { DeviceSize } from "@/styles/DeviceSize";
 
-function EmojiPickButton() {
+function EmojiPickButton({ id, setShouldRender }) {
   const containerRef = useRef(null);
 
   const [isEmojiVisible, setIsEmojiVisible] = useState(false);
@@ -24,13 +24,17 @@ function EmojiPickButton() {
 
   const onEmojiClick = async (event) => {
     const emojiSrc = event.emoji;
+
     const postData = {
       emoji: emojiSrc,
       type: "increase",
     };
 
-    const fetchResult = await api("RECIPIENTS_REACTIONS", "POST", id, postData); //true (postResponse.ok)
-    if (fetchResult) setIsEmojiVisible(false);
+    const fetchResult = await api("RECIPIENTS_REACTIONS", "POST", id, postData);
+    if (fetchResult) {
+      setShouldRender((prev) => prev++);
+      setIsEmojiVisible(false);
+    }
   };
 
   return (

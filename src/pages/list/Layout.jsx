@@ -14,8 +14,6 @@ function Layout() {
     const NewestCards = sortNew([...Cards]);
     const HottestCards = sortHot([...Cards]);
 
-    console.log(Cards);
-
     return (
       <Container>
         <div>
