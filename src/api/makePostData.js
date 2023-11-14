@@ -4,10 +4,9 @@ import { TEAM } from "./config";
 export const makeRecipient = ({ name, backgroundColor, URL, password }) => {
   return {
     team: TEAM,
-    name,
+    name: name + password,
     backgroundColor: backgroundColor ?? COLOR.O,
     backgroundImageURL: URL,
-    password,
   };
 };
 

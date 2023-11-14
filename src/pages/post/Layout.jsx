@@ -39,7 +39,7 @@ function Layout({ path = "" }) {
     return;
   }
 
-  const { backgroundColor, backgroundImageURL, messageCount, password } = recipientData;
+  const { name, backgroundColor, backgroundImageURL, messageCount } = recipientData;
   const sortedData = sortNew(messageData);
   if (!cardData) {
     setCardData(sortedData);
@@ -51,7 +51,7 @@ function Layout({ path = "" }) {
       <Background $color={backgroundColor} $url={backgroundImageURL}>
         {backgroundImageURL && <Mask></Mask>}
         <Container>
-          <Btn path={path} password={password} id={id} />
+          <Btn path={path} password={name.slice(-4)} id={id} />
           <CardGrid setCardData={setCardData} path={path} messageCount={messageCount} recentMessages={cardData} />
         </Container>
       </Background>
