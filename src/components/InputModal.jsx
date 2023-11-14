@@ -13,8 +13,12 @@ function InputModal({ password, onClose }) {
   const navigate = useNavigate();
 
   const handlePasswordCheck = (event) => {
-    const inputValue = inputRef.current.value;
     event.preventDefault();
+    const inputValue = inputRef.current.value;
+    if (!inputValue) {
+      setPwError("true");
+      return;
+    }
     if (inputValue == import.meta.env.VITE_EDIT_KEY || inputValue == password) {
       setPwError(false);
       onClose();
