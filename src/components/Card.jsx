@@ -2,7 +2,7 @@ import styled from "styled-components";
 import propTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { formatDate } from "@/utils/formatDate";
-import { FONT12, FONT16, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
+import { FONT12, FONT16, FONT20, FONT20B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
 import Badge from "@/components/commons/Badge";
 import Button from "@/components/commons/Button";

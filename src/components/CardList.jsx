@@ -58,7 +58,7 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 4.3rem;
+  justify-content: space-between;
 
   border: 0.1rem solid rgba(0, 0, 0, 0.1);
   border-radius: 1.6rem;
@@ -101,8 +101,6 @@ const Container = styled.div`
     width: 20.8rem;
     height: 23.2rem;
     padding: 3rem 2.2rem 2rem 2.4rem;
-
-    gap: 3.3rem;
   }
 `;
 
