@@ -16,6 +16,7 @@ import propTypes from "prop-types";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
@@ -47,6 +48,15 @@ function Layout({ path = "" }) {
 
   return (
     <>
+      {path === "edit" ? (
+        <Helmet>
+          <title>Edit | Rolling</title>
+        </Helmet>
+      ) : (
+        <Helmet>
+          <title>{name.slice(0, -4)} | Rolling</title>
+        </Helmet>
+      )}
       <Header serviceType={true} />
       <Background $color={backgroundColor} $url={backgroundImageURL}>
         {backgroundImageURL && <Mask></Mask>}
