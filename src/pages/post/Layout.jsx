@@ -25,11 +25,12 @@ Layout.propTypes = {
 
 function Layout({ path = "" }) {
   const [cardData, setCardData] = useState(null);
+  const [DEP, setDEP] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const recipientData = useGetData("RECIPIENTS_ID", id);
-  const messageData = useGetData("RECIPIENTS_MESSAGES", id);
+  const recipientData = useGetData("RECIPIENTS_ID", id, null, DEP);
+  const messageData = useGetData("RECIPIENTS_MESSAGES", id, null, DEP);
 
   if (path === "edit") {
     if (sessionStorage.getItem("editToken") !== id) navigate("/notFound");
@@ -57,7 +58,7 @@ function Layout({ path = "" }) {
           <title>{name.slice(0, -4)} | Rolling</title>
         </Helmet>
       )}
-      <Header userData={recipientData} serviceType={true} />
+      <Header userData={recipientData} setDEP={setDEP} serviceType />
       <Background $color={backgroundColor} $url={backgroundImageURL}>
         {backgroundImageURL && <Mask></Mask>}
         <Container>

@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { makeEmoji } from "@/api/makePostData";
 
-function EmojiPickButton({ id }) {
+function EmojiPickButton({ id, setDEP }) {
   const containerRef = useRef(null);
 
   const [isEmojiVisible, setIsEmojiVisible] = useState(false);
@@ -30,7 +30,8 @@ function EmojiPickButton({ id }) {
     const fetchResult = await api("RECIPIENTS_REACTIONS", "POST", id, postData);
 
     if (fetchResult) {
-      window.location.reload(true);
+      // window.location.reload(true);
+      setDEP([]);
       setIsEmojiVisible(false);
     }
   };
