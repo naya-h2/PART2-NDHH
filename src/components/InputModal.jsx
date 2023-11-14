@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { FONT18 } from "@/styles/FontStyles";
+import { FONT18B } from "@/styles/FontStyles";
 import styled from "styled-components";
 import Input from "./commons/Input";
 import Button from "./commons/Button";
@@ -13,8 +13,12 @@ function InputModal({ password, onClose }) {
   const navigate = useNavigate();
 
   const handlePasswordCheck = (event) => {
-    const inputValue = inputRef.current.value;
     event.preventDefault();
+    const inputValue = inputRef.current.value;
+    if (!inputValue) {
+      setPwError("true");
+      return;
+    }
     if (inputValue == import.meta.env.VITE_EDIT_KEY || inputValue == password) {
       setPwError(false);
       onClose();
@@ -53,7 +57,7 @@ const Container = styled.form`
   border: 1px solid var(--GRAY2);
 `;
 const Text = styled.div`
-  ${FONT18}
+  ${FONT18B}
 `;
 const InputWrapper = styled.div`
   width: 100%;
