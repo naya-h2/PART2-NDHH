@@ -1,5 +1,3 @@
-import api from "@/api/api";
-import { CreateMessage } from "@/api/getPostDate";
 import Dropdown from "@/components/commons/Dropdown";
 import TextEditor from "@/components/commons/Editor";
 import Option from "@/components/commons/Option";
@@ -7,7 +5,6 @@ import { Container, Submit, Title } from "@/components/instances/CreateMessage";
 import { REL } from "@/styles/ColorStyles";
 import { FONT16, FONT24B } from "@/styles/FontStyles";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router";
 import styled, { keyframes } from "styled-components";
 
 const DEFAULT = "https://i.ibb.co/YBLJML7/Frame-2593.png";
@@ -21,31 +18,15 @@ const INITIAL = {
 };
 
 function Layout() {
-  const { id } = useParams();
-  INITIAL.recipientId = id;
   const [value, setValue] = useState(INITIAL);
-  const navigate = useNavigate();
-
-  const handleSubmit = async () => {
-    if (!(value.sender && value.content)) {
-      return;
-    }
-
-    try {
-      api("RECIPIENTS_MESSAGES", "POST", id, CreateMessage(value));
-      navigate(`/post/${id}`);
-    } catch (error) {
-      alert(error);
-    }
-  };
 
   return (
     <Container>
       <Title message value={value.sender} setValue={setValue} />
-      <Profile value={value.profileImageURL} setValue={setValue} />
+      <Profile setValue={setValue} />
       <Relationship value={value.relationship} setValue={setValue} />
       <Edit setValue={setValue} />
-      <Submit onSubmit={handleSubmit} />
+      <Submit value={value} />
     </Container>
   );
 }
@@ -55,20 +36,22 @@ export default Layout;
 function Profile({ ...props }) {
   return (
     <BaseContents>
-      <p>프로필 이미지</p>
+      <p>
+        프로필. <span>당신을 보여주기에 딱인 곳.</span>
+      </p>
       <ProfileImgControl {...props} />
     </BaseContents>
   );
 }
 
-function ProfileImgControl({ value, setValue }) {
+function ProfileImgControl({ setValue }) {
   const [imgs, setImgs] = useState([DEFAULT]);
   const [selected, setSelected] = useState(0);
 
   return (
     <Contents__profileControl>
       <ProfileImg $src={imgs[selected]} alt="설정된 프로필 이미지" />
-      <p>{value ? `프로필 이미지를 선택해 주세요!` : `프로필 이미지를 추가해 주세요!`}</p>
+      <p>{imgs.length > 1 ? `상대에게 설명해 줄 나의 모습.` : `어떤 모습이든지. 아름다운 당신.`}</p>
       <AddImg setValue={setValue} imgs={imgs} setImgs={setImgs} selected={selected} setSelected={setSelected} />
     </Contents__profileControl>
   );
@@ -99,7 +82,9 @@ function Relationship({ value, setValue }) {
 
   return (
     <BaseContents>
-      <p>상대와의 관계</p>
+      <p>
+        너의 의미. <span>어떤 사람이 되고 싶으세요?</span>
+      </p>
       <Dropdown value={value} setValue={handleClick} items={RELATIONSHIP} />
     </BaseContents>
   );
@@ -108,7 +93,9 @@ function Relationship({ value, setValue }) {
 function Edit({ setValue }) {
   return (
     <BaseContents>
-      <p>내용을 입력해 주세요</p>
+      <p>
+        보내고 싶은 단편. <span>애틋함을 아로새기다.</span>
+      </p>
       <TextEditor setValue={setValue} />
     </BaseContents>
   );
@@ -123,6 +110,11 @@ const BaseContents = styled.div`
 
   > p {
     ${FONT24B}
+
+    > span {
+      ${FONT24B}
+      color: var(--Gray5);
+    }
   }
 `;
 

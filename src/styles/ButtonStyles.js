@@ -111,9 +111,26 @@ export const TYPES = {
     --padding: 0.6rem;
     --border-radius: 0.6rem;
   `,
+  error: css`
+  --color: var(--White);
+  --border-color: var(--Error2);
+  --bg-color: var(--Error2);
+
+  --hover-color: var(--White);
+  --hover-border-color: var(--Error1);
+  --hover-bg-color: var(--Error1);
+
+  --pressed-color: var(--White);
+  --pressed-border-color: var(--Error3);
+  --pressed-bg-color: var(--Error3);
+
+  --focus-color: var(--White);
+  --focus-bg-color: var(--Error3);
+  --focus-border-color: var(--Error3);
+  `
 };
 
 export const SELECTED = {
-  color: "컬러",
+  color: "색깔",
   image: "이미지",
 };

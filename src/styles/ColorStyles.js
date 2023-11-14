@@ -55,7 +55,7 @@ export const GRAYSCALE = css`
   --Gray2: #EEEEEE;
   --Gray3: #CCCCCC;
   --Gray4: #999999;
-  --Gray5: #555555;
+  --Gray5: #6e6e73;
   --Gray6: #4A4A4A;
   --Gray7: #3A3A3A;
   --Gray8: #2B2B2B;
@@ -65,6 +65,8 @@ export const GRAYSCALE = css`
 export const MAIN = css`
   --White: #FFFFFF;
   --Black: #000000;
-  --Error: #DC3A3A;
+  --Error1: #e36161;
+  --Error2: #DC3A3A;
+  --Error3: #b02e2e;
   --Surface: #F6F8FF;
 `

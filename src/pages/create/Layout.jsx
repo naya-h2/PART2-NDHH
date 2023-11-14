@@ -1,6 +1,4 @@
-import api from "@/api/api";
-import { TEAM } from "@/api/config";
-import { CreateRecipient } from "@/api/getPostDate";
+import Input from "@/components/commons/Input";
 import Option from "@/components/commons/Option";
 import ToggleButton from "@/components/commons/ToggleButton";
 import { Container, Submit, Title } from "@/components/instances/CreateMessage";
@@ -8,34 +6,18 @@ import { SELECTED } from "@/styles/ButtonStyles";
 import { COLOR } from "@/styles/ColorStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { FONT16, FONT24B } from "@/styles/FontStyles";
-import { PropTypes } from "prop-types";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const INITIAL = {
   name: "",
   backgroundColor: COLOR.O,
   URL: null,
+  password: "",
 };
 
 function Layout() {
   const [value, setValue] = useState(INITIAL);
-  const navigate = useNavigate();
-
-  const handleSubmit = async () => {
-    if (!value.name || (!value.backgroundColor && !value.URL)) {
-      return;
-    }
-    value.backgroundColor = value.backgroundColor ?? COLOR.O;
-
-    try {
-      const { id } = await api("RECIPIENTS", "POST", null, CreateRecipient(value));
-      navigate(`/post/${id}`);
-    } catch (error) {
-      alert(error);
-    }
-  };
 
   return (
     <>
@@ -43,7 +25,8 @@ function Layout() {
         <Title value={value.name} setValue={setValue} />
         <Text />
         <SelectOption value={value} setValue={setValue} />
-        <Submit onSubmit={handleSubmit} />
+        <Password value={value.password} setValue={setValue} />
+        <Submit value={value} />
       </Container>
     </>
   );
@@ -54,8 +37,8 @@ export default Layout;
 function Text() {
   return (
     <Contents__text>
-      <h2>배경화면을 선택해 주세요.</h2>
-      <p>컬러를 선택하거나, 이미지를 선택할 수 있습니다.</p>
+      <h2>주고 싶은 사람을 표현하기.</h2>
+      <p>색깔로 부담없이. 이미지로 더욱 특별하게.</p>
     </Contents__text>
   );
 }
@@ -75,7 +58,7 @@ function SelectOption({ value, setValue }) {
     }
     tempCOLOR = value.backgroundColor;
     setValue((prev) => ({ ...prev, backgroundColor: null, URL: tempURL }));
-  }, [selectedType, setValue]);
+  }, [selectedType]);
 
   return (
     <>
@@ -85,9 +68,6 @@ function SelectOption({ value, setValue }) {
   );
 }
 
-Options.propType = {
-  selectedType: PropTypes.oneOf([SELECTED.color, SELECTED.image]),
-};
 function Options({ selectedType, setValue }) {
   const [imgs, setImgs] = useState([]);
   const [orderColor, setOrderColor] = useState(0);
@@ -97,27 +77,48 @@ function Options({ selectedType, setValue }) {
   const handleOptionClick = (idx, item) => () => {
     if (isColor) {
       const backgroundColor = item;
-      setValue((prev) => ({ ...prev, backgroundColor }));
       setOrderColor(idx);
+      setValue((prev) => ({ ...prev, backgroundColor }));
       return;
     }
     const URL = item;
-    setValue((prev) => ({ ...prev, URL }));
     setOrederImg(idx);
+    setValue((prev) => ({ ...prev, URL }));
   };
 
-  const option = isColor ? (
-    Object.values(COLOR).map((color, idx) => <Option key={idx} color={color} check={orderColor === idx} onClick={handleOptionClick(idx, color)} />)
-  ) : (
-    <>
-      <Option setValue={setValue} setImgs={setImgs} setSelected={setOrederImg} />
-      {imgs.map((img, idx) => (
-        <Option key={idx} check={orderImg === idx} img={img} onClick={handleOptionClick(idx, img)} />
-      ))}
-    </>
+  return (
+    <Container__Options>
+      {isColor && Object.values(COLOR).map((color, idx) => <Option key={idx} color={color} check={orderColor === idx} onClick={handleOptionClick(idx, color)} />)}
+      {isColor || (
+        <>
+          <Option setValue={setValue} setImgs={setImgs} setSelected={setOrederImg} />
+          {imgs.map((img, idx) => (
+            <Option key={idx} check={orderImg === idx} img={img} onClick={handleOptionClick(idx, img)} />
+          ))}
+        </>
+      )}
+    </Container__Options>
   );
+}
 
-  return <Container__Options>{option}</Container__Options>;
+function Password({ value, setValue }) {
+  const input = useRef();
+  const handleChange = () => {
+    const pw = input.current.value;
+    setValue((prev) => ({ ...prev, password: pw }));
+    if (pw.length > 4) {
+      const password = pw.slice(4);
+      setValue((prev) => ({ ...prev, password }));
+    }
+  };
+
+  return (
+    <Contents__text>
+      <h2>나만의 열쇠. 4자리 숫자.</h2>
+      <p>쓰다. 지우다. 고치다. 빠져들다.</p>
+      <Input type="number" inputRef={input} value={value} onChange={handleChange} placeholder="****" />
+    </Contents__text>
+  );
 }
 
 const Contents__text = styled.div`
@@ -134,6 +135,10 @@ const Contents__text = styled.div`
   > p {
     color: var(--Gray5);
     ${FONT16}
+  }
+
+  > input {
+    margin-top: 2rem;
   }
 `;
 
