@@ -1,19 +1,19 @@
 import Button from "@/components/commons/Button";
 import Input from "@/components/commons/Input";
+import usePostData from "@/hooks/usePostData";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { FONT24B } from "@/styles/FontStyles";
-import { Link } from "react-router-dom";
-import { styled } from "styled-components";
 import { PropTypes } from "prop-types";
+import { styled } from "styled-components";
 
 const CONTENTS = {
   create: {
-    p: "To.",
+    p: "수신인.",
     input: "받는 사람 이름을 입력해 주세요.",
   },
   message: {
-    p: "From.",
-    input: "이름을 입력해 주세요.",
+    p: "발신인.",
+    input: "보내는 이름을 입력해 주세요.",
   },
 };
 
@@ -48,14 +48,14 @@ export function Title({ message, value, setValue }) {
   );
 }
 
-export function Submit({ onClick, onSubmit }) {
+export function Submit({ value }) {
+  const [pending, error, handleSubmit] = usePostData(value);
+
   return (
     <Contents__button>
-      <Link to="/post/id" onClick={onClick}>
-        <Button type="primary" height="xl" onClick={onSubmit}>
-          생성하기
-        </Button>
-      </Link>
+      <Button disabled={pending} type={error ? `error` : `primary`} height="xl" onClick={handleSubmit}>
+        {error ? error.message : `보내기`}
+      </Button>
     </Contents__button>
   );
 }
