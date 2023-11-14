@@ -31,6 +31,7 @@ function Layout({ path = "" }) {
 
   const recipientData = useGetData("RECIPIENTS_ID", id, null, DEP);
   const messageData = useGetData("RECIPIENTS_MESSAGES", id, null, DEP);
+  const reactions = useGetData("RECIPIENTS_REACTIONS", id, null, DEP);
 
   if (path === "edit") {
     if (sessionStorage.getItem("editToken") !== id) navigate("/notFound");
@@ -58,7 +59,7 @@ function Layout({ path = "" }) {
           <title>{name.slice(0, -4)} | Rolling</title>
         </Helmet>
       )}
-      <Header userData={recipientData} setDEP={setDEP} serviceType />
+      <Header userData={recipientData} setDEP={setDEP} reactions={reactions} serviceType />
       <Background $color={backgroundColor} $url={backgroundImageURL}>
         {backgroundImageURL && <Mask></Mask>}
         <Container>
