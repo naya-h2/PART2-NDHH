@@ -16,7 +16,7 @@ import { useState } from "react";
  *@returns {Object|null} - 가져온 데이터 또는 null (초기값)
  */
 
-function useGetData(type, path, limit) {
+function useGetData(type, path, limit, DEP) {
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function useGetData(type, path, limit) {
       const { results } = result;
       return setData(results);
     })();
-  }, []);
+  }, [DEP]);
 
   return data;
 }
