@@ -7,7 +7,7 @@ import arrowDown from "@/assets/arrow_down.svg";
 import { Z_INDEX } from "@/styles/ZindexStyles";
 import EmojiPickButton from "./EmojiPickButton";
 
-function HeaderEmojis({ topReactions, id, setDEP }) {
+function HeaderEmojis({ topReactions, reactions, id, setDEP }) {
   const containerRef = useRef(null);
 
   const [isVisible, setIsVisible] = useState(false);
@@ -32,7 +32,7 @@ function HeaderEmojis({ topReactions, id, setDEP }) {
         <button onClick={handleClick}>
           <ArrowDown src={arrowDown} alt="이모티콘 반응 더보기 버튼" />
         </button>
-        {isVisible && <EmojiList results={topReactions} id={id} />}
+        {isVisible && <EmojiList results={reactions} id={id} />}
       </Container>
       <EmojiPickButton id={id} setDEP={setDEP} />
     </>

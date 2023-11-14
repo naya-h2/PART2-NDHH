@@ -15,8 +15,8 @@ Header.propTypes = {
   hideButton: PropTypes.oneOf([true, false]),
 };
 
-function Header({ serviceType, hideButton = false, userData, setDEP }) {
-  return serviceType ? MakeServiceHeader({ userData, setDEP }) : MakeNavHeader({ hideButton });
+function Header({ serviceType, hideButton = false, userData, setDEP, reactions }) {
+  return serviceType ? MakeServiceHeader({ userData, reactions, setDEP }) : MakeNavHeader({ hideButton });
 }
 
 function MakeNavHeader({ hideButton }) {
@@ -39,7 +39,7 @@ function MakeNavHeader({ hideButton }) {
   );
 }
 
-function MakeServiceHeader({ userData, setDEP }) {
+function MakeServiceHeader({ userData, reactions, setDEP }) {
   if (!userData) return;
   const name = userData.name.slice(0, -4);
 
@@ -56,7 +56,7 @@ function MakeServiceHeader({ userData, setDEP }) {
             <P> 명이 작성했어요!</P>
             <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           </SendersNum>
-          <HeaderEmojis topReactions={userData.topReactions} id={userData.id} setDEP={setDEP} />
+          <HeaderEmojis topReactions={userData.topReactions} reactions={reactions} id={userData.id} setDEP={setDEP} />
           <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           <ShareDropdownButton userData={userData} />
         </Wrapper>
