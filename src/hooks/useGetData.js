@@ -16,12 +16,12 @@ import { useState } from "react";
  *@returns {Object|null} - 가져온 데이터 또는 null (초기값)
  */
 
-function useGetData(type, method, path) {
+function useGetData(type, method, path, limit) {
   const [data, setData] = useState();
 
   useEffect(() => {
     (async function () {
-      const result = await api(type, method, path);
+      const result = await api(type, method, path, null, limit);
 
       if (["RECIPIENTS", "RECIPIENTS_MESSAGES"].includes(type)) setData(() => transformData(result));
       if (["RECIPIENTS_ID", "BACKGROUND_IMGS", "PROFILE_IMGS", "MESSAGES"].includes(type)) setData(result);

@@ -3,11 +3,13 @@ import Button from "@/components/commons/Button";
 import { FONT15 } from "@/styles/FontStyles";
 import { Z_INDEX } from "@/styles/ZindexStyles";
 import shareKakaoTalk from "@/utils/shareKakao";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Toast from "../commons/Toast";
 
 function ShareDropdownButton({ currentPath = "/" }) {
+  const containerRef = useRef(null);
+
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isToastVisible, setIsToastVisible] = useState(false);
 
@@ -31,11 +33,22 @@ function ShareDropdownButton({ currentPath = "/" }) {
     setIsMenuVisible(!isMenuVisible);
   };
 
+  const handleBlur = (event) => {
+    if (!containerRef.current.contains(event.relatedTarget)) {
+      setIsMenuVisible(false);
+    }
+  };
+
   return (
-    <ShareButton>
-      <CustomButton type="outlined" width="56" height="m" onClick={handleClick}>
-        <img src={shareIcon} alt="공유 버튼" />
-      </CustomButton>
+    <Container>
+      <ShareButton onBlur={handleBlur} ref={containerRef}>
+        <CustomButton type="outlined" width="56" height="m" onClick={handleClick}>
+          <img src={shareIcon} alt="공유 버튼" />
+        </CustomButton>
+        <Wrapper $isVisible={isToastVisible}>
+          <Toast />
+        </Wrapper>
+      </ShareButton>
       {isMenuVisible && (
         <List>
           <button onClick={() => shareKakaoTalk(host + currentPath)}>
@@ -46,25 +59,25 @@ function ShareDropdownButton({ currentPath = "/" }) {
           </button>
         </List>
       )}
-      <Wrapper $isVisible={isToastVisible}>
-        <Toast />
-      </Wrapper>
-    </ShareButton>
+    </Container>
   );
 }
 
 export default ShareDropdownButton;
+
+const Container = styled.div`
+  position: relative;
+`;
+
+const ShareButton = styled.button`
+  display: inline-block;
+`;
 
 const CustomButton = styled(Button)`
   @media (max-width: 768px) {
     width: 4.4rem;
     padding: 0.6rem 0.6rem;
   }
-`;
-
-const ShareButton = styled.button`
-  position: relative;
-  display: inline-block;
 `;
 
 const List = styled.ul`
@@ -108,5 +121,5 @@ const Wrapper = styled.div`
   transform: translateX(-50%) translateY(${({ $isVisible }) => ($isVisible ? "2rem" : "-4rem")});
   top: ${({ $isVisible }) => ($isVisible ? "2rem" : "-4rem")};
   z-index: ${Z_INDEX.Toast_Wrapper};
-  transition: transform 0.5s ease-in-out;
+  transition: 0.5s ease-in-out; // transform 지우기
 `;

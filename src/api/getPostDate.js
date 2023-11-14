@@ -1,30 +1,26 @@
 import useGetData from "@/hooks/useGetData";
 import { TEAM } from "./config";
 
-export const CreateRecipient = (recipient, backgroundColor, backgroundImageURL) => {
+export const CreateRecipient = ({ name, backgroundColor, URL }) => {
   return {
-    postData: {
-      team: TEAM,
-      name: recipient,
-      backgroundColor: backgroundColor,
-      backgroundImageURL: backgroundImageURL,
-    },
+    team: TEAM,
+    name: name,
+    backgroundColor: backgroundColor,
+    backgroundImageURL: URL,
   };
 };
 
-export const CreateMessage = (recipientId, sender, profileImageURL, relationship, content, font) => {
+export const CreateMessage = ({ recipientId, sender, URL, relationship, content, font }) => {
   return {
-    postData: {
-      team: TEAM,
-      recipientId: recipientId,
-      sender: sender,
-      profileImageURL: profileImageURL,
-      relationship: relationship,
-      content: content,
-      font: font,
-    },
+    team: TEAM,
+    recipientId: recipientId,
+    sender: sender,
+    profileImageURL: URL,
+    relationship: relationship,
+    content: content,
+    font: font,
   };
-};
+}
 
 export const CreateEmoji = (emoji, type) => {
   return {

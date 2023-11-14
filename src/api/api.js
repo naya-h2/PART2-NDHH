@@ -9,20 +9,21 @@ import { BASE_URL, ENDPOINTS } from "@/api/config";
  * @returns {Promise<Object>} - API 응답을 나타내는 Promise 객체
  */
 
-async function api(type, method, path, postData) {
+async function api(type, method, path, postData, limit) {
   const endpoint = ENDPOINTS[type][method];
-  const url = typeof endpoint === "function" ? BASE_URL + endpoint(path) : BASE_URL + endpoint;
+  let url = typeof endpoint === "function" ? BASE_URL + endpoint(path) : BASE_URL + endpoint;
+  if (limit) url = url + `?limit=${limit}`;
 
   switch (method) {
-    case "GET":
+    case "GET": {
       const getResponse = await fetch(url);
       if (!getResponse.ok) {
         throw new Error("데이터를 불러오는데 실패했습니다.");
       }
       const result = await getResponse.json();
       return result;
-
-    case "POST":
+    }
+    case "POST": {
       const postResponse = await fetch(url, {
         method: "POST",
         body: JSON.stringify(postData),
@@ -30,8 +31,9 @@ async function api(type, method, path, postData) {
           "Content-Type": "application/json",
         },
       });
-      return postResponse;
-
+      const result = postResponse.json()
+      return result;
+    }
     case "DELETE":
       const deleteResponse = await fetch(url, {
         method: "DELETE",

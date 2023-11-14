@@ -1,6 +1,6 @@
+import { BLUE, GRAYSCALE, GREEN, MAIN, ORANGE, PURPLE } from '@/styles/ColorStyles';
 import { createGlobalStyle, keyframes } from 'styled-components';
 import reset from 'styled-reset';
-import { BLUE, GRAYSCALE, GREEN, MAIN, ORANGE, PURPLE, RED } from '@/styles/ColorStyles';
 
 const fadeIn = keyframes`
   0% {
@@ -17,7 +17,6 @@ const GlobalStyles = createGlobalStyle`
     ${PURPLE};
     ${BLUE};
     ${GREEN};
-    ${RED}
     ${GRAYSCALE};
     ${MAIN};
   }
@@ -40,7 +39,7 @@ const GlobalStyles = createGlobalStyle`
     border: 0;
     font-size: 62.5%;
     vertical-align: baseline;
-    animation: ${fadeIn} 0.5s ease-out;
+    /* animation: ${fadeIn} 0.5s ease-out; */
   }
   
   ol, ul{

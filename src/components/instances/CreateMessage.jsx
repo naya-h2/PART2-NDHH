@@ -48,14 +48,12 @@ export function Title({ message, value, setValue }) {
   );
 }
 
-export function Submit({ onClick, onSubmit }) {
+export function Submit({ onSubmit }) {
   return (
     <Contents__button>
-      <Link to="/post/id" onClick={onClick}>
-        <Button type="primary" height="xl" onClick={onSubmit}>
-          생성하기
-        </Button>
-      </Link>
+      <Button type="primary" height="xl" onClick={onSubmit}>
+        생성하기
+      </Button>
     </Contents__button>
   );
 }
