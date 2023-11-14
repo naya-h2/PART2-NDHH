@@ -26,8 +26,8 @@ function Layout({ path = "" }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const recipientData = useGetData("RECIPIENTS_ID", "GET", id);
-  const messageData = useGetData("RECIPIENTS_MESSAGES", "GET", id);
+  const recipientData = useGetData("RECIPIENTS_ID", id);
+  const messageData = useGetData("RECIPIENTS_MESSAGES", id);
 
   if (path === "edit") {
     console.log(sessionStorage.getItem("editToken"));
@@ -47,7 +47,7 @@ function Layout({ path = "" }) {
 
   return (
     <>
-      <Header serviceType={true} />
+      <Header userData={recipientData} serviceType />
       <Background $color={backgroundColor} $url={backgroundImageURL}>
         {backgroundImageURL && <Mask></Mask>}
         <Container>
