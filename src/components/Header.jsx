@@ -9,15 +9,16 @@ import Button from "@/components/commons/Button";
 import Logo from "@/assets/Logo.svg";
 import divideLine from "@/assets/Rectangle_38.svg";
 import ShareDropdownButton from "./instances/ShareDropdownButton";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import useGetData from "@/hooks/useGetData";
 
 Header.propTypes = {
   serviceType: PropTypes.oneOf([true, false]),
   hideButton: PropTypes.oneOf([true, false]),
 };
 
-function Header({ serviceType, hideButton = false, id }) {
-  return serviceType ? MakeServiceHeader({ id }) : MakeNavHeader({ hideButton });
+function Header({ serviceType, hideButton = false }) {
+  return serviceType ? MakeServiceHeader() : MakeNavHeader({ hideButton });
 }
 
 function MakeNavHeader({ hideButton }) {
@@ -40,21 +41,22 @@ function MakeNavHeader({ hideButton }) {
   );
 }
 
-function MakeServiceHeader({ id }) {
-  const { name, messageCount, recentMessages, topReactions } = Recipients;
-
+function MakeServiceHeader() {
+  const { id } = useParams();
+  const userData = useGetData("RECIPIENTS_ID", "GET", id);
+  if (!userData) return;
   return (
     <>
       <Container>
-        <Recipient>To. {name}</Recipient>
+        <Recipient>To. {userData.name}</Recipient>
         <Wrapper>
           <SendersNum>
-            <ProfileImgList messageCount={messageCount} data={recentMessages} />
-            <P $B>{messageCount}</P>
+            <ProfileImgList messageCount={userData.messageCount} data={userData.recentMessages} />
+            <P $B>{userData.messageCount}</P>
             <P> 명이 작성했어요!</P>
             <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           </SendersNum>
-          <HeaderEmojis topReactions={topReactions} />
+          <HeaderEmojis topReactions={userData.topReactions} id={userData.id} />
           <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           <ShareDropdownButton />
         </Wrapper>

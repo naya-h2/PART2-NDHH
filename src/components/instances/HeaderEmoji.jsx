@@ -7,14 +7,14 @@ import arrowDown from "@/assets/arrow_down.svg";
 import { Z_INDEX } from "@/styles/ZindexStyles";
 import EmojiPickButton from "./EmojiPickButton";
 
-function HeaderEmojis({ topReactions }) {
+function HeaderEmojis({ topReactions, id }) {
   const containerRef = useRef(null);
 
   const [isVisible, setIsVisible] = useState(false);
+  const [shouldRender, setShouldRender] = useState(0);
 
-  let { results } = Reactions;
   const endIndex = 7;
-  if (results.length > 8) results = results.slice(0, endIndex);
+  if (topReactions.length > 8) topReactions = topReactions.slice(0, endIndex);
 
   const handleClick = () => {
     setIsVisible(!isVisible);
@@ -33,9 +33,9 @@ function HeaderEmojis({ topReactions }) {
         <button onClick={handleClick}>
           <ArrowDown src={arrowDown} alt="이모티콘 반응 더보기 버튼" />
         </button>
-        {isVisible && <EmojiList results={results} />}
+        {isVisible && <EmojiList results={topReactions} id={id} />}
       </Container>
-      <EmojiPickButton />
+      <EmojiPickButton id={id} setShouldRender={setShouldRender} />
     </>
   );
 }
