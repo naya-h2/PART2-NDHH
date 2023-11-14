@@ -15,7 +15,7 @@ Button.propTypes = {
   type: PropTypes.oneOf(["primary", "secondary", "outlined", "plus", "trash", "arrowRight", "arrowLeft", "error"]),
   disabled: PropTypes.bool,
   icon: PropTypes.bool,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  children: PropTypes.node,
 };
 
 function Button({ width, height, type, disabled, icon, children, ...props }) {

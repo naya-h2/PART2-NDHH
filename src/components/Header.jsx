@@ -49,7 +49,7 @@ function MakeServiceHeader({ userData, setDEP }) {
         <Recipient>To. {name}</Recipient>
         <Wrapper>
           <SendersNum>
-            <Contents messageCount={userData.messageCount}>
+            <Contents $messageCount={userData.messageCount}>
               <ProfileImgList messageCount={userData.messageCount} data={userData.recentMessages} />
             </Contents>
             <P $B>{userData.messageCount}</P>
@@ -58,7 +58,7 @@ function MakeServiceHeader({ userData, setDEP }) {
           </SendersNum>
           <HeaderEmojis topReactions={userData.topReactions} id={userData.id} setDEP={setDEP} />
           <DivideImg src={divideLine} alt="영역 분리 아이콘" />
-          <ShareDropdownButton id={userData.id} />
+          <ShareDropdownButton userData={userData} />
         </Wrapper>
       </Container>
       <BorderLine />
@@ -131,7 +131,7 @@ const Wrapper = styled.div`
 
 const Contents = styled.div`
   position: relative;
-  left: ${({ messageCount }) => (messageCount > 2 ? "1.4rem" : "4.5rem")};
+  left: ${({ $messageCount }) => ($messageCount > 2 ? "1.4rem" : "4.5rem")};
 `;
 
 const ButtonText = styled.p`
