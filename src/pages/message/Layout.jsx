@@ -7,7 +7,14 @@ import { FONT16, FONT24B } from "@/styles/FontStyles";
 import { useState } from "react";
 import styled, { keyframes } from "styled-components";
 
-const DEFAULT = "https://i.ibb.co/YBLJML7/Frame-2593.png";
+const DEFAULT = [
+  "https://i.ibb.co/YBLJML7/Frame-2593.png",
+  "https://i.ibb.co/bb24Bwq/lease.jpg",
+  "https://i.ibb.co/7Jc9CQB/tree.jpg",
+  "https://i.ibb.co/cgysY87/snowman.jpg",
+  "https://i.ibb.co/kqV6Svd/cake.jpg",
+  "https://i.ibb.co/2qvZMFg/snowball.jpg",
+];
 
 const INITIAL = {
   sender: "",
@@ -45,7 +52,7 @@ function Profile({ ...props }) {
 }
 
 function ProfileImgControl({ setValue }) {
-  const [imgs, setImgs] = useState([DEFAULT]);
+  const [imgs, setImgs] = useState(DEFAULT);
   const [selected, setSelected] = useState(0);
 
   return (

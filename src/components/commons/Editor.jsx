@@ -2,26 +2,19 @@ import { useRef } from "react";
 import styled from "styled-components";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
-import { FONT20B } from "@/styles/FontStyles";
+import { FONT12, FONT20B, FONT24 } from "@/styles/FontStyles";
 import lang from "suneditor/src/lang";
 
 function TextEditor({ setValue }) {
   const editor = useRef();
-  let KEY = {};
 
   const getSunEditorInstance = (sunEditor) => {
     editor.current = sunEditor;
-    editor.current.onKeyDown = (event, core) => {
-      if (!KEY.Control) {
-        KEY[event.key] = true;
-        return;
+    editor.current.core.context.element.toolbar.querySelectorAll("button").forEach((button) => (button.tabIndex = 0));
+    editor.current.onKeyDown = (event) => {
+      if ((event.shiftKey && event.key === "Tab") || event.key === "Tab") {
+        throw new Error("Keyboard focusable을 위한 에러입니다.");
       }
-      if (event.key === "Control") {
-        core.blur();
-        KEY = {};
-        return;
-      }
-      KEY = {};
     };
   };
 
@@ -38,7 +31,7 @@ function TextEditor({ setValue }) {
         setOptions={{
           font: ["Noto Sans", "Pretendard"],
           fontSize: [8, 10, 12, 14, 15, 16, 18, 20, 24],
-          buttonList: [["bold", "italic", "underline", "align", "fontColor", "font", "fontSize"]],
+          buttonList: [["bold", "italic", "underline", "align", "fontColor", "hiliteColor", "font", "fontSize", "image"]],
           lang: lang.ko,
         }}
         onChange={handleChange}
@@ -90,9 +83,20 @@ const Container = styled.div`
     }
   }
 
+  .sun-editor .se-tooltip:focus .se-tooltip-inner {
+    visibility: visible;
+    opacity: 1;
+  }
+
   .sun-editor .se-btn-tool-font,
   .sun-editor .se-btn-tool-size {
     ${FONT20B};
+  }
+
+  .sun-editor .se-tooltip .se-tooltip-inner .se-tooltip-text,
+  .se-shortcut,
+  .se-shortcut-key {
+    ${FONT12};
   }
 
   .sun-editor .se-resizing-bar {

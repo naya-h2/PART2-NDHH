@@ -52,11 +52,11 @@ export function Submit({ value }) {
   const [pending, error, handleSubmit] = usePostData(value);
 
   return (
-    <Contents__button>
+    <Contents__title>
       <Button disabled={pending} type={error ? `error` : `primary`} height="xl" onClick={handleSubmit}>
         {error ? error.message : `보내기`}
       </Button>
-    </Contents__button>
+    </Contents__title>
   );
 }
 
@@ -65,6 +65,7 @@ export const Container = styled.div`
   max-width: 120rem;
 
   margin: auto;
+  margin-top: 5rem;
 
   display: flex;
   align-items: flex-start;
@@ -73,19 +74,18 @@ export const Container = styled.div`
 
   @media (max-width: ${DeviceSize.tablet}) {
     width: calc(100vw - 9.6rem);
-    margin-bottom: 10rem;
+    margin-bottom: 5rem;
   }
 
   @media (max-width: ${DeviceSize.mobile}) {
     width: calc(100vw - 9.6rem);
     min-width: 32rem;
-    margin-bottom: 10rem;
+    margin-bottom: 5rem;
   }
 `;
 
 const Contents__title = styled.div`
   width: 100%;
-  margin-top: 5rem;
 
   display: flex;
   flex-direction: column;
@@ -93,29 +93,5 @@ const Contents__title = styled.div`
 
   > p {
     ${FONT24B}
-  }
-`;
-
-const Contents__button = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
-  margin: auto;
-
-  @media (max-width: ${DeviceSize.tablet}) {
-    position: fixed;
-
-    left: 50%;
-    bottom: 2.4rem;
-    transform: translateX(-50%);
-  }
-
-  @media (max-width: ${DeviceSize.mobile}) {
-    min-width: 32rem;
-
-    position: fixed;
-
-    left: 50%;
-    bottom: 2.4rem;
-    transform: translateX(-50%);
   }
 `;
