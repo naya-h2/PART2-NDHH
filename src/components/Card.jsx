@@ -54,7 +54,7 @@ function Card({ type, data = null, onCardClick, setDelList }) {
         </ProfileWrapper>
         {type === "Edit" && (
           <DeleteIcon onClick={handleCardClick}>
-            <Button type="trash" />
+            <Button type={selected ? "redo" : "trash"} />
           </DeleteIcon>
         )}
       </Profile>
