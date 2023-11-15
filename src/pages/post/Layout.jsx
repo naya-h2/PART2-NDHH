@@ -55,7 +55,17 @@ function Layout({ path = "" }) {
       <Background $color={backgroundColor} $url={backgroundImageURL}>
         {backgroundImageURL && <Mask></Mask>}
         <Container>
-          <ButtonControl delList={delList} setDEP={setDEP} navigate={navigate} path={path} password={name.slice(-4)} name={name.slice(0, -4)} id={id} recentMessages={sortedData} />
+          <ButtonControl
+            setDelList={setDelList}
+            delList={delList}
+            setDEP={setDEP}
+            navigate={navigate}
+            path={path}
+            password={name.slice(-4)}
+            name={name.slice(0, -4)}
+            id={id}
+            recentMessages={sortedData}
+          />
           <CardGrid path={path} messageCount={messageCount} recentMessages={sortedData} setDelList={setDelList} />
         </Container>
       </Background>
@@ -63,7 +73,7 @@ function Layout({ path = "" }) {
   );
 }
 
-function ButtonControl({ delList, setDEP, navigate, path, password, name, id, recentMessages }) {
+function ButtonControl({ delList, setDelList, setDEP, navigate, path, password, name, id, recentMessages }) {
   const windowWidth = useGetWindowWidth();
 
   return (
@@ -71,13 +81,13 @@ function ButtonControl({ delList, setDEP, navigate, path, password, name, id, re
       {path === "edit" ? (
         windowWidth > DeviceSizeNum.tablet ? (
           <ButtonWrapper>
-            <SaveBtn id={id} pc={true} navigate={navigate} setDEP={setDEP} delList={delList} />
             <DeleteBtn name={name} recentMessages={recentMessages} />
+            <SaveBtn id={id} pc={true} navigate={navigate} setDEP={setDEP} delList={delList} setDelList={setDelList} />
           </ButtonWrapper>
         ) : (
           <>
-            <SaveBtn id={id} navigate={navigate} setDEP={setDEP} delList={delList} />
             <DeleteBtn name={name} recentMessages={recentMessages} />
+            <SaveBtn id={id} navigate={navigate} setDEP={setDEP} delList={delList} setDelList={setDelList} />
           </>
         )
       ) : (
@@ -87,26 +97,27 @@ function ButtonControl({ delList, setDEP, navigate, path, password, name, id, re
   );
 }
 
-function SaveBtn({ id, pc = false, navigate, setDEP, delList }) {
+function SaveBtn({ id, pc = false, navigate, setDEP, delList, setDelList }) {
   const handleDeleteSave = async (event) => {
     event.preventDefault();
     for (let msgId of delList) {
       const result = await api("MESSAGES", "DELETE", msgId);
     }
     navigate(`/post/${id}`);
+    setDelList([]);
     setDEP((prev) => ++prev);
   };
 
   return pc ? (
     <SaveWrapper>
-      <Button type="primary" height="l" width="150" onClick={handleDeleteSave}>
-        메시지 삭제하기
+      <Button type="primary" height="l" width="100" onClick={handleDeleteSave}>
+        저장하기
       </Button>
     </SaveWrapper>
   ) : (
     <SaveWrapper>
       <Button type="primary" height="xl" onClick={handleDeleteSave}>
-        메시지 삭제하기
+        저장하기
       </Button>
     </SaveWrapper>
   );
@@ -286,7 +297,7 @@ const EditWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  width: 32rem;
+  width: 26.5rem;
 
   display: flex;
   justify-content: space-between;
