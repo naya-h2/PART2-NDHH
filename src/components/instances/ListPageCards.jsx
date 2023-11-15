@@ -40,13 +40,11 @@ function ListPageCards({ cards, children }) {
         <Wrapper>
           {scrollX !== 0 && cardsQuantity > 4 && <CustomButton onClick={handleClickReverse} onDoubleClick={handleDbClickReverse} type={"arrowLeft"} width="40" $isReverse />}
           <Items $isSmall={cardsQuantity < 4} $num={cardsQuantity} style={{ transform: `translateX(${scrollX}rem)` }}>
-            {cards.map((card, index) => {
-              return (
-                <Link to={`/post/${card.id}`} key={index}>
-                  <CardList data={card} />
-                </Link>
-              );
-            })}
+            {cards.map((card, index) => (
+              <Link to={`/post/${card.id}`} key={index}>
+                <CardList data={card} />
+              </Link>
+            ))}
           </Items>
           {showNextButton && cardsQuantity > 4 && <CustomButton onClick={handleClick} onDoubleClick={handleDbClick} type={"arrowRight"} width="40" />}
         </Wrapper>

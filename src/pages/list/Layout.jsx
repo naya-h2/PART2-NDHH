@@ -5,7 +5,6 @@ import useGetData from "@/hooks/useGetData";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { FONT20B, FONT24B } from "@/styles/FontStyles.js";
 import { sortHot, sortNew } from "@/utils/sort";
-import useGetData from "@/hooks/useGetData";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 
