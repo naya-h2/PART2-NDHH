@@ -49,7 +49,7 @@ const InputWrapper = styled.div`
 
 const Input = styled.input`
   width: 100%;
-  padding: 0.8rem 1rem 0.8rem 2.8rem;
+  padding: 1.2rem 1rem 1.2rem 2.8rem;
   border: 0.1rem solid var(--Gray4);
   border-radius: 1.5rem;
 

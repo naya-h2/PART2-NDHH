@@ -51,12 +51,10 @@ const Container = styled.div`
 
   @media (max-width: ${DeviceSize.pc}) {
     width: calc(100vw - 3.8rem);
-    margin-left: 2.4rem;
   }
 
   @media (max-width: ${DeviceSize.mobile}) {
     width: calc(100vw - 3.8rem);
-    margin-left: 2rem;
   }
 `;
 
