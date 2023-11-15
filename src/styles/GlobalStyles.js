@@ -62,7 +62,11 @@ const GlobalStyles = createGlobalStyle`
 
     /* overflow: overlay; */
   }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
+/* 
   ::-webkit-scrollbar {
   width: 14px;
   height: 14px;
@@ -83,7 +87,7 @@ const GlobalStyles = createGlobalStyle`
   ::-webkit-scrollbar-track {
   box-shadow: none;
   background-color: pink;
-  }
+  } */
 `;
 
 export default GlobalStyles;

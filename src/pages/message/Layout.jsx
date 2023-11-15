@@ -18,7 +18,7 @@ const DEFAULT = [
 
 const INITIAL = {
   sender: "",
-  URL: DEFAULT,
+  URL: DEFAULT[0],
   relationship: REL.O,
   content: undefined,
   font: "Noto Sans",

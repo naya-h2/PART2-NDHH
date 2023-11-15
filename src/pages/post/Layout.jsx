@@ -99,14 +99,14 @@ function SaveBtn({ id, pc = false, navigate, setDEP, delList }) {
 
   return pc ? (
     <SaveWrapper>
-      <Button type="primary" height="l" width="100" onClick={handleDeleteSave}>
-        저장하기
+      <Button type="primary" height="l" width="150" onClick={handleDeleteSave}>
+        메시지 삭제하기
       </Button>
     </SaveWrapper>
   ) : (
     <SaveWrapper>
       <Button type="primary" height="xl" onClick={handleDeleteSave}>
-        저장하기
+        메시지 삭제하기
       </Button>
     </SaveWrapper>
   );
@@ -118,8 +118,8 @@ function DeleteBtn({ name, recentMessages }) {
   return (
     <>
       <EditWrapper>
-        <Button type="error" height="l" width="100" onClick={handleModalOpen}>
-          삭제하기
+        <Button type="error" height="l" width="150" onClick={handleModalOpen}>
+          페이지 삭제하기
         </Button>
       </EditWrapper>
       {isOpen && (
@@ -286,7 +286,7 @@ const EditWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  width: 21rem;
+  width: 32rem;
 
   display: flex;
   justify-content: space-between;
