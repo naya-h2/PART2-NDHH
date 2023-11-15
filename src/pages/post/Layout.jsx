@@ -14,10 +14,11 @@ import { Z_INDEX } from "@/styles/ZindexStyles";
 import { sortNew } from "@/utils/sort";
 import propTypes from "prop-types";
 import { useNavigate, useParams } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import api from "@/api/api";
+import arrowImg from "@/assets/instance_arrow.svg";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
@@ -40,6 +41,10 @@ function Layout({ path = "" }) {
   const { name, backgroundColor, backgroundImageURL, messageCount } = recipientData;
   const sortedData = sortNew(messageData);
 
+  const handleClick = () => {
+    navigate("/list");
+  };
+
   return (
     <>
       {path === "edit" ? (
@@ -58,6 +63,9 @@ function Layout({ path = "" }) {
           <ButtonControl delList={delList} setDEP={setDEP} navigate={navigate} path={path} password={name.slice(-4)} name={name.slice(0, -4)} id={id} recentMessages={sortedData} />
           <CardGrid path={path} messageCount={messageCount} recentMessages={sortedData} setDelList={setDelList} />
         </Container>
+        <button onClick={handleClick}>
+          <img src={arrowImg} />
+        </button>
       </Background>
     </>
   );
@@ -180,6 +188,12 @@ function CardGrid({ path, messageCount, recentMessages, setDelList }) {
 
 export default Layout;
 
+const back = keyframes`
+  50% {
+    padding-right: 3rem;
+  }
+`;
+
 const Background = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -192,6 +206,23 @@ const Background = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
+  > button {
+    width: 20rem;
+    height: 100%;
+
+    padding-left: 1rem;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    animation: ${back} 2s infinite;
+
+    &:hover {
+      background-color: RGBA(0, 0, 0, 0.5);
+    }
+  }
 `;
 
 const Mask = styled.div`
