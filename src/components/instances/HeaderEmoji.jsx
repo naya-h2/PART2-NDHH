@@ -13,7 +13,7 @@ function HeaderEmojis({ topReactions, reactions, id, setDEP }) {
   const [isVisible, setIsVisible] = useState(false);
 
   const endIndex = window.innerWidth <= DeviceSizeNum.mobile ? 6 : 8;
-  if (reactions.length > endIndex) reactions = reactions.slice(0, endIndex);
+  if (reactions?.length > endIndex) reactions = reactions.slice(0, endIndex);
 
   const handleClick = () => {
     setIsVisible(!isVisible);
