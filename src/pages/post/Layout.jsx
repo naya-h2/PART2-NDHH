@@ -10,6 +10,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { checkEditToken } from "@/utils/checkEditToken";
 
+
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
 };
@@ -25,6 +26,10 @@ function Layout({ path = "" }) {
 
   checkEditToken(id, path);
   if (!recipientData || !messageData) return;
+
+  const handleClick = () => {
+    navigate("/list");
+  };
 
   return (
     <>
@@ -44,12 +49,21 @@ function Layout({ path = "" }) {
           <ButtonControl name={recipientData.name} setDEP={setDEP} path={path} delList={delList} setDelList={setDelList} recentMessages={messageData} />
           <CardGrid path={path} messageCount={recipientData.messageCount} recentMessages={messageData} setDelList={setDelList} />
         </Container>
+        <button onClick={handleClick}>
+          <img src={arrowImg} />
+        </button>
       </Background>
     </>
   );
 }
 
 export default Layout;
+
+const back = keyframes`
+  50% {
+    padding-right: 7rem;
+  }
+`;
 
 const Background = styled.div`
   width: 100%;
@@ -63,6 +77,29 @@ const Background = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
+  > button {
+    width: 20rem;
+    height: 10rem;
+
+    padding-right: 4rem;
+    padding-bottom: 1rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: end;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    animation: ${back} 2s infinite;
+
+    img {
+      width: 8rem;
+      height: auto;
+    }
+  }
 `;
 
 const Mask = styled.div`

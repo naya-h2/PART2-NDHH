@@ -10,7 +10,6 @@ import { makeEmoji } from "@/api/makePostData";
 
 function EmojiPickButton({ id, setDEP }) {
   const containerRef = useRef(null);
-
   const [isEmojiVisible, setIsEmojiVisible] = useState(false);
 
   const handleBlur = (event) => {
@@ -20,7 +19,7 @@ function EmojiPickButton({ id, setDEP }) {
   };
 
   const handleClick = () => {
-    setIsEmojiVisible(true);
+    setIsEmojiVisible(!isEmojiVisible);
   };
 
   const onEmojiClick = async (event) => {
@@ -30,25 +29,30 @@ function EmojiPickButton({ id, setDEP }) {
     const fetchResult = await api("RECIPIENTS_REACTIONS", "POST", id, postData);
 
     if (fetchResult) {
-      // window.location.reload(true);
       setDEP([]);
       setIsEmojiVisible(false);
     }
   };
 
   return (
-    <CustomButton type="outlined" width="94" height="m" icon onClick={handleClick}>
-      <ButtonText>추가</ButtonText>
-      {isEmojiVisible && (
-        <Wrapper_Emoji onBlur={handleBlur} ref={containerRef}>
+    <>
+      <Container onBlur={handleBlur}>
+        <CustomButton type="outlined" width="94" height="m" icon onClick={handleClick}>
+          <ButtonText>추가</ButtonText>
+        </CustomButton>
+        <Wrapper_Emoji $isEmojiVisible={isEmojiVisible} ref={containerRef}>
           <EmojiPicker onEmojiClick={onEmojiClick} />
         </Wrapper_Emoji>
-      )}
-    </CustomButton>
+      </Container>
+    </>
   );
 }
 
 export default EmojiPickButton;
+
+const Container = styled.div`
+  position: relative;
+`;
 
 const CustomButton = styled(Button)`
   position: relative;
@@ -59,8 +63,9 @@ const CustomButton = styled(Button)`
 `;
 
 const Wrapper_Emoji = styled.div`
+  display: ${(props) => (props.$isEmojiVisible ? "block" : "none")};
   position: absolute;
-  top: 4rem;
+  top: 4.5rem;
   right: 0rem;
 
   z-index: ${Z_INDEX.Wrapper_Emoji};
@@ -70,7 +75,7 @@ const Wrapper_Emoji = styled.div`
   }
 
   @media (max-width: ${DeviceSize.mobile}) {
-    right: -14rem;
+    right: -12rem;
   }
 `;
 

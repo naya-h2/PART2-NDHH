@@ -19,15 +19,10 @@ CardList.propTypes = {
   data: propTypes.object,
 };
 function CardList({ data }) {
-  const navigate = useNavigate();
-  const { id, name, backgroundColor, backgroundImageURL, messageCount, recentMessages, topReactions } = data;
-
-  const handleCardListClick = () => {
-    navigate(`/post/${id}`);
-  };
+  const { name, backgroundColor, backgroundImageURL, messageCount, recentMessages, topReactions } = data;
 
   return (
-    <Container $color={backgroundColor} $url={backgroundImageURL} onClick={handleCardListClick}>
+    <Container $color={backgroundColor} $url={backgroundImageURL}>
       {backgroundImageURL && <Mask></Mask>}
       <Wrapper>
         <Name $url={backgroundImageURL}>To. {name.slice(0, -4)}</Name>
