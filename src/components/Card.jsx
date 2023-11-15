@@ -7,7 +7,7 @@ import { DeviceSize } from "@/styles/DeviceSize";
 import Badge from "@/components/commons/Badge";
 import Button from "@/components/commons/Button";
 import defaultImg from "@/assets/default_profile.svg";
-import api from "@/api/api";
+import { useState } from "react";
 
 /**
  * @param {*} data 메세지 데이터 객체
@@ -16,8 +16,9 @@ Card.propTypes = {
   type: propTypes.oneOf(["Normal", "Edit", "Plus"]),
   data: propTypes.object,
 };
-function Card({ type, data = null, onCardClick, setCardData }) {
+function Card({ type, data = null, onCardClick, setDelList }) {
   const { id } = useParams();
+  const [selected, setSelected] = useState(false);
 
   if (type === "Plus") {
     return (
@@ -31,31 +32,32 @@ function Card({ type, data = null, onCardClick, setCardData }) {
     );
   }
 
-  const { id: messageId, sender, profileImageURL, relationship, content, font, createdAt } = data;
+  const { id: messageId, sender, profileImageURL, relationship, content, createdAt } = data;
 
-  const handleCardDelete = async () => {
-    const res = await api("MESSAGES", "DELETE", messageId);
-    if (res) {
-      setCardData((prev) => prev.filter(({ id }) => id !== messageId));
-    }
+  const handleCardClick = async () => {
+    setSelected((prev) => !prev);
+    if (selected) return setDelList((prev) => prev.filter((item) => item !== messageId));
+    setDelList((prev) => [...prev, messageId]);
   };
 
   return (
-    <Container>
+    <Container $select={selected}>
       <Profile>
-        <ProfileImg src={profileImageURL || defaultImg} alt={`${sender}님의 프로필 사진`} />
-        <Wrapper>
-          <Sender>
-            From. <Bold>{sender}</Bold>
-          </Sender>
-          <Badge>{relationship}</Badge>
-        </Wrapper>
+        <ProfileWrapper>
+          <ProfileImg src={profileImageURL || defaultImg} alt={`${sender}님의 프로필 사진`} />
+          <Wrapper>
+            <Sender>
+              From. <Bold>{sender}</Bold>
+            </Sender>
+            <Badge>{relationship}</Badge>
+          </Wrapper>
+        </ProfileWrapper>
+        {type === "Edit" && (
+          <DeleteIcon onClick={handleCardClick}>
+            <Button type="trash" />
+          </DeleteIcon>
+        )}
       </Profile>
-      {type === "Edit" && (
-        <DeleteIcon onClick={handleCardDelete}>
-          <Button type="trash" />
-        </DeleteIcon>
-      )}
       <ContentWrapper>
         <Content dangerouslySetInnerHTML={{ __html: content }}></Content>
         <More onClick={() => onCardClick(data)}>더보기</More>
@@ -86,6 +88,7 @@ const Container = styled.div`
 
   background-color: var(--White);
   box-shadow: 0px 0.2rem 1.2rem 0px rgba(0, 0, 0, 0.08);
+  opacity: ${({ $select }) => ($select ? 0.6 : 1)};
 
   @media (max-width: ${DeviceSize.tablet}) {
     max-width: 50rem;
@@ -109,9 +112,14 @@ const Profile = styled.div`
   padding-bottom: 1.6rem;
 
   display: flex;
-  gap: 1.4rem;
+  justify-content: space-between;
 
   border-bottom: 0.1rem solid var(--Gray2);
+`;
+
+const ProfileWrapper = styled.div`
+  display: flex;
+  gap: 1.4rem;
 `;
 
 const Wrapper = styled.div`
@@ -136,10 +144,6 @@ const Bold = styled.span`
 const DeleteIcon = styled.div`
   width: 4rem;
   height: 4rem;
-
-  position: absolute;
-  top: 2.8rem;
-  right: 2.4rem;
 `;
 
 const Content = styled.div`

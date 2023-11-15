@@ -9,23 +9,23 @@ import Header from "@/components/Header";
 import useModal from "@/hooks/useModal";
 import useGetData from "@/hooks/useGetData";
 import useGetWindowWidth from "@/hooks/useGetWindowWidth";
-import { COLOR } from "@/styles/ColorStyles";
 import { DeviceSize, DeviceSizeNum } from "@/styles/DeviceSize";
 import { Z_INDEX } from "@/styles/ZindexStyles";
 import { sortNew } from "@/utils/sort";
 import propTypes from "prop-types";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import api from "@/api/api";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
 };
 
 function Layout({ path = "" }) {
-  const [cardData, setCardData] = useState(null);
-  const [DEP, setDEP] = useState([]);
+  const [delList, setDelList] = useState([]);
+  const [DEP, setDEP] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -33,20 +33,12 @@ function Layout({ path = "" }) {
   const messageData = useGetData("RECIPIENTS_MESSAGES", id, null, DEP);
   const reactions = useGetData("RECIPIENTS_REACTIONS", id, null, DEP);
 
-  if (path === "edit") {
-    if (sessionStorage.getItem("editToken") !== id) navigate("/notFound");
-  }
+  if (path === "edit" && sessionStorage.getItem("editToken") !== id) navigate("/notFound");
 
-  if (!recipientData || !messageData) {
-    //return <Navigate to="/notFound" />;
-    return;
-  }
+  if (!recipientData || !messageData) return;
 
   const { name, backgroundColor, backgroundImageURL, messageCount } = recipientData;
   const sortedData = sortNew(messageData);
-  if (!cardData) {
-    setCardData(sortedData);
-  }
 
   return (
     <>
@@ -63,15 +55,15 @@ function Layout({ path = "" }) {
       <Background $color={backgroundColor} $url={backgroundImageURL}>
         {backgroundImageURL && <Mask></Mask>}
         <Container>
-          <ButtonControl path={path} password={name.slice(-4)} name={name.slice(0, -4)} id={id} recentMessages={cardData} />
-          <CardGrid setCardData={setCardData} path={path} messageCount={messageCount} recentMessages={cardData} />
+          <ButtonControl delList={delList} setDEP={setDEP} navigate={navigate} path={path} password={name.slice(-4)} name={name.slice(0, -4)} id={id} recentMessages={sortedData} />
+          <CardGrid path={path} messageCount={messageCount} recentMessages={sortedData} setDelList={setDelList} />
         </Container>
       </Background>
     </>
   );
 }
 
-function ButtonControl({ path, password, name, id, recentMessages }) {
+function ButtonControl({ delList, setDEP, navigate, path, password, name, id, recentMessages }) {
   const windowWidth = useGetWindowWidth();
 
   return (
@@ -79,12 +71,12 @@ function ButtonControl({ path, password, name, id, recentMessages }) {
       {path === "edit" ? (
         windowWidth > DeviceSizeNum.tablet ? (
           <ButtonWrapper>
-            <SaveBtn id={id} pc={true} />
+            <SaveBtn id={id} pc={true} navigate={navigate} setDEP={setDEP} delList={delList} />
             <DeleteBtn name={name} recentMessages={recentMessages} />
           </ButtonWrapper>
         ) : (
           <>
-            <SaveBtn id={id} />
+            <SaveBtn id={id} navigate={navigate} setDEP={setDEP} delList={delList} />
             <DeleteBtn name={name} recentMessages={recentMessages} />
           </>
         )
@@ -95,22 +87,27 @@ function ButtonControl({ path, password, name, id, recentMessages }) {
   );
 }
 
-function SaveBtn({ id, pc = false }) {
+function SaveBtn({ id, pc = false, navigate, setDEP, delList }) {
+  const handleDeleteSave = async (event) => {
+    event.preventDefault();
+    for (let msgId of delList) {
+      const result = await api("MESSAGES", "DELETE", msgId);
+    }
+    navigate(`/post/${id}`);
+    setDEP((prev) => ++prev);
+  };
+
   return pc ? (
     <SaveWrapper>
-      <Link to={`/post/${id}`}>
-        <Button type="primary" height="l" width="100">
-          저장하기
-        </Button>
-      </Link>
+      <Button type="primary" height="l" width="100" onClick={handleDeleteSave}>
+        저장하기
+      </Button>
     </SaveWrapper>
   ) : (
     <SaveWrapper>
-      <Link to={`/post/${id}`}>
-        <Button type="primary" height="xl">
-          저장하기
-        </Button>
-      </Link>
+      <Button type="primary" height="xl" onClick={handleDeleteSave}>
+        저장하기
+      </Button>
     </SaveWrapper>
   );
 }
@@ -157,7 +154,7 @@ function EditBtn({ password }) {
   );
 }
 
-function CardGrid({ setCardData, path, messageCount, recentMessages }) {
+function CardGrid({ path, messageCount, recentMessages, setDelList }) {
   const { isOpen, handleModalOpen, handleModalClose } = useModal();
   const [message, setMessage] = useState("");
 
@@ -169,7 +166,7 @@ function CardGrid({ setCardData, path, messageCount, recentMessages }) {
   return (
     <CardWrapper>
       {path !== "edit" && <Card type="Plus" />}
-      {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === "edit" ? "Edit" : "Normal"} data={msg} setCardData={setCardData} onCardClick={handleCardClick} />)}
+      {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === "edit" ? "Edit" : "Normal"} data={msg} onCardClick={handleCardClick} setDelList={setDelList} />)}
       {isOpen && (
         <ModalPortal>
           <ModalFrame onClickClose={handleModalClose}>

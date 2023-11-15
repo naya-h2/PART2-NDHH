@@ -1,6 +1,7 @@
 import api from "@/api/api";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // 각 메소드에 따른 함수 사용 순서
 // GET: useGetData() 사용
@@ -18,15 +19,20 @@ import { useState } from "react";
 
 function useGetData(type, path, limit, DEP) {
   const [data, setData] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async function () {
-      const result = await api(type, "GET", path, null, limit);
+      try {
+        const result = await api(type, "GET", path, null, limit);
 
-      if (["RECIPIENTS_ID", "BACKGROUND_IMGS", "PROFILE_IMGS", "MESSAGES"].includes(type)) return setData(result);
+        if (["RECIPIENTS_ID", "BACKGROUND_IMGS", "PROFILE_IMGS", "MESSAGES"].includes(type)) return setData(result);
 
-      const { results } = result;
-      return setData(results);
+        const { results } = result;
+        return setData(results);
+      } catch (error) {
+        return navigate("/notFound");
+      }
     })();
   }, [DEP]);
 
