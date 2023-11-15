@@ -5,13 +5,21 @@ import FixedButton from "@/components/instances/FixedButton.jsx";
 import { FONT20B, FONT24B } from "@/styles/FontStyles.js";
 import { sortHot, sortNew } from "@/utils/sort";
 import useGetData from "@/hooks/useGetData";
+import Skeleton from "@/components/instances/Skeleton";
+import { useState } from "react";
 
 function Layout() {
+  const [test, setTest] = useState(true);
   const Cards = useGetData("RECIPIENTS", null, 1000);
 
+  if (test) {
+    setTimeout(() => setTest(false), 2000);
+    return <Skeleton />;
+  }
+
   if (Cards) {
-    const NewestCards = sortNew([...Cards]);
-    const HottestCards = sortHot([...Cards]);
+    const NewestCards = sortNew([...Cards]).slice(0, 10);
+    const HottestCards = sortHot([...Cards]).slice(0, 10);
 
     return (
       <>
