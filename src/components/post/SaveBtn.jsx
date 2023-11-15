@@ -16,7 +16,7 @@ function SaveBtn({ pc = false, setDEP, delList, setDelList }) {
     }
     navigate(`/post/${id}`);
     setDelList([]);
-    setDEP((prev) => ++prev);
+    setDEP([]);
   };
 
   return pc ? (

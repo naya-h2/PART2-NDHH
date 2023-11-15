@@ -20,10 +20,10 @@ function Layout({ path = "" }) {
   const [delList, setDelList] = useState([]);
 
   const recipientData = useGetData("RECIPIENTS_ID", id, null, DEP);
-  const messageData = useGetData("RECIPIENTS_MESSAGES", id, null, DEP);
+  const messageData = useGetData("RECIPIENTS_MESSAGES", id, 1000, DEP);
   const reactions = useGetData("RECIPIENTS_REACTIONS", id, null, DEP);
 
-  checkEditToken(path);
+  checkEditToken(id, path);
   if (!recipientData || !messageData) return;
 
   return (
