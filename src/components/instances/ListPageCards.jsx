@@ -37,10 +37,10 @@ function ListPageCards({ cards, children }) {
 
   return (
     <>
-      <P>{children}</P>
+      {/* <P>{children}</P> */}
       <Container>
-        <Wrapper>
-          {scrollX !== 0 && <CustomButton onClick={handleClickReverse} onDoubleClick={handleDbClickReverse} type={"arrowLeft"} width="40" $isReverse />}
+        <Wrapper $isSmall={cardsQuantity < 4}>
+          {scrollX !== 0 && cardsQuantity > 4 && <CustomButton onClick={handleClickReverse} onDoubleClick={handleDbClickReverse} type={"arrowLeft"} width="40" $isReverse />}
           <Items $num={cardsQuantity} style={{ transform: `translateX(${scrollX}rem)` }}>
             {cards.map((card, index) => {
               return (
@@ -50,7 +50,7 @@ function ListPageCards({ cards, children }) {
               );
             })}
           </Items>
-          {showNextButton && <CustomButton onClick={handleClick} onDoubleClick={handleDbClick} type={"arrowRight"} width="40" />}
+          {showNextButton && cardsQuantity > 4 && <CustomButton onClick={handleClick} onDoubleClick={handleDbClick} type={"arrowRight"} width="40" />}
         </Wrapper>
       </Container>
     </>
@@ -71,7 +71,8 @@ const Container = styled.div`
   justify-content: center;
 
   @media (max-width: ${DeviceSize.pc}) {
-    width: 100%;
+    width: 100%; // 3개 이하일때 중앙정렬 안됨
+    /* min-width: 86rem; */
 
     /* margin-left: 2.4rem; */
 
@@ -79,16 +80,18 @@ const Container = styled.div`
   }
 `;
 
-const P = styled.p`
-  margin: 5rem 0 1.6rem 0rem;
+// const P = styled.p`
+//   width: 100%;
 
-  ${FONT24B};
+//   margin: 5rem 0 1.6rem 0rem;
 
-  @media (max-width: ${DeviceSize.mobile}) {
-    ${FONT20B};
-    margin: ${(props) => (props.$Mobile ? "7.2rem 0 1.2rem 0" : "4rem 0 1.2rem 0")};
-  }
-`;
+//   ${FONT24B};
+
+//   @media (max-width: ${DeviceSize.mobile}) {
+//     ${FONT20B};
+//     margin: ${(props) => (props.$Mobile ? "7.2rem 0 1.2rem 0" : "4rem 0 1.2rem 0")};
+//   }
+// `;
 
 const Wrapper = styled.div`
   max-width: 116rem;
@@ -100,6 +103,7 @@ const Wrapper = styled.div`
 
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; /* iOS 스와이프 지원 */
+    /* margin: ${({ $isSmall }) => ($isSmall ? "auto" : "")}; */
   }
 `;
 

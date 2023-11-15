@@ -1,6 +1,6 @@
-import { BLUE, GRAYSCALE, GREEN, MAIN, ORANGE, PURPLE } from '@/styles/ColorStyles';
-import { FONT16 } from '@/styles/FontStyles';
-import { createGlobalStyle, keyframes } from 'styled-components';
+import { BLUE, GRAYSCALE, GREEN, MAIN, ORANGE, PURPLE } from "@/styles/ColorStyles";
+import { FONT16 } from "@/styles/FontStyles";
+import { createGlobalStyle, keyframes } from "styled-components";
 
 const fadeIn = keyframes`
   0% {
@@ -57,10 +57,13 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Noto Sans KR', sans-serif;
     background-color: #FFFFFF;
 
-    overflow-y: scroll;    
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    /* overflow: overlay; */
   }
 
-  /* ::-webkit-scrollbar {
+  ::-webkit-scrollbar {
   width: 14px;
   height: 14px;
   }
@@ -80,7 +83,7 @@ const GlobalStyles = createGlobalStyle`
   ::-webkit-scrollbar-track {
   box-shadow: none;
   background-color: pink;
-  } */
+  }
 `;
 
 export default GlobalStyles;
