@@ -6,6 +6,7 @@ import { FONT20B, FONT24B } from "@/styles/FontStyles.js";
 import { sortHot, sortNew } from "@/utils/sort";
 import { Link } from "react-router-dom";
 import useGetData from "@/hooks/useGetData";
+import Search from "@/components/list/Search";
 
 function Layout() {
   const Cards = useGetData("RECIPIENTS", null, 1000);
@@ -17,6 +18,7 @@ function Layout() {
     return (
       <>
         <Container>
+          <Search />
           {/* <div> */}
           <P>인기 롤링 페이퍼 🔥</P>
           <ListPageCards cards={HottestCards}></ListPageCards>
