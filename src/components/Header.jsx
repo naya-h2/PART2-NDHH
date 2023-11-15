@@ -2,36 +2,35 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { FONT14B, FONT16B, FONT16, FONT18, FONT18B, FONT28B } from "@/styles/FontStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
-import { Recipients } from "@/constants/mockUp";
-import HeaderEmojis from "@/components/instances/HeaderEmojiDropDown";
+import HeaderEmojis from "@/components/instances/HeaderEmoji";
 import ProfileImgList from "@/components/commons/ProfileImgList";
 import Button from "@/components/commons/Button";
-import shareIcon from "@/assets/share_24.svg";
 import Logo from "@/assets/Logo.svg";
 import divideLine from "@/assets/Rectangle_38.svg";
 import ShareDropdownButton from "./instances/ShareDropdownButton";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 Header.propTypes = {
   serviceType: PropTypes.oneOf([true, false]),
   hideButton: PropTypes.oneOf([true, false]),
 };
 
-function Header({ serviceType, hideButton = false }) {
-  return serviceType ? makeServiceHeader() : makeNavHeader({ hideButton });
+function Header({ serviceType, hideButton = false, userData, setDEP }) {
+  return serviceType ? MakeServiceHeader({ userData, setDEP }) : MakeNavHeader({ hideButton });
 }
 
-function makeNavHeader({ hideButton }) {
+function MakeNavHeader({ hideButton }) {
   return (
     <>
       <Container $B>
-        {/* <Link to="/"> */}
-        <img src={Logo} />
-        {/* </Link> */}
+        <Link to="/">
+          <img src={Logo} />
+        </Link>
         {!hideButton && (
           <Button type="outlined" width="170" height="l">
-            {/*모바일에서 width가 줄어드는데 그냥 버튼 두 개 만드는 수밖에 없을까요..?*/}
-            <ButtonText $B>롤링 페이퍼 만들기</ButtonText>
+            <Link to="/post">
+              <ButtonText $B>롤링 페이퍼 만들기</ButtonText>
+            </Link>
           </Button>
         )}
       </Container>
@@ -40,8 +39,9 @@ function makeNavHeader({ hideButton }) {
   );
 }
 
-function makeServiceHeader() {
-  const { name, messageCount, recentMessages, topReactions } = Recipients;
+function MakeServiceHeader({ userData, setDEP }) {
+  if (!userData) return;
+  const name = userData.name.slice(0, -4);
 
   return (
     <>
@@ -49,17 +49,16 @@ function makeServiceHeader() {
         <Recipient>To. {name}</Recipient>
         <Wrapper>
           <SendersNum>
-            <ProfileImgList messageCount={messageCount} data={recentMessages} />
-            <P $B>{messageCount}</P>
+            <Contents $messageCount={userData.messageCount}>
+              <ProfileImgList messageCount={userData.messageCount} data={userData.recentMessages} />
+            </Contents>
+            <P $B>{userData.messageCount}</P>
             <P> 명이 작성했어요!</P>
             <DivideImg src={divideLine} alt="영역 분리 아이콘" />
           </SendersNum>
-          <HeaderEmojis topReactions={topReactions} />
-          <CustomButton type="outlined" width="94" height="m" icon>
-            <ButtonText>추가</ButtonText>
-          </CustomButton>
+          <HeaderEmojis topReactions={userData.topReactions} id={userData.id} setDEP={setDEP} />
           <DivideImg src={divideLine} alt="영역 분리 아이콘" />
-          <ShareDropdownButton />
+          <ShareDropdownButton userData={userData} />
         </Wrapper>
       </Container>
       <BorderLine />
@@ -130,11 +129,9 @@ const Wrapper = styled.div`
   grid-area: "Wrapper";
 `;
 
-const CustomButton = styled(Button)`
-  @media (max-width: ${DeviceSize.mobile}) {
-    width: 4.4rem;
-    padding: 0.6rem 0.6rem;
-  }
+const Contents = styled.div`
+  position: relative;
+  left: ${({ $messageCount }) => ($messageCount > 2 ? "1.4rem" : "4.5rem")};
 `;
 
 const ButtonText = styled.p`

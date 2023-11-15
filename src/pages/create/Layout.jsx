@@ -1,27 +1,32 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { PropTypes } from "prop-types";
 import Input from "@/components/commons/Input";
-import ToggleButton from "@/components/commons/ToggleButton";
 import Option from "@/components/commons/Option";
-import Button from "@/components/commons/Button";
-import { COLOR } from "@/styles/ColorStyles";
-import { FONT16, FONT24B } from "@/styles/FontStyles";
+import ToggleButton from "@/components/commons/ToggleButton";
+import { Container, Submit, Title } from "@/components/instances/CreateMessage";
 import { SELECTED } from "@/styles/ButtonStyles";
+import { COLOR } from "@/styles/ColorStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
-import chooseImg from "@/assets/jeonghan.jpeg"; // 이미지 수정
-import { Link } from "react-router-dom";
+import { FONT16, FONT24B } from "@/styles/FontStyles";
+import { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+
+const INITIAL = {
+  name: "",
+  backgroundColor: COLOR.O,
+  URL: null,
+  password: "",
+};
 
 function Layout() {
-  const [imgFile, setImgFile] = useState("");
+  const [value, setValue] = useState(INITIAL);
 
   return (
     <>
       <Container>
-        <Title />
+        <Title value={value.name} setValue={setValue} />
         <Text />
-        <SelectOption imgFile={imgFile} setImgFile={setImgFile} />
-        <Submit />
+        <SelectOption value={value} setValue={setValue} />
+        <Password value={value.password} setValue={setValue} />
+        <Submit value={value} />
       </Container>
     </>
   );
@@ -29,116 +34,92 @@ function Layout() {
 
 export default Layout;
 
-function Title() {
-  return (
-    <Contents__title>
-      <p>To.</p>
-      <Input placeholder="받는 사람 이름을 입력해주세요" />
-    </Contents__title>
-  );
-}
-
 function Text() {
   return (
     <Contents__text>
-      <h2>배경화면을 선택해 주세요.</h2>
-      <p>컬러를 선택하거나, 이미지를 선택할 수 있습니다.</p>
+      <h2>주고 싶은 사람을 표현하기.</h2>
+      <p>색깔로 부담없이. 이미지로 더욱 특별하게.</p>
     </Contents__text>
   );
 }
 
-function SelectOption({ imgFile, setImgFile }) {
+let tempURL = null;
+let tempCOLOR = COLOR.O;
+
+function SelectOption({ value, setValue }) {
   const [selectedType, setSelectedType] = useState(SELECTED.color);
+
+  useEffect(() => {
+    const isColor = selectedType === SELECTED.color ? true : false;
+    if (isColor) {
+      tempURL = value.URL;
+      setValue((prev) => ({ ...prev, backgroundColor: tempCOLOR, URL: null }));
+      return;
+    }
+    tempCOLOR = value.backgroundColor;
+    setValue((prev) => ({ ...prev, backgroundColor: null, URL: tempURL }));
+  }, [selectedType]);
 
   return (
     <>
       <ToggleButton handleToggle={setSelectedType} selected={selectedType} />
-      <Options selectedType={selectedType} imgFile={imgFile} setImgFile={setImgFile} />
+      <Options selectedType={selectedType} setValue={setValue} />
     </>
   );
 }
 
-const COLOR_OPTIONS = [COLOR.O, COLOR.P, COLOR.B, COLOR.G];
+function Options({ selectedType, setValue }) {
+  const [imgs, setImgs] = useState([]);
+  const [orderColor, setOrderColor] = useState(0);
+  const [orderImg, setOrederImg] = useState(0);
+  const isColor = selectedType === SELECTED.color ? true : false;
 
-Options.propType = {
-  selectedType: PropTypes.oneOf([SELECTED.color, SELECTED.image]),
-};
-function Options({ selectedType, imgFile, setImgFile }) {
-  const [selectedOption, setSelectedOption] = useState(0);
+  const handleOptionClick = (idx, item) => () => {
+    if (isColor) {
+      const backgroundColor = item;
+      setOrderColor(idx);
+      setValue((prev) => ({ ...prev, backgroundColor }));
+      return;
+    }
+    const URL = item;
+    setOrederImg(idx);
+    setValue((prev) => ({ ...prev, URL }));
+  };
 
-  const handleOptionClick = (a) => () => setSelectedOption(a);
-
-  const option =
-    selectedType === SELECTED.color ? (
-      COLOR_OPTIONS.map((color, idx) => <Option key={idx} color={color} check={selectedOption === idx} onClick={handleOptionClick(idx)} />)
-    ) : (
-      <>
-        <Option setImgFile={setImgFile} />
-        {imgFile &&
-          imgFile.map((imgFile, idx) => {
-            return <Option key={idx} imgFile={imgFile} check={selectedOption === idx} onClick={handleOptionClick(idx)} />;
-          })}
-      </>
-    );
-
-  return <OptionContainer>{option}</OptionContainer>;
-}
-
-function Submit() {
   return (
-    <Contents__button>
-      <Link to="/post/id">
-        <Button type="primary" height="xl">
-          생성하기
-        </Button>
-      </Link>
-    </Contents__button>
+    <Container__Options>
+      {isColor && Object.values(COLOR).map((color, idx) => <Option key={idx} color={color} check={orderColor === idx} onClick={handleOptionClick(idx, color)} />)}
+      {isColor || (
+        <>
+          <Option setValue={setValue} setImgs={setImgs} setSelected={setOrederImg} />
+          {imgs.map((img, idx) => (
+            <Option key={idx} check={orderImg === idx} img={img} onClick={handleOptionClick(idx, img)} />
+          ))}
+        </>
+      )}
+    </Container__Options>
   );
 }
 
-const Container = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
+function Password({ value, setValue }) {
+  const input = useRef();
+  const handleChange = () => {
+    const pw = input.current.value;
+    setValue((prev) => ({ ...prev, password: pw }));
+    if (pw.length > 4) {
+      const password = pw.slice(4);
+      setValue((prev) => ({ ...prev, password }));
+    }
+  };
 
-  margin: auto;
-  margin-top: 5rem;
-
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  gap: 5rem;
-
-  @media (max-width: ${DeviceSize.tablet}) {
-    width: calc(100vw - 9.6rem);
-    margin-bottom: 10rem;
-  }
-
-  @media (max-width: ${DeviceSize.mobile}) {
-    width: calc(100vw - 9.6rem);
-    min-width: 32rem;
-    margin-bottom: 10rem;
-  }
-`;
-
-const Contents__title = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
-
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.2rem;
-
-  @media (max-width: ${DeviceSize.mobile}) {
-    width: calc(100vw - 9.6rem);
-    min-width: 32rem;
-  }
-
-  > p {
-    color: var(--Gray9);
-    ${FONT24B}
-  }
-`;
+  return (
+    <Contents__text>
+      <h2>나만의 열쇠. 4자리 숫자.</h2>
+      <p>쓰다. 지우다. 고치다. 빠져들다.</p>
+      <Input type="number" inputRef={input} value={value} onChange={handleChange} placeholder="****" />
+    </Contents__text>
+  );
+}
 
 const Contents__text = styled.div`
   display: flex;
@@ -155,9 +136,13 @@ const Contents__text = styled.div`
     color: var(--Gray5);
     ${FONT16}
   }
+
+  > input {
+    margin-top: 2rem;
+  }
 `;
 
-const OptionContainer = styled.div`
+const Container__Options = styled.div`
   width: calc(100vw - 9.6rem);
   max-width: 120rem;
 
@@ -173,29 +158,5 @@ const OptionContainer = styled.div`
 
   @media (max-width: ${DeviceSize.mobile}) {
     grid-template-columns: repeat(2, minmax(15.2rem, 32.8rem));
-  }
-`;
-
-const Contents__button = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
-  margin: auto;
-
-  @media (max-width: ${DeviceSize.tablet}) {
-    position: fixed;
-
-    left: 50%;
-    bottom: 2.4rem;
-    transform: translateX(-50%);
-  }
-
-  @media (max-width: ${DeviceSize.mobile}) {
-    min-width: 32rem;
-
-    position: fixed;
-
-    left: 50%;
-    bottom: 2.4rem;
-    transform: translateX(-50%);
   }
 `;

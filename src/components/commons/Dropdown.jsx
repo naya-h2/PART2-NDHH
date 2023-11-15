@@ -1,19 +1,17 @@
+import arrowDown from "@/assets/arrow_down.svg";
+import arrowUp from "@/assets/arrow_top.svg";
+import { FONT16 } from "@/styles/FontStyles";
+import PropTypes from "prop-types";
 import { useState } from "react";
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
-import { FONT16 } from "@/styles/FontStyles";
-import arrowUp from "@/assets/arrow_top.svg";
-import arrowDown from "@/assets/arrow_down.svg";
-
-const RELATIONSHIP = ["지인", "가족", "친구", "애인", "동료"];
 
 Dropdown.propTypes = {
   disabled: PropTypes.bool,
+  font: PropTypes.bool,
 };
 
-function Dropdown({ disabled }) {
+function Dropdown({ disabled, value, setValue, items }) {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("지인");
   const [arrowDirection, setArrowDirection] = useState(arrowDown);
 
   const toggleDropdown = () => {
@@ -21,30 +19,43 @@ function Dropdown({ disabled }) {
     setArrowDirection(showDropdown ? arrowDown : arrowUp);
   };
 
-  const handleSelect = (value) => {
-    setSelectedValue(value); // 선택된 값을 설정하면
-    setShowDropdown(false); // 드롭다운을 닫음
-    setArrowDirection(arrowDown); // 화살표 방향을 원래대로 변경
+  const handleBlur = (event) => {
+    if (!event.relatedTarget || event.relatedTarget.tagName !== "LI") {
+      setShowDropdown(false);
+      setArrowDirection(arrowDown);
+    }
+  };
+
+  const handleSelect = (item) => () => {
+    setValue(item);
+    setShowDropdown(false);
+    setArrowDirection(arrowDown);
   };
 
   return (
-    <Container onClick={toggleDropdown} disabled={disabled}>
-      {/* children으로 받아올 예정 */}
-      {selectedValue}
-      <ArrowImg src={arrowDirection} alt="클릭해서 옵션 선택하기" />
-      <List $show={showDropdown}>
-        {/* children으로 받아올 예정 */}
-        {RELATIONSHIP.map((relationship, idx) => (
-          <Text key={idx} onClick={() => handleSelect(relationship)}>
-            {relationship}
-          </Text>
-        ))}
-      </List>
+    <Container disabled={disabled}>
+      <Wrapper onClick={toggleDropdown} onBlur={handleBlur}>
+        {value ?? items[0]}
+        <ArrowImg src={arrowDirection} alt="클릭해서 옵션 선택하기" />
+      </Wrapper>
+      {showDropdown && (
+        <List autoFocus={true}>
+          {items.map((item, idx) => (
+            <Text tabIndex={0} key={idx} onClick={handleSelect(item)}>
+              {item}
+            </Text>
+          ))}
+        </List>
+      )}
     </Container>
   );
 }
 
 const Container = styled.div`
+  position: relative;
+`;
+
+const Wrapper = styled.button`
   position: relative;
   width: 32rem;
   height: 5rem;
@@ -53,6 +64,7 @@ const Container = styled.div`
   border: 0.1rem solid var(--Gray3);
   background: var(--White);
 
+  text-align: left;
   ${FONT16}
   color: var(--Gray5);
 
@@ -91,11 +103,11 @@ const ArrowImg = styled.img`
 `;
 
 const List = styled.ul`
-  display: ${({ $show }) => ($show ? "block" : "none")};
+  display: block;
   width: 32rem;
   position: absolute;
   top: 5.8rem;
-  right: 0;
+  left: 0;
   padding: 1rem 0.1rem;
 
   border-radius: 0.8rem;
@@ -112,12 +124,11 @@ const Text = styled.li`
   display: flex;
   align-items: center;
 
-  color: var(--Gray9);
-  ${FONT16}
-
   &:hover {
     background: var(--Gray1);
   }
+
+  ${FONT16}
 `;
 
 export default Dropdown;

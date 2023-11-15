@@ -1,198 +1,207 @@
-import styled from "styled-components";
-import { FONT16, FONT18B, FONT24B } from "@/styles/FontStyles";
-import Input from "@/components/commons/Input";
 import Dropdown from "@/components/commons/Dropdown";
 import TextEditor from "@/components/commons/Editor";
-import Button from "@/components/commons/Button";
-import defaultImg from "@/assets/default_profile.svg";
-import { Link } from "react-router-dom";
-import { DeviceSize } from "@/styles/DeviceSize";
+import Option from "@/components/commons/Option";
+import { Container, Submit, Title } from "@/components/instances/CreateMessage";
+import { REL } from "@/styles/ColorStyles";
+import { FONT16, FONT24B } from "@/styles/FontStyles";
+import { useState } from "react";
+import styled, { keyframes } from "styled-components";
+
+const DEFAULT = "https://i.ibb.co/YBLJML7/Frame-2593.png";
+
+const INITIAL = {
+  sender: "",
+  URL: DEFAULT,
+  relationship: REL.O,
+  content: undefined,
+  font: "Noto Sans",
+};
 
 function Layout() {
+  const [value, setValue] = useState(INITIAL);
+
   return (
     <Container>
-      <Wrapper>
-        <Title />
-        <Profile />
-        <Relationship />
-        <Edit />
-        <Submit />
-      </Wrapper>
+      <Title message value={value.sender} setValue={setValue} />
+      <Profile setValue={setValue} />
+      <Relationship value={value.relationship} setValue={setValue} />
+      <Edit setValue={setValue} />
+      <Submit value={value} />
     </Container>
   );
 }
 
 export default Layout;
 
-function Title() {
-  return (
-    <Contents__title>
-      <p>From.</p>
-      <Input placeholder="이름을 입력해 주세요." />
-    </Contents__title>
-  );
-}
-
-function Profile() {
-  return (
-    <Contents__profile>
-      <p>프로필 이미지</p>
-      <div>
-        <img src={defaultImg} alt="설정된 프로필 이미지" />
-        <div>
-          <p>프로필 이미지를 선택해주세요!</p>
-          {PROFILE_IMG.map((img, idx) => (
-            <ProfileImg key={idx} src={img} />
-          ))}
-        </div>
-      </div>
-    </Contents__profile>
-  );
-}
-
-const PROFILE_IMG = [defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg, defaultImg];
-
-function Relationship() {
+function Profile({ ...props }) {
   return (
     <BaseContents>
-      <p>상대와의 관계</p>
-      <Dropdown />
+      <p>
+        프로필. <span>당신을 보여주기에 딱인 곳.</span>
+      </p>
+      <ProfileImgControl {...props} />
     </BaseContents>
   );
 }
 
-function Edit() {
+function ProfileImgControl({ setValue }) {
+  const [imgs, setImgs] = useState([DEFAULT]);
+  const [selected, setSelected] = useState(0);
+
   return (
-    <>
-      <BaseContents>
-        <p>내용을 입력해 주세요</p>
-        <TextEditor />
-      </BaseContents>
-      <BaseContents>
-        <p>폰트 선택</p>
-        <Dropdown />
-      </BaseContents>
-    </>
+    <Contents__profileControl>
+      <ProfileImg $src={imgs[selected]} alt="설정된 프로필 이미지" />
+      <p>{imgs.length > 1 ? `상대에게 설명해 줄 나의 모습.` : `어떤 모습이든지. 아름다운 당신.`}</p>
+      <AddImg setValue={setValue} imgs={imgs} setImgs={setImgs} selected={selected} setSelected={setSelected} />
+    </Contents__profileControl>
   );
 }
 
-// 이거 components/instances/FixedButton 컴포넌트랑 똑같아서 그거 사용하셔도 괜찮을 것 같아욤
-function Submit() {
+function AddImg({ setValue, imgs, setImgs, selected, setSelected }) {
+  const handleClick = (idx, profileImageURL) => () => {
+    setSelected(idx);
+    setValue((prev) => ({ ...prev, profileImageURL }));
+  };
+
   return (
-    <Contents__submit>
-      <Button type="primary" height="xl">
-        <Link to="/post/id">
-          <ButtonText>생성하기</ButtonText>
-        </Link>
-      </Button>
-    </Contents__submit>
+    <Contents__addImg>
+      <Option setValue={setValue} setImgs={setImgs} setSelected={setSelected} />
+      {imgs.map((img, idx) => (
+        <Option key={idx} alt={`${idx + 1}번째로 추가한 사진`} check={selected === idx} img={img} onClick={handleClick(idx, img)} />
+      ))}
+    </Contents__addImg>
   );
 }
 
-const Container = styled.div`
-  width: 100%;
-  margin-top: 5rem;
+const RELATIONSHIP = Object.values(REL);
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+function Relationship({ value, setValue }) {
+  const handleClick = (relationship) => {
+    setValue((prev) => ({ ...prev, relationship }));
+  };
 
-const Wrapper = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
-  padding-bottom: 5rem;
+  return (
+    <BaseContents>
+      <p>
+        너의 의미. <span>어떤 사람이 되고 싶으세요?</span>
+      </p>
+      <Dropdown value={value} setValue={handleClick} items={RELATIONSHIP} />
+    </BaseContents>
+  );
+}
 
-  display: flex;
-  flex-direction: column;
-  gap: 5rem;
-
-  @media screen and (max-width: ${DeviceSize.pc}) {
-    width: calc(100vw - 9.6rem);
-    padding-bottom: 12rem;
-  }
-
-  @media screen and (max-width: ${DeviceSize.mobile}) {
-    width: calc(100vw - 9.6rem);
-    min-width: 32rem;
-    padding-bottom: 12rem;
-  }
-`;
+function Edit({ setValue }) {
+  return (
+    <BaseContents>
+      <p>
+        보내고 싶은 단편. <span>애틋함을 아로새기다.</span>
+      </p>
+      <TextEditor setValue={setValue} />
+    </BaseContents>
+  );
+}
 
 const BaseContents = styled.div`
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 
   > p {
     ${FONT24B}
-  }
-`;
 
-const Contents__title = styled(BaseContents)`
-  input {
-    width: 100%;
-  }
-`;
-
-const Contents__profile = styled(BaseContents)`
-  > img {
-    width: 8rem;
-  }
-
-  > div {
-    display: flex;
-    gap: 3.2rem;
-
-    p {
-      margin-bottom: 1.2rem;
-
-      ${FONT16};
+    > span {
+      ${FONT24B}
       color: var(--Gray5);
     }
   }
 `;
 
-const ProfileImg = styled.img`
-  width: 56px;
-  height: 56px;
-  margin-right: 0.4rem;
+const Contents__profileControl = styled.div`
+  display: grid;
+  grid-template: auto auto / auto 1fr;
+  grid-template-areas:
+    "img text"
+    "img add";
+  column-gap: 3.2rem;
 
-  border-radius: 100px;
-  border: 1px solid var(--Gray2);
+  > p {
+    margin-bottom: 1.2rem;
 
-  background: var(--white);
-`;
+    ${FONT16};
+    color: var(--Gray5);
 
-const ButtonText = styled.p`
-  width: 23.2rem;
-  ${FONT18B};
-
-  @media (max-width: 1199px) {
-    width: calc(100vw - 9.6rem);
+    grid-area: text;
   }
 `;
 
-const Contents__submit = styled.div`
-  width: calc(100vw - 9.6rem);
-  max-width: 120rem;
-  margin: auto;
+const ProfileImg = styled.div`
+  width: 9.3rem;
+  height: 9.3rem;
+  border-radius: 10rem;
 
-  @media (max-width: ${DeviceSize.pc}) {
-    position: fixed;
+  grid-area: img;
 
-    left: 50%;
-    bottom: 2.4rem;
-    transform: translateX(-50%);
+  ${({ $src }) => $src && `background-image: url(${$src}); background-size: cover;`}
+`;
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const Contents__addImg = styled.div`
+  grid-area: add;
+  display: flex;
+  align-items: center;
+
+  > button:first-child {
+    background-color: var(--Gray5);
+
+    transition: 0.5s ease-in;
+
+    &:hover,
+    &:focus-within {
+      width: 15rem;
+      height: 5.6rem;
+
+      display: flex;
+      align-items: center;
+
+      background-color: var(--Gray2);
+
+      transition: 0.5s ease-out;
+
+      label {
+        animation: ${fadeIn} 1.5s;
+      }
+    }
+
+    img {
+      width: 5.6rem;
+    }
   }
 
-  @media (max-width: ${DeviceSize.mobile}) {
-    min-width: 32rem;
+  > button {
+    width: 5.6rem;
+    height: 5.6rem;
+    margin-right: 0.4rem;
 
-    position: fixed;
+    border: 0;
+    border-radius: 10rem;
 
-    left: 50%;
-    bottom: 2.4rem;
-    transform: translateX(-50%);
+    &::after {
+      display: none;
+    }
+
+    div {
+      width: 60%;
+      height: 60%;
+    }
   }
 `;

@@ -4,12 +4,12 @@ import { DeviceSize } from "@/styles/DeviceSize";
 import COMPLETED_IMG from "@/assets/completed.svg";
 import CLOSE_IMG from "@/assets/close.svg";
 
-function Toast() {
+function Toast({ ...props }) {
   return (
     <Container>
       <img src={COMPLETED_IMG} alt="완료" />
       <p>URL이 복사 되었습니다.</p>
-      <button>
+      <button {...props}>
         <img src={CLOSE_IMG} alt="안내창을 닫는 버튼" />
       </button>
     </Container>

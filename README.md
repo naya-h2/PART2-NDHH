@@ -1,9 +1,15 @@
-# 💌 롤링 by NDHH
+# 💌 Rolling by NDHH
 
 추억의 롤링 페이퍼를 웹 상에서 즐겨보세요!
 
 > 코드잇 스프린트-프론트엔드 1기 PART2 - 7팀<br>
 > 개발기간: 2023. 11. 05 ~ 2023. 11
+
+## 💡 프로젝트 소개
+
+- Rolling은 누구나 쉽게 롤링 페이퍼를 만들고, 작성할 수 있는 웹 플랫폼입니다.
+- `롤링 페이퍼 만들기` 버튼을 눌러 롤링 페이퍼를 직접 만들 수 있습니다.
+- 롤링 페이퍼에 메세지를 직접 작성하거나 삭제할 수 있습니다.
 
 ## 👨‍👩‍👧‍👧 팀원 소개
 
@@ -29,10 +35,8 @@
 ## ⚙️ 기술 스택
 
 <img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white">
-<br>
 <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
-<br>
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 <img src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white">

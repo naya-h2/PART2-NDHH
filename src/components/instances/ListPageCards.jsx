@@ -1,10 +1,13 @@
+import { useState } from "react";
 import styled from "styled-components";
 import CardList from "@/components/Cardlist";
 import Button from "@/components/commons/Button";
-import { useState } from "react";
+import { FONT20B, FONT24B } from "@/styles/FontStyles.js";
 import { DeviceSize } from "@/styles/DeviceSize";
+import { Z_INDEX } from "@/styles/ZindexStyles";
+import { Link } from "react-router-dom";
 
-function ListPageCards({ cards }) {
+function ListPageCards({ cards, children }) {
   const [scrollX, setScrollX] = useState(0);
   const [showNextButton, setShowNextButton] = useState(true);
 
@@ -18,40 +21,77 @@ function ListPageCards({ cards }) {
     }
   };
   const handleClickReverse = () => {
+    setScrollX(scrollX + 29.5);
+    setShowNextButton(true);
+  };
+
+  const handleDbClick = () => {
+    setScrollX(-29.5 * (cardsQuantity - 4)); // 카드 리스트 제일 끝으로 이동
+    setShowNextButton(false);
+  };
+
+  const handleDbClickReverse = () => {
     setScrollX(0);
     setShowNextButton(true);
   };
 
   return (
-    <Container>
-      <Wrapper>
-        {scrollX !== 0 && <CustomButton onClick={handleClickReverse} type={"arrowLeft"} width="40" $isReverse />}
-        <Items $num={cardsQuantity} style={{ transform: `translateX(${scrollX}rem)` }}>
-          {cards.map((card, index) => {
-            return <CardList data={card} key={index} />;
-          })}
-        </Items>
-        {showNextButton && <CustomButton onClick={handleClick} type={"arrowRight"} width="40" />}
-      </Wrapper>
-    </Container>
+    <>
+      {/* <P>{children}</P> */}
+      <Container>
+        <Wrapper $isSmall={cardsQuantity < 4}>
+          {scrollX !== 0 && cardsQuantity > 4 && <CustomButton onClick={handleClickReverse} onDoubleClick={handleDbClickReverse} type={"arrowLeft"} width="40" $isReverse />}
+          <Items $num={cardsQuantity} style={{ transform: `translateX(${scrollX}rem)` }}>
+            {cards.map((card, index) => {
+              return (
+                <Link to={`/post/${card.id}`} key={index}>
+                  <CardList data={card} />
+                </Link>
+              );
+            })}
+          </Items>
+          {showNextButton && cardsQuantity > 4 && <CustomButton onClick={handleClick} onDoubleClick={handleDbClick} type={"arrowRight"} width="40" />}
+        </Wrapper>
+      </Container>
+    </>
   );
 }
 
 export default ListPageCards;
 
 const Container = styled.div`
-  width: 120rem; // 태블릿 사이즈 기준으로 width 정하면 카드 4개가 안나와서
+  /* width: 120rem; // 태블릿 사이즈 기준으로 width 정하면 카드 4개가 안나와서 */
+
+  /* margin-left: 4.8rem; */
 
   position: relative;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
 
   @media (max-width: ${DeviceSize.pc}) {
-    width: 100vw;
+    width: 100%; // 3개 이하일때 중앙정렬 안됨
+    /* min-width: 86rem; */
+
+    /* margin-left: 2.4rem; */
+
     justify-content: start;
   }
 `;
+
+// const P = styled.p`
+//   width: 100%;
+
+//   margin: 5rem 0 1.6rem 0rem;
+
+//   ${FONT24B};
+
+//   @media (max-width: ${DeviceSize.mobile}) {
+//     ${FONT20B};
+//     margin: ${(props) => (props.$Mobile ? "7.2rem 0 1.2rem 0" : "4rem 0 1.2rem 0")};
+//   }
+// `;
 
 const Wrapper = styled.div`
   max-width: 116rem;
@@ -63,6 +103,7 @@ const Wrapper = styled.div`
 
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; /* iOS 스와이프 지원 */
+    /* margin: ${({ $isSmall }) => ($isSmall ? "auto" : "")}; */
   }
 `;
 
@@ -77,10 +118,12 @@ const Items = styled.div`
   transition: transform 0.3s;
 
   @media (max-width: ${DeviceSize.pc}) {
-    margin-left: 2.4rem; // 오른쪽 마진 추후 추가하겠습니다.
+    /* margin-left: 2.4rem; // 오른쪽 마진 추후 추가하겠습니다. */
   }
 
   @media (max-width: ${DeviceSize.mobile}) {
+    /* margin-left: 2rem; */
+
     grid-template-columns: repeat(${(props) => props.$num}, 1fr);
     gap: 1.2rem;
   }
@@ -88,12 +131,14 @@ const Items = styled.div`
 
 const CustomButton = styled(Button)`
   position: absolute;
-  top: 50%;
-  z-index: 1;
+  /* top: 50%; */
+  bottom: 9rem;
+
+  z-index: ${Z_INDEX.list_page_arrow_button};
 
   transform: translateY(-50%);
 
-  ${(props) => (props.$isReverse ? "left: 0" : "right: 0")};
+  ${(props) => (props.$isReverse ? "left: -2rem" : "right: -2rem")};
 
   img {
     width: 4rem;

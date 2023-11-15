@@ -8,23 +8,12 @@ Input.propTypes = {
   disabled: PropTypes.bool,
 };
 
-function Input({ placeholder, disabled }) {
-  // iserror에 boolean 값 전달해주면 안돼서 state로 falsy, truthy한 값 전달해줌
-  const [error, setError] = useState("");
-
-  const handleInputChange = (e) => {
-    // input에 아무 값도 입력하지 않았을 경우
-    if (!e.target.value) {
-      setError("true");
-    } else {
-      setError("");
-    }
-  };
-
+function Input({ placeholder, disabled, pwError, inputRef, ...props }) {
   return (
     <>
-      <Container $error={error} onBlur={handleInputChange} placeholder={placeholder} disabled={disabled} />
-      {error && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>}
+      <Container ref={inputRef} $error={pwError} placeholder={placeholder} disabled={disabled} {...props} />
+      {pwError === "true" && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>}
+      {pwError === true && <ErrorMessage>비밀번호를 다시 입력해 주세요.</ErrorMessage>}
     </>
   );
 }
@@ -61,16 +50,16 @@ const Container = styled.input`
   ${({ $error }) =>
     $error &&
     `
-    border: 0.1rem solid var(--Error);
+    border: 0.1rem solid var(--Error2);
     
     &:hover {
-      outline: 0.1rem solid var(--Error);
+      outline: 0.1rem solid var(--Error2);
     }
     &:focus {
-      outline: 0.2rem solid var(--Error);
+      outline: 0.2rem solid var(--Error2);
     }
     &:active {
-      outline: 0.2rem solid var(--Error);
+      outline: 0.2rem solid var(--Error2);
     }
   `}
 `;
@@ -80,6 +69,6 @@ const ErrorMessage = styled.div`
   height: 1.8rem;
   margin-top: 0.4rem;
 
-  color: var(--Error);
+  color: var(--Error2);
   ${FONT12}
 `;
