@@ -6,7 +6,7 @@ import { DeviceSize } from "@/styles/DeviceSize";
 import { Z_INDEX } from "@/styles/ZindexStyles";
 import { Link } from "react-router-dom";
 
-function ListPageCards({ cards, children }) {
+function ListPageCards({ cards }) {
   const [scrollX, setScrollX] = useState(0);
   const [showNextButton, setShowNextButton] = useState(true);
 
