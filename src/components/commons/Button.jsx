@@ -13,7 +13,7 @@ import { HEIGHTS, TYPES } from "@/styles/ButtonStyles";
 Button.propTypes = {
   width: PropTypes.string,
   height: PropTypes.oneOf(["xl", "l", "m", "s"]),
-  type: PropTypes.oneOf(["primary", "secondary", "outlined", "plus", "trash", "arrowRight", "arrowLeft", "error"]),
+  type: PropTypes.oneOf(["primary", "secondary", "outlined", "plus", "trash", "redo", "arrowRight", "arrowLeft", "error"]),
   disabled: PropTypes.bool,
   icon: PropTypes.bool,
   children: PropTypes.node,
