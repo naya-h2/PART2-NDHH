@@ -1,10 +1,11 @@
+import searchImg from "@/assets/search.svg";
+import { DeviceSize } from "@/styles/DeviceSize";
+import { FONT16 } from "@/styles/FontStyles";
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import searchImg from "@/assets/search.svg";
-import { FONT14, FONT16 } from "@/styles/FontStyles";
 
-function Search() {
-  const [value, setValue] = useState(undefined);
+function Search({ setKeyword }) {
+  const [value, setValue] = useState("");
   const input = useRef();
 
   const handleChange = () => {
@@ -12,13 +13,18 @@ function Search() {
     setValue(newValue);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setKeyword(value);
+  };
+
   return (
     <>
-      <Container>
+      <Container onSubmit={handleSubmit}>
         <Input ref={input} value={value} onChange={handleChange} placeholder="롤링페이퍼를 검색해 보세요." />
         <InputWrapper>
           <InputImg src={searchImg} />
-          <InputButton>추가하기</InputButton>
+          <InputButton>검색하기</InputButton>
         </InputWrapper>
       </Container>
     </>
@@ -28,13 +34,17 @@ function Search() {
 export default Search;
 
 const Container = styled.form`
-  width: 100%;
+  width: 70rem;
 
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 5rem;
+
+  @media screen and (max-width: ${DeviceSize.mobile}) {
+    width: 100%;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -49,7 +59,7 @@ const InputWrapper = styled.div`
 
 const Input = styled.input`
   width: 100%;
-  padding: 1.2rem 1rem 1.2rem 2.8rem;
+  padding: 1.6rem 1rem 1.6rem 2.8rem;
   border: 0.1rem solid var(--Gray4);
   border-radius: 1.5rem;
 
