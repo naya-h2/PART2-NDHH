@@ -36,6 +36,7 @@ function usePostData(value) {
       }
 
       const { id } = await api("RECIPIENTS", "POST", null, makeRecipient(value));
+
       if (id) {
         navigate(`/post/${id}`);
         return

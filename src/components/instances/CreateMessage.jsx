@@ -64,8 +64,7 @@ export const Container = styled.div`
   width: calc(100vw - 9.6rem);
   max-width: 120rem;
 
-  margin: auto;
-  margin-top: 5rem;
+  margin: 5rem auto;
 
   display: flex;
   align-items: flex-start;
