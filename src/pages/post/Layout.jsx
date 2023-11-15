@@ -190,7 +190,7 @@ export default Layout;
 
 const back = keyframes`
   50% {
-    padding-right: 3rem;
+    padding-right: 7rem;
   }
 `;
 
@@ -209,9 +209,14 @@ const Background = styled.div`
 
   > button {
     width: 20rem;
-    height: 100%;
+    height: 10rem;
 
-    padding-left: 1rem;
+    padding-right: 4rem;
+    padding-bottom: 1rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: end;
 
     position: absolute;
     top: 0;
@@ -219,8 +224,9 @@ const Background = styled.div`
 
     animation: ${back} 2s infinite;
 
-    &:hover {
-      background-color: RGBA(0, 0, 0, 0.5);
+    img {
+      width: 8rem;
+      height: auto;
     }
   }
 `;
