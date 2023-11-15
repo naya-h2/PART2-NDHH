@@ -1,6 +1,6 @@
-import { BLUE, GRAYSCALE, GREEN, MAIN, ORANGE, PURPLE } from '@/styles/ColorStyles';
-import { FONT16 } from '@/styles/FontStyles';
-import { createGlobalStyle, keyframes } from 'styled-components';
+import { BLUE, GRAYSCALE, GREEN, MAIN, ORANGE, PURPLE } from "@/styles/ColorStyles";
+import { FONT16 } from "@/styles/FontStyles";
+import { createGlobalStyle, keyframes } from "styled-components";
 
 const fadeIn = keyframes`
   0% {
@@ -40,8 +40,6 @@ const GlobalStyles = createGlobalStyle`
     vertical-align: baseline;
     /* animation: ${fadeIn} 0.3s ease-out; */
   }
-
-
   
   ol, ul{
     list-style: none;
@@ -54,33 +52,38 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
   }
 
-  body{
+ html{
+    margin-left: 14px;
+
     line-height: 1;
     font-family: 'Noto Sans KR', sans-serif;
-    background-color: #FFFFFF;
+    background-color: #FFFFFF;  
 
-    overflow-y: scroll;    
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    /* overflow: overlay; */
   }
-    ::-webkit-scrollbar {
-    width: 14px;
-    height: 14px;
-}
+
+  ::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+  }
 
   ::-webkit-scrollbar-thumb {
-    outline: none;
-    border-radius: 10px;
-    border: 4px solid transparent;
-    box-shadow: inset 6px 6px 0 rgba(34, 34, 34, 0.15);
+  outline: none;
+  border-radius: 10px;
+  border: 4px solid transparent;
+  box-shadow: inset 6px 6px 0 rgba(34, 34, 34, 0.15);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    border: 4px solid transparent;
-    box-shadow: inset 6px 6px 0 rgba(34, 34, 34, 0.3);
+  border: 4px solid transparent;
+  box-shadow: inset 6px 6px 0 rgba(34, 34, 34, 0.3);
   }
 
   ::-webkit-scrollbar-track {
-    box-shadow: none;
-    background-color: transparent;
+  box-shadow: none;
   }
 `;
 

@@ -5,6 +5,7 @@ import iconWhite from "@/assets/add-24-white.svg";
 import plusIcon from "@/assets/plus.svg";
 import deleteBlack from "@/assets/deleted_black.svg";
 import deleteWhite from "@/assets/deleted_white.svg";
+import redo from "@/assets/redo.svg";
 import arrowRight from "@/assets/arrow_right.svg";
 import arrowLeft from "@/assets/arrow_left.svg";
 import { HEIGHTS, TYPES } from "@/styles/ButtonStyles";
@@ -29,6 +30,7 @@ function Button({ width, height, type, disabled, icon, children, ...props }) {
       {icon && <IconFace src={iconFace} alt="이모티콘 추가하기" $heights={height} />}
       {type === "plus" && <IconSmall src={plusIcon} alt="롤링페이퍼 만들기" />}
       {type === "trash" && <IconSmall src={deleteIcon} alt="롤링페이퍼 삭제하기" />}
+      {type === "redo" && <IconSmall src={redo} alt="삭제한 메시지 되돌리기" />}
       {type === "arrowRight" && <IconLarge src={arrowRight} alt="목록 오른쪽으로 넘기기" />}
       {type === "arrowLeft" && <IconLarge src={arrowLeft} alt="목록 첫번째로 돌아가기" />}
       {children}

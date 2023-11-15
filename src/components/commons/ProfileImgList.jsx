@@ -64,6 +64,7 @@ const Rest = styled.div`
   display: flex;
   align-items: center;
 
+  border: 0.1rem solid var(--Gray3);
   border-radius: 3rem;
 
   background-color: var(--White);

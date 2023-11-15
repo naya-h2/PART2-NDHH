@@ -1,3 +1,4 @@
+import Button from "@/components/commons/Button";
 import Input from "@/components/commons/Input";
 import Option from "@/components/commons/Option";
 import ToggleButton from "@/components/commons/ToggleButton";
@@ -8,6 +9,8 @@ import { DeviceSize } from "@/styles/DeviceSize";
 import { FONT16, FONT24B } from "@/styles/FontStyles";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+
+const DefaultBG = ["https://i.ibb.co/kgwVr13/xmas2.jpg", "https://i.ibb.co/M5fwrdQ/xmas.jpg", "https://i.ibb.co/zhfb9x3/forest.jpg", "https://i.ibb.co/xD8zBpL/nighthouse.jpg"];
 
 const INITIAL = {
   name: "",
@@ -69,9 +72,9 @@ function SelectOption({ value, setValue }) {
 }
 
 function Options({ selectedType, setValue }) {
-  const [imgs, setImgs] = useState([]);
+  const [imgs, setImgs] = useState(DefaultBG);
   const [orderColor, setOrderColor] = useState(0);
-  const [orderImg, setOrederImg] = useState(0);
+  const [orderImg, setOrederImg] = useState("");
   const isColor = selectedType === SELECTED.color ? true : false;
 
   const handleOptionClick = (idx, item) => () => {
