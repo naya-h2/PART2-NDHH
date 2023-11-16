@@ -1,5 +1,4 @@
 import { BLUE, GRAYSCALE, GREEN, MAIN, ORANGE, PURPLE } from "@/styles/ColorStyles";
-import { FONT16 } from "@/styles/FontStyles";
 import { createGlobalStyle, keyframes } from "styled-components";
 
 const fadeIn = keyframes`
@@ -52,7 +51,7 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
   }
 
- html{
+  html{
     line-height: 1;
     font-family: 'Noto Sans KR', sans-serif;
     background-color: #FFFFFF;  
