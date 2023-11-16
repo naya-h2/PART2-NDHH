@@ -1,22 +1,11 @@
 import { useRef } from "react";
 import styled from "styled-components";
-import SunEditor from "suneditor-react";
-import "suneditor/dist/css/suneditor.min.css";
 import { FONT12, FONT20B, FONT24 } from "@/styles/FontStyles";
-import lang from "suneditor/src/lang";
+import "react-quill/dist/quill.snow.css";
+import ReactQuill from "react-quill";
 
 function TextEditor({ setValue }) {
   const editor = useRef();
-
-  const getSunEditorInstance = (sunEditor) => {
-    editor.current = sunEditor;
-    editor.current.core.context.element.toolbar.querySelectorAll("button").forEach((button) => (button.tabIndex = 0));
-    editor.current.onKeyDown = (event) => {
-      if ((event.shiftKey && event.key === "Tab") || event.key === "Tab") {
-        throw new Error("Keyboard focusable을 위한 에러입니다.");
-      }
-    };
-  };
 
   const handleChange = (content) => {
     setValue((prev) => ({ ...prev, content }));
@@ -24,21 +13,7 @@ function TextEditor({ setValue }) {
 
   return (
     <Container>
-      <SunEditor
-        height="26rem"
-        getSunEditorInstance={getSunEditorInstance}
-        setDefaultStyle="font-family: Noto Sans; font-size: 1.6rem;"
-        setOptions={{
-          font: ["Noto Sans", "Pretendard"],
-          fontSize: [8, 10, 12, 14, 15, 16, 18, 20, 24],
-          buttonList: [["bold", "italic", "underline", "align", "fontColor", "hiliteColor", "font", "fontSize", "image"]],
-          lang: lang.ko,
-        }}
-        onChange={handleChange}
-        placeholder="당신의 마음을 표현해주세요."
-      />
-      <span>마우스 드래그로 박스 크기를 조정해 보세요!</span>
-      <p>Ctrl키를 두 번 눌러 에디터 바깥으로 나갈 수 있습니다.</p>
+      <ReactQuill style={{ width: "100%", height: "26rem" }} placeholder="당신의 마음을 표현하세요." onChange={handleChange} />
     </Container>
   );
 }
