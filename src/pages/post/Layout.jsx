@@ -1,11 +1,14 @@
+import api from "@/api/api";
 import Header from "@/components/Header";
 import ButtonControl from "@/components/post/ButtonControl";
 import CardGrid from "@/components/post/CardGrid";
+import useCatch from "@/hooks/useCatch";
 import useGetData from "@/hooks/useGetData";
+import useObserver from "@/hooks/useObserver";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { checkEditToken } from "@/utils/checkEditToken";
 import propTypes from "prop-types";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -14,37 +17,33 @@ Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
 };
 
+const LIMIT = 8;
+
 function Layout({ path = "" }) {
   const { id } = useParams();
   const [DEP, setDEP] = useState([]);
+  const [recipientData] = useGetData("RECIPIENTS_ID", id, DEP);
+  const [messageData, setMessageData] = useGetData("RECIPIENTS_MESSAGES", id, DEP, 1000);
+  const [reactions] = useGetData("RECIPIENTS_REACTIONS", id, DEP);
   const [delList, setDelList] = useState([]);
-
-  const recipientData = useGetData("RECIPIENTS_ID", id, null, DEP);
-  const messageData = useGetData("RECIPIENTS_MESSAGES", id, 1000, DEP);
-  const reactions = useGetData("RECIPIENTS_REACTIONS", id, null, DEP);
-
-  checkEditToken(id, path);
-  if (!recipientData || !messageData) return;
 
   return (
     <>
-      {path === "edit" ? (
-        <Helmet>
-          <title>Edit | Rolling</title>
-        </Helmet>
-      ) : (
-        <Helmet>
-          <title>{recipientData.name.slice(0, -4)} | Rolling</title>
-        </Helmet>
+      {recipientData && messageData && (
+        <>
+          <Helmet>
+            <title>{path === "edit" ? `Edit` : recipientData.name.slice(0, -4)} | Rolling</title>
+          </Helmet>
+          <Header userData={recipientData} setDEP={setDEP} reactions={reactions} serviceType />
+          <Background $color={recipientData.backgroundColor} $url={recipientData.backgroundImageURL}>
+            {recipientData.backgroundImageURL && <Mask></Mask>}
+            <Container>
+              <ButtonControl recipientData={recipientData} setDEP={setDEP} path={path} delList={delList} setDelList={setDelList} recentMessages={messageData} />
+              <CardGrid path={path} messageCount={recipientData.messageCount} recentMessages={messageData} setDelList={setDelList} />
+            </Container>
+          </Background>
+        </>
       )}
-      <Header userData={recipientData} setDEP={setDEP} reactions={reactions} serviceType />
-      <Background $color={recipientData.backgroundColor} $url={recipientData.backgroundImageURL}>
-        {recipientData.backgroundImageURL && <Mask></Mask>}
-        <Container>
-          <ButtonControl recipientData={recipientData} setDEP={setDEP} path={path} delList={delList} setDelList={setDelList} recentMessages={messageData} />
-          <CardGrid path={path} messageCount={recipientData.messageCount} recentMessages={messageData} setDelList={setDelList} />
-        </Container>
-      </Background>
     </>
   );
 }
