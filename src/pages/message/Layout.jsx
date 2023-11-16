@@ -65,9 +65,9 @@ function ProfileImgControl({ setValue }) {
 }
 
 function AddImg({ setValue, imgs, setImgs, selected, setSelected }) {
-  const handleClick = (idx, profileImageURL) => () => {
+  const handleClick = (idx, URL) => () => {
     setSelected(idx);
-    setValue((prev) => ({ ...prev, profileImageURL }));
+    setValue((prev) => ({ ...prev, URL }));
   };
 
   return (
