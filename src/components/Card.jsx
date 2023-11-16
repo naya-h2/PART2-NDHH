@@ -147,30 +147,15 @@ const DeleteIcon = styled.div`
 `;
 
 const Content = styled.div`
-  max-height: 10rem;
   padding-right: 1rem;
 
-  > p {
-    ${FONT16}
-  }
-
-  span,
-  strong,
-  em,
-  u {
-    font: inherit;
-  }
-
-  strong {
-    font-weight: bold;
-  }
-
-  em {
-    font-style: italic;
+  p {
+    font-size: 1.6rem;
+    font-weight: 400;
   }
 
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
 
