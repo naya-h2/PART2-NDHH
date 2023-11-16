@@ -10,15 +10,13 @@ import { useMemo, useState } from "react";
 import styled from "styled-components";
 
 function Layout() {
-  const [test, setTest] = useState(true);
   const [keyword, setKeyword] = useState("");
   const Cards = useGetData("RECIPIENTS", null, 1000);
   const NewestCards = useMemo(() => Cards && sortNew([...Cards]), [Cards]);
   const HottestCards = useMemo(() => Cards && sortHot([...Cards]), [Cards]);
   const SearchedCards = useMemo(() => keyword && Cards.filter(({ name }) => name.slice(0, -4).toLowerCase().includes(keyword.toLowerCase())), [keyword]);
 
-  if (test && !Cards) {
-    setTimeout(() => setTest(false), 2000);
+  if (!Cards) {
     return <Skeleton />;
   }
 
