@@ -62,6 +62,10 @@ function Layout({ path = "" }) {
   checkEditToken(id, path);
   if (!recipientData || !reactions) return;
 
+  const handleClick = () => {
+    navigate("/list");
+  };
+
   return (
     <>
       {path === "edit" ? (
@@ -81,12 +85,21 @@ function Layout({ path = "" }) {
           <CardGrid path={path} messageCount={recipientData.messageCount} recentMessages={items} setDelList={setDelList} />
         </Container>
         <div ref={target}></div>
+        <button onClick={handleClick}>
+          <img src={arrowImg} />
+        </button>
       </Background>
     </>
   );
 }
 
 export default Layout;
+
+const back = keyframes`
+  50% {
+    padding-right: 7rem;
+  }
+`;
 
 const Background = styled.div`
   width: 100%;
@@ -100,6 +113,29 @@ const Background = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
+  > button {
+    width: 20rem;
+    height: 10rem;
+
+    padding-right: 4rem;
+    padding-bottom: 1rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: end;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    animation: ${back} 2s infinite;
+
+    img {
+      width: 8rem;
+      height: auto;
+    }
+  }
 `;
 
 const Mask = styled.div`
