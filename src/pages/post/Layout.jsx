@@ -1,15 +1,11 @@
-import api from "@/api/api";
 import Header from "@/components/Header";
 import ButtonControl from "@/components/post/ButtonControl";
 import CardGrid from "@/components/post/CardGrid";
-import useCatch from "@/hooks/useCatch";
 import useGetData from "@/hooks/useGetData";
-import useObserver from "@/hooks/useObserver";
 import { DeviceSize } from "@/styles/DeviceSize";
-import { useState, useRef, useEffect } from "react";
 import { checkEditToken } from "@/utils/checkEditToken";
 import propTypes from "prop-types";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -23,14 +19,11 @@ const LIMIT = 8;
 function Layout({ path = "" }) {
   const { id } = useParams();
   const [DEP, setDEP] = useState([]);
-  const [recipientData] = useGetData("RECIPIENTS_ID", id, DEP);
-  const [messageData, setMessageData] = useGetData("RECIPIENTS_MESSAGES", id, DEP, 1000);
-  const [reactions] = useGetData("RECIPIENTS_REACTIONS", id, DEP);
+  const recipientData = useGetData("RECIPIENTS_ID", id, DEP);
+  const messageData = useGetData("RECIPIENTS_MESSAGES", id, DEP, 1000);
+  const reactions = useGetData("RECIPIENTS_REACTIONS", id, DEP);
   const [delList, setDelList] = useState([]);
-
-  const recipientData = useGetData("RECIPIENTS_ID", id, null, DEP);
-  const messageData = useGetData("RECIPIENTS_MESSAGES", id, 1000, DEP);
-  const reactions = useGetData("RECIPIENTS_REACTIONS", id, null, DEP);
+  console.log(recipientData);
 
   checkEditToken(id, path);
   if (!recipientData || !messageData) return;

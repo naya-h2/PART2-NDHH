@@ -34,9 +34,9 @@ function useGetData(type, path, DEP, limit, offset) {
         return navigate("/notFound");
       }
     })();
-  }, [DEP, offset]);
+  }, [DEP]);
 
-  return [data, setData];
+  return data;
 }
 
 export default useGetData;
