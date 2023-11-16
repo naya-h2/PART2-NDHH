@@ -6,27 +6,27 @@ import "suneditor/dist/css/suneditor.min.css";
 import lang from "suneditor/src/lang";
 
 function TextEditor({ setValue }) {
-  const editor = useRef();
+  // const editor = useRef();
 
-  const getSunEditorInstance = (sunEditor) => {
-    editor.current = sunEditor;
-    editor.current.core.context.element.toolbar.querySelectorAll("button").forEach((button) => (button.tabIndex = 0));
-    editor.current.onKeyDown = (event) => {
-      if ((event.shiftKey && event.key === "Tab") || event.key === "Tab") {
-        throw new Error("Keyboard focusable을 위한 에러입니다.");
-      }
-    };
-  };
+  // const getSunEditorInstance = (sunEditor) => {
+  //   editor.current = sunEditor;
+  //   editor.current.core.context.element.toolbar.querySelectorAll("button").forEach((button) => (button.tabIndex = 0));
+  //   editor.current.onKeyDown = (event) => {
+  //     if ((event.shiftKey && event.key === "Tab") || event.key === "Tab") {
+  //       throw new Error("Keyboard focusable을 위한 에러입니다.");
+  //     }
+  //   };
+  // };
 
   const handleChange = (content) => {
     setValue((prev) => ({ ...prev, content }));
   };
 
   return (
-    <Container>
+    <>
       <SunEditor
         height="26rem"
-        getSunEditorInstance={getSunEditorInstance}
+        // getSunEditorInstance={getSunEditorInstance}
         setDefaultStyle="font-family: Noto Sans; font-size: 1.6rem;"
         setOptions={{
           font: ["Noto Sans", "Pretendard", "나눔명조"],
@@ -39,7 +39,7 @@ function TextEditor({ setValue }) {
       />
       <span>마우스 드래그로 박스 크기를 조정해 보세요!</span>
       <p>Ctrl키를 두 번 눌러 에디터 바깥으로 나갈 수 있습니다.</p>
-    </Container>
+    </>
   );
 }
 
