@@ -21,31 +21,26 @@ function Layout({ path = "" }) {
   const messageData = useGetData("RECIPIENTS_MESSAGES", id, DEP, 1000);
   const reactions = useGetData("RECIPIENTS_REACTIONS", id, DEP);
   const [delList, setDelList] = useState([]);
-  console.log(recipientData);
 
   checkEditToken(id, path);
-  if (!recipientData || !messageData) return;
 
   return (
-    <>
-      {path === "edit" ? (
+    recipientData &&
+    messageData && (
+      <>
         <Helmet>
-          <title>Edit | Rolling</title>
+          <title> {path === "edit" ? "Edit" : recipientData.name.slice(0, -4)} | Rolling</title>
         </Helmet>
-      ) : (
-        <Helmet>
-          <title>{recipientData.name.slice(0, -4)} | Rolling</title>
-        </Helmet>
-      )}
-      <Header userData={recipientData} setDEP={setDEP} reactions={reactions} serviceType />
-      <Background $color={recipientData.backgroundColor} $url={recipientData.backgroundImageURL}>
-        {recipientData.backgroundImageURL && <Mask></Mask>}
-        <Container>
-          <ButtonControl recipientData={recipientData} setDEP={setDEP} path={path} delList={delList} setDelList={setDelList} recentMessages={messageData} />
-          <CardGrid path={path} messageCount={recipientData.messageCount} recentMessages={messageData} setDelList={setDelList} />
-        </Container>
-      </Background>
-    </>
+        <Header userData={recipientData} setDEP={setDEP} reactions={reactions} serviceType />
+        <Background $color={recipientData.backgroundColor} $url={recipientData.backgroundImageURL}>
+          {recipientData.backgroundImageURL && <Mask></Mask>}
+          <Container>
+            <ButtonControl recipientData={recipientData} setDEP={setDEP} path={path} delList={delList} setDelList={setDelList} recentMessages={messageData} />
+            <CardGrid path={path} messageCount={recipientData.messageCount} recentMessages={messageData} setDelList={setDelList} />
+          </Container>
+        </Background>
+      </>
+    )
   );
 }
 
