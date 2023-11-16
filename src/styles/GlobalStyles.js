@@ -1,5 +1,6 @@
 import { BLUE, GRAYSCALE, GREEN, MAIN, ORANGE, PURPLE } from "@/styles/ColorStyles";
 import { createGlobalStyle, keyframes } from "styled-components";
+import { FONTFAMILY } from './FontStyles';
 
 const fadeIn = keyframes`
   0% {
@@ -19,6 +20,7 @@ const GlobalStyles = createGlobalStyle`
     ${GRAYSCALE};
     ${MAIN};
   }
+  ${FONTFAMILY}
 
   *{
     box-sizing: border-box;
@@ -35,7 +37,6 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 62.5%;
     vertical-align: baseline;
     /* animation: ${fadeIn} 0.3s ease-out; */
   }
@@ -53,6 +54,7 @@ const GlobalStyles = createGlobalStyle`
 
   html{
     line-height: 1;
+    font-size: 62.5%;
     font-family: 'Noto Sans KR', sans-serif;
     background-color: #FFFFFF;  
   }
