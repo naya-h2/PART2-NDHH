@@ -27,6 +27,6 @@ function useObserver(callback) {
   }, [observationTarget]);
 
   return setObservationTarget;
-};
+}
 
-export default useObserver
+export default useObserver;

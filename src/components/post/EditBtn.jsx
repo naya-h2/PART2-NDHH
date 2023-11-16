@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import InputModal from "@/components/commons/modal/InputModal";
+import ModalFrame from "@/components/commons/modal/ModalFrame";
+import ModalPortal from "@/components/commons/modal/ModalPortal";
 import Button from "@/components/commons/Button";
-import ModalPortal from "@/components/ModalPortal";
-import ModalFrame from "@/components/ModalFrame";
-import InputModal from "@/components/InputModal";
 import useModal from "@/hooks/useModal";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { Z_INDEX } from "@/styles/ZindexStyles";
+import styled from "styled-components";
 
 function EditBtn({ password }) {
   const { isOpen, handleModalOpen, handleModalClose } = useModal();

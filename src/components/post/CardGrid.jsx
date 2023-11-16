@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import Card from "@/components/Card";
-import Modal from "@/components/Modal";
-import ModalPortal from "@/components/ModalPortal";
-import ModalFrame from "@/components/ModalFrame";
+import Modal from "@/components/commons/modal/Modal";
+import ModalFrame from "@/components/commons/modal/ModalFrame";
+import ModalPortal from "@/components/commons/modal/ModalPortal";
+import Card from "@/components/post/Card";
 import useModal from "@/hooks/useModal";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { useState } from "react";
+import styled from "styled-components";
 
 function CardGrid({ path, messageCount, recentMessages, setDelList }) {
   const { isOpen, handleModalOpen, handleModalClose } = useModal();

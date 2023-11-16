@@ -1,10 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
 import { FONT18B } from "@/styles/FontStyles";
+import { useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import Input from "./commons/Input";
-import Button from "./commons/Button";
-import { useState } from "react";
-import { useRef } from "react";
+import Button from "../Button";
+import Input from "../Input";
 
 function InputModal({ password, onClose }) {
   const [pwError, setPwError] = useState(false);

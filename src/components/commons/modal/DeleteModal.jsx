@@ -1,8 +1,8 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { FONT14, FONT20B } from "@/styles/FontStyles";
-import styled from "styled-components";
-import Button from "./commons/Button";
 import api from "@/api/api";
+import { FONT14, FONT20B } from "@/styles/FontStyles";
+import { useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
+import Button from "../Button";
 
 function DeleteModal({ name, onClose }) {
   const { id } = useParams();
