@@ -1,15 +1,15 @@
-import styled from "styled-components";
-import propTypes from "prop-types";
 import Header from "@/components/Header";
 import ButtonControl from "@/components/post/ButtonControl";
 import CardGrid from "@/components/post/CardGrid";
 import useGetData from "@/hooks/useGetData";
 import { DeviceSize } from "@/styles/DeviceSize";
-import { useParams } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
-import { Helmet } from "react-helmet-async";
-import { checkEditToken } from "@/utils/checkEditToken";
 import api from "@/api/api";
+import { checkEditToken } from "@/utils/checkEditToken";
+import propTypes from "prop-types";
+import { Helmet } from "react-helmet-async";
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
@@ -19,7 +19,7 @@ const LIMIT = 8;
 
 function Layout({ path = "" }) {
   const { id } = useParams();
-  const [DEP, setDEP] = useState(0);
+  const [DEP, setDEP] = useState([]);
   const [delList, setDelList] = useState([]);
   const [offset, setOffset] = useState(0);
   const [hasNext, setHasNext] = useState("");
@@ -62,10 +62,6 @@ function Layout({ path = "" }) {
   checkEditToken(id, path);
   if (!recipientData || !reactions) return;
 
-  const handleClick = () => {
-    navigate("/list");
-  };
-
   return (
     <>
       {path === "edit" ? (
@@ -95,12 +91,6 @@ function Layout({ path = "" }) {
 
 export default Layout;
 
-const back = keyframes`
-  50% {
-    padding-right: 7rem;
-  }
-`;
-
 const Background = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -113,29 +103,6 @@ const Background = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-
-  > button {
-    width: 20rem;
-    height: 10rem;
-
-    padding-right: 4rem;
-    padding-bottom: 1rem;
-
-    display: flex;
-    justify-content: center;
-    align-items: end;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    animation: ${back} 2s infinite;
-
-    img {
-      width: 8rem;
-      height: auto;
-    }
-  }
 `;
 
 const Mask = styled.div`

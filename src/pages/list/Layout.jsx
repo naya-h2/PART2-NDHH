@@ -18,7 +18,7 @@ function Layout() {
   const SearchedCards = useMemo(() => keyword && Cards.filter(({ name }) => name.slice(0, -4).toLowerCase().includes(keyword.toLowerCase())), [keyword]);
   if (!Cards) return;
 
-  if (test) {
+  if (test && !Cards) {
     setTimeout(() => setTest(false), 2000);
     return <Skeleton />;
   }
