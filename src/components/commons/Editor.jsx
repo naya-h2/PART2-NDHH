@@ -1,8 +1,8 @@
+import { FONT12, FONT20B } from "@/styles/FontStyles";
 import { useRef } from "react";
 import styled from "styled-components";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
-import { FONT12, FONT20B, FONT24 } from "@/styles/FontStyles";
 import lang from "suneditor/src/lang";
 
 function TextEditor({ setValue }) {
@@ -29,7 +29,7 @@ function TextEditor({ setValue }) {
         getSunEditorInstance={getSunEditorInstance}
         setDefaultStyle="font-family: Noto Sans; font-size: 1.6rem;"
         setOptions={{
-          font: ["Noto Sans", "Pretendard"],
+          font: ["Noto Sans", "Pretendard", "나눔명조"],
           fontSize: [8, 10, 12, 14, 15, 16, 18, 20, 24],
           buttonList: [["bold", "italic", "underline", "align", "fontColor", "hiliteColor", "font", "fontSize", "image"]],
           lang: lang.ko,
@@ -48,14 +48,6 @@ export default TextEditor;
 const Container = styled.div`
   position: relative;
   z-index: 0;
-
-  strong {
-    font-weight: bold;
-  }
-
-  em {
-    font-style: italic;
-  }
 
   .sun-editor,
   .se-container {
@@ -104,6 +96,10 @@ const Container = styled.div`
     border: none;
 
     background-color: transparent;
+  }
+
+  .sun-editor .se-navigation {
+    display: none;
   }
 
   > span {
