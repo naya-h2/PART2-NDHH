@@ -71,3 +71,34 @@ export const FONT12 = css`
   line-height: 150%;
 `
 
+export const FONTFAMILY = css`
+  .ql-font-pretendard {
+    font-family: pretendard;
+  }
+  .ql-font-poppins {
+    font-family: Poppins;
+  }
+  .ql-font-agbalumo {
+    font-family: Agbalumo;
+  }
+
+  .ql-font-nanum-myeongjo {
+    font-family: "Nanum Myeongjo";
+  }
+  .ql-font-gaegu {
+    font-family: Gaegu;
+  }
+  .ql-font-diphylleia {
+    font-family: Diphylleia;
+  }
+
+  .ql-font-ibm-plex-sans-kr {
+    font-family: "IBM Plex Sans KR";
+  }
+  .ql-font-orbit {
+    font-family: Orbit;
+  }
+  .ql-font-black-han-sans {
+    font-family: "Black Han Sans";
+  }
+`

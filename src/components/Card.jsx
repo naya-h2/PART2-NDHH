@@ -150,23 +150,8 @@ const Content = styled.div`
   max-height: 10rem;
   padding-right: 1rem;
 
-  > p {
+  p {
     ${FONT16}
-  }
-
-  span,
-  strong,
-  em,
-  u {
-    font: inherit;
-  }
-
-  strong {
-    font-weight: bold;
-  }
-
-  em {
-    font-style: italic;
   }
 
   display: -webkit-box;
