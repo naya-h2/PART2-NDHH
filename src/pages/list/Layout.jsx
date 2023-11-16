@@ -61,11 +61,11 @@ const Container = styled.div`
   justify-content: space-between;
 
   @media (max-width: ${DeviceSize.pc}) {
-    width: calc(100vw - 3.8rem);
+    width: calc(100vw - 4.8rem);
   }
 
   @media (max-width: ${DeviceSize.mobile}) {
-    width: calc(100vw - 3.8rem);
+    width: calc(100vw - 4.8rem);
   }
 `;
 

@@ -81,6 +81,8 @@ const Container = styled.div`
   padding-top: 6.3rem;
   margin: 0 auto;
 
+  position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: flex-end;
