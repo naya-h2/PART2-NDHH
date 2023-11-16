@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import CardList from "@/components/Cardlist";
+import CardList from "@/components/CardList";
 import Button from "@/components/commons/Button";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { Z_INDEX } from "@/styles/ZindexStyles";
@@ -65,7 +65,7 @@ const Container = styled.div`
   align-self: center;
 
   @media (max-width: ${DeviceSize.pc}) {
-    width: 100%; // 3개 이하일때 중앙정렬 안됨
+    width: 100%;
     align-self: flex-start;
   }
 `;

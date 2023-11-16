@@ -1,7 +1,6 @@
 import api from "@/api/api";
 import { makeMessage, makeRecipient } from "@/api/makePostData";
 import useCatch from "@/hooks/useCatch";
-import { COLOR } from "@/styles/ColorStyles";
 import { useNavigate, useParams } from "react-router";
 
 function usePostData(value) {

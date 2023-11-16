@@ -2,7 +2,7 @@ import { useRef } from "react";
 import styled from "styled-components";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
-import { FONT12, FONT20B, FONT24 } from "@/styles/FontStyles";
+import { FONT12, FONT20B } from "@/styles/FontStyles";
 import lang from "suneditor/src/lang";
 
 function TextEditor({ setValue }) {
