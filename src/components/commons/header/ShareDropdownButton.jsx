@@ -5,7 +5,7 @@ import { Z_INDEX } from "@/styles/ZindexStyles";
 import shareKakaoTalk from "@/utils/shareKakao";
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import Toast from "../commons/Toast";
+import Toast from "../Toast";
 
 function ShareDropdownButton({ userData }) {
   const containerRef = useRef(null);

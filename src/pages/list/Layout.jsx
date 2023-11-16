@@ -1,11 +1,11 @@
-import FixedButton from "@/components/instances/FixedButton.jsx";
+import FixedButton from "@/components/commons/FixedButton.jsx";
 import ListPageCards from "@/components/list/ListPageCards.jsx";
 import Search from "@/components/list/Search";
+import Skeleton from "@/components/list/Skeleton";
 import useGetData from "@/hooks/useGetData";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { FONT20B, FONT24B } from "@/styles/FontStyles.js";
 import { sortHot, sortNew } from "@/utils/sort";
-import Skeleton from "@/components/instances/Skeleton";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 
