@@ -41,7 +41,7 @@ function EmojiPickButton({ id, setDEP }) {
           <ButtonText>추가</ButtonText>
         </CustomButton>
         <Wrapper_Emoji $isEmojiVisible={isEmojiVisible} ref={containerRef}>
-          <EmojiPicker onEmojiClick={onEmojiClick} />
+          <EmojiPicker onEmojiClick={onEmojiClick} emojiStyle="native" lazyLoadEmojis={true} />
         </Wrapper_Emoji>
       </Container>
     </>

@@ -4,14 +4,16 @@ import DeleteBtn from "./DeleteBtn";
 import EditBtn from "./EditBtn";
 import useGetWindowWidth from "@/hooks/useGetWindowWidth";
 import { DeviceSizeNum } from "@/styles/DeviceSize";
+import BackBtn from "@/components/post/BackBtn";
 
-function ButtonControl({ name, setDEP, path, delList, setDelList, recentMessages }) {
+function ButtonControl({ recipientData, setDEP, path, delList, setDelList, recentMessages }) {
   const windowWidth = useGetWindowWidth();
-  const password = name.slice(-4);
-  const userName = name.slice(0, -4);
+  const password = recipientData.name.slice(-4);
+  const userName = recipientData.name.slice(0, -4);
 
   return (
     <>
+      <BackBtn URL={recipientData.backgroundImageURL} />
       {path === "edit" ? (
         windowWidth > DeviceSizeNum.tablet ? (
           <ButtonWrapper>
