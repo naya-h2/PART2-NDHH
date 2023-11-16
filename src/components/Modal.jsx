@@ -130,21 +130,6 @@ const Text = styled.p`
     ${FONT16}
   }
 
-  span,
-  strong,
-  em,
-  u {
-    font: inherit;
-  }
-
-  strong {
-    font-weight: bold;
-  }
-
-  em {
-    font-style: italic;
-  }
-
   overflow-y: scroll;
   &::-webkit-scrollbar {
     width: 0.8rem;
