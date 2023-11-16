@@ -14,8 +14,6 @@ Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
 };
 
-const LIMIT = 8;
-
 function Layout({ path = "" }) {
   const { id } = useParams();
   const [DEP, setDEP] = useState([]);
