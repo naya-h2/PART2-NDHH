@@ -1,19 +1,76 @@
-import { useRef } from "react";
-import styled from "styled-components";
-import { FONT12, FONT20B, FONT24 } from "@/styles/FontStyles";
+import { FONT12, FONT14, FONT16 } from "@/styles/FontStyles";
+import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import ReactQuill from "react-quill";
+import styled from "styled-components";
+
+const Font = Quill.import("attributors/class/font");
+Font.whitelist = ["noto-sans-kr", "pretendard", "nanum-myeongjo", "ibm-plex-sans-kr", "gaegu", "diphylleia", "orbit", "black-han-sans", "poppins", "agbalumo"];
+Quill.register(Font, true);
+
+const Size = Quill.import("attributors/style/size");
+Size.whitelist = ["1.0rem", "1.2rem", "1.4rem", "1.6rem", "2.0rem", "2.4rem", "3.2rem", "4.0rem", "4.8rem"];
+Quill.register(Size, true);
+
+const CustomToolbar = () => (
+  <div id="toolbar">
+    <div>
+      <button className="ql-bold"></button>
+      <button className="ql-italic"></button>
+      <button className="ql-underline"></button>
+      <button className="ql-strike"></button>
+    </div>
+    <div>
+      <select className="ql-align" />
+      <select className="ql-color" />
+      <select className="ql-background" />
+    </div>
+    <div>
+      <select className="ql-font" defaultValue="noto-sans-kr">
+        <option value="noto-sans-kr">Noto Sans KR</option>
+        <option value="pretendard">pretendard</option>
+        <option value="nanum-myeongjo">Nanum Myeongjo</option>
+        <option value="ibm-plex-sans-kr">IBM Plex Sans KR</option>
+        <option value="gaegu">Gaegu</option>
+        <option value="diphylleia">Diphylleia</option>
+        <option value="orbit">Orbit</option>
+        <option value="black-han-sans">Black Han Sans</option>
+        <option value="poppins">Poppins</option>
+        <option value="agbalumo">Agbalumo</option>
+      </select>
+      <select className="ql-size" defaultValue="1.6rem">
+        <option value="1.0rem">10</option>
+        <option value="1.2rem">12</option>
+        <option value="1.4rem">14</option>
+        <option value="1.6rem">16</option>
+        <option value="2.0rem">20</option>
+        <option value="2.4rem">24</option>
+        <option value="3.2rem">32</option>
+        <option value="4.0rem">40</option>
+        <option value="4.8rem">48</option>
+      </select>
+    </div>
+  </div>
+);
 
 function TextEditor({ setValue }) {
-  const editor = useRef();
-
-  const handleChange = (content) => {
+  const handleChange = (content, delta, source, editor) => {
+    console.log(editor.getContents());
     setValue((prev) => ({ ...prev, content }));
   };
 
   return (
     <Container>
-      <ReactQuill style={{ width: "100%", height: "26rem" }} placeholder="당신의 마음을 표현하세요." onChange={handleChange} />
+      <CustomToolbar />
+      <ReactQuill
+        style={{ width: "100%", height: "26rem" }}
+        placeholder="당신의 마음을 표현하세요."
+        onChange={handleChange}
+        modules={{
+          toolbar: {
+            container: "#toolbar",
+          },
+        }}
+      />
     </Container>
   );
 }
@@ -21,89 +78,50 @@ function TextEditor({ setValue }) {
 export default TextEditor;
 
 const Container = styled.div`
-  position: relative;
-  z-index: 0;
+  #toolbar {
+    padding: 1.6rem;
 
-  strong {
-    font-weight: bold;
-  }
-
-  em {
-    font-style: italic;
-  }
-
-  .sun-editor,
-  .se-container {
-    border-radius: 0.8rem;
-  }
-
-  .sun-editor-common {
-    background-color: var(--Gray2);
-    border-top-left-radius: 0.8rem;
-    border-top-right-radius: 0.8rem;
-  }
-
-  .sun-editor .se-btn-tray {
-    padding: 1.2rem 1.6rem;
-  }
-
-  .sun-editor .se-menu-list {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
+    gap: 1.2rem;
 
-    @media screen and (max-width: 768px) {
-      justify-content: space-between;
-      gap: 1.2rem;
+    border-top-right-radius: 0.8rem;
+    border-top-left-radius: 0.8rem;
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
     }
   }
 
-  .sun-editor .se-tooltip:focus .se-tooltip-inner {
-    visibility: visible;
-    opacity: 1;
+  p,
+  span,
+  .ql-blank::before {
+    ${FONT16};
+    font-style: normal;
   }
 
-  .sun-editor .se-btn-tool-font,
-  .sun-editor .se-btn-tool-size {
-    ${FONT20B};
+  .ql-picker {
+    width: 3.2rem;
   }
 
-  .sun-editor .se-tooltip .se-tooltip-inner .se-tooltip-text,
-  .se-shortcut,
-  .se-shortcut-key {
+  .ql-container {
+    border: 0.1rem solid var(--Gray3);
+    border-top: 0;
+    border-bottom-right-radius: 0.8rem;
+    border-bottom-left-radius: 0.8rem;
+  }
+
+  .ql-snow.ql-toolbar button {
+    padding: 0;
+  }
+
+  .ql-picker.ql-font {
+    width: 17rem;
     ${FONT12};
   }
-
-  .sun-editor .se-resizing-bar {
-    padding: 0 1rem;
-    border: none;
-
-    background-color: transparent;
-  }
-
-  > span {
-    position: absolute;
-    right: 2rem;
-    bottom: 0.3rem;
-
-    color: var(--Gray5);
-
-    pointer-events: none;
-  }
-
-  > p {
-    display: none;
-
-    position: absolute;
-    left: 0.5rem;
-
-    color: var(--Gray5);
-  }
-
-  &:focus-within {
-    > p {
-      display: block;
-    }
+  .ql-picker-options {
+    ${FONT14};
   }
 
   ::-webkit-scrollbar {
