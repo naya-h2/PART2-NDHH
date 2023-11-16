@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import CardList from "@/components/Cardlist";
+import CardList from "@/components/CardList";
 import Button from "@/components/commons/Button";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { Z_INDEX } from "@/styles/ZindexStyles";
