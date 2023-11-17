@@ -1,11 +1,11 @@
 import FixedButton from "@/components/instances/FixedButton.jsx";
+import ListSkeleton from "@/components/instances/ListSkeleton";
 import ListPageCards from "@/components/list/ListPageCards.jsx";
 import Search from "@/components/list/Search";
 import useGetData from "@/hooks/useGetData";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { FONT20B, FONT24B } from "@/styles/FontStyles.js";
 import { sortHot, sortNew } from "@/utils/sort";
-import ListSkeleton from "@/components/instances/ListSkeleton";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 
@@ -17,7 +17,7 @@ function Layout() {
   const SearchedCards = useMemo(() => keyword && Cards.filter(({ name }) => name.slice(0, -4).toLowerCase().includes(keyword.toLowerCase())), [keyword]);
 
   if (!Cards) {
-    return <Skeleton />;
+    return <ListSkeleton />;
   }
 
   return (
@@ -31,9 +31,9 @@ function Layout() {
           </>
         ) : (
           <>
-            <P>인기 롤링 페이퍼 🔥</P>
+            <P>인기 롤링 페이퍼 10 🔥</P>
             <ListPageCards cards={HottestCards} />
-            <P $Mobile>최근에 만든 롤링 페이퍼 ⭐️️</P>
+            <P $Mobile>최근에 만든 롤링 페이퍼 10 ⭐️️</P>
             <ListPageCards cards={NewestCards} />
           </>
         )}

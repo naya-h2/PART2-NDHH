@@ -18,13 +18,13 @@ Layout.propTypes = {
 function Layout({ path = "" }) {
   const { id } = useParams();
   const [DEP, setDEP] = useState([]);
-  const { data: recipientData, loading: recipientLoading } = useGetData("RECIPIENTS_ID", id, DEP);
-  const { data: messageData, loading: messageLoading } = useGetData("RECIPIENTS_MESSAGES", id, DEP, 1000);
-  const { data: reactions, loading: reactionsLoading } = useGetData("RECIPIENTS_REACTIONS", id, DEP);
+  const recipientData = useGetData("RECIPIENTS_ID", id, DEP);
+  const messageData = useGetData("RECIPIENTS_MESSAGES", id, DEP, 1000);
+  const reactions = useGetData("RECIPIENTS_REACTIONS", id, DEP);
   const [delList, setDelList] = useState([]);
   checkEditToken(id, path);
 
-  if (recipientLoading || messageLoading || reactionsLoading) {
+  if (!recipientData || !messageData || !reactions) {
     return <PostSkeleton />;
   }
 
