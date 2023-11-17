@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/commons/header/Header";
 import ButtonControl from "@/components/post/ButtonControl";
 import CardGrid from "@/components/post/CardGrid";
 import useGetData from "@/hooks/useGetData";

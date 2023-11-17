@@ -1,7 +1,7 @@
 import Dropdown from "@/components/commons/Dropdown";
 import TextEditor from "@/components/commons/Editor";
 import Option from "@/components/commons/Option";
-import { Container, Submit, Title } from "@/components/instances/CreateMessage";
+import { Container, Submit, Title } from "@/components/commons/CreateMessage";
 import { REL } from "@/styles/ColorStyles";
 import { FONT16, FONT24B } from "@/styles/FontStyles";
 import { useState } from "react";

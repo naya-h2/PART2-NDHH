@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import PropTypes from "prop-types";
-import { FONT14, FONT16, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
 import Badge from "@/components/commons/Badge";
-import { formatDate } from "@/utils/formatDate";
 import Button from "@/components/commons/Button";
 import { DeviceSize } from "@/styles/DeviceSize";
+import { FONT14, FONT16, FONT18, FONT20, FONT20B } from "@/styles/FontStyles";
+import { formatDate } from "@/utils/formatDate";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
 Modal.propTypes = {
   profileImageURL: PropTypes.string,

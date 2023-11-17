@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import SaveBtn from "./SaveBtn";
-import DeleteBtn from "./DeleteBtn";
-import EditBtn from "./EditBtn";
+import BackBtn from "@/components/post/BackBtn";
 import useGetWindowWidth from "@/hooks/useGetWindowWidth";
 import { DeviceSizeNum } from "@/styles/DeviceSize";
-import BackBtn from "@/components/post/BackBtn";
+import styled from "styled-components";
+import DeleteBtn from "./DeleteBtn";
+import EditBtn from "./EditBtn";
+import SaveBtn from "./SaveBtn";
 
 function ButtonControl({ recipientData, setDEP, path, delList, setDelList, setOffset }) {
   const windowWidth = useGetWindowWidth();
