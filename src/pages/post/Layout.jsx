@@ -9,6 +9,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import PostSkeleton from "@/components/instances/PostSkeleton";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),
@@ -17,12 +18,15 @@ Layout.propTypes = {
 function Layout({ path = "" }) {
   const { id } = useParams();
   const [DEP, setDEP] = useState([]);
-  const recipientData = useGetData("RECIPIENTS_ID", id, DEP);
-  const messageData = useGetData("RECIPIENTS_MESSAGES", id, DEP, 1000);
-  const reactions = useGetData("RECIPIENTS_REACTIONS", id, DEP);
+  const { data: recipientData, loading: recipientLoading } = useGetData("RECIPIENTS_ID", id, DEP);
+  const { data: messageData, loading: messageLoading } = useGetData("RECIPIENTS_MESSAGES", id, DEP, 1000);
+  const { data: reactions, loading: reactionsLoading } = useGetData("RECIPIENTS_REACTIONS", id, DEP);
   const [delList, setDelList] = useState([]);
-
   checkEditToken(id, path);
+
+  if (recipientLoading || messageLoading || reactionsLoading) {
+    return <PostSkeleton />;
+  }
 
   return (
     recipientData &&

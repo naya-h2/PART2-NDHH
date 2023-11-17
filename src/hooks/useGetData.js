@@ -19,11 +19,13 @@ import { useNavigate } from "react-router-dom";
 
 function useGetData(type, path, DEP, limit, offset) {
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     (async function () {
       try {
+        setLoading(true); // 데이터를 가져오기 시작할 때 로딩 상태 true
         const result = await api(type, "GET", path, null, limit, offset);
 
         if (["RECIPIENTS_ID", "BACKGROUND_IMGS", "PROFILE_IMGS", "MESSAGES"].includes(type)) return setData(result);
@@ -32,11 +34,13 @@ function useGetData(type, path, DEP, limit, offset) {
         return setData(results);
       } catch (error) {
         return navigate("/notFound");
+      } finally {
+        setLoading(false); // 데이터 가져오면 로딩 상태 false
       }
     })();
   }, [DEP]);
 
-  return data;
+  return { data, loading };
 }
 
 export default useGetData;
