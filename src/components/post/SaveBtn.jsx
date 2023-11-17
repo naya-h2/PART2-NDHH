@@ -5,7 +5,7 @@ import { Z_INDEX } from "@/styles/ZindexStyles";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-function SaveBtn({ pc = false, setDEP, delList, setDelList, setOffset }) {
+function SaveBtn({ pc = false, setDEP, delList, setDelList }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -17,7 +17,6 @@ function SaveBtn({ pc = false, setDEP, delList, setDelList, setOffset }) {
     navigate(`/post/${id}`);
     setDelList([]);
     setDEP([]);
-    setOffset(0);
     window.location.reload();
   };
 

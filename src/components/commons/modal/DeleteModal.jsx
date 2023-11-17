@@ -24,7 +24,7 @@ function DeleteModal({ name, onClose }) {
         <Text>삭제하시겠습니까?</Text>
         <Content>{name} 의 롤링페이퍼</Content>
       </Wrapper>
-      <Button width="100" height="l" type="error">
+      <Button autoFocus width="100" height="l" type="error">
         확인
       </Button>
     </Container>

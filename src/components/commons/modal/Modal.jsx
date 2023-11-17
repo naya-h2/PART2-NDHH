@@ -31,7 +31,7 @@ function Modal({ message, onClose }) {
       <CutLine />
       <Text dangerouslySetInnerHTML={{ __html: content }}></Text>
       <ButtonWrapper onClick={onClose}>
-        <Button width="120" height="l" type="primary">
+        <Button autoFocus width="120" height="l" type="primary">
           확인
         </Button>
       </ButtonWrapper>

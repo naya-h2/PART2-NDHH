@@ -31,7 +31,7 @@ function InputModal({ password, onClose }) {
     <Container onSubmit={handlePasswordCheck}>
       <Text>🔐 비밀번호를 입력하세요.</Text>
       <InputWrapper>
-        <Input placeholder="●●●●" pwError={pwError} inputRef={inputRef} />
+        <Input autoFocus placeholder="●●●●" pwError={pwError} inputRef={inputRef} />
       </InputWrapper>
       <Button width="100" height="l" type="primary">
         확인

@@ -4,16 +4,23 @@ import ModalPortal from "@/components/commons/modal/ModalPortal";
 import Card from "@/components/post/Card";
 import useModal from "@/hooks/useModal";
 import { DeviceSize } from "@/styles/DeviceSize";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 
 function CardGrid({ path, messageCount, recentMessages, setDelList }) {
   const { isOpen, handleModalOpen, handleModalClose } = useModal();
   const [message, setMessage] = useState("");
+  const [openedCard, setOpenedCard] = useState();
 
-  const handleCardClick = (msg) => {
+  const handleCardClick = (msg) => (event) => {
     setMessage(msg);
     handleModalOpen();
+    setOpenedCard(event.target);
+  };
+
+  const handleClose = () => {
+    handleModalClose();
+    openedCard.focus();
   };
 
   return (
@@ -22,8 +29,8 @@ function CardGrid({ path, messageCount, recentMessages, setDelList }) {
       {messageCount !== 0 && recentMessages.map((msg) => <Card key={msg.id} type={path === "edit" ? "Edit" : "Normal"} data={msg} onCardClick={handleCardClick} setDelList={setDelList} />)}
       {isOpen && (
         <ModalPortal>
-          <ModalFrame onClickClose={handleModalClose}>
-            <Modal message={message} onClose={handleModalClose} />
+          <ModalFrame onClickClose={handleClose}>
+            <Modal message={message} onClose={handleClose} openedCard={openedCard} />
           </ModalFrame>
         </ModalPortal>
       )}

@@ -28,7 +28,7 @@ function MakeNavHeader({ hideButton }) {
         </Link>
         {!hideButton && (
           <Button type="outlined" width="170" height="l">
-            <Link to="/post">
+            <Link tabIndex={-1} to="/post">
               <ButtonText $B>롤링 페이퍼 만들기</ButtonText>
             </Link>
           </Button>
@@ -54,10 +54,10 @@ function MakeServiceHeader({ userData, reactions, setDEP }) {
             </Contents>
             <P $B>{userData.messageCount}</P>
             <P> 명이 작성했어요!</P>
-            <DivideImg src={divideLine} alt="영역 분리 아이콘" />
+            <DivideImg src={divideLine} />
           </SendersNum>
           <HeaderEmojis topReactions={userData.topReactions} reactions={reactions} id={userData.id} setDEP={setDEP} />
-          <DivideImg src={divideLine} alt="영역 분리 아이콘" />
+          <DivideImg src={divideLine} />
           <ShareDropdownButton userData={userData} />
         </Wrapper>
       </Container>

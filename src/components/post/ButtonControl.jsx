@@ -6,7 +6,7 @@ import DeleteBtn from "./DeleteBtn";
 import EditBtn from "./EditBtn";
 import SaveBtn from "./SaveBtn";
 
-function ButtonControl({ recipientData, setDEP, path, delList, setDelList, setOffset }) {
+function ButtonControl({ recipientData, setDEP, path, delList, setDelList }) {
   const windowWidth = useGetWindowWidth();
   const password = recipientData.name.slice(-4);
   const userName = recipientData.name.slice(0, -4);
@@ -18,12 +18,12 @@ function ButtonControl({ recipientData, setDEP, path, delList, setDelList, setOf
         windowWidth > DeviceSizeNum.tablet ? (
           <ButtonWrapper>
             <DeleteBtn name={userName} />
-            <SaveBtn pc={true} setDEP={setDEP} delList={delList} setDelList={setDelList} setOffset={setOffset} />
+            <SaveBtn pc={true} setDEP={setDEP} delList={delList} setDelList={setDelList} />
           </ButtonWrapper>
         ) : (
           <>
             <DeleteBtn name={userName} />
-            <SaveBtn setDEP={setDEP} delList={delList} setDelList={setDelList} setOffset={setOffset} />
+            <SaveBtn setDEP={setDEP} delList={delList} setDelList={setDelList} />
           </>
         )
       ) : (
