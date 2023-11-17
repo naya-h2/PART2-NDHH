@@ -33,8 +33,8 @@ function Dropdown({ disabled, value, setValue, items }) {
   };
 
   const handleKeyDown = (item) => (event) => {
-    event.preventDefault();
     if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
       setValue(item);
       setShowDropdown(false);
       setArrowDirection(arrowDown);
