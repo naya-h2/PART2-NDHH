@@ -32,6 +32,16 @@ function Dropdown({ disabled, value, setValue, items }) {
     setArrowDirection(arrowDown);
   };
 
+  const handleKeyDown = (item) => (event) => {
+    event.preventDefault();
+    if (event.key === "Enter" || event.key === " ") {
+      setValue(item);
+      setShowDropdown(false);
+      setArrowDirection(arrowDown);
+      return;
+    }
+  };
+
   return (
     <Container disabled={disabled}>
       <Wrapper onClick={toggleDropdown} onBlur={handleBlur}>
@@ -41,7 +51,7 @@ function Dropdown({ disabled, value, setValue, items }) {
       {showDropdown && (
         <List autoFocus={true}>
           {items.map((item, idx) => (
-            <Text tabIndex={0} key={idx} onClick={handleSelect(item)}>
+            <Text tabIndex={0} key={idx} onClick={handleSelect(item)} onKeyDown={handleKeyDown(item)}>
               {item}
             </Text>
           ))}
