@@ -1,6 +1,7 @@
 import Header from "@/components/commons/header/Header";
 import ButtonControl from "@/components/post/ButtonControl";
 import CardGrid from "@/components/post/CardGrid";
+import PostSkeleton from "@/components/post/PostSkeleton";
 import useGetData from "@/hooks/useGetData";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { checkEditToken } from "@/utils/checkEditToken";
@@ -9,7 +10,6 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import PostSkeleton from "@/components/instances/PostSkeleton";
 
 Layout.propTypes = {
   path: propTypes.oneOf(["edit", ""]),

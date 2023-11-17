@@ -58,7 +58,6 @@ let KEY = {};
 function TextEditor({ setValue }) {
   const editor = useRef();
   const handleChange = (content, delta, source, editor) => {
-    console.log(editor.getContents());
     setValue((prev) => ({ ...prev, content }));
   };
 
@@ -86,7 +85,7 @@ function TextEditor({ setValue }) {
           },
         }}
       />
-      <message>키보드 사용자는 Ctrl 두 번 눌러 다음으로 갈 수 있어요.</message>
+      <p>키보드 사용자는 Ctrl 두 번 눌러 다음으로 갈 수 있어요.</p>
     </Container>
   );
 }
@@ -156,14 +155,14 @@ const Container = styled.div`
     background-color: var(--Gray3);
   }
 
-  > message {
+  > p {
     visibility: hidden;
     ${FONT12}
     color: var(--Gray6);
   }
 
   &:focus-within {
-    > message {
+    > p {
       visibility: visible;
     }
   }
