@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/commons/header/Header";
 import ButtonControl from "@/components/post/ButtonControl";
 import CardGrid from "@/components/post/CardGrid";
 import useGetData from "@/hooks/useGetData";
@@ -21,6 +21,8 @@ function Layout({ path = "" }) {
   const messageData = useGetData("RECIPIENTS_MESSAGES", id, DEP, 1000);
   const reactions = useGetData("RECIPIENTS_REACTIONS", id, DEP);
   const [delList, setDelList] = useState([]);
+
+  checkEditToken(id, path);
 
   return (
     recipientData &&

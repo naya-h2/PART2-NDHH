@@ -1,11 +1,11 @@
-import FixedButton from "@/components/instances/FixedButton.jsx";
-import ListPageCards from "@/components/instances/ListPageCards.jsx";
+import FixedButton from "@/components/commons/FixedButton.jsx";
+import ListPageCards from "@/components/list/ListPageCards.jsx";
 import Search from "@/components/list/Search";
+import Skeleton from "@/components/list/Skeleton";
 import useGetData from "@/hooks/useGetData";
 import { DeviceSize } from "@/styles/DeviceSize";
 import { FONT20B, FONT24B } from "@/styles/FontStyles.js";
 import { sortHot, sortNew } from "@/utils/sort";
-import Skeleton from "@/components/instances/Skeleton";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 
@@ -16,10 +16,9 @@ function Layout() {
   const NewestCards = useMemo(() => Cards && sortNew([...Cards]), [Cards]);
   const HottestCards = useMemo(() => Cards && sortHot([...Cards]), [Cards]);
   const SearchedCards = useMemo(() => keyword && Cards.filter(({ name }) => name.slice(0, -4).toLowerCase().includes(keyword.toLowerCase())), [keyword]);
-  if (!Cards) return;
 
   if (test && !Cards) {
-    setTimeout(() => setTest(false), 1500);
+    setTimeout(() => setTest(false), 2000);
     return <Skeleton />;
   }
 

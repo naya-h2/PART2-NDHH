@@ -1,7 +1,7 @@
 import Input from "@/components/commons/Input";
 import Option from "@/components/commons/Option";
 import ToggleButton from "@/components/commons/ToggleButton";
-import { Container, Submit, Title } from "@/components/instances/CreateMessage";
+import { Container, Submit, Title } from "@/components/commons/CreateMessage";
 import { SELECTED } from "@/styles/ButtonStyles";
 import { COLOR } from "@/styles/ColorStyles";
 import { DeviceSize } from "@/styles/DeviceSize";
